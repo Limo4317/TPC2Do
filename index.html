@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TPC2Do – To-Do-Listen als Tabelle</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>">
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#fff; --text:#1f2430; --muted:#6b7280; --line:#d9dde3; --head:#eef1f5;
+  --accent:#2563eb; --accent-text:#fff; --danger:#dc2626; --done:#9aa1ad; --hover:#f3f6fb; --shadow:0 8px 30px rgba(0,0,0,.18);
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#14161a; --panel:#1c1f26; --text:#e6e8ec; --muted:#98a0ad; --line:#333844; --head:#242833;
+        --accent:#5b8cff; --accent-text:#0b1020; --danger:#f26d6d; --done:#6b7280; --hover:#232834; --shadow:0 8px 30px rgba(0,0,0,.6);}
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0 0 .4em}
+.muted{color:var(--muted)} .small{font-size:12.5px}
+.spacer{flex:1}
+.row{display:flex;align-items:center;gap:10px} .between{justify-content:space-between} .gap{gap:12px} .wrapx{flex-wrap:wrap}
+
+/* Topbar */
+.top{display:flex;align-items:center;gap:12px;padding:10px 18px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.brand{font-weight:700;font-size:17px;color:var(--text)} .brand:hover{text-decoration:none}
+.user{color:var(--muted)}
+.wrap{max-width:980px;margin:0 auto;padding:22px 18px 60px} .wrap.wide{max-width:1500px}
+
+/* Buttons */
+.btn{border:1px solid var(--line);background:var(--panel);padding:7px 13px;border-radius:8px;cursor:pointer}
+.btn:hover{background:var(--hover)} .btn:disabled{opacity:.6;cursor:default}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-text);font-weight:600}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.danger{color:var(--danger);border-color:var(--danger)}
+.icon{border:0;background:none;cursor:pointer;padding:4px 6px;border-radius:6px;opacity:.55} .icon:hover{opacity:1;background:var(--hover)}
+.linkbtn{border:0;background:none;color:var(--accent);cursor:pointer;padding:4px 2px;text-align:left}
+.linkbtn:hover{text-decoration:underline}
+.badge{font-size:12px;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+
+/* Formulare */
+label{display:block;margin:0 0 12px;font-weight:600;font-size:13.5px}
+label input,label select{display:block;width:100%;margin-top:4px;font-weight:400}
+input,select,textarea{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:7px 9px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
+small{color:var(--muted);font-weight:400}
+
+/* Auth */
+.auth{max-width:400px;margin:8vh auto;padding:28px;background:var(--panel);border:1px solid var(--line);border-radius:14px}
+.auth h1{font-size:26px}
+.tabs{display:flex;gap:6px;margin:16px 0}
+.tabs button{flex:1;padding:8px;border:1px solid var(--line);background:var(--panel);border-radius:8px;cursor:pointer}
+.tabs button.on{background:var(--accent);color:var(--accent-text);border-color:var(--accent);font-weight:600}
+.notice{background:var(--head);border-radius:8px;padding:9px 12px;margin:12px 0;font-size:14px}
+.msg{min-height:20px;margin-top:10px;font-size:14px;color:var(--danger)} .msg.ok{color:#16a34a}
+
+/* Listenübersicht */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:10px 0 28px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer;position:relative}
+.card:hover{border-color:var(--accent)}
+.card h3{font-size:16px;margin:0 0 4px;padding-right:28px;word-break:break-word}
+.card .icon{position:absolute;top:8px;right:8px}
+.empty{padding:18px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);margin:10px 0 28px}
+
+/* Brotkrumen + Titel */
+.crumbs{font-size:13.5px;color:var(--muted);margin-bottom:8px}
+.h-input{font-size:24px;font-weight:700;border:1px solid transparent;background:transparent;padding:2px 6px;margin-left:-6px;width:min(560px,80vw)}
+.h-input:hover{border-color:var(--line)}
+h2{font-size:24px}
+
+/* Tabelle */
+.sheet-wrap{margin-top:14px;overflow:auto;max-height:calc(100vh - 215px);min-height:180px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+table.sheet{border-collapse:separate;border-spacing:0;table-layout:fixed}
+.sheet th,.sheet td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:0;vertical-align:top;background:var(--panel)}
+.sheet th{position:sticky;top:0;z-index:2;background:var(--head);font-size:13px;text-align:left;padding:8px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheet th .colbtn{border:0;background:none;cursor:pointer;float:right;opacity:.6;padding:0 4px;font-size:15px;line-height:1}
+.sheet th .colbtn:hover{opacity:1}
+.sheet th.c-chk,.sheet td.c-chk{text-align:center}
+.sheet td.c-chk{padding-top:9px}
+.sheet td.c-chk input{width:18px;height:18px;cursor:pointer;accent-color:var(--accent)}
+.sheet tr:hover td{background:var(--hover)}
+.sheet textarea,.sheet td input[type=text],.sheet td input[type=number],.sheet td input[type=date]{
+  width:100%;border:0;border-radius:0;background:transparent;padding:8px;resize:none;overflow:hidden;display:block;min-height:36px}
+.sheet textarea:focus,.sheet td input:focus{outline:2px solid var(--accent);outline-offset:-2px;background:var(--panel)}
+.sheet td.c-bool{text-align:center;padding-top:9px} .sheet td.c-bool input{width:18px;height:18px;accent-color:var(--accent)}
+.sheet td.c-sub{padding:7px 8px}
+.sheet td.c-del,.sheet td.c-add{text-align:center}
+.sheet tr .c-del .icon{opacity:0;margin-top:3px} .sheet tr:hover .c-del .icon{opacity:.6}
+.sheet tr.done textarea,.sheet tr.done input[type=number],.sheet tr.done input[type=date]{color:var(--done)}
+.sheet tr.done textarea[data-f=title]{text-decoration:line-through}
+.sheet tr.addrow td{padding:6px 10px} .sheet tr.addrow:hover td{background:var(--panel)}
+.sheet tr.sep td{background:var(--head);font-size:12.5px;color:var(--muted);padding:5px 10px;font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:4px;background:var(--head);border:1px solid var(--line);border-radius:99px;padding:2px 10px;font-size:13px;max-width:calc(100% - 28px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip.lock{color:var(--muted)}
+.sheet td.c-sub .icon{padding:1px 4px}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-start;justify-content:center;padding:8vh 14px;z-index:100;overflow:auto}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px 22px;width:100%;max-width:520px}
+.modal h3{font-size:18px} .modal h4{margin:18px 0 6px;font-size:14px}
+.actions{display:flex;gap:8px;align-items:center;margin-top:14px}
+.pick{display:flex;flex-direction:column;gap:6px;max-height:42vh;overflow:auto;margin:8px 0 12px}
+.pickitem{display:flex;justify-content:space-between;gap:10px;text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 12px;cursor:pointer}
+.pickitem:hover{border-color:var(--accent)}
+.members{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+.member{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:8px}
+.member span:first-child{flex:1;word-break:break-all}
+.linkrow{display:flex;gap:6px;margin-top:8px} .linkrow input{flex:1;min-width:0}
+
+/* Toast */
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:9px 16px;border-radius:10px;z-index:200;display:none;max-width:90vw;box-shadow:var(--shadow)}
+#toast.err{background:var(--danger);color:#fff}
+</style>
+</head>
+<body>
+<div id="app"><p style="padding:24px" class="muted">Lade …</p></div>
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* =====================================================================
+   TPC2Do – To-Do-Listen im Tabellen-Stil (Open Source, Supabase-Backend)
+   → Trage hier deine Supabase-Daten ein (Project Settings → API).
+     Der "anon public"-Key ist öffentlich gedacht; geschützt wird alles
+     durch die Row-Level-Security-Regeln aus schema.sql.
+   ===================================================================== */
+const SUPABASE_URL = 'https://cepffmdxmtmpcdubvnba.supabase.co';       // z. B. https://abcdxyz.supabase.co
+const SUPABASE_ANON_KEY = 'sb_publishable_Eftirh-tkyFSJNpHrqqaGw_2T4p5UMl';        // "anon public" Key
+
+/* ---------- Grundlagen ---------- */
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const app = $('#app');
+const LIST_COLS = 'id,owner_id,title,columns,link_role,created_at';
+const COL_TYPES = { text: 'Text', number: 'Zahl', date: 'Datum', checkbox: 'Häkchen' };
+const ROLE_LABEL = { owner: 'Besitzer', edit: 'Bearbeiten', view: 'Nur lesen' };
+
+const CFG_OK = /^https?:\/\//.test(SUPABASE_URL) && SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.startsWith('DEIN');
+const sb = (CFG_OK && typeof supabase !== 'undefined') ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+const state = {
+  ready: false, user: null, profile: null,
+  lists: [], owners: {}, memberRoles: {},
+  cur: null, role: null, tasks: [],
+  crumbs: [], keepCrumbs: false, poll: null, needsRefresh: false, routeSeq: 0
+};
+
+function toast(msg, isErr) {
+  const t = $('#toast'); t.textContent = msg; t.className = isErr ? 'err' : ''; t.style.display = 'block';
+  clearTimeout(toast._t); toast._t = setTimeout(() => { t.style.display = 'none'; }, isErr ? 5000 : 2200);
+}
+function errText(err) {
+  const m = (err && err.message) || String(err);
+  if (/Invalid login credentials/i.test(m)) return 'E-Mail oder Passwort ist falsch.';
+  if (/Email not confirmed/i.test(m)) return 'Bitte bestätige zuerst deine E-Mail-Adresse (Link in der Bestätigungs-Mail).';
+  if (/already registered/i.test(m)) return 'Diese E-Mail-Adresse ist bereits registriert.';
+  if (/Password should be at least/i.test(m)) return 'Das Passwort ist zu kurz (mindestens 8 Zeichen).';
+  if (/rate limit/i.test(m)) return 'Zu viele Versuche – bitte warte kurz und probiere es erneut.';
+  if (/Database error saving new user/i.test(m)) return 'Registrierung fehlgeschlagen (Konto-Name evtl. vergeben oder ungültig).';
+  return m;
+}
+function modal(html, mount) {
+  const ov = document.createElement('div'); ov.className = 'overlay';
+  ov.innerHTML = `<div class="modal" role="dialog" aria-modal="true">${html}</div>`;
+  const close = () => ov.remove();
+  ov.addEventListener('mousedown', e => { if (e.target === ov) close(); });
+  document.body.appendChild(ov);
+  if (mount) mount(ov.firstElementChild, close);
+  const f = ov.querySelector('input,select,textarea'); if (f) f.focus();
+  return close;
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { const o = [...document.querySelectorAll('.overlay')].pop(); if (o) o.remove(); }
+});
+
+/* ---------- Start & Sitzung ---------- */
+function renderSetup() {
+  app.innerHTML = `<div class="auth"><h1>TPC2Do einrichten</h1>
+    <p>${sb ? 'Die Supabase-Zugangsdaten fehlen noch.' : 'Die Supabase-Bibliothek konnte nicht geladen werden (Internetverbindung?).'}</p>
+    <p class="muted">Öffne <code>index.html</code> in einem Editor und trage oben im Script <b>SUPABASE_URL</b> und <b>SUPABASE_ANON_KEY</b> ein.
+    Die Schritt-für-Schritt-Anleitung steht in der <b>README.md</b>.</p></div>`;
+}
+
+async function setSession(session) {
+  state.user = session ? session.user : null;
+  state.profile = null; state.lists = []; state.memberRoles = {}; state.owners = {};
+  if (state.user) {
+    const { data } = await sb.from('profiles').select('id,username').eq('id', state.user.id).maybeSingle();
+    state.profile = data || { id: state.user.id, username: state.user.email };
+    await loadLists();
+  }
+  state.ready = true;
+}
+
+if (!sb) {
+  renderSetup();
+} else {
+  sb.auth.onAuthStateChange((event, session) => {
+    // Nicht direkt in diesem Callback auf Supabase warten → in den nächsten Tick verschieben
+    setTimeout(async () => {
+      const next = session ? session.user.id : null;
+      const prev = state.user ? state.user.id : null;
+      if (state.ready && prev === next) return;
+      await setSession(session);
+      route();
+    }, 0);
+  });
+  window.addEventListener('hashchange', route);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) flushAll(); else refreshCur(true);
+  });
+  window.addEventListener('pagehide', flushAll);
+  document.addEventListener('focusout', () => {
+    setTimeout(() => { if (state.needsRefresh) refreshCur(true); }, 60);
+  });
+}
+
+async function loadLists() {
+  const [l, m] = await Promise.all([
+    sb.from('lists').select(LIST_COLS).order('created_at'),
+    sb.from('list_members').select('list_id,role').eq('user_id', state.user.id)
+  ]);
+  if (l.error) { toast(l.error.message, true); return; }
+  state.lists = l.data || [];
+  state.memberRoles = Object.fromEntries((m.data || []).map(x => [x.list_id, x.role]));
+  const ids = [...new Set(state.lists.map(x => x.owner_id))].filter(id => id !== state.user.id && !state.owners[id]);
+  if (ids.length) {
+    const p = await sb.from('profiles').select('id,username').in('id', ids);
+    (p.data || []).forEach(x => { state.owners[x.id] = x.username; });
+  }
+}
+const roleOf = l => l.owner_id === state.user.id ? 'owner' : (state.memberRoles[l.id] || 'view');
+const ownerName = l => l.owner_id === state.user.id ? 'Du' : (state.owners[l.owner_id] || '?');
+
+/* ---------- Routing ---------- */
+async function route() {
+  if (!state.ready) return;
+  const seq = ++state.routeSeq;
+  stopPolling(); flushAll();
+  const [name, arg] = location.hash.replace(/^#\/?/, '').split('/');
+  if (name === 'join' && arg) {
+    if (!state.user) {
+      sessionStorage.setItem('pendingJoin', arg);
+      return renderAuth('Melde dich an oder registriere dich, um die geteilte Liste zu öffnen.');
+    }
+    return doJoin(arg);
+  }
+  if (!state.user) return renderAuth();
+  const pending = sessionStorage.getItem('pendingJoin');
+  if (pending) { sessionStorage.removeItem('pendingJoin'); return doJoin(pending); }
+  if (name === 'list' && arg) {
+    if (!state.keepCrumbs) state.crumbs = [];
+    state.keepCrumbs = false;
+    return renderList(arg, seq);
+  }
+  state.crumbs = []; state.cur = null;
+  renderHome();
+}
+
+async function doJoin(token) {
+  const { data, error } = await sb.rpc('join_list_by_token', { tok: token });
+  if (error) { toast('Link ungültig oder Freigabe deaktiviert.', true); location.hash = '#/'; return; }
+  await loadLists();
+  location.hash = '#/list/' + data;
+}
+
+/* ---------- Anmeldung ---------- */
+function renderAuth(msg = '') {
+  let mode = 'login';
+  const draw = () => {
+    app.innerHTML = `<div class="auth">
+      <h1>✅ TPC2Do</h1>
+      <p class="muted">To-Do-Listen als Tabelle – teilbar per Link oder Konto-Name.</p>
+      ${msg ? `<div class="notice">${esc(msg)}</div>` : ''}
+      <div class="tabs">
+        <button type="button" data-m="login" class="${mode === 'login' ? 'on' : ''}">Anmelden</button>
+        <button type="button" data-m="signup" class="${mode === 'signup' ? 'on' : ''}">Registrieren</button>
+      </div>
+      <form id="authForm">
+        <label>E-Mail<input type="email" name="email" required autocomplete="email"></label>
+        ${mode === 'signup' ? `<label>Konto-Name<input name="username" required maxlength="24" autocomplete="username">
+          <small>3–24 Zeichen: Buchstaben, Zahlen, _ . -  (so findet man dich zum Teilen)</small></label>` : ''}
+        <label>Passwort<input type="password" name="password" required minlength="8" autocomplete="${mode === 'login' ? 'current-password' : 'new-password'}"></label>
+        <button class="btn primary" style="width:100%" type="submit">${mode === 'login' ? 'Anmelden' : 'Konto erstellen'}</button>
+        <div id="authMsg" class="msg"></div>
+      </form></div>`;
+    app.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { mode = b.dataset.m; draw(); });
+    const form = $('#authForm'), out = $('#authMsg'), btn = $('button[type=submit]', form);
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const f = new FormData(form), email = f.get('email').trim(), password = f.get('password');
+      btn.disabled = true; out.className = 'msg'; out.textContent = '';
+      try {
+        if (mode === 'login') {
+          const { error } = await sb.auth.signInWithPassword({ email, password });
+          if (error) throw error;
+        } else {
+          const username = f.get('username').trim();
+          if (!/^[A-Za-z0-9_.-]{3,24}$/.test(username)) throw new Error('Konto-Name: 3–24 Zeichen, nur Buchstaben, Zahlen, _ . -');
+          const av = await sb.rpc('username_available', { uname: username });
+          if (av.error) throw av.error;
+          if (!av.data) throw new Error('Dieser Konto-Name ist schon vergeben.');
+          const { data, error } = await sb.auth.signUp({
+            email, password,
+            options: { data: { username }, emailRedirectTo: location.href.split('#')[0] }
+          });
+          if (error) throw error;
+          if (!data.session) { out.className = 'msg ok'; out.textContent = 'Fast geschafft! Bitte bestätige deine E-Mail-Adresse über den Link in der Mail, die wir dir geschickt haben.'; }
+        }
+      } catch (err) { out.textContent = errText(err); }
+      btn.disabled = false;
+    };
+  };
+  draw();
+}
+
+/* ---------- Kopfleiste ---------- */
+const topbar = () => `<header class="top"><a class="brand" href="#/">✅ TPC2Do</a><span class="spacer"></span>
+  <span class="user">👤 ${esc(state.profile ? state.profile.username : '')}</span><button class="btn" id="logout">Abmelden</button></header>`;
+function bindTop() {
+  const b = $('#logout'); if (b) b.onclick = async () => { await flushAllWait(); await sb.auth.signOut(); };
+}
+
+/* ---------- Startseite ---------- */
+function renderHome() {
+  document.title = 'TPC2Do – To-Do-Listen als Tabelle';
+  const mine = state.lists.filter(l => l.owner_id === state.user.id);
+  const shared = state.lists.filter(l => l.owner_id !== state.user.id);
+  const card = l => {
+    const r = roleOf(l);
+    return `<div class="card" data-id="${l.id}"><h3>📋 ${esc(l.title)}</h3>
+      <div class="muted small">${r === 'owner' ? ROLE_LABEL.owner : esc(ownerName(l)) + ' · ' + ROLE_LABEL[r]}</div>
+      <button class="icon" data-act="${r === 'owner' ? 'delete' : 'leave'}" title="${r === 'owner' ? 'Liste löschen' : 'Liste verlassen'}">${r === 'owner' ? '🗑' : '🚪'}</button></div>`;
+  };
+  app.innerHTML = topbar() + `<main class="wrap">
+    <div class="row between"><h2>Meine Listen</h2><button class="btn primary" id="newList">＋ Neue Liste</button></div>
+    ${mine.length ? `<div class="grid">${mine.map(card).join('')}</div>` : `<div class="empty">Noch keine Liste. Leg mit „Neue Liste“ los!</div>`}
+    <h2>Mit mir geteilt</h2>
+    ${shared.length ? `<div class="grid">${shared.map(card).join('')}</div>` : `<div class="empty">Hier erscheinen Listen, die andere mit dir teilen.</div>`}
+  </main>`;
+  bindTop();
+  $('#newList').onclick = newListModal;
+  app.querySelectorAll('.card').forEach(c => c.onclick = async e => {
+    const id = c.dataset.id, b = e.target.closest('[data-act]');
+    if (!b) { location.hash = '#/list/' + id; return; }
+    const l = state.lists.find(x => x.id === id);
+    if (b.dataset.act === 'delete') {
+      if (!confirm(`Liste „${l.title}“ mit allen Aufgaben endgültig löschen?`)) return;
+      const { error } = await sb.from('lists').delete().eq('id', id);
+      if (error) return toast(error.message, true);
+    } else {
+      if (!confirm(`„${l.title}“ verlassen? Du verlierst den Zugriff.`)) return;
+      const { error } = await sb.from('list_members').delete().eq('list_id', id).eq('user_id', state.user.id);
+      if (error) return toast(error.message, true);
+    }
+    await loadLists(); renderHome();
+  });
+}
+
+function newListModal() {
+  modal(`<h3>Neue Liste</h3><label>Name<input id="nl" maxlength="120" placeholder="z. B. Einkauf"></label>
+    <div class="actions"><span class="spacer"></span><button class="btn" data-x>Abbrechen</button><button class="btn primary" id="ok">Erstellen</button></div>`,
+  (m, close) => {
+    const go = async () => { const t = $('#nl', m).value.trim() || 'Neue Liste'; close(); const l = await createList(t); if (l) location.hash = '#/list/' + l.id; };
+    $('#ok', m).onclick = go; $('[data-x]', m).onclick = close;
+    $('#nl', m).addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
+  });
+}
+async function createList(title) {
+  const { data, error } = await sb.from('lists').insert({ title }).select(LIST_COLS).single();
+  if (error) { toast(error.message, true); return null; }
+  state.lists.push(data); return data;
+}
+
+/* ---------- Listenansicht ---------- */
+const pending = new Map();         // taskId -> {patch, timer}
+const insertPromises = new Map();  // taskId -> Promise (Insert läuft noch)
+let inflight = 0;
+
+async function renderList(id, seq) {
+  app.innerHTML = topbar() + '<main class="wrap"><p class="muted">Lade …</p></main>'; bindTop();
+  let list = state.lists.find(l => l.id === id);
+  if (!list) { await loadLists(); list = state.lists.find(l => l.id === id); }
+  if (seq !== state.routeSeq) return;
+  if (!list) {
+    app.innerHTML = topbar() + `<main class="wrap"><h2>Liste nicht gefunden</h2>
+      <p class="muted">Sie existiert nicht (mehr) oder du hast keinen Zugriff.</p><a class="btn" href="#/">Zur Übersicht</a></main>`;
+    bindTop(); return;
+  }
+  const { data, error } = await sb.from('tasks').select('*').eq('list_id', id).order('position');
+  if (seq !== state.routeSeq) return;
+  if (error) { toast(error.message, true); return; }
+  state.cur = list; state.role = roleOf(list); state.tasks = data || [];
+  document.title = list.title + ' – TPC2Do';
+  drawList(); startPolling();
+}
+
+const undoneTasks = () => state.tasks.filter(t => !t.done).sort((a, b) => a.position - b.position);
+const doneTasks = () => state.tasks.filter(t => t.done)
+  .sort((a, b) => new Date(b.done_at || b.created_at).getTime() - new Date(a.done_at || a.created_at).getTime());
+const taskById = id => state.tasks.find(t => t.id === id);
+const colById = id => (state.cur.columns || []).find(c => c.id === id);
+
+function drawList() {
+  const l = state.cur, owner = state.role === 'owner';
+  const crumbs = state.crumbs.map((c, i) => `<a href="#/list/${c.id}" data-crumb="${i}">${esc(c.title)}</a>`).join(' › ');
+  app.innerHTML = topbar() + `<main class="wrap wide">
+    <nav class="crumbs"><a href="#/">Meine Listen</a> › ${crumbs ? crumbs + ' › ' : ''}<span>${esc(l.title)}</span></nav>
+    <div class="row between wrapx">
+      <div>${owner ? `<input id="listTitle" class="h-input" value="${esc(l.title)}" maxlength="120" aria-label="Listenname">` : `<h2>${esc(l.title)}</h2>`}</div>
+      <div class="row gap"><span class="badge">${ROLE_LABEL[state.role]}</span><span id="saveState" class="muted small"></span>
+        ${owner ? '<button class="btn" id="shareBtn">🔗 Teilen</button>' : ''}</div>
+    </div>
+    <div class="sheet-wrap" id="sheetWrap"></div>
+    <p class="muted small" id="counter"></p>
+    ${owner ? '' : `<p class="muted small">Besitzer: ${esc(ownerName(l))}</p>`}
+  </main>`;
+  bindTop();
+  $('.crumbs').addEventListener('click', e => {
+    const a = e.target.closest('[data-crumb]'); if (!a) return;
+    e.preventDefault();
+    const i = +a.dataset.crumb, target = state.crumbs[i];
+    state.crumbs = state.crumbs.slice(0, i); state.keepCrumbs = true;
+    location.hash = '#/list/' + target.id;
+  });
+  const ti = $('#listTitle');
+  if (ti) ti.addEventListener('change', async () => {
+    const title = ti.value.trim() || 'Neue Liste'; ti.value = title;
+    if (title === l.title) return;
+    const { error } = await sb.from('lists').update({ title }).eq('id', l.id);
+    if (error) return toast(error.message, true);
+    l.title = title; document.title = title + ' – TPC2Do';
+  });
+  const sh = $('#shareBtn'); if (sh) sh.onclick = shareModal;
+  bindSheet($('#sheetWrap'));
+  drawTable(); updateStatus();
+}
+
+function tableHTML() {
+  const cols = state.cur.columns || [], ro = state.role === 'view';
+  const W = { chk: 46, task: 330, notes: 280, sub: 220, custom: 170, add: 46, del: 46 };
+  const widths = [W.chk, W.task, W.notes, W.sub, ...cols.map(() => W.custom), ...(ro ? [] : [W.add]), W.del];
+  const total = widths.reduce((a, b) => a + b, 0);
+  const head = `<thead><tr><th class="c-chk" title="Erledigt">✓</th><th>Aufgabe</th><th>Hinweise</th><th>Sub-To-Do-List</th>
+    ${cols.map(c => `<th title="${esc(c.name)}">${esc(c.name)}${ro ? '' : `<button class="colbtn" data-act="editcol" data-col="${c.id}" title="Spalte bearbeiten">⋯</button>`}</th>`).join('')}
+    ${ro ? '' : '<th class="c-add"><button class="colbtn" style="float:none;opacity:1;font-size:18px" data-act="addcol" title="Spalte hinzufügen">＋</button></th>'}<th></th></tr></thead>`;
+  const un = undoneTasks(), dn = doneTasks();
+  const ncols = widths.length;
+  let body = un.map(rowHTML).join('');
+  if (!ro) body += `<tr class="addrow"><td></td><td colspan="${ncols - 1}"><button class="linkbtn" data-act="addtask">＋ Aufgabe hinzufügen</button></td></tr>`;
+  if (dn.length) body += `<tr class="sep"><td colspan="${ncols}">Erledigt (${dn.length})</td></tr>` + dn.map(rowHTML).join('');
+  return `<table class="sheet" style="width:${total}px"><colgroup>${widths.map(w => `<col style="width:${w}px">`).join('')}</colgroup>${head}<tbody>${body}</tbody></table>`;
+}
+
+function rowHTML(t) {
+  const cols = state.cur.columns || [], ro = state.role === 'view';
+  const dis = ro ? 'readonly' : '';
+  return `<tr data-id="${t.id}" class="${t.done ? 'done' : ''}">
+    <td class="c-chk"><input type="checkbox" data-f="done" ${t.done ? 'checked' : ''} ${ro ? 'disabled' : ''} aria-label="Erledigt"></td>
+    <td><textarea rows="1" data-f="title" placeholder="Aufgabe …" ${dis}>${esc(t.title)}</textarea></td>
+    <td><textarea rows="1" data-f="notes" ${dis}>${esc(t.notes)}</textarea></td>
+    <td class="c-sub">${subCell(t, ro)}</td>
+    ${cols.map(c => customCell(t, c, ro)).join('')}
+    ${ro ? '' : '<td class="c-add"></td>'}
+    <td class="c-del">${ro ? '' : '<button class="icon" data-act="del" title="Aufgabe löschen">🗑</button>'}</td></tr>`;
+}
+
+function subCell(t, ro) {
+  if (t.sub_list_id) {
+    const sl = state.lists.find(l => l.id === t.sub_list_id);
+    const chip = sl
+      ? `<a class="chip" href="#/list/${sl.id}" data-act="opensub" data-sub="${sl.id}" title="${esc(sl.title)}">📋 ${esc(sl.title)} →</a>`
+      : `<span class="chip lock" title="Du hast keinen Zugriff auf diese Liste">🔒 Kein Zugriff</span>`;
+    return chip + (ro ? '' : `<button class="icon" data-act="unlinksub" title="Verknüpfung lösen">✕</button>`);
+  }
+  return ro ? '' : `<button class="linkbtn" data-act="linksub">＋ Liste verknüpfen</button>`;
+}
+
+function customCell(t, c, ro) {
+  const v = t.data ? t.data[c.id] : undefined;
+  if (c.type === 'checkbox') return `<td class="c-bool"><input type="checkbox" data-cf="${c.id}" ${v ? 'checked' : ''} ${ro ? 'disabled' : ''}></td>`;
+  if (c.type === 'number') return `<td><input type="number" step="any" data-cf="${c.id}" value="${esc(v ?? '')}" ${ro ? 'readonly' : ''}></td>`;
+  if (c.type === 'date') return `<td><input type="date" data-cf="${c.id}" value="${esc(v ?? '')}" ${ro ? 'readonly' : ''}></td>`;
+  return `<td><textarea rows="1" data-cf="${c.id}" ${ro ? 'readonly' : ''}>${esc(v ?? '')}</textarea></td>`;
+}
+
+function fit(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+function drawTable() {
+  const wrap = $('#sheetWrap'); if (!wrap) return;
+  const sl = wrap.scrollLeft, st = wrap.scrollTop;
+  wrap.innerHTML = tableHTML();
+  wrap.scrollLeft = sl; wrap.scrollTop = st;
+  wrap.querySelectorAll('textarea').forEach(fit);
+  const un = undoneTasks().length, dn = doneTasks().length, c = $('#counter');
+  if (c) c.textContent = `${un} offen · ${dn} erledigt`;
+}
+window.addEventListener('resize', () => document.querySelectorAll('#sheetWrap textarea').forEach(fit));
+
+function bindSheet(wrap) {
+  wrap.addEventListener('input', e => {
+    const el = e.target, tr = el.closest('tr[data-id]'); if (!tr) return;
+    const t = taskById(tr.dataset.id); if (!t) return;
+    if (el.dataset.f === 'title' || el.dataset.f === 'notes') {
+      t[el.dataset.f] = el.value; queueSave(t.id, { [el.dataset.f]: el.value }); fit(el);
+    } else if (el.dataset.cf) {
+      let v = el.type === 'checkbox' ? el.checked : el.value;
+      if (el.type === 'number') v = el.value === '' ? null : Number(el.value);
+      t.data = { ...(t.data || {}), [el.dataset.cf]: v };
+      queueSave(t.id, { data: t.data });
+      if (el.tagName === 'TEXTAREA') fit(el);
+    }
+  });
+  wrap.addEventListener('change', e => {
+    const el = e.target;
+    if (el.dataset.f !== 'done') return;
+    const t = taskById(el.closest('tr').dataset.id); if (!t) return;
+    t.done = el.checked; t.done_at = el.checked ? new Date().toISOString() : null;
+    queueSave(t.id, { done: t.done, done_at: t.done_at }, 0);
+    drawTable();
+  });
+  wrap.addEventListener('keydown', e => {
+    const el = e.target;
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && el.dataset.f === 'title' && state.role !== 'view') {
+      e.preventDefault();
+      const t = taskById(el.closest('tr').dataset.id);
+      if (t && !t.done) addTask(t.id);
+    }
+  });
+  wrap.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const tr = b.closest('tr[data-id]'), t = tr ? taskById(tr.dataset.id) : null;
+    switch (b.dataset.act) {
+      case 'addtask': addTask(); break;
+      case 'del': if (t) deleteTask(t); break;
+      case 'linksub': if (t) subModal(t); break;
+      case 'unlinksub': if (t) { t.sub_list_id = null; queueSave(t.id, { sub_list_id: null }, 0); drawTable(); } break;
+      case 'opensub': e.preventDefault(); openSub(b.dataset.sub); break;
+      case 'addcol': colModal(); break;
+      case 'editcol': colModal(colById(b.dataset.col)); break;
+    }
+  });
+}
+
+function openSub(id) {
+  state.crumbs.push({ id: state.cur.id, title: state.cur.title });
+  state.keepCrumbs = true;
+  location.hash = '#/list/' + id;
+}
+
+/* ---------- Speichern ---------- */
+function updateStatus() {
+  const s = $('#saveState'); if (!s) return;
+  s.textContent = (pending.size || inflight) ? 'Speichere …' : 'Alles gespeichert';
+}
+function queueSave(id, patch, delay = 600) {
+  const p = pending.get(id) || { patch: {}, timer: null };
+  Object.assign(p.patch, patch); clearTimeout(p.timer);
+  p.timer = setTimeout(() => flush(id), delay);
+  pending.set(id, p); updateStatus();
+}
+async function flush(id) {
+  const p = pending.get(id); if (!p) return;
+  pending.delete(id); clearTimeout(p.timer);
+  inflight++; updateStatus();
+  try {
+    if (insertPromises.has(id)) await insertPromises.get(id);
+    const { error } = await sb.from('tasks').update(p.patch).eq('id', id);
+    if (error) toast('Speichern fehlgeschlagen: ' + error.message, true);
+  } finally {
+    inflight--; updateStatus();
+    if (!pending.size && !inflight && state.needsRefresh) refreshCur(true);
+  }
+}
+function flushAll() { [...pending.keys()].forEach(flush); }
+async function flushAllWait() {
+  flushAll();
+  for (let i = 0; i < 50 && (pending.size || inflight); i++) await new Promise(r => setTimeout(r, 100));
+}
+
+/* ---------- Aufgaben ---------- */
+async function addTask(afterId) {
+  const un = undoneTasks();
+  let pos;
+  if (afterId) {
+    const i = un.findIndex(x => x.id === afterId), cur = un[i], nxt = un[i + 1];
+    pos = nxt ? (cur.position + nxt.position) / 2 : cur.position + 1;
+  } else {
+    pos = state.tasks.reduce((m, t) => Math.max(m, t.position), 0) + 1;
+  }
+  const t = { id: crypto.randomUUID(), list_id: state.cur.id, done: false, title: '', notes: '', sub_list_id: null,
+              data: {}, position: pos, created_at: new Date().toISOString(), done_at: null };
+  state.tasks.push(t); drawTable();
+  const el = $(`tr[data-id="${t.id}"] textarea[data-f="title"]`); if (el) el.focus();
+  const ins = sb.from('tasks').insert({ id: t.id, list_id: t.list_id, position: pos }).then(r => r);
+  insertPromises.set(t.id, ins);
+  const { error } = await ins;
+  insertPromises.delete(t.id);
+  if (error) {
+    toast('Aufgabe konnte nicht angelegt werden: ' + error.message, true);
+    pending.delete(t.id); state.tasks = state.tasks.filter(x => x.id !== t.id); drawTable();
+  }
+}
+
+async function deleteTask(t) {
+  if ((t.title || t.notes) && !confirm('Diese Aufgabe löschen?')) return;
+  const p = pending.get(t.id); if (p) { clearTimeout(p.timer); pending.delete(t.id); }
+  state.tasks = state.tasks.filter(x => x.id !== t.id); drawTable(); updateStatus();
+  if (insertPromises.has(t.id)) await insertPromises.get(t.id);
+  const { error } = await sb.from('tasks').delete().eq('id', t.id);
+  if (error) { toast('Löschen fehlgeschlagen: ' + error.message, true); refreshCur(true); }
+}
+
+/* ---------- Sub-To-Do-Listen ---------- */
+function subModal(t) {
+  const others = state.lists.filter(l => l.id !== state.cur.id);
+  modal(`<h3>Sub-To-Do-List verknüpfen</h3>
+    <div class="pick">${others.map(l => `<button class="pickitem" data-id="${l.id}"><span>📋 ${esc(l.title)}</span><small>${esc(ownerName(l))}</small></button>`).join('')
+      || '<p class="muted">Du hast noch keine weiteren Listen.</p>'}</div>
+    <button class="btn primary" id="mkSub">＋ Neue Liste erstellen &amp; verknüpfen</button>
+    <div class="actions"><span class="spacer"></span><button class="btn" data-x>Abbrechen</button></div>`,
+  (m, close) => {
+    const setSub = id => { t.sub_list_id = id; queueSave(t.id, { sub_list_id: id }, 0); drawTable(); };
+    m.querySelectorAll('.pickitem').forEach(b => b.onclick = () => { close(); setSub(b.dataset.id); });
+    $('[data-x]', m).onclick = close;
+    $('#mkSub', m).onclick = async () => {
+      close();
+      const l = await createList(t.title.trim() || 'Unterliste');
+      if (l) { setSub(l.id); toast('Neue Liste erstellt und verknüpft.'); }
+    };
+  });
+}
+
+/* ---------- Eigene Spalten ---------- */
+function colModal(col) {
+  modal(`<h3>${col ? 'Spalte bearbeiten' : 'Neue Spalte'}</h3>
+    <label>Name<input id="cn" maxlength="40" value="${esc(col ? col.name : '')}"></label>
+    <label>Typ<select id="ct" ${col ? 'disabled' : ''}>${Object.entries(COL_TYPES).map(([k, v]) =>
+      `<option value="${k}" ${col && col.type === k ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+    <div class="actions">${col ? '<button class="btn danger" id="cdel">Spalte löschen</button>' : ''}<span class="spacer"></span>
+      <button class="btn" data-x>Abbrechen</button><button class="btn primary" id="cok">Speichern</button></div>`,
+  (m, close) => {
+    $('[data-x]', m).onclick = close;
+    const save = async () => {
+      const name = $('#cn', m).value.trim(); if (!name) return toast('Bitte einen Namen eingeben.', true);
+      const cols = (state.cur.columns || []).map(c => ({ ...c }));
+      if (col) cols.find(c => c.id === col.id).name = name;
+      else cols.push({ id: 'c' + Math.random().toString(36).slice(2, 8), name, type: $('#ct', m).value });
+      close(); await saveColumns(cols);
+    };
+    $('#cok', m).onclick = save;
+    $('#cn', m).addEventListener('keydown', e => { if (e.key === 'Enter') save(); });
+    const d = $('#cdel', m);
+    if (d) d.onclick = async () => {
+      if (!confirm(`Spalte „${col.name}“ löschen? Die Werte darin gehen verloren.`)) return;
+      close(); await saveColumns((state.cur.columns || []).filter(c => c.id !== col.id));
+    };
+  });
+}
+async function saveColumns(cols) {
+  const { error } = await sb.rpc('set_list_columns', { lid: state.cur.id, cols });
+  if (error) return toast(error.message, true);
+  state.cur.columns = cols; drawTable();
+}
+
+/* ---------- Teilen ---------- */
+async function loadMembers(lid) {
+  const r = await sb.from('list_members').select('user_id,role').eq('list_id', lid);
+  const rows = r.data || []; if (!rows.length) return [];
+  const p = await sb.from('profiles').select('id,username').in('id', rows.map(x => x.user_id));
+  const names = Object.fromEntries((p.data || []).map(x => [x.id, x.username]));
+  return rows.map(x => ({ ...x, username: names[x.user_id] || '?' })).sort((a, b) => a.username.localeCompare(b.username));
+}
+
+async function shareModal() {
+  const l = state.cur;
+  const [tk, members0] = await Promise.all([sb.rpc('get_share_token', { lid: l.id }), loadMembers(l.id)]);
+  if (tk.error) return toast(tk.error.message, true);
+  let token = tk.data, members = members0;
+  const url = () => location.href.split('#')[0] + '#/join/' + token;
+  modal(`<h3>„${esc(l.title)}“ teilen</h3>
+    <h4>Per Link</h4>
+    <select id="linkRole" style="width:100%">
+      <option value="none">Aus – nur eingeladene Konten</option>
+      <option value="view">Jeder mit Link kann ansehen</option>
+      <option value="edit">Jeder mit Link kann bearbeiten</option>
+    </select>
+    <div id="linkBox"></div>
+    <h4>Per Konto-Name</h4>
+    <div class="row"><input id="shUser" placeholder="Konto-Name" style="flex:1;min-width:0" autocomplete="off">
+      <select id="shRole"><option value="edit">Bearbeiten</option><option value="view">Nur ansehen</option></select>
+      <button class="btn primary" id="shAdd">Hinzufügen</button></div>
+    <div class="members" id="memberList"></div>
+    <div class="actions"><span class="spacer"></span><button class="btn" data-x>Fertig</button></div>`,
+  (m, close) => {
+    $('[data-x]', m).onclick = close;
+    const roleSel = $('#linkRole', m); roleSel.value = l.link_role;
+    const drawLink = () => {
+      const box = $('#linkBox', m);
+      if (roleSel.value === 'none') { box.innerHTML = ''; return; }
+      box.innerHTML = `<div class="linkrow"><input id="lnk" readonly value="${esc(url())}"><button class="btn" id="cp">Kopieren</button></div>
+        <small>Wer den Link öffnet, braucht ein Konto und muss angemeldet sein.</small><br>
+        <button class="linkbtn small" id="rot">Neuen Link erzeugen (alter Link wird ungültig)</button>`;
+      $('#cp', m).onclick = async () => {
+        const inp = $('#lnk', m);
+        try { await navigator.clipboard.writeText(inp.value); toast('Link kopiert.'); }
+        catch (e) { inp.select(); document.execCommand('copy'); toast('Link kopiert.'); }
+      };
+      $('#rot', m).onclick = async () => {
+        if (!confirm('Der bisherige Link funktioniert danach nicht mehr. Fortfahren?')) return;
+        const r = await sb.rpc('rotate_share_token', { lid: l.id });
+        if (r.error) return toast(r.error.message, true);
+        token = r.data; drawLink(); toast('Neuer Link erzeugt.');
+      };
+    };
+    roleSel.onchange = async () => {
+      const { error } = await sb.from('lists').update({ link_role: roleSel.value }).eq('id', l.id);
+      if (error) { roleSel.value = l.link_role; return toast(error.message, true); }
+      l.link_role = roleSel.value; drawLink();
+    };
+    drawLink();
+
+    const drawMembers = () => {
+      const box = $('#memberList', m);
+      box.innerHTML = members.length ? members.map(x => `<div class="member" data-uid="${x.user_id}"><span>👤 ${esc(x.username)}</span>
+        <select data-mrole><option value="edit" ${x.role === 'edit' ? 'selected' : ''}>Bearbeiten</option><option value="view" ${x.role === 'view' ? 'selected' : ''}>Nur ansehen</option></select>
+        <button class="icon" data-mrm title="Entfernen">✕</button></div>`).join('')
+        : '<p class="muted small">Noch niemand per Konto-Name eingeladen.</p>';
+      box.querySelectorAll('.member').forEach(row => {
+        const uid = row.dataset.uid;
+        $('[data-mrole]', row).onchange = async e => {
+          const { error } = await sb.from('list_members').update({ role: e.target.value }).eq('list_id', l.id).eq('user_id', uid);
+          if (error) toast(error.message, true); else members.find(x => x.user_id === uid).role = e.target.value;
+        };
+        $('[data-mrm]', row).onclick = async () => {
+          const { error } = await sb.from('list_members').delete().eq('list_id', l.id).eq('user_id', uid);
+          if (error) return toast(error.message, true);
+          members = members.filter(x => x.user_id !== uid); drawMembers();
+        };
+      });
+    };
+    drawMembers();
+
+    const add = async () => {
+      const name = $('#shUser', m).value.trim(); if (!name) return;
+      const { error } = await sb.rpc('share_with_username', { lid: l.id, uname: name, r: $('#shRole', m).value });
+      if (error) return toast(error.message, true);
+      $('#shUser', m).value = ''; members = await loadMembers(l.id); drawMembers(); toast('Geteilt.');
+    };
+    $('#shAdd', m).onclick = add;
+    $('#shUser', m).addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
+  });
+}
+
+/* ---------- Automatisches Aktualisieren (alle 8 s, wenn nichts bearbeitet wird) ---------- */
+function startPolling() { stopPolling(); state.poll = setInterval(() => refreshCur(false), 8000); }
+function stopPolling() { clearInterval(state.poll); state.poll = null; state.needsRefresh = false; }
+const typing = () => { const a = document.activeElement; return !!a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName); };
+const sig = ts => JSON.stringify(ts.map(t => [t.id, t.done, t.title, t.notes, t.sub_list_id, t.position, t.data]).sort());
+
+async function refreshCur(force) {
+  if (!state.cur || !state.user) return;
+  if (document.hidden && !force) return;
+  if (pending.size || inflight || typing()) { state.needsRefresh = true; return; }
+  state.needsRefresh = false;
+  const id = state.cur.id;
+  const [lr, tr] = await Promise.all([
+    sb.from('lists').select(LIST_COLS).eq('id', id).maybeSingle(),
+    sb.from('tasks').select('*').eq('list_id', id).order('position')
+  ]);
+  if (!state.cur || state.cur.id !== id || lr.error || tr.error) return;
+  if (!lr.data) { toast('Diese Liste ist nicht mehr verfügbar.', true); await loadLists(); location.hash = '#/'; return; }
+  if (pending.size || inflight || typing()) { state.needsRefresh = true; return; }
+  const meta = x => JSON.stringify([x.title, x.columns, x.link_role]);
+  const listChanged = meta(lr.data) !== meta(state.cur);
+  const tasksChanged = sig(tr.data) !== sig(state.tasks);
+  if (listChanged) Object.assign(state.cur, lr.data);
+  if (tasksChanged) state.tasks = tr.data;
+  if (listChanged) drawList(); else if (tasksChanged) drawTable();
+}
+</script>
+</body>
+</html>
