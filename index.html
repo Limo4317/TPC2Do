@@ -184,6 +184,29 @@ table.sheet{border-collapse:separate;border-spacing:0;table-layout:fixed}
   #splash *{animation:none!important;transform:none!important}
 }
 
+/* column menu, formulas, import dialog */
+.ctx .arr{opacity:.6;margin-left:auto} .ctx button.hassub{padding-right:10px}
+.ctxsub{position:absolute;left:100%;top:0;margin-left:3px;min-width:190px;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:5px;z-index:2}
+.ctxsub button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;padding:8px 12px;border-radius:6px;cursor:pointer;color:inherit;font:inherit}
+.ctxsub button:hover,.ctxsub button:focus{background:var(--hover);outline:none}
+.ctxsub .ic{width:18px;text-align:center;opacity:.8}
+.fx{opacity:.6;font-style:italic;font-family:var(--mono)}
+.sheet td.c-calc{text-align:right;padding:9px 12px;font-variant-numeric:tabular-nums;color:var(--text);cursor:default}
+.sheet td.c-calc.err{color:var(--danger);font-size:12.5px}
+.sheet tfoot td{position:sticky;bottom:0;background:var(--head);border-top:2px solid var(--line);padding:7px 12px;font-weight:600;font-size:13px;text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+main.full .sheet tfoot td{position:static}
+.impwrap{overflow:auto;max-height:46vh;border:1px solid var(--line);border-radius:10px;margin:8px 0}
+table.imp{border-collapse:collapse;font-size:13px} table.imp th,table.imp td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top;min-width:140px}
+table.imp th{background:var(--head)} table.imp .ih{font-weight:600;margin-bottom:4px;white-space:nowrap} table.imp td{color:var(--muted);white-space:nowrap}
+.modal.wide{max-width:min(860px,94vw)}
+.actions.wrapx{flex-wrap:wrap}
+.sheet td:not(.c-chk):not(.c-bool):not(.c-calc):focus-within{outline:2px solid var(--accent);outline-offset:-2px;background:var(--panel)}
+.sheet td textarea:focus,.sheet td input:not([type=checkbox]):focus,.sheet td.c-prio select:focus{outline:none;background:transparent}
+.sheet td:has(textarea),.sheet td:has(input[type=text]),.sheet td:has(input[type=number]),.sheet td:has(input[type=date]){cursor:text}
+:root[data-theme="modern"] .sheet td:not(.c-chk):not(.c-bool):not(.c-calc):focus-within{background:rgba(94,234,212,.06)}
+:root[data-theme="glass"] .sheet td:not(.c-chk):not(.c-bool):not(.c-calc):focus-within{background:rgba(255,255,255,.14)}
+:root[data-theme="glass"] .ctxsub{background:rgb(32,52,122);border-color:rgba(255,255,255,.3)}
+:root[data-theme="glass"] .sheet tfoot td{background:rgba(40,64,140,.55)}
 /* column resize handle + full-screen layout */
 .sheet td.c-chk{position:relative} .rep{position:absolute;right:2px;top:2px;font-size:10px;opacity:.75;line-height:1}
 .sheet tr.sep.tog{cursor:pointer;user-select:none} .sheet tr.sep.tog:hover td{color:var(--text)} .sheet tr.sep.tog .car{display:inline-block;width:1em}
@@ -366,7 +389,7 @@ en: {
   col_new:"New column", col_edit:"Edit column", col_name:"Name", col_type:"Type", ty_text:"Text", ty_number:"Number", ty_date:"Date", ty_check:"Checkbox", col_delete:"Delete column", confirm_col:"Delete the column “{name}”? The values in it will be lost.", col_name_req:"Please enter a name.",
   share_title:"Share “{name}”", by_link:"By link", link_off:"Off – invited accounts only", link_view:"Anyone with the link can view", link_edit:"Anyone with the link can edit", link_note:"Anyone opening the link needs an account and has to be logged in.", link_copy:"Copy", link_copied:"Link copied.", link_rotate:"Generate new link (old link stops working)", confirm_rotate:"The current link will stop working. Continue?", link_new:"New link generated.", by_user:"By username", user_ph:"Username", r_edit:"Can edit", r_view:"View only", nobody:"Nobody invited by username yet.", remove:"Remove", shared_ok:"Shared.",
   save_fail:"Saving failed: {msg}", create_fail:"Task could not be created: {msg}", delete_fail:"Deleting failed: {msg}",
-  acc_title:"Account", acc_profile:"Profile", acc_picture:"Profile picture", acc_upload:"Upload picture", acc_remove:"Remove picture", acc_username:"Username", acc_saved:"Saved.", acc_prefs:"Preferences", pref_confirm:"Ask before deleting a task", pref_sound:"Play intro sound", pref_sound_test:"Play sound", acc_password:"Password", pw_current:"Current password", pw_new:"New password", pw_confirm:"Repeat new password", pw_hint:"At least 8 characters.", pw_change:"Change password", pw_changed:"Password changed.", pw_forgot:"Forgot your password? Send a reset link to {email}", pw_mail_sent:"Reset link sent to {email}.", acc_email:"Email", rec_title:"Choose a new password", rec_btn:"Save new password", rec_done:"New password saved.", done_toggle:"Show / hide completed tasks", pref_collapse_done:"Collapse completed tasks by default", cm_repeat:"Repeat …", rep_title:"Repeat task", rep_every:"Every", u_day:"day(s)", u_week:"week(s)", u_month:"month(s)", u_year:"year(s)", rep_hint:"When you tick this task off, a new copy appears with the next due date. Needs a Due date column.", rep_remove:"Remove repeat", rep_need_due:"Add a Due date column first (Columns → Add column). Repeating tasks use it.", rep_next:"Repeats: next due {date}", rep_label:"Repeats every {n} {u}", search_ph:"Search all lists …", search_none:"Nothing found.", search_lists:"Lists", search_tasks:"Tasks", rz_tip:"Drag to resize (double-click: reset)", fs_enter:"Full screen", fs_exit:"Exit full screen", hint_cols:"Tip: add a Priority or Due date column via ＋ in the table header (or “Columns”) to sort tasks by importance and highlight deadlines.", set_title:"Preferences", set_appearance:"Appearance", set_behavior:"Behavior", pref_theme:"Theme", theme_default:"Standard", theme_default_d:"Light or dark, following your device", theme_light:"Light", theme_light_d:"Warm paper tones, blue accent", theme_dark:"Dark", theme_dark_d:"Pure black, white accent", theme_modern:"Modern", theme_modern_d:"Console look with a teal glow", theme_glass:"Glass", theme_glass_d:"Frosted, translucent panels with light refraction", pref_accent:"Accent color", accent_reset:"Reset", pref_density:"Row height", dens_compact:"Compact", dens_normal:"Normal", dens_comfy:"Comfortable", pref_font:"Text size", font_s:"Small", font_m:"Medium", font_l:"Large", pref_lowfx:"Reduce effects", pref_lowfx_d:"Turns off blur, light refraction and shadows (faster on older devices).", pref_skipintro:"Skip intro animation", gs_import:"Import from Google Sheets …", gs_title:"Import from Google Sheets", gs_hint:"Paste the link of your sheet. It must be shared as “Anyone with the link can view”. Only the tab from the link is imported.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Import", gs_bad_url:"That doesn’t look like a Google Sheets link.", gs_fail:"Couldn’t load the sheet. Check that it is shared with “Anyone with the link”, or download it via File → Download → CSV and use “Import CSV”.",
+  acc_title:"Account", acc_profile:"Profile", acc_picture:"Profile picture", acc_upload:"Upload picture", acc_remove:"Remove picture", acc_username:"Username", acc_saved:"Saved.", acc_prefs:"Preferences", pref_confirm:"Ask before deleting a task", pref_sound:"Play intro sound", pref_sound_test:"Play sound", acc_password:"Password", pw_current:"Current password", pw_new:"New password", pw_confirm:"Repeat new password", pw_hint:"At least 8 characters.", pw_change:"Change password", pw_changed:"Password changed.", pw_forgot:"Forgot your password? Send a reset link to {email}", pw_mail_sent:"Reset link sent to {email}.", acc_email:"Email", rec_title:"Choose a new password", rec_btn:"Save new password", rec_done:"New password saved.", col_chtype:"Change type", col_left:"Move left", col_right:"Move right", col_hide:"Hide column", col_builtin:"built-in", ty_formula:"Formula", fm_label:"Formula", fm_insert:"Insert column …", fm_hint:"Example: {Amount} / 64. Use {Column name} for values, + − * / ^ ( ), and ROUND, FLOOR, CEIL, ABS, MOD, MIN, MAX, SUM, AVERAGE, IF, TODAY. COLSUM({Column}) adds up a whole column (open tasks); also COLAVG, COLMIN, COLMAX, COLCOUNT.", fm_bad:"The formula is invalid.", col_agg:"Total in footer", agg_none:"None", agg_sum:"Sum", agg_avg:"Average", agg_min:"Minimum", agg_max:"Maximum", agg_count:"Count", col_one_prio:"Only one priority column per list.", col_type_lost:"{n} value(s) can't be converted and will be cleared. Continue?", imp_title:"Import: assign columns", imp_hint:"Tell me which table column is the task and which one holds notes. Everything else can be ignored or become a new column.", imp_header_row:"Header row", imp_no_header:"No header row", imp_row_n:"Row {n}", imp_ignore:"— ignore —", imp_done:"✓ Done", imp_task:"Task", imp_notes:"Notes", imp_newcol:"＋ New column", imp_col:"Column", imp_go:"Import", imp_need_task:"Please assign exactly one column as “Task”.", imp_dupe:"“Done” and “Notes” can each be used only once.", nl_import:"⬆ Import CSV …", nl_gs:"🌐 Google Sheets …", done_toggle:"Show / hide completed tasks", pref_collapse_done:"Collapse completed tasks by default", cm_repeat:"Repeat …", rep_title:"Repeat task", rep_every:"Every", u_day:"day(s)", u_week:"week(s)", u_month:"month(s)", u_year:"year(s)", rep_hint:"When you tick this task off, a new copy appears with the next due date. Needs a Due date column.", rep_remove:"Remove repeat", rep_need_due:"Add a Due date column first (Columns → Add column). Repeating tasks use it.", rep_next:"Repeats: next due {date}", rep_label:"Repeats every {n} {u}", search_ph:"Search all lists …", search_none:"Nothing found.", search_lists:"Lists", search_tasks:"Tasks", rz_tip:"Drag to resize (double-click: reset)", fs_enter:"Full screen", fs_exit:"Exit full screen", hint_cols:"Tip: add a Priority or Due date column via ＋ in the table header (or “Columns”) to sort tasks by importance and highlight deadlines.", set_title:"Preferences", set_appearance:"Appearance", set_behavior:"Behavior", pref_theme:"Theme", theme_default:"Standard", theme_default_d:"Light or dark, following your device", theme_light:"Light", theme_light_d:"Warm paper tones, blue accent", theme_dark:"Dark", theme_dark_d:"Pure black, white accent", theme_modern:"Modern", theme_modern_d:"Console look with a teal glow", theme_glass:"Glass", theme_glass_d:"Frosted, translucent panels with light refraction", pref_accent:"Accent color", accent_reset:"Reset", pref_density:"Row height", dens_compact:"Compact", dens_normal:"Normal", dens_comfy:"Comfortable", pref_font:"Text size", font_s:"Small", font_m:"Medium", font_l:"Large", pref_lowfx:"Reduce effects", pref_lowfx_d:"Turns off blur, light refraction and shadows (faster on older devices).", pref_skipintro:"Skip intro animation", gs_import:"Import from Google Sheets …", gs_title:"Import from Google Sheets", gs_hint:"Paste the link of your sheet. It must be shared as “Anyone with the link can view”. Only the tab from the link is imported.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Import", gs_bad_url:"That doesn’t look like a Google Sheets link.", gs_fail:"Couldn’t load the sheet. Check that it is shared with “Anyone with the link”, or download it via File → Download → CSV and use “Import CSV”.",
   columns_btn:"Columns", csv_btn:"CSV", csv_export:"Export as CSV", csv_import:"Import CSV …", csv_done_n:"{n} tasks imported.", csv_done_skip:"{n} tasks imported ({skipped} unknown columns ignored).", csv_empty:"No tasks found in this file.", csv_too_many:"Too many rows (max. {max}).", csv_fail:"Import failed: {msg}", csv_no_task:"Import failed: no “Task” column found.", ty_priority:"Priority", ty_due:"Due date", prio_1:"Very low", prio_2:"Low", prio_3:"Medium", prio_4:"High", prio_5:"Very high", prio_none:"–", cols_title:"Columns", cols_add:"+ Add column", col_visible:"Show in this list", col_hidden:"hidden", pref_sort:"Sort open tasks by priority automatically", due_over:"Overdue", due_today:"Due today"
 },
 de: {
@@ -383,7 +406,7 @@ de: {
   col_new:"Neue Spalte", col_edit:"Spalte bearbeiten", col_name:"Name", col_type:"Typ", ty_text:"Text", ty_number:"Zahl", ty_date:"Datum", ty_check:"Häkchen", col_delete:"Spalte löschen", confirm_col:"Spalte „{name}“ löschen? Die Werte darin gehen verloren.", col_name_req:"Bitte einen Namen eingeben.",
   share_title:"„{name}“ teilen", by_link:"Per Link", link_off:"Aus – nur eingeladene Konten", link_view:"Jeder mit Link kann ansehen", link_edit:"Jeder mit Link kann bearbeiten", link_note:"Wer den Link öffnet, braucht ein Konto und muss angemeldet sein.", link_copy:"Kopieren", link_copied:"Link kopiert.", link_rotate:"Neuen Link erzeugen (alter Link wird ungültig)", confirm_rotate:"Der bisherige Link funktioniert danach nicht mehr. Fortfahren?", link_new:"Neuer Link erzeugt.", by_user:"Per Konto-Name", user_ph:"Konto-Name", r_edit:"Bearbeiten", r_view:"Nur ansehen", nobody:"Noch niemand per Konto-Name eingeladen.", remove:"Entfernen", shared_ok:"Geteilt.",
   save_fail:"Speichern fehlgeschlagen: {msg}", create_fail:"Aufgabe konnte nicht angelegt werden: {msg}", delete_fail:"Löschen fehlgeschlagen: {msg}",
-  acc_title:"Konto", acc_profile:"Profil", acc_picture:"Profilbild", acc_upload:"Bild hochladen", acc_remove:"Bild entfernen", acc_username:"Konto-Name", acc_saved:"Gespeichert.", acc_prefs:"Einstellungen", pref_confirm:"Vor dem Löschen einer Aufgabe nachfragen", pref_sound:"Intro-Sound abspielen", pref_sound_test:"Sound testen", acc_password:"Passwort", pw_current:"Aktuelles Passwort", pw_new:"Neues Passwort", pw_confirm:"Neues Passwort wiederholen", pw_hint:"Mindestens 8 Zeichen.", pw_change:"Passwort ändern", pw_changed:"Passwort geändert.", pw_forgot:"Passwort vergessen? Reset-Link an {email} senden", pw_mail_sent:"Reset-Link an {email} gesendet.", acc_email:"E-Mail", rec_title:"Neues Passwort festlegen", rec_btn:"Neues Passwort speichern", rec_done:"Neues Passwort gespeichert.", done_toggle:"Erledigte Aufgaben ein-/ausblenden", pref_collapse_done:"Erledigte Aufgaben standardmäßig einklappen", cm_repeat:"Wiederholen …", rep_title:"Aufgabe wiederholen", rep_every:"Alle", u_day:"Tag(e)", u_week:"Woche(n)", u_month:"Monat(e)", u_year:"Jahr(e)", rep_hint:"Wenn du die Aufgabe abhakst, erscheint eine neue Kopie mit dem nächsten Fälligkeitsdatum. Benötigt eine Fälligkeits-Spalte.", rep_remove:"Wiederholung entfernen", rep_need_due:"Lege zuerst eine Fälligkeits-Spalte an (Spalten → Spalte hinzufügen). Wiederkehrende Aufgaben nutzen sie.", rep_next:"Wiederholt sich: nächste Fälligkeit {date}", rep_label:"Wiederholt sich alle {n} {u}", search_ph:"Alle Listen durchsuchen …", search_none:"Nichts gefunden.", search_lists:"Listen", search_tasks:"Aufgaben", rz_tip:"Ziehen zum Ändern der Breite (Doppelklick: zurücksetzen)", fs_enter:"Vollbild", fs_exit:"Vollbild beenden", hint_cols:"Tipp: Über ＋ in der Kopfzeile (oder „Spalten“) kannst du eine Priorität- oder Fälligkeits-Spalte hinzufügen, um Aufgaben nach Wichtigkeit zu sortieren und Termine zu markieren.", set_title:"Einstellungen", set_appearance:"Darstellung", set_behavior:"Verhalten", pref_theme:"Design", theme_default:"Standard", theme_default_d:"Hell oder dunkel, passend zum Gerät", theme_light:"Hell", theme_light_d:"Warme Papiertöne, blauer Akzent", theme_dark:"Dunkel", theme_dark_d:"Tiefschwarz, weißer Akzent", theme_modern:"Modern", theme_modern_d:"Konsolen-Look mit türkisem Leuchten", theme_glass:"Glas", theme_glass_d:"Mattierte, durchscheinende Flächen mit Lichtbrechung", pref_accent:"Akzentfarbe", accent_reset:"Zurücksetzen", pref_density:"Zeilenhöhe", dens_compact:"Kompakt", dens_normal:"Normal", dens_comfy:"Großzügig", pref_font:"Textgröße", font_s:"Klein", font_m:"Mittel", font_l:"Groß", pref_lowfx:"Effekte reduzieren", pref_lowfx_d:"Schaltet Unschärfe, Lichtbrechung und Schatten ab (schneller auf älteren Geräten).", pref_skipintro:"Intro-Animation überspringen", gs_import:"Aus Google Sheets importieren …", gs_title:"Aus Google Sheets importieren", gs_hint:"Füge den Link deiner Tabelle ein. Sie muss mit „Jeder mit dem Link kann ansehen“ freigegeben sein. Es wird nur das Tabellenblatt aus dem Link importiert.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importieren", gs_bad_url:"Das sieht nicht wie ein Google-Sheets-Link aus.", gs_fail:"Die Tabelle konnte nicht geladen werden. Prüfe die Freigabe („Jeder mit dem Link“) oder lade sie über Datei → Herunterladen → CSV herunter und nutze „CSV importieren“.",
+  acc_title:"Konto", acc_profile:"Profil", acc_picture:"Profilbild", acc_upload:"Bild hochladen", acc_remove:"Bild entfernen", acc_username:"Konto-Name", acc_saved:"Gespeichert.", acc_prefs:"Einstellungen", pref_confirm:"Vor dem Löschen einer Aufgabe nachfragen", pref_sound:"Intro-Sound abspielen", pref_sound_test:"Sound testen", acc_password:"Passwort", pw_current:"Aktuelles Passwort", pw_new:"Neues Passwort", pw_confirm:"Neues Passwort wiederholen", pw_hint:"Mindestens 8 Zeichen.", pw_change:"Passwort ändern", pw_changed:"Passwort geändert.", pw_forgot:"Passwort vergessen? Reset-Link an {email} senden", pw_mail_sent:"Reset-Link an {email} gesendet.", acc_email:"E-Mail", rec_title:"Neues Passwort festlegen", rec_btn:"Neues Passwort speichern", rec_done:"Neues Passwort gespeichert.", col_chtype:"Typ ändern", col_left:"Nach links", col_right:"Nach rechts", col_hide:"Spalte ausblenden", col_builtin:"Standard", ty_formula:"Formel", fm_label:"Formel", fm_insert:"Spalte einfügen …", fm_hint:"Beispiel: {Menge} / 64. Werte mit {Spaltenname}, dazu + − * / ^ ( ) und ROUND, FLOOR, CEIL, ABS, MOD, MIN, MAX, SUM, AVERAGE, IF, TODAY. COLSUM({Spalte}) addiert eine ganze Spalte (offene Aufgaben); außerdem COLAVG, COLMIN, COLMAX, COLCOUNT.", fm_bad:"Die Formel ist ungültig.", col_agg:"Summe in der Fußzeile", agg_none:"Keine", agg_sum:"Summe", agg_avg:"Durchschnitt", agg_min:"Minimum", agg_max:"Maximum", agg_count:"Anzahl", col_one_prio:"Pro Liste nur eine Prioritäts-Spalte.", col_type_lost:"{n} Wert(e) lassen sich nicht umwandeln und werden geleert. Fortfahren?", imp_title:"Import: Spalten zuordnen", imp_hint:"Wähle, welche Tabellenspalte die Aufgabe ist und welche die Hinweise enthält. Alles andere kann ignoriert werden oder eine neue Spalte werden.", imp_header_row:"Kopfzeile", imp_no_header:"Keine Kopfzeile", imp_row_n:"Zeile {n}", imp_ignore:"— ignorieren —", imp_done:"✓ Erledigt", imp_task:"Aufgabe", imp_notes:"Hinweise", imp_newcol:"＋ Neue Spalte", imp_col:"Spalte", imp_go:"Importieren", imp_need_task:"Bitte genau eine Spalte als „Aufgabe“ zuweisen.", imp_dupe:"„Erledigt“ und „Hinweise“ dürfen jeweils nur einmal vorkommen.", nl_import:"⬆ CSV importieren …", nl_gs:"🌐 Google Sheets …", done_toggle:"Erledigte Aufgaben ein-/ausblenden", pref_collapse_done:"Erledigte Aufgaben standardmäßig einklappen", cm_repeat:"Wiederholen …", rep_title:"Aufgabe wiederholen", rep_every:"Alle", u_day:"Tag(e)", u_week:"Woche(n)", u_month:"Monat(e)", u_year:"Jahr(e)", rep_hint:"Wenn du die Aufgabe abhakst, erscheint eine neue Kopie mit dem nächsten Fälligkeitsdatum. Benötigt eine Fälligkeits-Spalte.", rep_remove:"Wiederholung entfernen", rep_need_due:"Lege zuerst eine Fälligkeits-Spalte an (Spalten → Spalte hinzufügen). Wiederkehrende Aufgaben nutzen sie.", rep_next:"Wiederholt sich: nächste Fälligkeit {date}", rep_label:"Wiederholt sich alle {n} {u}", search_ph:"Alle Listen durchsuchen …", search_none:"Nichts gefunden.", search_lists:"Listen", search_tasks:"Aufgaben", rz_tip:"Ziehen zum Ändern der Breite (Doppelklick: zurücksetzen)", fs_enter:"Vollbild", fs_exit:"Vollbild beenden", hint_cols:"Tipp: Über ＋ in der Kopfzeile (oder „Spalten“) kannst du eine Priorität- oder Fälligkeits-Spalte hinzufügen, um Aufgaben nach Wichtigkeit zu sortieren und Termine zu markieren.", set_title:"Einstellungen", set_appearance:"Darstellung", set_behavior:"Verhalten", pref_theme:"Design", theme_default:"Standard", theme_default_d:"Hell oder dunkel, passend zum Gerät", theme_light:"Hell", theme_light_d:"Warme Papiertöne, blauer Akzent", theme_dark:"Dunkel", theme_dark_d:"Tiefschwarz, weißer Akzent", theme_modern:"Modern", theme_modern_d:"Konsolen-Look mit türkisem Leuchten", theme_glass:"Glas", theme_glass_d:"Mattierte, durchscheinende Flächen mit Lichtbrechung", pref_accent:"Akzentfarbe", accent_reset:"Zurücksetzen", pref_density:"Zeilenhöhe", dens_compact:"Kompakt", dens_normal:"Normal", dens_comfy:"Großzügig", pref_font:"Textgröße", font_s:"Klein", font_m:"Mittel", font_l:"Groß", pref_lowfx:"Effekte reduzieren", pref_lowfx_d:"Schaltet Unschärfe, Lichtbrechung und Schatten ab (schneller auf älteren Geräten).", pref_skipintro:"Intro-Animation überspringen", gs_import:"Aus Google Sheets importieren …", gs_title:"Aus Google Sheets importieren", gs_hint:"Füge den Link deiner Tabelle ein. Sie muss mit „Jeder mit dem Link kann ansehen“ freigegeben sein. Es wird nur das Tabellenblatt aus dem Link importiert.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importieren", gs_bad_url:"Das sieht nicht wie ein Google-Sheets-Link aus.", gs_fail:"Die Tabelle konnte nicht geladen werden. Prüfe die Freigabe („Jeder mit dem Link“) oder lade sie über Datei → Herunterladen → CSV herunter und nutze „CSV importieren“.",
   columns_btn:"Spalten", csv_btn:"CSV", csv_export:"Als CSV exportieren", csv_import:"CSV importieren …", csv_done_n:"{n} Aufgaben importiert.", csv_done_skip:"{n} Aufgaben importiert ({skipped} unbekannte Spalten ignoriert).", csv_empty:"In dieser Datei wurden keine Aufgaben gefunden.", csv_too_many:"Zu viele Zeilen (max. {max}).", csv_fail:"Import fehlgeschlagen: {msg}", csv_no_task:"Import fehlgeschlagen: keine Spalte „Aufgabe“ gefunden.", ty_priority:"Priorität", ty_due:"Fälligkeitsdatum", prio_1:"Sehr niedrig", prio_2:"Niedrig", prio_3:"Mittel", prio_4:"Hoch", prio_5:"Sehr hoch", prio_none:"–", cols_title:"Spalten", cols_add:"＋ Spalte hinzufügen", col_visible:"In dieser Liste anzeigen", col_hidden:"ausgeblendet", pref_sort:"Offene Aufgaben automatisch nach Priorität sortieren", due_over:"Überfällig", due_today:"Heute fällig"
 },
 es: {
@@ -400,7 +423,7 @@ es: {
   col_new:"Nueva columna", col_edit:"Editar columna", col_name:"Nombre", col_type:"Tipo", ty_text:"Texto", ty_number:"Número", ty_date:"Fecha", ty_check:"Casilla", col_delete:"Eliminar columna", confirm_col:"¿Eliminar la columna «{name}»? Se perderán sus valores.", col_name_req:"Introduce un nombre.",
   share_title:"Compartir «{name}»", by_link:"Por enlace", link_off:"Desactivado: solo cuentas invitadas", link_view:"Cualquiera con el enlace puede ver", link_edit:"Cualquiera con el enlace puede editar", link_note:"Quien abra el enlace necesita una cuenta e iniciar sesión.", link_copy:"Copiar", link_copied:"Enlace copiado.", link_rotate:"Generar enlace nuevo (el anterior dejará de funcionar)", confirm_rotate:"El enlace actual dejará de funcionar. ¿Continuar?", link_new:"Enlace nuevo generado.", by_user:"Por nombre de usuario", user_ph:"Nombre de usuario", r_edit:"Puede editar", r_view:"Solo ver", nobody:"Aún no has invitado a nadie por nombre de usuario.", remove:"Quitar", shared_ok:"Compartido.",
   save_fail:"Error al guardar: {msg}", create_fail:"No se pudo crear la tarea: {msg}", delete_fail:"Error al eliminar: {msg}",
-  acc_title:"Cuenta", acc_profile:"Perfil", acc_picture:"Foto de perfil", acc_upload:"Subir foto", acc_remove:"Quitar foto", acc_username:"Nombre de usuario", acc_saved:"Guardado.", acc_prefs:"Preferencias", pref_confirm:"Preguntar antes de eliminar una tarea", pref_sound:"Reproducir sonido de inicio", pref_sound_test:"Probar sonido", acc_password:"Contraseña", pw_current:"Contraseña actual", pw_new:"Contraseña nueva", pw_confirm:"Repite la contraseña nueva", pw_hint:"Mínimo 8 caracteres.", pw_change:"Cambiar contraseña", pw_changed:"Contraseña cambiada.", pw_forgot:"¿Olvidaste tu contraseña? Enviar enlace de restablecimiento a {email}", pw_mail_sent:"Enlace de restablecimiento enviado a {email}.", acc_email:"Correo electrónico", rec_title:"Elige una contraseña nueva", rec_btn:"Guardar contraseña nueva", rec_done:"Contraseña nueva guardada.", done_toggle:"Mostrar / ocultar tareas hechas", pref_collapse_done:"Contraer las tareas hechas por defecto", cm_repeat:"Repetir …", rep_title:"Repetir tarea", rep_every:"Cada", u_day:"día(s)", u_week:"semana(s)", u_month:"mes(es)", u_year:"año(s)", rep_hint:"Al marcar esta tarea como hecha, aparece una copia nueva con la siguiente fecha límite. Requiere una columna de fecha límite.", rep_remove:"Quitar repetición", rep_need_due:"Primero añade una columna de fecha límite (Columnas → Añadir columna). Las tareas repetidas la usan.", rep_next:"Se repite: próxima fecha límite {date}", rep_label:"Se repite cada {n} {u}", search_ph:"Buscar en todas las listas …", search_none:"No se encontró nada.", search_lists:"Listas", search_tasks:"Tareas", rz_tip:"Arrastra para cambiar el ancho (doble clic: restablecer)", fs_enter:"Pantalla completa", fs_exit:"Salir de pantalla completa", hint_cols:"Consejo: añade una columna de Prioridad o de Fecha límite con ＋ en el encabezado (o en «Columnas») para ordenar las tareas por importancia y resaltar los plazos.", set_title:"Preferencias", set_appearance:"Apariencia", set_behavior:"Comportamiento", pref_theme:"Tema", theme_default:"Estándar", theme_default_d:"Claro u oscuro, según tu dispositivo", theme_light:"Claro", theme_light_d:"Tonos cálidos de papel, acento azul", theme_dark:"Oscuro", theme_dark_d:"Negro puro, acento blanco", theme_modern:"Moderno", theme_modern_d:"Aspecto de consola con brillo turquesa", theme_glass:"Cristal", theme_glass_d:"Paneles translúcidos esmerilados con refracción de luz", pref_accent:"Color de acento", accent_reset:"Restablecer", pref_density:"Altura de fila", dens_compact:"Compacta", dens_normal:"Normal", dens_comfy:"Amplia", pref_font:"Tamaño del texto", font_s:"Pequeño", font_m:"Mediano", font_l:"Grande", pref_lowfx:"Reducir efectos", pref_lowfx_d:"Desactiva el desenfoque, la refracción y las sombras (más rápido en dispositivos antiguos).", pref_skipintro:"Omitir la animación de inicio", gs_import:"Importar desde Google Sheets …", gs_title:"Importar desde Google Sheets", gs_hint:"Pega el enlace de tu hoja. Debe estar compartida como «Cualquier persona con el enlace puede ver». Solo se importa la pestaña del enlace.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importar", gs_bad_url:"Eso no parece un enlace de Google Sheets.", gs_fail:"No se pudo cargar la hoja. Comprueba que esté compartida con «Cualquier persona con el enlace», o descárgala con Archivo → Descargar → CSV y usa «Importar CSV».",
+  acc_title:"Cuenta", acc_profile:"Perfil", acc_picture:"Foto de perfil", acc_upload:"Subir foto", acc_remove:"Quitar foto", acc_username:"Nombre de usuario", acc_saved:"Guardado.", acc_prefs:"Preferencias", pref_confirm:"Preguntar antes de eliminar una tarea", pref_sound:"Reproducir sonido de inicio", pref_sound_test:"Probar sonido", acc_password:"Contraseña", pw_current:"Contraseña actual", pw_new:"Contraseña nueva", pw_confirm:"Repite la contraseña nueva", pw_hint:"Mínimo 8 caracteres.", pw_change:"Cambiar contraseña", pw_changed:"Contraseña cambiada.", pw_forgot:"¿Olvidaste tu contraseña? Enviar enlace de restablecimiento a {email}", pw_mail_sent:"Enlace de restablecimiento enviado a {email}.", acc_email:"Correo electrónico", rec_title:"Elige una contraseña nueva", rec_btn:"Guardar contraseña nueva", rec_done:"Contraseña nueva guardada.", col_chtype:"Cambiar tipo", col_left:"Mover a la izquierda", col_right:"Mover a la derecha", col_hide:"Ocultar columna", col_builtin:"estándar", ty_formula:"Fórmula", fm_label:"Fórmula", fm_insert:"Insertar columna …", fm_hint:"Ejemplo: {Cantidad} / 64. Usa {Nombre de columna} para los valores, + − * / ^ ( ) y ROUND, FLOOR, CEIL, ABS, MOD, MIN, MAX, SUM, AVERAGE, IF, TODAY. COLSUM({Columna}) suma toda una columna (tareas abiertas); también COLAVG, COLMIN, COLMAX, COLCOUNT.", fm_bad:"La fórmula no es válida.", col_agg:"Total en el pie", agg_none:"Ninguno", agg_sum:"Suma", agg_avg:"Promedio", agg_min:"Mínimo", agg_max:"Máximo", agg_count:"Cantidad", col_one_prio:"Solo una columna de prioridad por lista.", col_type_lost:"{n} valor(es) no se pueden convertir y se borrarán. ¿Continuar?", imp_title:"Importar: asignar columnas", imp_hint:"Indica qué columna es la tarea y cuál contiene las notas. El resto se puede ignorar o convertir en una columna nueva.", imp_header_row:"Fila de encabezado", imp_no_header:"Sin encabezado", imp_row_n:"Fila {n}", imp_ignore:"— ignorar —", imp_done:"✓ Hecho", imp_task:"Tarea", imp_notes:"Notas", imp_newcol:"＋ Columna nueva", imp_col:"Columna", imp_go:"Importar", imp_need_task:"Asigna exactamente una columna como «Tarea».", imp_dupe:"«Hecho» y «Notas» solo pueden usarse una vez.", nl_import:"⬆ Importar CSV …", nl_gs:"🌐 Google Sheets …", done_toggle:"Mostrar / ocultar tareas hechas", pref_collapse_done:"Contraer las tareas hechas por defecto", cm_repeat:"Repetir …", rep_title:"Repetir tarea", rep_every:"Cada", u_day:"día(s)", u_week:"semana(s)", u_month:"mes(es)", u_year:"año(s)", rep_hint:"Al marcar esta tarea como hecha, aparece una copia nueva con la siguiente fecha límite. Requiere una columna de fecha límite.", rep_remove:"Quitar repetición", rep_need_due:"Primero añade una columna de fecha límite (Columnas → Añadir columna). Las tareas repetidas la usan.", rep_next:"Se repite: próxima fecha límite {date}", rep_label:"Se repite cada {n} {u}", search_ph:"Buscar en todas las listas …", search_none:"No se encontró nada.", search_lists:"Listas", search_tasks:"Tareas", rz_tip:"Arrastra para cambiar el ancho (doble clic: restablecer)", fs_enter:"Pantalla completa", fs_exit:"Salir de pantalla completa", hint_cols:"Consejo: añade una columna de Prioridad o de Fecha límite con ＋ en el encabezado (o en «Columnas») para ordenar las tareas por importancia y resaltar los plazos.", set_title:"Preferencias", set_appearance:"Apariencia", set_behavior:"Comportamiento", pref_theme:"Tema", theme_default:"Estándar", theme_default_d:"Claro u oscuro, según tu dispositivo", theme_light:"Claro", theme_light_d:"Tonos cálidos de papel, acento azul", theme_dark:"Oscuro", theme_dark_d:"Negro puro, acento blanco", theme_modern:"Moderno", theme_modern_d:"Aspecto de consola con brillo turquesa", theme_glass:"Cristal", theme_glass_d:"Paneles translúcidos esmerilados con refracción de luz", pref_accent:"Color de acento", accent_reset:"Restablecer", pref_density:"Altura de fila", dens_compact:"Compacta", dens_normal:"Normal", dens_comfy:"Amplia", pref_font:"Tamaño del texto", font_s:"Pequeño", font_m:"Mediano", font_l:"Grande", pref_lowfx:"Reducir efectos", pref_lowfx_d:"Desactiva el desenfoque, la refracción y las sombras (más rápido en dispositivos antiguos).", pref_skipintro:"Omitir la animación de inicio", gs_import:"Importar desde Google Sheets …", gs_title:"Importar desde Google Sheets", gs_hint:"Pega el enlace de tu hoja. Debe estar compartida como «Cualquier persona con el enlace puede ver». Solo se importa la pestaña del enlace.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importar", gs_bad_url:"Eso no parece un enlace de Google Sheets.", gs_fail:"No se pudo cargar la hoja. Comprueba que esté compartida con «Cualquier persona con el enlace», o descárgala con Archivo → Descargar → CSV y usa «Importar CSV».",
   columns_btn:"Columnas", csv_btn:"CSV", csv_export:"Exportar como CSV", csv_import:"Importar CSV …", csv_done_n:"{n} tareas importadas.", csv_done_skip:"{n} tareas importadas ({skipped} columnas desconocidas ignoradas).", csv_empty:"No se encontraron tareas en este archivo.", csv_too_many:"Demasiadas filas (máx. {max}).", csv_fail:"Error al importar: {msg}", csv_no_task:"Error al importar: no se encontró la columna «Tarea».", ty_priority:"Prioridad", ty_due:"Fecha límite", prio_1:"Muy baja", prio_2:"Baja", prio_3:"Media", prio_4:"Alta", prio_5:"Muy alta", prio_none:"–", cols_title:"Columnas", cols_add:"+ Añadir columna", col_visible:"Mostrar en esta lista", col_hidden:"oculta", pref_sort:"Ordenar automáticamente las tareas pendientes por prioridad", due_over:"Vencida", due_today:"Vence hoy"
 },
 it: {
@@ -417,7 +440,7 @@ it: {
   col_new:"Nuova colonna", col_edit:"Modifica colonna", col_name:"Nome", col_type:"Tipo", ty_text:"Testo", ty_number:"Numero", ty_date:"Data", ty_check:"Casella", col_delete:"Elimina colonna", confirm_col:"Eliminare la colonna «{name}»? I valori al suo interno andranno persi.", col_name_req:"Inserisci un nome.",
   share_title:"Condividi «{name}»", by_link:"Tramite link", link_off:"Disattivato: solo account invitati", link_view:"Chiunque abbia il link può visualizzare", link_edit:"Chiunque abbia il link può modificare", link_note:"Chi apre il link deve avere un account ed essere connesso.", link_copy:"Copia", link_copied:"Link copiato.", link_rotate:"Genera nuovo link (il vecchio smette di funzionare)", confirm_rotate:"Il link attuale smetterà di funzionare. Continuare?", link_new:"Nuovo link generato.", by_user:"Tramite nome utente", user_ph:"Nome utente", r_edit:"Può modificare", r_view:"Solo visualizzazione", nobody:"Nessuno è stato ancora invitato tramite nome utente.", remove:"Rimuovi", shared_ok:"Condiviso.",
   save_fail:"Salvataggio non riuscito: {msg}", create_fail:"Impossibile creare l'attività: {msg}", delete_fail:"Eliminazione non riuscita: {msg}",
-  acc_title:"Account", acc_profile:"Profilo", acc_picture:"Immagine del profilo", acc_upload:"Carica immagine", acc_remove:"Rimuovi immagine", acc_username:"Nome utente", acc_saved:"Salvato.", acc_prefs:"Preferenze", pref_confirm:"Chiedi conferma prima di eliminare un'attività", pref_sound:"Riproduci il suono di avvio", pref_sound_test:"Prova il suono", acc_password:"Password", pw_current:"Password attuale", pw_new:"Nuova password", pw_confirm:"Ripeti la nuova password", pw_hint:"Almeno 8 caratteri.", pw_change:"Cambia password", pw_changed:"Password cambiata.", pw_forgot:"Password dimenticata? Invia il link di reimpostazione a {email}", pw_mail_sent:"Link di reimpostazione inviato a {email}.", acc_email:"E-mail", rec_title:"Scegli una nuova password", rec_btn:"Salva nuova password", rec_done:"Nuova password salvata.", done_toggle:"Mostra / nascondi le attività completate", pref_collapse_done:"Comprimi le attività completate per impostazione predefinita", cm_repeat:"Ripeti …", rep_title:"Ripeti attività", rep_every:"Ogni", u_day:"giorno/i", u_week:"settimana/e", u_month:"mese/i", u_year:"anno/i", rep_hint:"Quando completi questa attività, compare una nuova copia con la scadenza successiva. Richiede una colonna Scadenza.", rep_remove:"Rimuovi ripetizione", rep_need_due:"Aggiungi prima una colonna Scadenza (Colonne → Aggiungi colonna). Le attività ricorrenti la usano.", rep_next:"Si ripete: prossima scadenza {date}", rep_label:"Si ripete ogni {n} {u}", search_ph:"Cerca in tutte le liste …", search_none:"Nessun risultato.", search_lists:"Liste", search_tasks:"Attività", rz_tip:"Trascina per ridimensionare (doppio clic: ripristina)", fs_enter:"Schermo intero", fs_exit:"Esci da schermo intero", hint_cols:"Suggerimento: aggiungi una colonna Priorità o Scadenza con ＋ nell'intestazione (o in «Colonne») per ordinare le attività per importanza ed evidenziare le scadenze.", set_title:"Preferenze", set_appearance:"Aspetto", set_behavior:"Comportamento", pref_theme:"Tema", theme_default:"Standard", theme_default_d:"Chiaro o scuro, secondo il dispositivo", theme_light:"Chiaro", theme_light_d:"Toni caldi di carta, accento blu", theme_dark:"Scuro", theme_dark_d:"Nero puro, accento bianco", theme_modern:"Moderno", theme_modern_d:"Aspetto da console con bagliore turchese", theme_glass:"Vetro", theme_glass_d:"Pannelli traslucidi satinati con rifrazione della luce", pref_accent:"Colore di accento", accent_reset:"Ripristina", pref_density:"Altezza delle righe", dens_compact:"Compatta", dens_normal:"Normale", dens_comfy:"Ampia", pref_font:"Dimensione del testo", font_s:"Piccola", font_m:"Media", font_l:"Grande", pref_lowfx:"Riduci gli effetti", pref_lowfx_d:"Disattiva sfocatura, rifrazione e ombre (più veloce sui dispositivi datati).", pref_skipintro:"Salta l'animazione iniziale", gs_import:"Importa da Google Sheets …", gs_title:"Importa da Google Sheets", gs_hint:"Incolla il link del tuo foglio. Deve essere condiviso come «Chiunque abbia il link può visualizzare». Viene importata solo la scheda del link.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importa", gs_bad_url:"Non sembra un link di Google Sheets.", gs_fail:"Impossibile caricare il foglio. Verifica che sia condiviso con «Chiunque abbia il link», oppure scaricalo con File → Scarica → CSV e usa «Importa CSV».",
+  acc_title:"Account", acc_profile:"Profilo", acc_picture:"Immagine del profilo", acc_upload:"Carica immagine", acc_remove:"Rimuovi immagine", acc_username:"Nome utente", acc_saved:"Salvato.", acc_prefs:"Preferenze", pref_confirm:"Chiedi conferma prima di eliminare un'attività", pref_sound:"Riproduci il suono di avvio", pref_sound_test:"Prova il suono", acc_password:"Password", pw_current:"Password attuale", pw_new:"Nuova password", pw_confirm:"Ripeti la nuova password", pw_hint:"Almeno 8 caratteri.", pw_change:"Cambia password", pw_changed:"Password cambiata.", pw_forgot:"Password dimenticata? Invia il link di reimpostazione a {email}", pw_mail_sent:"Link di reimpostazione inviato a {email}.", acc_email:"E-mail", rec_title:"Scegli una nuova password", rec_btn:"Salva nuova password", rec_done:"Nuova password salvata.", col_chtype:"Cambia tipo", col_left:"Sposta a sinistra", col_right:"Sposta a destra", col_hide:"Nascondi colonna", col_builtin:"standard", ty_formula:"Formula", fm_label:"Formula", fm_insert:"Inserisci colonna …", fm_hint:"Esempio: {Quantità} / 64. Usa {Nome colonna} per i valori, + − * / ^ ( ) e ROUND, FLOOR, CEIL, ABS, MOD, MIN, MAX, SUM, AVERAGE, IF, TODAY. COLSUM({Colonna}) somma un'intera colonna (attività aperte); anche COLAVG, COLMIN, COLMAX, COLCOUNT.", fm_bad:"La formula non è valida.", col_agg:"Totale a piè di tabella", agg_none:"Nessuno", agg_sum:"Somma", agg_avg:"Media", agg_min:"Minimo", agg_max:"Massimo", agg_count:"Conteggio", col_one_prio:"Una sola colonna Priorità per lista.", col_type_lost:"{n} valore/i non possono essere convertiti e verranno cancellati. Continuare?", imp_title:"Importa: assegna le colonne", imp_hint:"Indica quale colonna è l'attività e quale contiene le note. Il resto si può ignorare o diventare una nuova colonna.", imp_header_row:"Riga di intestazione", imp_no_header:"Nessuna intestazione", imp_row_n:"Riga {n}", imp_ignore:"— ignora —", imp_done:"✓ Fatto", imp_task:"Attività", imp_notes:"Note", imp_newcol:"＋ Nuova colonna", imp_col:"Colonna", imp_go:"Importa", imp_need_task:"Assegna esattamente una colonna come «Attività».", imp_dupe:"«Fatto» e «Note» possono essere usati una sola volta.", nl_import:"⬆ Importa CSV …", nl_gs:"🌐 Google Sheets …", done_toggle:"Mostra / nascondi le attività completate", pref_collapse_done:"Comprimi le attività completate per impostazione predefinita", cm_repeat:"Ripeti …", rep_title:"Ripeti attività", rep_every:"Ogni", u_day:"giorno/i", u_week:"settimana/e", u_month:"mese/i", u_year:"anno/i", rep_hint:"Quando completi questa attività, compare una nuova copia con la scadenza successiva. Richiede una colonna Scadenza.", rep_remove:"Rimuovi ripetizione", rep_need_due:"Aggiungi prima una colonna Scadenza (Colonne → Aggiungi colonna). Le attività ricorrenti la usano.", rep_next:"Si ripete: prossima scadenza {date}", rep_label:"Si ripete ogni {n} {u}", search_ph:"Cerca in tutte le liste …", search_none:"Nessun risultato.", search_lists:"Liste", search_tasks:"Attività", rz_tip:"Trascina per ridimensionare (doppio clic: ripristina)", fs_enter:"Schermo intero", fs_exit:"Esci da schermo intero", hint_cols:"Suggerimento: aggiungi una colonna Priorità o Scadenza con ＋ nell'intestazione (o in «Colonne») per ordinare le attività per importanza ed evidenziare le scadenze.", set_title:"Preferenze", set_appearance:"Aspetto", set_behavior:"Comportamento", pref_theme:"Tema", theme_default:"Standard", theme_default_d:"Chiaro o scuro, secondo il dispositivo", theme_light:"Chiaro", theme_light_d:"Toni caldi di carta, accento blu", theme_dark:"Scuro", theme_dark_d:"Nero puro, accento bianco", theme_modern:"Moderno", theme_modern_d:"Aspetto da console con bagliore turchese", theme_glass:"Vetro", theme_glass_d:"Pannelli traslucidi satinati con rifrazione della luce", pref_accent:"Colore di accento", accent_reset:"Ripristina", pref_density:"Altezza delle righe", dens_compact:"Compatta", dens_normal:"Normale", dens_comfy:"Ampia", pref_font:"Dimensione del testo", font_s:"Piccola", font_m:"Media", font_l:"Grande", pref_lowfx:"Riduci gli effetti", pref_lowfx_d:"Disattiva sfocatura, rifrazione e ombre (più veloce sui dispositivi datati).", pref_skipintro:"Salta l'animazione iniziale", gs_import:"Importa da Google Sheets …", gs_title:"Importa da Google Sheets", gs_hint:"Incolla il link del tuo foglio. Deve essere condiviso come «Chiunque abbia il link può visualizzare». Viene importata solo la scheda del link.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importa", gs_bad_url:"Non sembra un link di Google Sheets.", gs_fail:"Impossibile caricare il foglio. Verifica che sia condiviso con «Chiunque abbia il link», oppure scaricalo con File → Scarica → CSV e usa «Importa CSV».",
   columns_btn:"Colonne", csv_btn:"CSV", csv_export:"Esporta come CSV", csv_import:"Importa CSV …", csv_done_n:"{n} attività importate.", csv_done_skip:"{n} attività importate ({skipped} colonne sconosciute ignorate).", csv_empty:"Nessuna attività trovata in questo file.", csv_too_many:"Troppe righe (max. {max}).", csv_fail:"Importazione non riuscita: {msg}", csv_no_task:"Importazione non riuscita: colonna «Attività» non trovata.", ty_priority:"Priorità", ty_due:"Scadenza", prio_1:"Molto bassa", prio_2:"Bassa", prio_3:"Media", prio_4:"Alta", prio_5:"Molto alta", prio_none:"–", cols_title:"Colonne", cols_add:"+ Aggiungi colonna", col_visible:"Mostra in questa lista", col_hidden:"nascosta", pref_sort:"Ordina automaticamente le attività aperte per priorità", due_over:"Scaduta", due_today:"Scade oggi"
 },
 fr: {
@@ -434,7 +457,7 @@ fr: {
   col_new:"Nouvelle colonne", col_edit:"Modifier la colonne", col_name:"Nom", col_type:"Type", ty_text:"Texte", ty_number:"Nombre", ty_date:"Date", ty_check:"Case à cocher", col_delete:"Supprimer la colonne", confirm_col:"Supprimer la colonne « {name} » ? Les valeurs qu'elle contient seront perdues.", col_name_req:"Veuillez saisir un nom.",
   share_title:"Partager « {name} »", by_link:"Par lien", link_off:"Désactivé : comptes invités uniquement", link_view:"Toute personne disposant du lien peut consulter", link_edit:"Toute personne disposant du lien peut modifier", link_note:"Quiconque ouvre le lien doit avoir un compte et être connecté.", link_copy:"Copier", link_copied:"Lien copié.", link_rotate:"Générer un nouveau lien (l'ancien cessera de fonctionner)", confirm_rotate:"Le lien actuel cessera de fonctionner. Continuer ?", link_new:"Nouveau lien généré.", by_user:"Par nom d'utilisateur", user_ph:"Nom d'utilisateur", r_edit:"Peut modifier", r_view:"Lecture seule", nobody:"Personne n'a encore été invité par nom d'utilisateur.", remove:"Retirer", shared_ok:"Partagé.",
   save_fail:"Échec de l'enregistrement : {msg}", create_fail:"La tâche n'a pas pu être créée : {msg}", delete_fail:"Échec de la suppression : {msg}",
-  acc_title:"Compte", acc_profile:"Profil", acc_picture:"Photo de profil", acc_upload:"Téléverser une photo", acc_remove:"Supprimer la photo", acc_username:"Nom d'utilisateur", acc_saved:"Enregistré.", acc_prefs:"Préférences", pref_confirm:"Demander confirmation avant de supprimer une tâche", pref_sound:"Jouer le son d'introduction", pref_sound_test:"Tester le son", acc_password:"Mot de passe", pw_current:"Mot de passe actuel", pw_new:"Nouveau mot de passe", pw_confirm:"Répétez le nouveau mot de passe", pw_hint:"8 caractères minimum.", pw_change:"Changer le mot de passe", pw_changed:"Mot de passe modifié.", pw_forgot:"Mot de passe oublié ? Envoyer un lien de réinitialisation à {email}", pw_mail_sent:"Lien de réinitialisation envoyé à {email}.", acc_email:"E-mail", rec_title:"Choisissez un nouveau mot de passe", rec_btn:"Enregistrer le nouveau mot de passe", rec_done:"Nouveau mot de passe enregistré.", done_toggle:"Afficher / masquer les tâches terminées", pref_collapse_done:"Replier les tâches terminées par défaut", cm_repeat:"Répéter …", rep_title:"Répéter la tâche", rep_every:"Tous les", u_day:"jour(s)", u_week:"semaine(s)", u_month:"mois", u_year:"an(s)", rep_hint:"Quand vous cochez cette tâche, une nouvelle copie apparaît avec l'échéance suivante. Nécessite une colonne Échéance.", rep_remove:"Supprimer la répétition", rep_need_due:"Ajoutez d'abord une colonne Échéance (Colonnes → Ajouter une colonne). Les tâches récurrentes l'utilisent.", rep_next:"Récurrente : prochaine échéance {date}", rep_label:"Se répète tous les {n} {u}", search_ph:"Rechercher dans toutes les listes …", search_none:"Aucun résultat.", search_lists:"Listes", search_tasks:"Tâches", rz_tip:"Glisser pour redimensionner (double-clic : réinitialiser)", fs_enter:"Plein écran", fs_exit:"Quitter le plein écran", hint_cols:"Astuce : ajoutez une colonne Priorité ou Échéance avec ＋ dans l'en-tête (ou via « Colonnes ») pour trier les tâches par importance et mettre les échéances en évidence.", set_title:"Préférences", set_appearance:"Apparence", set_behavior:"Comportement", pref_theme:"Thème", theme_default:"Standard", theme_default_d:"Clair ou sombre, selon votre appareil", theme_light:"Clair", theme_light_d:"Tons chauds de papier, accent bleu", theme_dark:"Sombre", theme_dark_d:"Noir pur, accent blanc", theme_modern:"Moderne", theme_modern_d:"Look console avec lueur turquoise", theme_glass:"Verre", theme_glass_d:"Panneaux translucides dépolis avec réfraction de la lumière", pref_accent:"Couleur d'accent", accent_reset:"Réinitialiser", pref_density:"Hauteur des lignes", dens_compact:"Compacte", dens_normal:"Normale", dens_comfy:"Aérée", pref_font:"Taille du texte", font_s:"Petite", font_m:"Moyenne", font_l:"Grande", pref_lowfx:"Réduire les effets", pref_lowfx_d:"Désactive le flou, la réfraction et les ombres (plus rapide sur les appareils anciens).", pref_skipintro:"Passer l'animation d'introduction", gs_import:"Importer depuis Google Sheets …", gs_title:"Importer depuis Google Sheets", gs_hint:"Collez le lien de votre feuille. Elle doit être partagée avec « Toute personne disposant du lien peut afficher ». Seul l'onglet du lien est importé.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importer", gs_bad_url:"Cela ne ressemble pas à un lien Google Sheets.", gs_fail:"Impossible de charger la feuille. Vérifiez qu'elle est partagée avec « Toute personne disposant du lien », ou téléchargez-la via Fichier → Télécharger → CSV et utilisez « Importer un CSV ».",
+  acc_title:"Compte", acc_profile:"Profil", acc_picture:"Photo de profil", acc_upload:"Téléverser une photo", acc_remove:"Supprimer la photo", acc_username:"Nom d'utilisateur", acc_saved:"Enregistré.", acc_prefs:"Préférences", pref_confirm:"Demander confirmation avant de supprimer une tâche", pref_sound:"Jouer le son d'introduction", pref_sound_test:"Tester le son", acc_password:"Mot de passe", pw_current:"Mot de passe actuel", pw_new:"Nouveau mot de passe", pw_confirm:"Répétez le nouveau mot de passe", pw_hint:"8 caractères minimum.", pw_change:"Changer le mot de passe", pw_changed:"Mot de passe modifié.", pw_forgot:"Mot de passe oublié ? Envoyer un lien de réinitialisation à {email}", pw_mail_sent:"Lien de réinitialisation envoyé à {email}.", acc_email:"E-mail", rec_title:"Choisissez un nouveau mot de passe", rec_btn:"Enregistrer le nouveau mot de passe", rec_done:"Nouveau mot de passe enregistré.", col_chtype:"Changer le type", col_left:"Déplacer à gauche", col_right:"Déplacer à droite", col_hide:"Masquer la colonne", col_builtin:"standard", ty_formula:"Formule", fm_label:"Formule", fm_insert:"Insérer une colonne …", fm_hint:"Exemple : {Quantité} / 64. Utilisez {Nom de colonne} pour les valeurs, + − * / ^ ( ) et ROUND, FLOOR, CEIL, ABS, MOD, MIN, MAX, SUM, AVERAGE, IF, TODAY. COLSUM({Colonne}) additionne toute une colonne (tâches ouvertes) ; aussi COLAVG, COLMIN, COLMAX, COLCOUNT.", fm_bad:"La formule n'est pas valide.", col_agg:"Total en pied de tableau", agg_none:"Aucun", agg_sum:"Somme", agg_avg:"Moyenne", agg_min:"Minimum", agg_max:"Maximum", agg_count:"Nombre", col_one_prio:"Une seule colonne Priorité par liste.", col_type_lost:"{n} valeur(s) ne peuvent pas être converties et seront effacées. Continuer ?", imp_title:"Importer : attribuer les colonnes", imp_hint:"Indiquez quelle colonne est la tâche et laquelle contient les notes. Le reste peut être ignoré ou devenir une nouvelle colonne.", imp_header_row:"Ligne d'en-tête", imp_no_header:"Pas d'en-tête", imp_row_n:"Ligne {n}", imp_ignore:"— ignorer —", imp_done:"✓ Terminé", imp_task:"Tâche", imp_notes:"Notes", imp_newcol:"＋ Nouvelle colonne", imp_col:"Colonne", imp_go:"Importer", imp_need_task:"Attribuez exactement une colonne comme « Tâche ».", imp_dupe:"« Terminé » et « Notes » ne peuvent être utilisés qu'une fois.", nl_import:"⬆ Importer un CSV …", nl_gs:"🌐 Google Sheets …", done_toggle:"Afficher / masquer les tâches terminées", pref_collapse_done:"Replier les tâches terminées par défaut", cm_repeat:"Répéter …", rep_title:"Répéter la tâche", rep_every:"Tous les", u_day:"jour(s)", u_week:"semaine(s)", u_month:"mois", u_year:"an(s)", rep_hint:"Quand vous cochez cette tâche, une nouvelle copie apparaît avec l'échéance suivante. Nécessite une colonne Échéance.", rep_remove:"Supprimer la répétition", rep_need_due:"Ajoutez d'abord une colonne Échéance (Colonnes → Ajouter une colonne). Les tâches récurrentes l'utilisent.", rep_next:"Récurrente : prochaine échéance {date}", rep_label:"Se répète tous les {n} {u}", search_ph:"Rechercher dans toutes les listes …", search_none:"Aucun résultat.", search_lists:"Listes", search_tasks:"Tâches", rz_tip:"Glisser pour redimensionner (double-clic : réinitialiser)", fs_enter:"Plein écran", fs_exit:"Quitter le plein écran", hint_cols:"Astuce : ajoutez une colonne Priorité ou Échéance avec ＋ dans l'en-tête (ou via « Colonnes ») pour trier les tâches par importance et mettre les échéances en évidence.", set_title:"Préférences", set_appearance:"Apparence", set_behavior:"Comportement", pref_theme:"Thème", theme_default:"Standard", theme_default_d:"Clair ou sombre, selon votre appareil", theme_light:"Clair", theme_light_d:"Tons chauds de papier, accent bleu", theme_dark:"Sombre", theme_dark_d:"Noir pur, accent blanc", theme_modern:"Moderne", theme_modern_d:"Look console avec lueur turquoise", theme_glass:"Verre", theme_glass_d:"Panneaux translucides dépolis avec réfraction de la lumière", pref_accent:"Couleur d'accent", accent_reset:"Réinitialiser", pref_density:"Hauteur des lignes", dens_compact:"Compacte", dens_normal:"Normale", dens_comfy:"Aérée", pref_font:"Taille du texte", font_s:"Petite", font_m:"Moyenne", font_l:"Grande", pref_lowfx:"Réduire les effets", pref_lowfx_d:"Désactive le flou, la réfraction et les ombres (plus rapide sur les appareils anciens).", pref_skipintro:"Passer l'animation d'introduction", gs_import:"Importer depuis Google Sheets …", gs_title:"Importer depuis Google Sheets", gs_hint:"Collez le lien de votre feuille. Elle doit être partagée avec « Toute personne disposant du lien peut afficher ». Seul l'onglet du lien est importé.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importer", gs_bad_url:"Cela ne ressemble pas à un lien Google Sheets.", gs_fail:"Impossible de charger la feuille. Vérifiez qu'elle est partagée avec « Toute personne disposant du lien », ou téléchargez-la via Fichier → Télécharger → CSV et utilisez « Importer un CSV ».",
   columns_btn:"Colonnes", csv_btn:"CSV", csv_export:"Exporter en CSV", csv_import:"Importer un CSV …", csv_done_n:"{n} tâches importées.", csv_done_skip:"{n} tâches importées ({skipped} colonnes inconnues ignorées).", csv_empty:"Aucune tâche trouvée dans ce fichier.", csv_too_many:"Trop de lignes (max. {max}).", csv_fail:"Échec de l'importation : {msg}", csv_no_task:"Échec de l'importation : colonne « Tâche » introuvable.", ty_priority:"Priorité", ty_due:"Échéance", prio_1:"Très basse", prio_2:"Basse", prio_3:"Moyenne", prio_4:"Haute", prio_5:"Très haute", prio_none:"–", cols_title:"Colonnes", cols_add:"+ Ajouter une colonne", col_visible:"Afficher dans cette liste", col_hidden:"masquée", pref_sort:"Trier automatiquement les tâches ouvertes par priorité", due_over:"En retard", due_today:"Échéance aujourd'hui"
 }};
 
@@ -637,7 +660,7 @@ function playSoundNow() {
   } else synthBam(0.03);
 }
 function playBamAt(impactAt) {            // impactAt: performance.now() timestamp
-  setTimeout(playSoundNow, Math.max(0, impactAt - performance.now()));
+  setTimeout(playSoundNow, Math.max(0, impactAt - performance.now() - SOUND_LEAD));
 }
 function playBamAtOld(impactAt) {
   const ctx = getAudio(); if (!ctx) return;
@@ -653,6 +676,7 @@ function playBamAtOld(impactAt) {
 /* ---------- Intro screen ---------- */
 const splash = $('#splash') || document.createElement('div');   // already removed by the inline decision script → dummy
 const SPLASH_IMPACT = 1250, SPLASH_MIN = 2400;
+const SOUND_LEAD = 160;   // ms the sound starts BEFORE the impact – raise if the BAM still comes too late, lower if too early
 const reducedMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const splashStart = performance.now();
 let splashMinDone = false, appRendered = false, splashHidden = false;
@@ -928,11 +952,41 @@ function bindSearch() {
 
 function newListModal() {
   modal(`<h3>${TE('new_list').replace(/^[+＋]\s*/, '')}</h3><label>${TE('name')}<input id="nl" maxlength="120"></label>
-    <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="ok">${TE('create')}</button></div>`,
+    <div id="nlGs" hidden><label>${TE('gs_title')}<input id="nlUrl" type="url" placeholder="${TE('gs_ph')}" autocomplete="off"></label></div>
+    <div class="msg" id="nlMsg"></div>
+    <div class="actions wrapx"><button class="btn" id="nlImp">${TE('nl_import')}</button><button class="btn" id="nlGsBtn">${TE('nl_gs')}</button><span class="spacer"></span>
+      <button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="ok">${TE('create')}</button></div>`,
   (m, close) => {
-    const go = async () => { const t = $('#nl', m).value.trim() || T('list_default'); close(); const l = await createList(t); if (l) location.hash = '#/list/' + l.id; };
+    const nameVal = fallback => $('#nl', m).value.trim() || fallback || T('list_default');
+    const open = async (title, text) => {
+      close(); const l = await createList(title); if (!l) return;
+      location.hash = '#/list/' + l.id;
+      for (let i = 0; i < 60 && !(state.cur && state.cur.id === l.id && $('#sheetWrap')); i++) await new Promise(r => setTimeout(r, 100));
+      if (text != null) await importCsvText(text);
+    };
+    const go = () => open(nameVal());
     $('#ok', m).onclick = go; $('[data-x]', m).onclick = close;
     $('#nl', m).addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
+    $('#nlImp', m).onclick = () => {                          // must open the file dialog directly inside the click
+      const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.csv,text/csv,text/plain';
+      inp.onchange = async () => {
+        const f = inp.files[0]; if (!f) return;
+        try {
+          const buf = await f.arrayBuffer(); let text;
+          try { text = new TextDecoder('utf-8', { fatal: true }).decode(buf); } catch (e) { text = new TextDecoder('windows-1252').decode(buf); }
+          await open(nameVal(f.name.replace(/\.[^.]+$/, '')), text);
+        } catch (e) { toast(T('csv_fail', { msg: e.message }), true); }
+      };
+      inp.click();
+    };
+    $('#nlGsBtn', m).onclick = async () => {
+      const g = $('#nlGs', m), u = $('#nlUrl', m);
+      if (g.hidden) { g.hidden = false; u.focus(); return; }
+      if (!/\/spreadsheets\/d\//.test(u.value)) { $('#nlMsg', m).textContent = T('gs_bad_url'); return; }
+      $('#nlGsBtn', m).disabled = true;
+      try { const text = await fetchGoogleSheetCsv(u.value.trim()); await open(nameVal(), text); }
+      catch (e) { $('#nlMsg', m).textContent = T('gs_fail'); $('#nlGsBtn', m).disabled = false; }
+    };
   });
 }
 async function createList(title) {
@@ -964,7 +1018,161 @@ async function renderList(id, seq) {
   drawList(); startPolling();
 }
 
-const visibleCols = () => (state.cur.columns || []).filter(c => !c.hidden);
+/* ---------- Columns: effective list (built-in + custom, freely ordered) ---------- */
+const BUILTIN_TYPES = ['task', 'notes', 'sub'];
+const isBuiltin = c => BUILTIN_TYPES.includes(c.type);
+function effCols() {
+  const cols = state.cur.columns || [];
+  if (cols.some(isBuiltin)) return cols;                       // saved layout
+  return [{ id: 'task', type: 'task' }, { id: 'notes', type: 'notes' }, { id: 'sub', type: 'sub' }, ...cols];   // legacy lists
+}
+const visibleCols = () => effCols().filter(c => !c.hidden);
+const colName = c => c.name || T(c.type === 'task' ? 'c_task' : c.type === 'notes' ? 'c_notes' : 'c_sub');
+const TYPE_ICON = { text: 'T', number: '#', date: '📅', checkbox: '☑', priority: '❗', due: '⏰', formula: 'ƒ' };
+
+/* ---------- Formulas (own small parser, no eval) ---------- */
+const fmMemo = new Map(), fmStack = new Set(), fmAst = new Map();
+function fmTok(src) {
+  const out = []; let i = 0;
+  while (i < src.length) {
+    const c = src[i];
+    if (/\s/.test(c)) { i++; continue; }
+    if (c === '{') { const j = src.indexOf('}', i); if (j < 0) throw new Error('#SYNTAX'); out.push({ t: 'ref', v: src.slice(i + 1, j).trim() }); i = j + 1; continue; }
+    if (/[0-9.]/.test(c)) { const m = /^(\d+\.?\d*|\.\d+)(e[+-]?\d+)?/i.exec(src.slice(i)); if (!m) throw new Error('#SYNTAX'); out.push({ t: 'num', v: parseFloat(m[0]) }); i += m[0].length; continue; }
+    if (/[A-Za-z_]/.test(c)) { const m = /^[A-Za-z_][A-Za-z0-9_]*/.exec(src.slice(i)); out.push({ t: 'id', v: m[0].toUpperCase() }); i += m[0].length; continue; }
+    const two = src.substr(i, 2);
+    if (two === '<=' || two === '>=' || two === '<>') { out.push({ t: 'op', v: two }); i += 2; continue; }
+    if ('+-*/^<>='.includes(c)) { out.push({ t: 'op', v: c }); i++; continue; }
+    if (c === '(' || c === ')') { out.push({ t: c }); i++; continue; }
+    if (c === ',' || c === ';') { out.push({ t: ',' }); i++; continue; }
+    throw new Error('#SYNTAX');
+  }
+  return out;
+}
+function fmParse(src) {
+  const tk = fmTok(src.replace(/^\s*=/, '')); let p = 0;
+  const peek = () => tk[p], isOp = (...o) => peek() && peek().t === 'op' && o.includes(peek().v);
+  const bin = (sub, ops) => () => { let l = sub(); while (isOp(...ops)) { const o = tk[p++].v; l = { n: 'bin', o, l, r: sub() }; } return l; };
+  const cmp = () => bin(add, ['=', '<', '>', '<=', '>=', '<>'])();
+  const add = bin(() => mul(), ['+', '-']);
+  const mul = bin(() => pow(), ['*', '/']);
+  const pow = () => { const b = unary(); if (isOp('^')) { p++; return { n: 'bin', o: '^', l: b, r: pow() }; } return b; };
+  const unary = () => { if (isOp('-')) { p++; return { n: 'neg', e: unary() }; } if (isOp('+')) { p++; return unary(); } return prim(); };
+  const prim = () => {
+    const t = tk[p++]; if (!t) throw new Error('#SYNTAX');
+    if (t.t === 'num') return { n: 'num', v: t.v };
+    if (t.t === 'ref') return { n: 'ref', v: t.v };
+    if (t.t === '(') { const e = cmp(); if (!tk[p] || tk[p++].t !== ')') throw new Error('#SYNTAX'); return e; }
+    if (t.t === 'id') {
+      if (!(peek() && peek().t === '(')) throw new Error('#NAME?');
+      p++; const a = [];
+      if (peek() && peek().t === ')') p++;
+      else for (;;) { a.push(cmp()); const s = tk[p++]; if (!s) throw new Error('#SYNTAX'); if (s.t === ')') break; if (s.t !== ',') throw new Error('#SYNTAX'); }
+      return { n: 'call', f: t.v, a };
+    }
+    throw new Error('#SYNTAX');
+  };
+  if (!tk.length) throw new Error('#SYNTAX');
+  const ast = cmp(); if (p < tk.length) throw new Error('#SYNTAX'); return ast;
+}
+const fmGet = src => { let a = fmAst.get(src); if (!a) { try { a = { ast: fmParse(src) }; } catch (e) { a = { err: e.message }; } fmAst.set(src, a); } return a; };
+const fmFindCol = name => { const c = effCols().find(x => !isBuiltin(x) && norm(x.name) === norm(name)); if (!c) throw new Error('#NAME?'); return c; };
+const dayNum = (y, m, d) => Math.round(Date.UTC(y, m, d) / 864e5);
+function fmCell(t, c) {
+  if (c.type === 'formula') return fmRun(c, t);
+  const v = t.data ? t.data[c.id] : undefined;
+  if (v === undefined || v === null || v === '') return 0;
+  if (c.type === 'checkbox') return v ? 1 : 0;
+  if (c.type === 'date' || c.type === 'due') { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(v); return m ? dayNum(+m[1], +m[2] - 1, +m[3]) : 0; }
+  const n = typeof v === 'number' ? v : Number(String(v).replace(',', '.'));
+  if (isNaN(n)) throw new Error('#VALUE!');
+  return n;
+}
+function fmRun(c, t) {
+  const key = c.id + '|' + t.id;
+  if (fmMemo.has(key)) { const m = fmMemo.get(key); if (m.err) throw new Error(m.err); return m.v; }
+  if (fmStack.has(key)) throw new Error('#CYCLE!');
+  const g = fmGet(c.formula || ''); if (g.err) throw new Error(g.err);
+  fmStack.add(key);
+  try { const v = fmEval(g.ast, t); fmMemo.set(key, { v }); return v; }
+  catch (e) { fmMemo.set(key, { err: e.message || '#ERR' }); throw e; }
+  finally { fmStack.delete(key); }
+}
+const colVals = (node, count) => {
+  if (node.n !== 'ref') throw new Error('#VALUE!');
+  const c = fmFindCol(node.v), out = [];
+  undoneTasks().forEach(t => {
+    if (c.type !== 'formula') { const raw = t.data ? t.data[c.id] : undefined; if (raw === undefined || raw === null || raw === '') return; }
+    try { const v = fmCell(t, c); if (Number.isFinite(v)) out.push(v); } catch (e) { if (!count) throw e; }
+  });
+  return out;
+};
+function fmEval(n, t) {
+  switch (n.n) {
+    case 'num': return n.v;
+    case 'neg': return -fmEval(n.e, t);
+    case 'ref': return fmCell(t, fmFindCol(n.v));
+    case 'bin': {
+      const a = fmEval(n.l, t), b = fmEval(n.r, t);
+      switch (n.o) {
+        case '+': return a + b; case '-': return a - b; case '*': return a * b;
+        case '/': if (b === 0) throw new Error('#DIV/0!'); return a / b;
+        case '^': return Math.pow(a, b);
+        case '=': return a === b ? 1 : 0; case '<>': return a !== b ? 1 : 0;
+        case '<': return a < b ? 1 : 0; case '>': return a > b ? 1 : 0; case '<=': return a <= b ? 1 : 0; default: return a >= b ? 1 : 0;
+      }
+    }
+    default: break;
+  }
+  const f = n.f, A = n.a, need = k => { if (A.length < k) throw new Error('#ARGS'); };
+  if (f === 'IF') { need(2); return fmEval(A[0], t) ? fmEval(A[1], t) : (A[2] ? fmEval(A[2], t) : 0); }
+  if (f === 'TODAY') { const d = new Date(); return dayNum(d.getFullYear(), d.getMonth(), d.getDate()); }
+  if (f === 'COLSUM' || f === 'COLAVG' || f === 'COLMIN' || f === 'COLMAX' || f === 'COLCOUNT') {
+    need(1); const v = colVals(A[0], f === 'COLCOUNT');
+    if (f === 'COLCOUNT') return v.length; if (f === 'COLSUM') return v.reduce((x, y) => x + y, 0);
+    if (!v.length) return 0; return f === 'COLAVG' ? v.reduce((x, y) => x + y, 0) / v.length : f === 'COLMIN' ? Math.min(...v) : Math.max(...v);
+  }
+  const v = A.map(x => fmEval(x, t));
+  switch (f) {
+    case 'SUM': return v.reduce((x, y) => x + y, 0);
+    case 'AVERAGE': case 'AVG': need(1); return v.reduce((x, y) => x + y, 0) / v.length;
+    case 'MIN': need(1); return Math.min(...v); case 'MAX': need(1); return Math.max(...v);
+    case 'ABS': need(1); return Math.abs(v[0]); case 'SQRT': need(1); return Math.sqrt(v[0]);
+    case 'FLOOR': case 'INT': need(1); return Math.floor(v[0]); case 'CEIL': case 'CEILING': need(1); return Math.ceil(v[0]);
+    case 'ROUND': { need(1); const k = Math.pow(10, v[1] || 0); return Math.sign(v[0]) * Math.round(Math.abs(v[0]) * k) / k; }
+    case 'MOD': need(2); if (v[1] === 0) throw new Error('#DIV/0!'); return ((v[0] % v[1]) + v[1]) % v[1];
+    case 'POWER': need(2); return Math.pow(v[0], v[1]);
+    default: throw new Error('#NAME?');
+  }
+}
+const fmtNum = v => new Intl.NumberFormat(prefs.lang, { maximumFractionDigits: 6, useGrouping: false }).format(v);
+function calcDisplay(t, c) {
+  try { const v = fmRun(c, t); return Number.isFinite(v) ? { text: fmtNum(v), v } : { text: '#NUM!', err: true }; }
+  catch (e) { return { text: /^#/.test(e.message) ? e.message : '#ERR', err: true }; }
+}
+const AGG_SYM = { sum: 'Σ', avg: 'Ø', min: 'min', max: 'max', count: '#' };
+function footText(c) {
+  let vals = [];
+  undoneTasks().forEach(t => {
+    if (c.type === 'formula') { try { const v = fmRun(c, t); if (Number.isFinite(v)) vals.push(v); } catch (e) {} }
+    else { const raw = t.data ? t.data[c.id] : undefined; if (raw === undefined || raw === null || raw === '') return; const n = Number(raw); if (Number.isFinite(n)) vals.push(n); }
+  });
+  let r;
+  if (c.agg === 'count') r = vals.length;
+  else if (!vals.length) return AGG_SYM[c.agg] + ' –';
+  else r = c.agg === 'sum' ? vals.reduce((a, b) => a + b, 0) : c.agg === 'avg' ? vals.reduce((a, b) => a + b, 0) / vals.length : c.agg === 'min' ? Math.min(...vals) : Math.max(...vals);
+  return AGG_SYM[c.agg] + ' ' + fmtNum(r);
+}
+function updateCalc() {
+  const wrap = $('#sheetWrap'); if (!wrap) return; fmMemo.clear();
+  const cols = visibleCols(), fcols = cols.filter(c => c.type === 'formula');
+  if (fcols.length) wrap.querySelectorAll('tr[data-id]').forEach(tr => {
+    const t = taskById(tr.dataset.id); if (!t) return;
+    fcols.forEach(c => { const td = tr.querySelector(`td[data-calc="${c.id}"]`); if (!td) return; const r = calcDisplay(t, c); if (td.textContent !== r.text) td.textContent = r.text; td.classList.toggle('err', !!r.err); });
+  });
+  wrap.querySelectorAll('td[data-foot]').forEach(td => { const c = cols.find(x => x.id === td.dataset.foot); if (c) td.textContent = footText(c); });
+}
+
 const prioCol = () => (state.cur.columns || []).find(c => c.type === 'priority' && !c.hidden);
 const prioOf = (t, c) => Number(t.data && t.data[c.id]) || 0;
 const todayStr = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
@@ -986,7 +1194,7 @@ function drawList() {
     <div class="row between wrapx">
       <div>${owner ? `<input id="listTitle" class="h-input" value="${esc(l.title)}" maxlength="120" aria-label="${TE('name')}">` : `<h2>${esc(l.title)}</h2>`}</div>
       <div class="row gap wrapx"><span class="badge">${TE(state.role === 'owner' ? 'role_owner' : state.role === 'edit' ? 'role_edit' : 'role_view')}</span><span id="saveState" class="muted small"></span>
-        <button class="btn iconbtn" id="fullBtn" aria-label="${TE('fs_enter')}">⛶</button>
+        <button class="btn iconbtn" id="fullBtn" aria-label="${TE('fs_enter')}">${FS_ICON[fullOn() ? 'exit' : 'enter']}</button>
         <button class="btn" id="csvBtn">${TE('csv_btn')}</button>
         ${state.role !== 'view' ? `<button class="btn" id="colsBtn">${TE('columns_btn')}</button>` : ''}
         ${owner ? `<button class="btn" id="shareBtn">${TE('share')}</button>` : ''}</div>
@@ -1051,12 +1259,15 @@ function bindResize(wrap) {
     h.addEventListener('pointermove', move); h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
   });
 }
+const FS_ICON = {
+  enter: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',
+  exit: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>' };
 const fullOn = () => { try { return localStorage.getItem('tpc2do_full') === '1'; } catch (e) { return false; } };
 let fsAsked = false;
 function applyFull() {
   const m = $('main.wrap'); if (!m) return;
   const on = fullOn(); m.classList.toggle('full', on);
-  const b = $('#fullBtn'); if (b) { b.classList.toggle('on', on); b.title = T(on ? 'fs_exit' : 'fs_enter'); b.setAttribute('aria-pressed', on); }
+  const b = $('#fullBtn'); if (b) { b.classList.toggle('on', on); b.title = T(on ? 'fs_exit' : 'fs_enter'); b.setAttribute('aria-label', b.title); b.innerHTML = FS_ICON[on ? 'exit' : 'enter']; }
   const tb = $('.top'); if (tb) document.documentElement.style.setProperty('--top-h', tb.offsetHeight + 'px');
 }
 function setFull(on) {
@@ -1074,31 +1285,38 @@ const dcKey = () => 'tpc2do_dc_' + (state.cur ? state.cur.id : '');
 function doneCollapsed() { try { const v = localStorage.getItem(dcKey()); if (v === '1') return true; if (v === '0') return false; } catch (e) {} return !!prefs.collapseDone; }
 function toggleDoneSection() { try { localStorage.setItem(dcKey(), doneCollapsed() ? '0' : '1'); } catch (e) {} drawTable(); }
 function tableHTML() {
+  fmMemo.clear();
   const cols = visibleCols(), ro = state.role === 'view';
   const cw = (k, d) => Math.max(50, Math.min(900, (state.widths && state.widths[k]) || d));
   const W = { chk: 46, task: 330, notes: 280, sub: 220, custom: 170, add: 46 };
-  const widths = [cw('chk', W.chk), cw('task', W.task), cw('notes', W.notes), cw('sub', W.sub), ...cols.map(c => cw(c.id, W.custom)), ...(ro ? [] : [W.add])];
+  const widths = [cw('chk', W.chk), ...cols.map(c => cw(c.id, W[c.type] || W.custom)), ...(ro ? [] : [W.add])];
   const rz = k => `<span class="rz" data-rz="${k}" title="${TE('rz_tip')}"></span>`;
   const total = widths.reduce((a, b) => a + b, 0);
-  const head = `<thead><tr><th class="c-chk" title="${TE('done')}">✓${rz('chk')}</th><th>${TE('c_task')}${rz('task')}</th><th>${TE('c_notes')}${rz('notes')}</th><th>${TE('c_sub')}${rz('sub')}</th>
-    ${cols.map(c => `<th title="${esc(c.name)}">${esc(c.name)}${ro ? '' : `<button class="colbtn" data-act="editcol" data-col="${c.id}" title="${TE('col_edit_tip')}">⋯</button>`}${rz(c.id)}</th>`).join('')}
+  const head = `<thead><tr><th class="c-chk" title="${TE('done')}">✓${rz('chk')}</th>
+    ${cols.map(c => `<th data-col="${c.id}" title="${esc(colName(c))}">${c.type === 'formula' ? '<span class="fx">ƒ</span> ' : ''}${esc(colName(c))}${ro ? '' : `<button class="colbtn" data-act="colmenu" data-col="${c.id}" title="${TE('col_edit_tip')}">⋯</button>`}${rz(c.id)}</th>`).join('')}
     ${ro ? '' : `<th class="c-add"><button class="colbtn" style="float:none;opacity:1;font-size:18px" data-act="addcol" title="${TE('col_add_tip')}">＋</button></th>`}</tr></thead>`;
   const un = undoneTasks(), dn = doneTasks(), ncols = widths.length;
   let body = un.map(rowHTML).join('');
   if (!ro) body += `<tr class="addrow"><td></td><td colspan="${ncols - 1}"><button class="linkbtn" data-act="addtask">${TE('add_task')}</button></td></tr>`;
   const dc = doneCollapsed();
   if (dn.length) body += `<tr class="sep tog" tabindex="0" role="button" aria-expanded="${!dc}" title="${TE('done_toggle')}"><td colspan="${ncols}"><span class="car">${dc ? '▸' : '▾'}</span> ${TE('done_hdr', { n: dn.length })}</td></tr>` + (dc ? '' : dn.map(rowHTML).join(''));
-  return `<table class="sheet" style="width:${total}px"><colgroup>${widths.map(w => `<col style="width:${w}px">`).join('')}</colgroup>${head}<tbody>${body}</tbody></table>`;
+  const foot = cols.some(c => c.agg && (c.type === 'number' || c.type === 'formula'))
+    ? `<tfoot><tr class="foot"><td></td>${cols.map(c => c.agg && (c.type === 'number' || c.type === 'formula') ? `<td class="c-foot" data-foot="${c.id}">${esc(footText(c))}</td>` : '<td></td>').join('')}${ro ? '' : '<td></td>'}</tr></tfoot>` : '';
+  return `<table class="sheet" style="width:${total}px"><colgroup>${widths.map(w => `<col style="width:${w}px">`).join('')}</colgroup>${head}<tbody>${body}</tbody>${foot}</table>`;
 }
 
 function rowHTML(t) {
   const cols = visibleCols(), ro = state.role === 'view', dis = ro ? 'readonly' : '';
+  const cell = c => {
+    if (c.type === 'task') return `<td><textarea rows="1" data-f="title" placeholder="${TE('task_ph')}" ${dis}>${esc(t.title)}</textarea></td>`;
+    if (c.type === 'notes') return `<td><textarea rows="1" data-f="notes" ${dis}>${esc(t.notes)}</textarea></td>`;
+    if (c.type === 'sub') return `<td class="c-sub">${subCell(t, ro)}</td>`;
+    if (c.type === 'formula') { const r = calcDisplay(t, c); return `<td class="c-calc ${r.err ? 'err' : ''}" data-calc="${c.id}">${esc(r.text)}</td>`; }
+    return customCell(t, c, ro);
+  };
   return `<tr data-id="${t.id}" class="${t.done ? 'done' : ''}">
     <td class="c-chk"><input type="checkbox" data-f="done" ${t.done ? 'checked' : ''} ${ro ? 'disabled' : ''} aria-label="${TE('done')}">${t.data && t.data._rec ? `<span class="rep" title="${esc(recLabel(t.data._rec))}">🔁</span>` : ''}</td>
-    <td><textarea rows="1" data-f="title" placeholder="${TE('task_ph')}" ${dis}>${esc(t.title)}</textarea></td>
-    <td><textarea rows="1" data-f="notes" ${dis}>${esc(t.notes)}</textarea></td>
-    <td class="c-sub">${subCell(t, ro)}</td>
-    ${cols.map(c => customCell(t, c, ro)).join('')}
+    ${cols.map(cell).join('')}
     ${ro ? '' : '<td class="c-add"></td>'}</tr>`;
 }
 
@@ -1161,20 +1379,41 @@ function showMenu(x, y, items, rowId) {
   const clean = items.filter((it, i, arr) => !(it === '-' && (i === 0 || arr[i - 1] === '-' || i === arr.length - 1)));
   if (!clean.length) return false;
   const m = document.createElement('div'); m.className = 'ctx'; m.setAttribute('role', 'menu');
-  clean.forEach(it => {
-    if (it === '-') { m.appendChild(document.createElement('hr')); return; }
+  let subEl = null;
+  const closeSub = () => { if (subEl) { subEl.remove(); subEl = null; } };
+  const mk = (it, host, isSub) => {
     const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'menuitem');
     if (it.danger) b.className = 'danger';
     const ic = document.createElement('span'); ic.className = 'ic'; ic.textContent = it.ic;
-    const tx = document.createElement('span'); tx.textContent = it.label || T(it.k);
+    const tx = document.createElement('span'); tx.textContent = it.label || T(it.k); tx.style.flex = '1';
     b.append(ic, tx);
-    b.onclick = () => { closeCtx(); it.fn(); };
-    m.appendChild(b);
-  });
+    if (it.sub) {
+      b.classList.add('hassub'); const ar = document.createElement('span'); ar.className = 'arr'; ar.textContent = '▸'; b.appendChild(ar);
+      const open = focus => {
+        if (subEl && subEl._for === b) return; closeSub();
+        const s = document.createElement('div'); s.className = 'ctxsub'; s._for = b; s.setAttribute('role', 'menu');
+        it.sub.forEach(si => mk(si, s, true)); m.appendChild(s); subEl = s;
+        s.style.top = (b.offsetTop - 6) + 'px';
+        const r = s.getBoundingClientRect(); if (r.right > innerWidth - 6) { s.style.left = 'auto'; s.style.right = '100%'; }
+        if (r.bottom > innerHeight - 6) s.style.top = Math.max(-b.offsetTop, (b.offsetTop - 6) - (r.bottom - innerHeight + 10)) + 'px';
+        if (focus) s.querySelector('button').focus();
+      };
+      b.onclick = e => { e.stopPropagation(); open(true); };
+      b.onmouseenter = () => open(false);
+      b.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { e.preventDefault(); e.stopPropagation(); open(true); } });
+    } else {
+      b.onclick = e => { e.stopPropagation(); closeCtx(); it.fn(); };
+      if (!isSub) b.onmouseenter = closeSub;
+    }
+    host.appendChild(b);
+  };
+  clean.forEach(it => { if (it === '-') m.appendChild(document.createElement('hr')); else mk(it, m, false); });
   m.addEventListener('keydown', e => {
+    const inSub = e.target.closest('.ctxsub');
+    if (inSub && e.key === 'ArrowLeft') { e.preventDefault(); const f = inSub._for; closeSub(); f.focus(); return; }
     if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
     e.preventDefault();
-    const bs = [...m.querySelectorAll('button')], i = bs.indexOf(document.activeElement);
+    const bs = [...(inSub || m).querySelectorAll(inSub ? ':scope > button' : ':scope > button')], i = bs.indexOf(document.activeElement);
     bs[(i + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length].focus();
   });
   document.body.appendChild(m); ctxEl = m;
@@ -1220,6 +1459,7 @@ function bindSheet(wrap) {
       t.data = { ...(t.data || {}), [el.dataset.cf]: v };
       queueSave(t.id, { data: t.data });
       if (el.tagName === 'TEXTAREA') fit(el);
+      updateCalc();
       const cdef = colById(el.dataset.cf);
       if (cdef && cdef.type === 'priority') drawTable();
       if (cdef && cdef.type === 'due') { const td = el.closest('td'); td.classList.remove('over', 'today'); const dc = dueClass(t, cdef); if (dc) td.classList.add(dc); }
@@ -1240,6 +1480,11 @@ function bindSheet(wrap) {
     }
   });
   wrap.addEventListener('click', e => {
+    const td = e.target.closest('tbody td');      // click anywhere in a cell -> edit it (not only on the first text line)
+    if (td && td.closest('tr[data-id]') && !e.target.closest('textarea,input,select,button,a,label') && state.role !== 'view') {
+      const f = td.querySelector('textarea,input[type=text],input[type=number],input[type=date],select');
+      if (f) { f.focus(); try { if (f.tagName === 'TEXTAREA') f.setSelectionRange(f.value.length, f.value.length); } catch (x) {} }
+    }
     const b = e.target.closest('[data-act]'); if (!b) return;
     const tr = b.closest('tr[data-id]'), t = tr ? taskById(tr.dataset.id) : null;
     switch (b.dataset.act) {
@@ -1248,8 +1493,13 @@ function bindSheet(wrap) {
       case 'unlinksub': if (t) unlinkSub(t); break;
       case 'opensub': e.preventDefault(); openSub(b.dataset.sub); break;
       case 'addcol': colModal(); break;
-      case 'editcol': colModal(colById(b.dataset.col)); break;
+      case 'colmenu': { const r = b.getBoundingClientRect(); colMenu(effCols().find(c => c.id === b.dataset.col), r.left, r.bottom + 4); break; }
     }
+  });
+  // right-click on a column header -> column menu
+  wrap.addEventListener('contextmenu', e => {
+    const th = e.target.closest('thead th[data-col]'); if (!th || state.role === 'view') return;
+    e.preventDefault(); colMenu(effCols().find(c => c.id === th.dataset.col), e.clientX, e.clientY);
   });
   // right-click (desktop, Android long-press)
   wrap.addEventListener('contextmenu', e => {
@@ -1426,37 +1676,120 @@ function subModal(t) {
 }
 
 /* ---------- Custom columns ---------- */
-const COL_TYPES = { text: 'ty_text', number: 'ty_number', date: 'ty_date', checkbox: 'ty_check', priority: 'ty_priority', due: 'ty_due' };
-function colModal(col) {
-  const hasPrio = (state.cur.columns || []).some(c => c.type === 'priority');
+const COL_TYPES = { text: 'ty_text', number: 'ty_number', date: 'ty_date', checkbox: 'ty_check', priority: 'ty_priority', due: 'ty_due', formula: 'ty_formula' };
+const AGGS = ['sum', 'avg', 'min', 'max', 'count'];
+const newColId = () => 'c' + Math.random().toString(36).slice(2, 8);
+const cloneCols = () => effCols().map(c => ({ ...c }));
+
+/* ---------- column menu (right-click on a header, or ⋯) ---------- */
+function colMenu(col, x, y) {
+  if (state.role === 'view' || !col) return;
+  const items = [{ ic: '✎', k: 'col_edit', fn: () => colModal(col) }];
+  if (!isBuiltin(col)) items.push({ ic: 'ƒ', k: 'col_chtype', sub: Object.keys(COL_TYPES).filter(k => k !== col.type).map(k => ({ ic: TYPE_ICON[k], label: T(COL_TYPES[k]), fn: () => changeColType(col, k) })) });
+  items.push('-', { ic: '◀', k: 'col_left', fn: () => moveCol(col, -1) }, { ic: '▶', k: 'col_right', fn: () => moveCol(col, 1) }, '-');
+  if (col.type !== 'task') items.push({ ic: '🙈', k: 'col_hide', fn: () => setColHidden(col, true) });
+  if (!isBuiltin(col)) items.push({ ic: '🗑', k: 'col_delete', danger: true, fn: () => deleteCol(col) });
+  showMenu(x, y, items);
+}
+async function moveCol(col, dir) {
+  const cols = cloneCols(), i = cols.findIndex(c => c.id === col.id); let j = i + dir;
+  while (j >= 0 && j < cols.length && cols[j].hidden) j += dir;
+  if (i < 0 || j < 0 || j >= cols.length) return;
+  [cols[i], cols[j]] = [cols[j], cols[i]]; await saveColumns(cols);
+}
+async function setColHidden(col, hide) {
+  const cols = cloneCols(), c = cols.find(x => x.id === col.id); if (!c) return;
+  if (hide) c.hidden = true; else delete c.hidden; await saveColumns(cols);
+}
+async function deleteCol(col) {
+  if (!(await confirmBox(T('confirm_col', { name: colName(col) })))) return;
+  await saveColumns(cloneCols().filter(c => c.id !== col.id));
+}
+// converts the stored values of a column to a new type; returns how many values can't be converted
+function convertValues(col, type) {
+  const changes = []; let lost = 0;
+  if (col.type === 'formula' || type === 'formula' || col.type === type) return { changes, lost };
+  state.tasks.forEach(t => {
+    const old = t.data ? t.data[col.id] : undefined;
+    if (old === undefined || old === null || old === '' || old === false) return;
+    const nv = coerceCell({ type }, old === true ? 'true' : String(old));
+    const data = { ...t.data };
+    if (nv === undefined) { delete data[col.id]; lost++; } else data[col.id] = nv;
+    changes.push({ t, data });
+  });
+  return { changes, lost };
+}
+async function changeColType(col, type) {
+  if (type === 'formula') return colModal(col, 'formula');
+  if (type === 'priority' && effCols().some(c => c.type === 'priority' && c.id !== col.id)) return toast(T('col_one_prio'), true);
+  const { changes, lost } = convertValues(col, type);
+  if (lost && !(await confirmBox(T('col_type_lost', { n: lost }), T('col_chtype')))) return;
+  const cols = cloneCols(), c = cols.find(x => x.id === col.id);
+  c.type = type; delete c.formula; if (type !== 'number') delete c.agg;
+  await saveColumns(cols);
+  changes.forEach(ch => { ch.t.data = ch.data; queueSave(ch.t.id, { data: ch.data }, 0); }); drawTable();
+}
+
+function colModal(col, forceType) {
+  const builtin = col && isBuiltin(col), others = effCols().filter(c => !col || c.id !== col.id);
+  const hasPrio = others.some(c => c.type === 'priority');
+  const curType = forceType || (col ? col.type : 'text');
   modal(`<h3>${TE(col ? 'col_edit' : 'col_new')}</h3>
-    <label>${TE('col_name')}<input id="cn" maxlength="40" value="${esc(col ? col.name : '')}"></label>
-    <label>${TE('col_type')}<select id="ct" ${col ? 'disabled' : ''}>${Object.entries(COL_TYPES).map(([k, v]) =>
-      `<option value="${k}" ${col && col.type === k ? 'selected' : ''} ${(!col && k === 'priority' && hasPrio) ? 'disabled' : ''}>${TE(v)}</option>`).join('')}</select></label>
-    ${col ? `<label class="check"><input type="checkbox" id="cvis" ${col.hidden ? '' : 'checked'}>${TE('col_visible')}</label>` : ''}
-    <div class="actions">${col ? `<button class="btn danger" id="cdel">${TE('col_delete')}</button>` : ''}<span class="spacer"></span>
+    <label>${TE('col_name')}<input id="cn" maxlength="40" value="${esc(col ? (col.name || (builtin ? colName(col) : '')) : '')}"></label>
+    ${builtin ? '' : `<label>${TE('col_type')}<select id="ct">${Object.entries(COL_TYPES).map(([k, v]) =>
+      `<option value="${k}" ${curType === k ? 'selected' : ''} ${(k === 'priority' && hasPrio) ? 'disabled' : ''}>${TE(v)}</option>`).join('')}</select></label>
+    <div id="fmBox" hidden><label>${TE('fm_label')}<textarea id="cf" rows="2" spellcheck="false" placeholder="{Amount} / 64">${esc(col && col.formula || '')}</textarea></label>
+      <div class="row wrapx" style="margin:-4px 0 6px"><select id="cfIns" style="width:auto;max-width:60%"><option value="">${TE('fm_insert')}</option>${others.filter(c => !isBuiltin(c)).map(c => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join('')}</select></div>
+      <p class="muted small" style="margin:0 0 8px">${TE('fm_hint')}</p></div>
+    <label id="aggBox" hidden>${TE('col_agg')}<select id="ca"><option value="">${TE('agg_none')}</option>${AGGS.map(a => `<option value="${a}" ${col && col.agg === a ? 'selected' : ''}>${TE('agg_' + a)}</option>`).join('')}</select></label>`}
+    ${col && col.type !== 'task' ? `<label class="check"><input type="checkbox" id="cvis" ${col.hidden ? '' : 'checked'}>${TE('col_visible')}</label>` : ''}
+    <div class="msg" id="cmsg"></div>
+    <div class="actions">${col && !builtin ? `<button class="btn danger" id="cdel">${TE('col_delete')}</button>` : ''}<span class="spacer"></span>
       <button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="cok">${TE('save')}</button></div>`,
   (m, close) => {
     $('[data-x]', m).onclick = close;
+    const ct = $('#ct', m), sync = () => {
+      if (!ct) return; $('#fmBox', m).hidden = ct.value !== 'formula'; $('#aggBox', m).hidden = !(ct.value === 'number' || ct.value === 'formula');
+    };
+    if (ct) { ct.onchange = sync; sync(); }
+    const ins = $('#cfIns', m); if (ins) ins.onchange = () => { if (ins.value) { const ta = $('#cf', m); ta.setRangeText('{' + ins.value + '}', ta.selectionStart, ta.selectionEnd, 'end'); ta.focus(); } ins.value = ''; };
+    const msg = t => { $('#cmsg', m).textContent = t || ''; };
     const save = async () => {
-      const type = col ? col.type : $('#ct', m).value;
-      const name = $('#cn', m).value.trim() || ((type === 'priority' || type === 'due') ? T('ty_' + (type === 'due' ? 'due' : 'priority')) : '');
-      if (!name) return toast(T('col_name_req'), true);
-      const cols = (state.cur.columns || []).map(c => ({ ...c }));
+      const type = builtin ? col.type : ct.value;
+      let name = $('#cn', m).value.trim();
+      if (!name && !builtin && (type === 'priority' || type === 'due')) name = T('ty_' + type);
+      if (!name && !builtin) return msg(T('col_name_req'));
+      if (type === 'priority' && hasPrio) return msg(T('col_one_prio'));
+      let formula = '';
+      if (type === 'formula') {
+        formula = $('#cf', m).value.trim(); const g = fmGet(formula);
+        if (!formula || g.err) return msg(T('fm_bad'));
+      }
+      const cols = cloneCols(); let changes = [];
       if (col) {
-        const c = cols.find(x => x.id === col.id); c.name = name;
-        if ($('#cvis', m).checked) delete c.hidden; else c.hidden = true;
-      } else cols.push({ id: 'c' + Math.random().toString(36).slice(2, 8), name, type });
+        const c = cols.find(x => x.id === col.id);
+        if (builtin) { if (name && name !== T(col.type === 'task' ? 'c_task' : col.type === 'notes' ? 'c_notes' : 'c_sub')) c.name = name; else delete c.name; }
+        else {
+          c.name = name;
+          if (type !== c.type) {
+            const r = convertValues(c, type);
+            if (r.lost && !(await confirmBox(T('col_type_lost', { n: r.lost }), T('col_chtype')))) return;
+            changes = r.changes; c.type = type;
+          }
+          if (type === 'formula') c.formula = formula; else delete c.formula;
+          const ag = $('#ca', m).value; if ((type === 'number' || type === 'formula') && ag) c.agg = ag; else delete c.agg;
+        }
+        const vis = $('#cvis', m); if (vis) { if (vis.checked) delete c.hidden; else c.hidden = true; }
+      } else {
+        const c = { id: newColId(), name, type }; if (type === 'formula') c.formula = formula;
+        const ag = $('#ca', m).value; if ((type === 'number' || type === 'formula') && ag) c.agg = ag; cols.push(c);
+      }
       close(); await saveColumns(cols);
+      changes.forEach(ch => { ch.t.data = ch.data; queueSave(ch.t.id, { data: ch.data }, 0); }); if (changes.length) drawTable();
     };
     $('#cok', m).onclick = save;
     $('#cn', m).addEventListener('keydown', e => { if (e.key === 'Enter') save(); });
-    const d = $('#cdel', m);
-    if (d) d.onclick = async () => {
-      close();
-      if (!(await confirmBox(T('confirm_col', { name: col.name })))) return;
-      await saveColumns((state.cur.columns || []).filter(c => c.id !== col.id));
-    };
+    const d = $('#cdel', m); if (d) d.onclick = () => { close(); deleteCol(col); };
   });
 }
 function columnsModal() {
@@ -1466,14 +1799,13 @@ function columnsModal() {
     $('[data-x]', m).onclick = close;
     $('#colAdd', m).onclick = () => { close(); colModal(); };
     const draw = () => {
-      const cols = state.cur.columns || [];
-      $('#colList', m).innerHTML = cols.map(c => `<div class="member" data-cid="${c.id}"><label class="check" style="margin:0;flex:1"><input type="checkbox" ${c.hidden ? '' : 'checked'}><span>${esc(c.name)} <small>· ${TE(COL_TYPES[c.type] || 'ty_text')}${c.hidden ? ' · ' + TE('col_hidden') : ''}</small></span></label><button class="icon" data-edit title="${TE('col_edit_tip')}">✎</button></div>`).join('');
+      const cols = effCols();
+      $('#colList', m).innerHTML = cols.map(c => `<div class="member" data-cid="${c.id}"><label class="check" style="margin:0;flex:1"><input type="checkbox" ${c.hidden ? '' : 'checked'} ${c.type === 'task' ? 'disabled' : ''}><span>${esc(colName(c))} <small>· ${isBuiltin(c) ? TE('col_builtin') : TE(COL_TYPES[c.type] || 'ty_text')}${c.hidden ? ' · ' + TE('col_hidden') : ''}</small></span></label>
+        <button class="icon" data-mv="-1" title="${TE('col_left')}">↑</button><button class="icon" data-mv="1" title="${TE('col_right')}">↓</button><button class="icon" data-edit title="${TE('col_edit_tip')}">✎</button></div>`).join('');
       m.querySelectorAll('.member').forEach(row => {
         const c = cols.find(x => x.id === row.dataset.cid);
-        $('input', row).onchange = async e => {
-          const next = cols.map(x => { if (x.id !== c.id) return x; const nc = { ...x }; if (e.target.checked) delete nc.hidden; else nc.hidden = true; return nc; });
-          await saveColumns(next); draw();
-        };
+        $('input', row).onchange = async e => { await setColHidden(c, !e.target.checked); draw(); };
+        row.querySelectorAll('[data-mv]').forEach(b => b.onclick = async () => { await moveCol(c, +b.dataset.mv); draw(); });
         $('[data-edit]', row).onclick = () => { close(); colModal(c); };
       });
     };
@@ -1482,8 +1814,8 @@ function columnsModal() {
 }
 async function saveColumns(cols) {
   const { error } = await sb.rpc('set_list_columns', { lid: state.cur.id, cols });
-  if (error) return toast(errText(error), true);
-  state.cur.columns = cols; drawTable();
+  if (error) { toast(errText(error), true); return false; }
+  state.cur.columns = cols; drawTable(); return true;
 }
 
 /* ---------- CSV export / import ---------- */
@@ -1495,6 +1827,8 @@ Object.values(I18N).forEach(L => {
   CSV_ALIAS.done.add(norm(L.done)); CSV_ALIAS.task.add(norm(L.c_task)); CSV_ALIAS.notes.add(norm(L.c_notes)); CSV_ALIAS.sub.add(norm(L.c_sub));
   [1, 2, 3, 4, 5].forEach(n => { PRIO_ALIAS[norm(L['prio_' + n])] = n; });
 });
+['task', 'tasks', 'todo', 'to-do', 'to do', 'item', 'aufgaben', 'tarea', 'tareas', 'attività', 'attivita', 'tâche', 'tâches', 'tache', 'taches'].forEach(x => CSV_ALIAS.task.add(x));
+['notizen', 'notiz', 'anmerkungen', 'anmerkung', 'bemerkungen', 'kommentare', 'kommentar', 'beschreibung', 'note', 'comments', 'comment', 'description', 'remarks', 'nota', 'notas', 'observaciones', 'comentarios', 'descripción', 'commenti', 'commento', 'descrizione', 'remarques', 'commentaires'].forEach(x => CSV_ALIAS.notes.add(x));
 const TRUTHY = new Set(['1', 'true', 'yes', 'y', 'x', '✓', '✔', 'ja', 'j', 'si', 'sí', 'sì', 'oui', 'wahr']);
 const csvSafe = v => { const s = v == null ? '' : String(v); return /^[=+\-@\t\r]/.test(s) ? "'" + s : s; };
 const csvUnsafe = v => v.replace(/^'(?=[=+\-@\t\r])/, '');
@@ -1506,19 +1840,23 @@ function csvItems() {
   return items;
 }
 function exportCsv() {
-  const d = prefs.lang === 'en' ? ',' : ';', cols = visibleCols();
-  const head = [T('done'), T('c_task'), T('c_notes'), T('c_sub'), ...cols.map(c => c.name)];
+  fmMemo.clear();
+  const en = prefs.lang === 'en', d = en ? ',' : ';', cols = visibleCols();
+  const dec = v => en ? String(v) : String(v).replace('.', ',');
+  const head = [T('done'), ...cols.map(colName)];
   const cell = (t, c) => {
     const v = t.data ? t.data[c.id] : undefined;
+    if (c.type === 'task') return csvSafe(t.title);
+    if (c.type === 'notes') return csvSafe(t.notes);
+    if (c.type === 'sub') { const sl = t.sub_list_id ? state.lists.find(l => l.id === t.sub_list_id) : null; return sl ? csvSafe(sl.title) : ''; }
+    if (c.type === 'formula') { const r = calcDisplay(t, c); return r.err ? '' : dec(Math.round(r.v * 1e6) / 1e6); }
     if (c.type === 'checkbox') return v ? 'TRUE' : 'FALSE';
-    if (c.type === 'number' || c.type === 'priority') return v == null ? '' : v;
+    if (c.type === 'number') return v == null || v === '' ? '' : dec(v);
+    if (c.type === 'priority') return v == null ? '' : v;
     if (c.type === 'date' || c.type === 'due') return v || '';
     return csvSafe(v);
   };
-  const rows = [...undoneTasks(), ...doneTasks()].map(t => {
-    const sl = t.sub_list_id ? state.lists.find(l => l.id === t.sub_list_id) : null;
-    return [t.done ? 'TRUE' : 'FALSE', csvSafe(t.title), csvSafe(t.notes), sl ? csvSafe(sl.title) : '', ...cols.map(c => cell(t, c))];
-  });
+  const rows = [...undoneTasks(), ...doneTasks()].map(t => [t.done ? 'TRUE' : 'FALSE', ...cols.map(c => cell(t, c))]);
   const text = '﻿' + [head, ...rows].map(r => r.map(v => csvQuote(v, d)).join(d)).join('\r\n') + '\r\n';
   const name = (state.cur.title.replace(/[\\/:*?"<>|]+/g, '_').trim() || 'TPC2Do') + '.csv';
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8' })); a.download = name;
@@ -1565,29 +1903,90 @@ function importCsvPick() {
   };
   inp.click();
 }
+const BOOLWORDS = new Set(['0', '1', 'true', 'false', 'wahr', 'falsch', 'yes', 'no', 'ja', 'nein', 'x', '✓', '✔', 'si', 'sí', 'sì', 'non', 'oui', 'y', 'n']);
+const findHeaderRow = rows => { for (let r = 0; r < Math.min(10, rows.length); r++) if (rows[r].some(h => CSV_ALIAS.task.has(norm(h)))) return r; return -1; };
+function guessMap(rows, hr) {
+  const head = hr >= 0 ? rows[hr] : [], data = rows.slice(hr + 1), n = Math.max(1, ...rows.slice(0, 60).map(r => r.length));
+  const custom = effCols().filter(c => !isBuiltin(c) && c.type !== 'formula');
+  const map = []; let hasTask = false, hasDone = false, hasNotes = false;
+  for (let i = 0; i < n; i++) {
+    const h = norm(head[i]); let m = 'skip';
+    if (CSV_ALIAS.done.has(h) && !hasDone) { m = 'done'; hasDone = true; }
+    else if (CSV_ALIAS.task.has(h) && !hasTask) { m = 'task'; hasTask = true; }
+    else if (CSV_ALIAS.notes.has(h) && !hasNotes) { m = 'notes'; hasNotes = true; }
+    else if (h) { const c = custom.find(x => norm(x.name) === h); if (c) m = 'col:' + c.id; }
+    map.push(m);
+  }
+  const vals = i => data.slice(0, 100).map(r => String(r[i] == null ? '' : r[i]).trim()).filter(v => v !== '');
+  const boolish = v => v.length && v.every(x => BOOLWORDS.has(norm(x)));
+  if (!hasDone) for (let i = 0; i < n; i++) if (map[i] === 'skip' && boolish(vals(i))) { map[i] = 'done'; hasDone = true; break; }
+  if (!hasTask) for (let i = 0; i < n; i++) if (map[i] === 'skip' && vals(i).length && !boolish(vals(i))) { map[i] = 'task'; hasTask = true; break; }
+  if (!hasNotes) for (let i = 0; i < n; i++) if (map[i] === 'skip' && vals(i).length && !boolish(vals(i))) { map[i] = 'notes'; hasNotes = true; break; }
+  return map;
+}
+function importDialog(rows, hr0) {
+  const n = Math.max(1, ...rows.slice(0, 60).map(r => r.length)), custom = effCols().filter(c => !isBuiltin(c) && c.type !== 'formula');
+  const letter = i => String.fromCharCode(65 + (i % 26));
+  modal(`<h3>${TE('imp_title')}</h3><p class="muted small">${TE('imp_hint')}</p>
+    <label>${TE('imp_header_row')}<select id="ihr"><option value="-1">${TE('imp_no_header')}</option>${rows.slice(0, 10).map((_, i) => `<option value="${i}">${TE('imp_row_n').replace('{n}', i + 1)}</option>`).join('')}</select></label>
+    <div class="impwrap"><table class="imp"><thead id="ihead"></thead><tbody id="ibody"></tbody></table></div>
+    <div class="msg" id="imsg"></div>
+    <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="igo">${TE('imp_go')}</button></div>`,
+  (m, close) => {
+    const sel = $('#ihr', m); sel.value = String(hr0);
+    $('[data-x]', m).onclick = close;
+    const clip = v => { v = String(v == null ? '' : v); return v.length > 26 ? v.slice(0, 25) + '…' : v; };
+    const render = () => {
+      const hr = +sel.value, map = guessMap(rows, hr), head = hr >= 0 ? rows[hr] : [];
+      const opts = v => `<option value="skip" ${v === 'skip' ? 'selected' : ''}>${TE('imp_ignore')}</option><option value="done" ${v === 'done' ? 'selected' : ''}>${TE('imp_done')}</option><option value="task" ${v === 'task' ? 'selected' : ''}>${TE('imp_task')}</option><option value="notes" ${v === 'notes' ? 'selected' : ''}>${TE('imp_notes')}</option>` +
+        custom.map(c => `<option value="col:${c.id}" ${v === 'col:' + c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('') + `<option value="new">${TE('imp_newcol')}</option>`;
+      $('#ihead', m).innerHTML = `<tr>${map.map((v, i) => `<th><div class="ih">${esc(clip(head[i]) || TE('imp_col') + ' ' + letter(i))}</div><select data-i="${i}">${opts(v)}</select></th>`).join('')}</tr>`;
+      $('#ibody', m).innerHTML = rows.slice(hr + 1, hr + 4).map(r => `<tr>${map.map((_, i) => `<td>${esc(clip(r[i]))}</td>`).join('')}</tr>`).join('');
+    };
+    sel.onchange = render; render();
+    $('#igo', m).onclick = () => {
+      const hr = +sel.value, map = [...m.querySelectorAll('#ihead select')].map(x => x.value), cnt = k => map.filter(v => v === k).length;
+      if (cnt('task') !== 1) return $('#imsg', m).textContent = T('imp_need_task');
+      if (cnt('done') > 1 || cnt('notes') > 1) return $('#imsg', m).textContent = T('imp_dupe');
+      close(); doImport(rows, hr, map, 0);
+    };
+  }, null, 'wide');
+}
 async function importCsvText(text) {
   const rows = parseCsv(text);
   if (rows.length < 2) return toast(T('csv_empty'), true);
-  if (rows.length - 1 > CSV_MAX) return toast(T('csv_too_many', { max: CSV_MAX }), true);
-  const cols = state.cur.columns || [];
-  const kinds = rows[0].map(h => {
-    const n = norm(h);
-    if (CSV_ALIAS.task.has(n)) return { k: 'task' }; if (CSV_ALIAS.notes.has(n)) return { k: 'notes' };
-    if (CSV_ALIAS.done.has(n)) return { k: 'done' }; if (CSV_ALIAS.sub.has(n)) return { k: 'sub' };
-    const c = cols.find(x => norm(x.name) === n); return c ? { k: 'col', c } : null;
+  const hr = findHeaderRow(rows);
+  if (hr >= 0) {
+    const map = guessMap(rows, hr);
+    if (map.includes('task')) return doImport(rows, hr, map, map.filter((v, i) => v === 'skip' && norm(rows[hr][i]) !== '').length);
+  }
+  importDialog(rows, Math.max(hr, 0));
+}
+async function doImport(rows, hr, map, skipped) {
+  const data = rows.slice(hr + 1), head = hr >= 0 ? rows[hr] : [];
+  if (!data.length) return toast(T('csv_empty'), true);
+  if (data.length > CSV_MAX) return toast(T('csv_too_many', { max: CSV_MAX }), true);
+  const newCols = [];
+  map = map.map((m, i) => {
+    if (m !== 'new') return m;
+    const vals = data.map(r => String(r[i] == null ? '' : r[i]).trim()).filter(Boolean);
+    let type = 'text';
+    if (vals.length && vals.every(v => v !== '' && !isNaN(Number(v.replace(',', '.'))))) type = 'number';
+    else if (vals.length && vals.every(v => toIsoDate(v))) type = 'date';
+    const c = { id: newColId(), name: (String(head[i] || '').trim() || (T('imp_col') + ' ' + (i + 1))).slice(0, 40), type }; newCols.push(c); return 'col:' + c.id;
   });
-  if (!kinds.some(x => x && x.k === 'task')) return toast(T('csv_no_task'), true);
-  const skipped = kinds.filter((x, i) => !x && norm(rows[0][i]) !== '').length;
-  let pos = state.tasks.reduce((m, x) => Math.max(m, x.position), 0);
+  if (newCols.length && !(await saveColumns([...cloneCols(), ...newCols]))) return;
+  const colOf = id => effCols().find(c => c.id === id);
+  let pos = state.tasks.reduce((mx, x) => Math.max(mx, x.position), 0);
   const now = new Date().toISOString();
-  const made = rows.slice(1).map(r => {
+  const made = data.map(r => {
     const t = { id: uuid(), list_id: state.cur.id, done: false, title: '', notes: '', sub_list_id: null, data: {}, position: 0, created_at: now, done_at: null };
-    kinds.forEach((kd, i) => {
-      if (!kd) return; const v = r[i] == null ? '' : String(r[i]);
-      if (kd.k === 'done') t.done = TRUTHY.has(norm(v));
-      else if (kd.k === 'task') t.title = csvUnsafe(v.trim());
-      else if (kd.k === 'notes') t.notes = csvUnsafe(v.trim());
-      else if (kd.k === 'col') { const val = coerceCell(kd.c, v); if (val !== undefined) t.data[kd.c.id] = val; }
+    map.forEach((k, i) => {
+      if (k === 'skip') return; const v = r[i] == null ? '' : String(r[i]);
+      if (k === 'done') t.done = TRUTHY.has(norm(v));
+      else if (k === 'task') t.title = csvUnsafe(v.trim());
+      else if (k === 'notes') t.notes = csvUnsafe(v.trim());
+      else if (k.startsWith('col:')) { const c = colOf(k.slice(4)); if (!c) return; const val = coerceCell(c, v); if (val !== undefined) t.data[c.id] = val; }
     });
     if (t.done) t.done_at = now;
     return t;
