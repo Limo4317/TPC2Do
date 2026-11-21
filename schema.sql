@@ -1,5 +1,5 @@
 -- =====================================================================
--- SheetDo – Datenbank-Schema für Supabase
+-- TPC2Do – Datenbank-Schema für Supabase
 -- Supabase-Dashboard → SQL Editor → New query → alles einfügen → Run
 -- =====================================================================
 
@@ -8,8 +8,10 @@
 create table public.profiles (
   id         uuid primary key references auth.users(id) on delete cascade,
   username   text not null,
+  avatar     text,                                     -- Profilbild als kleine Data-URL (JPEG/PNG/WebP)
   created_at timestamptz not null default now(),
-  constraint username_format check (username ~ '^[A-Za-z0-9_.-]{3,24}$')
+  constraint username_format check (username ~ '^[A-Za-z0-9_.-]{3,24}$'),
+  constraint avatar_format check (avatar is null or (length(avatar) <= 80000 and avatar ~ '^data:image/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$'))
 );
 create unique index profiles_username_lower_idx on public.profiles (lower(username));
 
@@ -225,7 +227,7 @@ create policy tasks_delete on public.tasks for delete to authenticated using (pu
 revoke all on public.profiles, public.lists, public.list_members, public.tasks from anon, authenticated;
 
 grant select on public.profiles to authenticated;
-grant update (username) on public.profiles to authenticated;
+grant update (username, avatar) on public.profiles to authenticated;
 
 grant select (id, owner_id, title, columns, link_role, created_at) on public.lists to authenticated;
 grant insert (id, owner_id, title, columns, link_role) on public.lists to authenticated;
