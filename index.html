@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TPC2Do – To-Do-Listen als Tabelle</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>">
+<title>TPC2Do</title>
+<meta name="description" content="TPC2Do – to-do lists as a table, shareable by link or username.">
+<link rel="icon" type="image/png" sizes="64x64" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
 <style>
 :root{
   --bg:#f6f7f9; --panel:#fff; --text:#1f2430; --muted:#6b7280; --line:#d9dde3; --head:#eef1f5;
@@ -21,13 +23,17 @@ button,input,select,textarea{font:inherit;color:inherit}
 h1,h2,h3,h4{margin:0 0 .4em}
 .muted{color:var(--muted)} .small{font-size:12.5px}
 .spacer{flex:1}
-.row{display:flex;align-items:center;gap:10px} .between{justify-content:space-between} .gap{gap:12px} .wrapx{flex-wrap:wrap}
+.row{display:flex;align-items:center;gap:10px} .between{justify-content:space-between} .gap{gap:14px} .wrapx{flex-wrap:wrap}
 
 /* Topbar */
-.top{display:flex;align-items:center;gap:12px;padding:10px 18px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
-.brand{font-weight:700;font-size:17px;color:var(--text)} .brand:hover{text-decoration:none}
-.user{color:var(--muted)}
-.wrap{max-width:980px;margin:0 auto;padding:22px 18px 60px} .wrap.wide{max-width:1500px}
+.top{display:flex;align-items:center;gap:12px;padding:8px 18px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:20px;letter-spacing:.02em;color:var(--text)} .brand:hover{text-decoration:none}
+.tile{display:grid;place-items:center;background:#000;color:#fff;border-radius:9px;width:36px;height:36px}
+.tile svg{width:26px;height:auto;display:block}
+.me{display:flex;align-items:center;gap:8px;color:var(--muted);padding:3px 8px 3px 3px;border-radius:99px} .me:hover{background:var(--hover);text-decoration:none}
+.av{border-radius:50%;object-fit:cover;display:inline-grid;place-items:center;flex:none;background:var(--accent);color:var(--accent-text);font-weight:700}
+.wrap{max-width:980px;margin:0 auto;padding:22px 18px 60px} .wrap.wide{max-width:1500px} .wrap.narrow{max-width:640px}
+@media (max-width:600px){.me span{display:none}}
 
 /* Buttons */
 .btn{border:1px solid var(--line);background:var(--panel);padding:7px 13px;border-radius:8px;cursor:pointer}
@@ -35,6 +41,7 @@ h1,h2,h3,h4{margin:0 0 .4em}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-text);font-weight:600}
 .btn.primary:hover{filter:brightness(1.08)}
 .btn.danger{color:var(--danger);border-color:var(--danger)}
+.btn.danger.solid{background:var(--danger);color:#fff;font-weight:600} .btn.danger.solid:hover{filter:brightness(1.08);background:var(--danger)}
 .icon{border:0;background:none;cursor:pointer;padding:4px 6px;border-radius:6px;opacity:.55} .icon:hover{opacity:1;background:var(--hover)}
 .linkbtn{border:0;background:none;color:var(--accent);cursor:pointer;padding:4px 2px;text-align:left}
 .linkbtn:hover{text-decoration:underline}
@@ -44,17 +51,28 @@ h1,h2,h3,h4{margin:0 0 .4em}
 label{display:block;margin:0 0 12px;font-weight:600;font-size:13.5px}
 label input,label select{display:block;width:100%;margin-top:4px;font-weight:400}
 input,select,textarea{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:7px 9px}
+input:disabled{opacity:.65}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
 small{color:var(--muted);font-weight:400}
+.check{display:flex;align-items:center;gap:10px;font-weight:500;cursor:pointer}
+.check input{width:18px;height:18px;margin:0;accent-color:var(--accent)}
 
 /* Auth */
-.auth{max-width:400px;margin:8vh auto;padding:28px;background:var(--panel);border:1px solid var(--line);border-radius:14px}
-.auth h1{font-size:26px}
+.auth{max-width:400px;margin:5vh auto;padding:26px 28px 28px;background:var(--panel);border:1px solid var(--line);border-radius:14px}
+.logo-lock{display:flex;flex-direction:column;align-items:center;gap:4px;background:#000;color:#fff;border-radius:18px;padding:18px 28px 12px;width:fit-content;margin:0 auto 14px}
+.logo-lock svg{width:110px;height:auto;display:block}
+.logo-lock b{font:900 44px/1 "Arial Black","Helvetica Neue",Arial,system-ui,sans-serif;letter-spacing:.03em}
+.auth .tagline{text-align:center;margin:0 0 6px}
+.langsel{display:flex;justify-content:flex-end;margin:-8px 0 6px} .langsel select{padding:3px 6px;font-size:13px}
 .tabs{display:flex;gap:6px;margin:16px 0}
 .tabs button{flex:1;padding:8px;border:1px solid var(--line);background:var(--panel);border-radius:8px;cursor:pointer}
 .tabs button.on{background:var(--accent);color:var(--accent-text);border-color:var(--accent);font-weight:600}
 .notice{background:var(--head);border-radius:8px;padding:9px 12px;margin:12px 0;font-size:14px}
-.msg{min-height:20px;margin-top:10px;font-size:14px;color:var(--danger)} .msg.ok{color:#16a34a}
+.msg{min-height:20px;margin-top:10px;font-size:14px;color:var(--danger)} .msg.ok{color:#16a34a} .msg.inline{margin:0}
+
+/* Panels (Account) */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.panel h3{font-size:16px;margin-bottom:12px}
 
 /* Listenübersicht */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:10px 0 28px}
@@ -71,7 +89,7 @@ small{color:var(--muted);font-weight:400}
 h2{font-size:24px}
 
 /* Tabelle */
-.sheet-wrap{margin-top:14px;overflow:auto;max-height:calc(100vh - 215px);min-height:180px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.sheet-wrap{margin-top:14px;overflow:auto;max-height:calc(100vh - 225px);min-height:180px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
 table.sheet{border-collapse:separate;border-spacing:0;table-layout:fixed}
 .sheet th,.sheet td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:0;vertical-align:top;background:var(--panel)}
 .sheet th{position:sticky;top:0;z-index:2;background:var(--head);font-size:13px;text-align:left;padding:8px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -86,19 +104,28 @@ table.sheet{border-collapse:separate;border-spacing:0;table-layout:fixed}
 .sheet textarea:focus,.sheet td input:focus{outline:2px solid var(--accent);outline-offset:-2px;background:var(--panel)}
 .sheet td.c-bool{text-align:center;padding-top:9px} .sheet td.c-bool input{width:18px;height:18px;accent-color:var(--accent)}
 .sheet td.c-sub{padding:7px 8px}
-.sheet td.c-del,.sheet td.c-add{text-align:center}
-.sheet tr .c-del .icon{opacity:0;margin-top:3px} .sheet tr:hover .c-del .icon{opacity:.6}
+.sheet td.c-add{text-align:center}
 .sheet tr.done textarea,.sheet tr.done input[type=number],.sheet tr.done input[type=date]{color:var(--done)}
 .sheet tr.done textarea[data-f=title]{text-decoration:line-through}
 .sheet tr.addrow td{padding:6px 10px} .sheet tr.addrow:hover td{background:var(--panel)}
 .sheet tr.sep td{background:var(--head);font-size:12.5px;color:var(--muted);padding:5px 10px;font-weight:600}
+.sheet tr.ctxrow td{background:var(--hover)}
 .chip{display:inline-flex;align-items:center;gap:4px;background:var(--head);border:1px solid var(--line);border-radius:99px;padding:2px 10px;font-size:13px;max-width:calc(100% - 28px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .chip.lock{color:var(--muted)}
 .sheet td.c-sub .icon{padding:1px 4px}
 
+/* Kontextmenü */
+.ctx{position:fixed;z-index:150;min-width:230px;max-width:92vw;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:5px}
+.ctx button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;padding:8px 12px;border-radius:6px;cursor:pointer}
+.ctx button:hover,.ctx button:focus{background:var(--hover);outline:none}
+.ctx button.danger{color:var(--danger)}
+.ctx .ic{width:18px;text-align:center;opacity:.8}
+.ctx hr{border:0;border-top:1px solid var(--line);margin:4px 6px}
+
 /* Modal */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-start;justify-content:center;padding:8vh 14px;z-index:100;overflow:auto}
 .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px 22px;width:100%;max-width:520px}
+.modal.small-modal{max-width:400px}
 .modal h3{font-size:18px} .modal h4{margin:18px 0 6px;font-size:14px}
 .actions{display:flex;gap:8px;align-items:center;margin-top:14px}
 .pick{display:flex;flex-direction:column;gap:6px;max-height:42vh;overflow:auto;margin:8px 0 12px}
@@ -106,38 +133,185 @@ table.sheet{border-collapse:separate;border-spacing:0;table-layout:fixed}
 .pickitem:hover{border-color:var(--accent)}
 .members{margin-top:8px;display:flex;flex-direction:column;gap:6px}
 .member{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:8px}
-.member span:first-child{flex:1;word-break:break-all}
+.member span.nm{flex:1;word-break:break-all}
 .linkrow{display:flex;gap:6px;margin-top:8px} .linkrow input{flex:1;min-width:0}
 
 /* Toast */
-#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:9px 16px;border-radius:10px;z-index:200;display:none;max-width:90vw;box-shadow:var(--shadow)}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:9px 16px;border-radius:10px;z-index:200;display:none;align-items:center;gap:14px;max-width:90vw;box-shadow:var(--shadow)}
 #toast.err{background:var(--danger);color:#fff}
+#toast button{border:0;background:none;color:inherit;font-weight:700;text-decoration:underline;cursor:pointer;padding:0}
+
+/* Intro / Splash */
+#splash{position:fixed;inset:0;z-index:1000;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .5s ease}
+#splash.out{opacity:0;pointer-events:none}
+.sp-stage{display:flex;flex-direction:column;align-items:center;gap:2px}
+.sp-bird{width:min(54vw,320px);height:auto;display:block;transform:translateY(-120vh);animation:spDrop .9s .1s forwards}
+.sp-word{display:flex;font:900 clamp(72px,19vw,170px)/1 "Arial Black","Helvetica Neue",Arial,system-ui,sans-serif;letter-spacing:.02em}
+.sp-2{display:block;transform:translateX(-58vw);animation:spL .55s .85s forwards}
+.sp-do{display:block;transform:translateX(58vw);animation:spR .55s .85s forwards}
+.sp-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#splash.hit .sp-stage{animation:spShake .42s}
+#splash.hit .sp-flash{animation:spFlash .4s}
+@keyframes spDrop{
+  0%{transform:translateY(-120vh);animation-timing-function:cubic-bezier(.55,0,1,.45)}
+  60%{transform:translateY(0);animation-timing-function:ease-out}
+  76%{transform:translateY(-3.5vh);animation-timing-function:ease-in}
+  88%{transform:translateY(0);animation-timing-function:ease-out}
+  94%{transform:translateY(-.8vh);animation-timing-function:ease-in}
+  100%{transform:translateY(0)}}
+@keyframes spL{0%{transform:translateX(-58vw);animation-timing-function:cubic-bezier(.45,0,.85,.55)}72%{transform:translateX(0);animation-timing-function:ease-out}84%{transform:translateX(9px);animation-timing-function:ease-in-out}100%{transform:translateX(0)}}
+@keyframes spR{0%{transform:translateX(58vw);animation-timing-function:cubic-bezier(.45,0,.85,.55)}72%{transform:translateX(0);animation-timing-function:ease-out}84%{transform:translateX(-9px);animation-timing-function:ease-in-out}100%{transform:translateX(0)}}
+@keyframes spShake{0%,100%{transform:translate(0,0)}15%{transform:translate(-9px,5px)}30%{transform:translate(8px,-6px)}45%{transform:translate(-6px,-3px)}60%{transform:translate(5px,4px)}80%{transform:translate(-2px,1px)}}
+@keyframes spFlash{0%{opacity:.4}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  #splash *{animation:none!important;transform:none!important}
+}
 </style>
 </head>
 <body>
-<div id="app"><p style="padding:24px" class="muted">Lade …</p></div>
-<div id="toast"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><path id="birdp" fill="currentColor" fill-rule="evenodd" d="M424.3 509.6C389.1 491.9 347.2 469.8 328 458.8C322.2 455.4 313.9 450.7 309.5 448.2C305.1 445.7 300.7 443.1 299.8 442.5C298.5 441.6 306.6 441.4 333.8 441.4C372.8 441.4 392.7 440.1 420.5 435.4C496.5 422.7 555.5 386.6 592.5 330.2C613.9 297.5 630.7 246.7 638.4 191L639.1 186.5L653.5 177.7C661.4 172.9 668.3 169 668.8 169C670.6 169 674 203.9 674 222.6C674.1 309.9 637.5 383.2 573.2 424.7C536.4 448.4 483.9 466.6 433 473.1C427.8 473.7 423.3 474.4 423.2 474.6C422.8 474.9 425.8 479.1 437.8 495.4C451.6 514.2 460.5 527 459.6 527C459.3 527 443.4 519.1 424.3 509.6ZM6 434.7C6 433.4 43.3 402.8 69.5 382.5C75.9 377.6 86.9 369 93.9 363.5C101 358 110.2 350.8 114.5 347.5C118.8 344.2 126.2 338.4 131.1 334.5C135.9 330.6 144.3 324 149.7 319.8C155.1 315.6 170.3 303.7 183.5 293.4C196.7 283.1 214.5 269.2 223 262.5C231.5 255.8 261 232.8 288.4 211.4C315.9 190 340.6 170.1 343.4 167.2C350.6 159.7 355.4 151.4 365.4 128.5C377.2 101.6 379 98 385.6 87C411 44.8 448.6 17.9 495.5 8.3C509.6 5.5 545.7 5.8 560 8.8C588.2 14.9 614.4 27.4 633.9 43.9C644.2 52.6 662.6 75.7 660.8 77.6C660.5 77.8 653.6 76.7 645.4 75.1C584.9 63.1 550.1 64.8 524.5 80.9C501.9 95.2 492.2 109.4 471.6 158C467.7 167.3 467.4 167.6 455.4 172.4C407.4 191.8 339.1 228.4 274 269.8C251.3 284.2 207.3 312.9 193 322.5C145.9 354.4 135.4 361.6 115.6 375.5L102.8 384.5L152.8 384.8L202.8 385L207 387.4C210.4 389.3 210.9 389.9 209.4 390.3C175.4 400.2 68.4 424.5 30.2 431C5.7 435.2 6 435.1 6 434.7ZM274 399C254 397.4 231 391.9 216 385.2L209.5 382.3L218 381.6C254.7 378.5 302.1 370.1 338.3 360.4C429 336 477.7 299.2 473.6 258.2C471.3 235.4 457.5 215.2 435.2 201.9L430.8 199.3L437.7 197.9C448.8 195.6 474.6 196.2 484.5 198.8C509.8 205.8 532.3 223.9 543.8 246.5C551.2 261.2 552.8 283.1 547.7 298.5C535.4 335.5 497 364 435.5 382C388 395.8 322.3 402.8 274 399ZM635 172C635 170.6 638.3 157.3 644.8 132.5C650 112.7 655.4 95.8 658.9 87.9L661 83.3L666.5 84.2C669.5 84.6 682.5 87.5 695.2 90.4C708 93.4 725.9 97.5 735 99.5C744.1 101.4 751.9 103.2 752.5 103.3C753 103.5 748.9 106.3 743.5 109.4C738 112.6 727 119.2 719 123.9C711 128.7 696.9 137.1 687.5 142.5C678.1 147.9 663.5 156.5 655 161.5C635.3 173.2 635 173.3 635 172ZM571.9 117.9C559.7 110.6 561.1 92 574.3 86.5C589.8 80.1 604.6 95.4 597.5 110.5C593.3 119.1 580.3 122.9 571.9 117.9Z"/></defs></svg>
 
+<div id="splash" aria-hidden="true">
+  <div class="sp-stage">
+    <svg class="sp-bird" viewBox="0 0 759 533"><use href="#birdp"/></svg>
+    <div class="sp-word"><span class="sp-2">2</span><span class="sp-do">DO</span></div>
+  </div>
+  <div class="sp-flash"></div>
+</div>
+<audio id="intro-sound" src="introsound.mp3" preload="auto"></audio>   
+
+<div id="app"></div>
+<div id="toast" role="status"></div>
+<noscript><p style="padding:24px">TPC2Do needs JavaScript.</p></noscript>
+
+<script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* =====================================================================
-   TPC2Do – To-Do-Listen im Tabellen-Stil (Open Source, Supabase-Backend)
-   → Trage hier deine Supabase-Daten ein (Project Settings → API).
-     Der "anon public"-Key ist öffentlich gedacht; geschützt wird alles
-     durch die Row-Level-Security-Regeln aus schema.sql.
+   TPC2Do – to-do lists as a table (open source, Supabase backend)
+   Credentials live in config.js (same folder as this file).
    ===================================================================== */
-const SUPABASE_URL = 'https://cepffmdxmtmpcdubvnba.supabase.co';       // z. B. https://abcdxyz.supabase.co
-const SUPABASE_ANON_KEY = 'sb_publishable_Eftirh-tkyFSJNpHrqqaGw_2T4p5UMl';        // "anon public" Key
+const CFG = window.TPC2DO_CONFIG || {};
+const SUPABASE_URL = String(CFG.SUPABASE_URL || '');
+const SUPABASE_ANON_KEY = String(CFG.SUPABASE_ANON_KEY || '');
+const RECOVERY_HASH = /type=recovery/.test(location.hash);   // read before supabase-js clears the hash
 
-/* ---------- Grundlagen ---------- */
-const $ = (s, el = document) => el.querySelector(s);
+/* ---------- Translations ---------- */
+const LANGS = { en: 'English', de: 'Deutsch', es: 'Español', it: 'Italiano', fr: 'Français' };
+const I18N = {
+en: {
+  loading:"Loading …", cancel:"Cancel", create:"Create", save:"Save", delete:"Delete", undo:"Undo", done:"Done", add:"Add", back:"Back", copy:"Copy", you:"You",
+  setup_title:"Set up TPC2Do", setup_missing:"The Supabase credentials are missing.", setup_nolib:"The Supabase library could not be loaded (internet connection?).", setup_howto:"Open config.js and enter SUPABASE_URL and SUPABASE_ANON_KEY. The step-by-step guide is in README.md.",
+  tagline:"To-do lists as a table – shareable by link or username.", tab_login:"Log in", tab_signup:"Sign up", email:"Email", username:"Username", username_hint:"3–24 characters: letters, numbers, _ . -  (others find you by this to share lists)", password:"Password", btn_login:"Log in", btn_signup:"Create account", forgot:"Forgot password?", reset_title:"Reset password", reset_send:"Send reset link", reset_sent:"If an account exists for this address, a reset link is on its way.", back_login:"Back to log in", signup_ok:"Almost there! Please confirm your email address using the link we just sent you.", join_hint:"Log in or sign up to open the shared list.", language:"Language",
+  err_login:"Wrong email or password.", err_unconfirmed:"Please confirm your email address first (link in the confirmation email).", err_email_taken:"This email address is already registered.", err_pw_short:"The password is too short (at least 8 characters).", err_rate:"Too many attempts – please wait a moment and try again.", err_signup_db:"Sign-up failed (the username may be taken or invalid).", err_username_invalid:"Username: 3–24 characters, only letters, numbers, _ . -", err_username_taken:"This username is already taken.", err_pw_mismatch:"The passwords don't match.", err_pw_current:"The current password is wrong.", err_pw_same:"The new password must differ from the old one.", err_reauth:"Please log in again and retry, or use the reset link by email.", err_avatar:"The picture could not be processed.", err_not_owner:"Only the owner can do this.", err_no_perm:"You don't have permission to do this.", err_user_nf:"Account “{name}” was not found.", err_self:"That is your own account.", err_join:"Link invalid or sharing disabled.",
+  logout:"Log out", account:"Account",
+  my_lists:"My lists", new_list:"+ New list", no_lists:"No lists yet. Get started with “New list”!", shared_with_me:"Shared with me", no_shared:"Lists that others share with you will show up here.", name:"Name", list_default:"New list", sublist_default:"Sub list", role_owner:"Owner", role_edit:"Can edit", role_view:"View only", tip_delete_list:"Delete list", tip_leave_list:"Leave list", confirm_list_delete:"Permanently delete the list “{name}” with all its tasks?", confirm_leave:"Leave “{name}”? You will lose access.",
+  owner_is:"Owner: {name}", share:"🔗 Share", saving:"Saving …", saved:"All saved", counts:"{open} open · {done} done", done_hdr:"Done ({n})", add_task:"+ Add task", c_task:"Task", c_notes:"Notes", c_sub:"Sub to-do list", task_ph:"Task …", link_sub:"+ Link list", no_access:"No access", no_access_tip:"You don't have access to this list", unlink_tip:"Remove link", col_edit_tip:"Edit column", col_add_tip:"Add column", hint_ctx:"Tip: right-click a row (on touch screens: long-press) for more actions.", nf_title:"List not found", nf_text:"It doesn't exist (any more) or you don't have access.", nf_back:"Back to overview", list_gone:"This list is no longer available.", sub_made:"New list created and linked.",
+  cm_done:"Mark as done", cm_open:"Mark as not done", cm_above:"Insert task above", cm_below:"Insert task below", cm_dup:"Duplicate task", cm_link:"Link sub list …", cm_goto:"Open sub list", cm_unlink:"Remove sub list link", cm_delete:"Delete task",
+  confirm_task:"Delete this task?", task_deleted:"Task deleted",
+  sub_title:"Link sub to-do list", sub_empty:"You have no other lists yet.", sub_create:"+ Create new list & link",
+  col_new:"New column", col_edit:"Edit column", col_name:"Name", col_type:"Type", ty_text:"Text", ty_number:"Number", ty_date:"Date", ty_check:"Checkbox", col_delete:"Delete column", confirm_col:"Delete the column “{name}”? The values in it will be lost.", col_name_req:"Please enter a name.",
+  share_title:"Share “{name}”", by_link:"By link", link_off:"Off – invited accounts only", link_view:"Anyone with the link can view", link_edit:"Anyone with the link can edit", link_note:"Anyone opening the link needs an account and has to be logged in.", link_copy:"Copy", link_copied:"Link copied.", link_rotate:"Generate new link (old link stops working)", confirm_rotate:"The current link will stop working. Continue?", link_new:"New link generated.", by_user:"By username", user_ph:"Username", r_edit:"Can edit", r_view:"View only", nobody:"Nobody invited by username yet.", remove:"Remove", shared_ok:"Shared.",
+  save_fail:"Saving failed: {msg}", create_fail:"Task could not be created: {msg}", delete_fail:"Deleting failed: {msg}",
+  acc_title:"Account", acc_profile:"Profile", acc_picture:"Profile picture", acc_upload:"Upload picture", acc_remove:"Remove picture", acc_username:"Username", acc_saved:"Saved.", acc_prefs:"Preferences", pref_confirm:"Ask before deleting a task", pref_sound:"Play intro sound", pref_sound_test:"Play sound", acc_password:"Password", pw_current:"Current password", pw_new:"New password", pw_confirm:"Repeat new password", pw_hint:"At least 8 characters.", pw_change:"Change password", pw_changed:"Password changed.", pw_forgot:"Forgot your password? Send a reset link to {email}", pw_mail_sent:"Reset link sent to {email}.", acc_email:"Email", rec_title:"Choose a new password", rec_btn:"Save new password", rec_done:"New password saved."
+},
+de: {
+  loading:"Lade …", cancel:"Abbrechen", create:"Erstellen", save:"Speichern", delete:"Löschen", undo:"Rückgängig", done:"Fertig", add:"Hinzufügen", back:"Zurück", copy:"Kopieren", you:"Du",
+  setup_title:"TPC2Do einrichten", setup_missing:"Die Supabase-Zugangsdaten fehlen noch.", setup_nolib:"Die Supabase-Bibliothek konnte nicht geladen werden (Internetverbindung?).", setup_howto:"Öffne config.js und trage SUPABASE_URL und SUPABASE_ANON_KEY ein. Die Anleitung steht in der README.md.",
+  tagline:"To-Do-Listen als Tabelle – teilbar per Link oder Konto-Name.", tab_login:"Anmelden", tab_signup:"Registrieren", email:"E-Mail", username:"Konto-Name", username_hint:"3–24 Zeichen: Buchstaben, Zahlen, _ . -  (so findet man dich zum Teilen)", password:"Passwort", btn_login:"Anmelden", btn_signup:"Konto erstellen", forgot:"Passwort vergessen?", reset_title:"Passwort zurücksetzen", reset_send:"Link zum Zurücksetzen senden", reset_sent:"Falls für diese Adresse ein Konto existiert, ist ein Link unterwegs.", back_login:"Zurück zur Anmeldung", signup_ok:"Fast geschafft! Bitte bestätige deine E-Mail-Adresse über den Link in der Mail, die wir dir geschickt haben.", join_hint:"Melde dich an oder registriere dich, um die geteilte Liste zu öffnen.", language:"Sprache",
+  err_login:"E-Mail oder Passwort ist falsch.", err_unconfirmed:"Bitte bestätige zuerst deine E-Mail-Adresse (Link in der Bestätigungs-Mail).", err_email_taken:"Diese E-Mail-Adresse ist bereits registriert.", err_pw_short:"Das Passwort ist zu kurz (mindestens 8 Zeichen).", err_rate:"Zu viele Versuche – bitte warte kurz und probiere es erneut.", err_signup_db:"Registrierung fehlgeschlagen (Konto-Name evtl. vergeben oder ungültig).", err_username_invalid:"Konto-Name: 3–24 Zeichen, nur Buchstaben, Zahlen, _ . -", err_username_taken:"Dieser Konto-Name ist schon vergeben.", err_pw_mismatch:"Die Passwörter stimmen nicht überein.", err_pw_current:"Das aktuelle Passwort ist falsch.", err_pw_same:"Das neue Passwort muss sich vom alten unterscheiden.", err_reauth:"Bitte melde dich neu an und versuche es erneut oder nutze den Reset-Link per E-Mail.", err_avatar:"Das Bild konnte nicht verarbeitet werden.", err_not_owner:"Das darf nur der Besitzer.", err_no_perm:"Dafür fehlt dir die Berechtigung.", err_user_nf:"Konto „{name}“ wurde nicht gefunden.", err_self:"Das ist dein eigenes Konto.", err_join:"Link ungültig oder Freigabe deaktiviert.",
+  logout:"Abmelden", account:"Konto",
+  my_lists:"Meine Listen", new_list:"＋ Neue Liste", no_lists:"Noch keine Liste. Leg mit „Neue Liste“ los!", shared_with_me:"Mit mir geteilt", no_shared:"Hier erscheinen Listen, die andere mit dir teilen.", name:"Name", list_default:"Neue Liste", sublist_default:"Unterliste", role_owner:"Besitzer", role_edit:"Bearbeiten", role_view:"Nur lesen", tip_delete_list:"Liste löschen", tip_leave_list:"Liste verlassen", confirm_list_delete:"Liste „{name}“ mit allen Aufgaben endgültig löschen?", confirm_leave:"„{name}“ verlassen? Du verlierst den Zugriff.",
+  owner_is:"Besitzer: {name}", share:"🔗 Teilen", saving:"Speichere …", saved:"Alles gespeichert", counts:"{open} offen · {done} erledigt", done_hdr:"Erledigt ({n})", add_task:"＋ Aufgabe hinzufügen", c_task:"Aufgabe", c_notes:"Hinweise", c_sub:"Sub-To-Do-List", task_ph:"Aufgabe …", link_sub:"＋ Liste verknüpfen", no_access:"Kein Zugriff", no_access_tip:"Du hast keinen Zugriff auf diese Liste", unlink_tip:"Verknüpfung lösen", col_edit_tip:"Spalte bearbeiten", col_add_tip:"Spalte hinzufügen", hint_ctx:"Tipp: Rechtsklick auf eine Zeile (auf Touchscreens: lange drücken) öffnet weitere Aktionen.", nf_title:"Liste nicht gefunden", nf_text:"Sie existiert nicht (mehr) oder du hast keinen Zugriff.", nf_back:"Zur Übersicht", list_gone:"Diese Liste ist nicht mehr verfügbar.", sub_made:"Neue Liste erstellt und verknüpft.",
+  cm_done:"Als erledigt markieren", cm_open:"Als offen markieren", cm_above:"Aufgabe oberhalb einfügen", cm_below:"Aufgabe unterhalb einfügen", cm_dup:"Aufgabe duplizieren", cm_link:"Unterliste verknüpfen …", cm_goto:"Unterliste öffnen", cm_unlink:"Verknüpfung lösen", cm_delete:"Aufgabe löschen",
+  confirm_task:"Diese Aufgabe löschen?", task_deleted:"Aufgabe gelöscht",
+  sub_title:"Sub-To-Do-List verknüpfen", sub_empty:"Du hast noch keine weiteren Listen.", sub_create:"＋ Neue Liste erstellen & verknüpfen",
+  col_new:"Neue Spalte", col_edit:"Spalte bearbeiten", col_name:"Name", col_type:"Typ", ty_text:"Text", ty_number:"Zahl", ty_date:"Datum", ty_check:"Häkchen", col_delete:"Spalte löschen", confirm_col:"Spalte „{name}“ löschen? Die Werte darin gehen verloren.", col_name_req:"Bitte einen Namen eingeben.",
+  share_title:"„{name}“ teilen", by_link:"Per Link", link_off:"Aus – nur eingeladene Konten", link_view:"Jeder mit Link kann ansehen", link_edit:"Jeder mit Link kann bearbeiten", link_note:"Wer den Link öffnet, braucht ein Konto und muss angemeldet sein.", link_copy:"Kopieren", link_copied:"Link kopiert.", link_rotate:"Neuen Link erzeugen (alter Link wird ungültig)", confirm_rotate:"Der bisherige Link funktioniert danach nicht mehr. Fortfahren?", link_new:"Neuer Link erzeugt.", by_user:"Per Konto-Name", user_ph:"Konto-Name", r_edit:"Bearbeiten", r_view:"Nur ansehen", nobody:"Noch niemand per Konto-Name eingeladen.", remove:"Entfernen", shared_ok:"Geteilt.",
+  save_fail:"Speichern fehlgeschlagen: {msg}", create_fail:"Aufgabe konnte nicht angelegt werden: {msg}", delete_fail:"Löschen fehlgeschlagen: {msg}",
+  acc_title:"Konto", acc_profile:"Profil", acc_picture:"Profilbild", acc_upload:"Bild hochladen", acc_remove:"Bild entfernen", acc_username:"Konto-Name", acc_saved:"Gespeichert.", acc_prefs:"Einstellungen", pref_confirm:"Vor dem Löschen einer Aufgabe nachfragen", pref_sound:"Intro-Sound abspielen", pref_sound_test:"Sound testen", acc_password:"Passwort", pw_current:"Aktuelles Passwort", pw_new:"Neues Passwort", pw_confirm:"Neues Passwort wiederholen", pw_hint:"Mindestens 8 Zeichen.", pw_change:"Passwort ändern", pw_changed:"Passwort geändert.", pw_forgot:"Passwort vergessen? Reset-Link an {email} senden", pw_mail_sent:"Reset-Link an {email} gesendet.", acc_email:"E-Mail", rec_title:"Neues Passwort festlegen", rec_btn:"Neues Passwort speichern", rec_done:"Neues Passwort gespeichert."
+},
+es: {
+  loading:"Cargando …", cancel:"Cancelar", create:"Crear", save:"Guardar", delete:"Eliminar", undo:"Deshacer", done:"Listo", add:"Añadir", back:"Volver", copy:"Copiar", you:"Tú",
+  setup_title:"Configurar TPC2Do", setup_missing:"Faltan las credenciales de Supabase.", setup_nolib:"No se pudo cargar la biblioteca de Supabase (¿conexión a internet?).", setup_howto:"Abre config.js e introduce SUPABASE_URL y SUPABASE_ANON_KEY. La guía paso a paso está en README.md.",
+  tagline:"Listas de tareas en forma de tabla: compartibles por enlace o nombre de usuario.", tab_login:"Iniciar sesión", tab_signup:"Registrarse", email:"Correo electrónico", username:"Nombre de usuario", username_hint:"3–24 caracteres: letras, números, _ . -  (así te encuentran para compartir listas)", password:"Contraseña", btn_login:"Iniciar sesión", btn_signup:"Crear cuenta", forgot:"¿Olvidaste tu contraseña?", reset_title:"Restablecer contraseña", reset_send:"Enviar enlace de restablecimiento", reset_sent:"Si existe una cuenta con esta dirección, el enlace está en camino.", back_login:"Volver a iniciar sesión", signup_ok:"¡Casi listo! Confirma tu correo electrónico con el enlace que acabamos de enviarte.", join_hint:"Inicia sesión o regístrate para abrir la lista compartida.", language:"Idioma",
+  err_login:"Correo o contraseña incorrectos.", err_unconfirmed:"Primero confirma tu correo electrónico (enlace en el correo de confirmación).", err_email_taken:"Este correo electrónico ya está registrado.", err_pw_short:"La contraseña es demasiado corta (mínimo 8 caracteres).", err_rate:"Demasiados intentos: espera un momento e inténtalo de nuevo.", err_signup_db:"Error en el registro (el nombre de usuario puede estar en uso o no ser válido).", err_username_invalid:"Nombre de usuario: 3–24 caracteres, solo letras, números, _ . -", err_username_taken:"Este nombre de usuario ya está en uso.", err_pw_mismatch:"Las contraseñas no coinciden.", err_pw_current:"La contraseña actual es incorrecta.", err_pw_same:"La nueva contraseña debe ser distinta de la anterior.", err_reauth:"Vuelve a iniciar sesión e inténtalo de nuevo, o usa el enlace de restablecimiento por correo.", err_avatar:"No se pudo procesar la imagen.", err_not_owner:"Solo el propietario puede hacerlo.", err_no_perm:"No tienes permiso para hacerlo.", err_user_nf:"No se encontró la cuenta «{name}».", err_self:"Esa es tu propia cuenta.", err_join:"Enlace no válido o uso compartido desactivado.",
+  logout:"Cerrar sesión", account:"Cuenta",
+  my_lists:"Mis listas", new_list:"+ Nueva lista", no_lists:"Aún no hay listas. ¡Empieza con «Nueva lista»!", shared_with_me:"Compartidas conmigo", no_shared:"Aquí aparecerán las listas que otros compartan contigo.", name:"Nombre", list_default:"Nueva lista", sublist_default:"Sublista", role_owner:"Propietario", role_edit:"Puede editar", role_view:"Solo lectura", tip_delete_list:"Eliminar lista", tip_leave_list:"Salir de la lista", confirm_list_delete:"¿Eliminar definitivamente la lista «{name}» con todas sus tareas?", confirm_leave:"¿Salir de «{name}»? Perderás el acceso.",
+  owner_is:"Propietario: {name}", share:"🔗 Compartir", saving:"Guardando …", saved:"Todo guardado", counts:"{open} pendientes · {done} hechas", done_hdr:"Hechas ({n})", add_task:"+ Añadir tarea", c_task:"Tarea", c_notes:"Notas", c_sub:"Sublista de tareas", task_ph:"Tarea …", link_sub:"+ Vincular lista", no_access:"Sin acceso", no_access_tip:"No tienes acceso a esta lista", unlink_tip:"Quitar vínculo", col_edit_tip:"Editar columna", col_add_tip:"Añadir columna", hint_ctx:"Consejo: clic derecho en una fila (en pantallas táctiles: pulsación larga) para más acciones.", nf_title:"Lista no encontrada", nf_text:"No existe (ya) o no tienes acceso.", nf_back:"Volver al resumen", list_gone:"Esta lista ya no está disponible.", sub_made:"Nueva lista creada y vinculada.",
+  cm_done:"Marcar como hecha", cm_open:"Marcar como pendiente", cm_above:"Insertar tarea arriba", cm_below:"Insertar tarea abajo", cm_dup:"Duplicar tarea", cm_link:"Vincular sublista …", cm_goto:"Abrir sublista", cm_unlink:"Quitar vínculo de sublista", cm_delete:"Eliminar tarea",
+  confirm_task:"¿Eliminar esta tarea?", task_deleted:"Tarea eliminada",
+  sub_title:"Vincular sublista de tareas", sub_empty:"Aún no tienes otras listas.", sub_create:"+ Crear lista nueva y vincular",
+  col_new:"Nueva columna", col_edit:"Editar columna", col_name:"Nombre", col_type:"Tipo", ty_text:"Texto", ty_number:"Número", ty_date:"Fecha", ty_check:"Casilla", col_delete:"Eliminar columna", confirm_col:"¿Eliminar la columna «{name}»? Se perderán sus valores.", col_name_req:"Introduce un nombre.",
+  share_title:"Compartir «{name}»", by_link:"Por enlace", link_off:"Desactivado: solo cuentas invitadas", link_view:"Cualquiera con el enlace puede ver", link_edit:"Cualquiera con el enlace puede editar", link_note:"Quien abra el enlace necesita una cuenta e iniciar sesión.", link_copy:"Copiar", link_copied:"Enlace copiado.", link_rotate:"Generar enlace nuevo (el anterior dejará de funcionar)", confirm_rotate:"El enlace actual dejará de funcionar. ¿Continuar?", link_new:"Enlace nuevo generado.", by_user:"Por nombre de usuario", user_ph:"Nombre de usuario", r_edit:"Puede editar", r_view:"Solo ver", nobody:"Aún no has invitado a nadie por nombre de usuario.", remove:"Quitar", shared_ok:"Compartido.",
+  save_fail:"Error al guardar: {msg}", create_fail:"No se pudo crear la tarea: {msg}", delete_fail:"Error al eliminar: {msg}",
+  acc_title:"Cuenta", acc_profile:"Perfil", acc_picture:"Foto de perfil", acc_upload:"Subir foto", acc_remove:"Quitar foto", acc_username:"Nombre de usuario", acc_saved:"Guardado.", acc_prefs:"Preferencias", pref_confirm:"Preguntar antes de eliminar una tarea", pref_sound:"Reproducir sonido de inicio", pref_sound_test:"Probar sonido", acc_password:"Contraseña", pw_current:"Contraseña actual", pw_new:"Contraseña nueva", pw_confirm:"Repite la contraseña nueva", pw_hint:"Mínimo 8 caracteres.", pw_change:"Cambiar contraseña", pw_changed:"Contraseña cambiada.", pw_forgot:"¿Olvidaste tu contraseña? Enviar enlace de restablecimiento a {email}", pw_mail_sent:"Enlace de restablecimiento enviado a {email}.", acc_email:"Correo electrónico", rec_title:"Elige una contraseña nueva", rec_btn:"Guardar contraseña nueva", rec_done:"Contraseña nueva guardada."
+},
+it: {
+  loading:"Caricamento …", cancel:"Annulla", create:"Crea", save:"Salva", delete:"Elimina", undo:"Annulla azione", done:"Fine", add:"Aggiungi", back:"Indietro", copy:"Copia", you:"Tu",
+  setup_title:"Configura TPC2Do", setup_missing:"Mancano le credenziali di Supabase.", setup_nolib:"Impossibile caricare la libreria di Supabase (connessione a internet?).", setup_howto:"Apri config.js e inserisci SUPABASE_URL e SUPABASE_ANON_KEY. La guida passo passo è nel README.md.",
+  tagline:"Liste di attività come tabella, condivisibili tramite link o nome utente.", tab_login:"Accedi", tab_signup:"Registrati", email:"E-mail", username:"Nome utente", username_hint:"3–24 caratteri: lettere, numeri, _ . -  (così gli altri ti trovano per condividere le liste)", password:"Password", btn_login:"Accedi", btn_signup:"Crea account", forgot:"Password dimenticata?", reset_title:"Reimposta password", reset_send:"Invia link di reimpostazione", reset_sent:"Se esiste un account con questo indirizzo, il link è in arrivo.", back_login:"Torna all'accesso", signup_ok:"Quasi fatto! Conferma il tuo indirizzo e-mail con il link che ti abbiamo appena inviato.", join_hint:"Accedi o registrati per aprire la lista condivisa.", language:"Lingua",
+  err_login:"E-mail o password errata.", err_unconfirmed:"Conferma prima il tuo indirizzo e-mail (link nell'e-mail di conferma).", err_email_taken:"Questo indirizzo e-mail è già registrato.", err_pw_short:"La password è troppo corta (almeno 8 caratteri).", err_rate:"Troppi tentativi: attendi un attimo e riprova.", err_signup_db:"Registrazione non riuscita (il nome utente potrebbe essere già in uso o non valido).", err_username_invalid:"Nome utente: 3–24 caratteri, solo lettere, numeri, _ . -", err_username_taken:"Questo nome utente è già in uso.", err_pw_mismatch:"Le password non coincidono.", err_pw_current:"La password attuale non è corretta.", err_pw_same:"La nuova password deve essere diversa dalla precedente.", err_reauth:"Accedi di nuovo e riprova, oppure usa il link di reimpostazione via e-mail.", err_avatar:"Impossibile elaborare l'immagine.", err_not_owner:"Solo il proprietario può farlo.", err_no_perm:"Non hai il permesso per farlo.", err_user_nf:"Account «{name}» non trovato.", err_self:"Questo è il tuo account.", err_join:"Link non valido o condivisione disattivata.",
+  logout:"Esci", account:"Account",
+  my_lists:"Le mie liste", new_list:"+ Nuova lista", no_lists:"Nessuna lista per ora. Inizia con «Nuova lista»!", shared_with_me:"Condivise con me", no_shared:"Qui compariranno le liste che altri condividono con te.", name:"Nome", list_default:"Nuova lista", sublist_default:"Sottolista", role_owner:"Proprietario", role_edit:"Può modificare", role_view:"Sola lettura", tip_delete_list:"Elimina lista", tip_leave_list:"Esci dalla lista", confirm_list_delete:"Eliminare definitivamente la lista «{name}» con tutte le sue attività?", confirm_leave:"Uscire da «{name}»? Perderai l'accesso.",
+  owner_is:"Proprietario: {name}", share:"🔗 Condividi", saving:"Salvataggio …", saved:"Tutto salvato", counts:"{open} aperte · {done} completate", done_hdr:"Completate ({n})", add_task:"+ Aggiungi attività", c_task:"Attività", c_notes:"Note", c_sub:"Sottolista di attività", task_ph:"Attività …", link_sub:"+ Collega lista", no_access:"Nessun accesso", no_access_tip:"Non hai accesso a questa lista", unlink_tip:"Rimuovi collegamento", col_edit_tip:"Modifica colonna", col_add_tip:"Aggiungi colonna", hint_ctx:"Suggerimento: clic destro su una riga (su touch screen: pressione lunga) per altre azioni.", nf_title:"Lista non trovata", nf_text:"Non esiste (più) o non hai accesso.", nf_back:"Torna alla panoramica", list_gone:"Questa lista non è più disponibile.", sub_made:"Nuova lista creata e collegata.",
+  cm_done:"Segna come completata", cm_open:"Segna come aperta", cm_above:"Inserisci attività sopra", cm_below:"Inserisci attività sotto", cm_dup:"Duplica attività", cm_link:"Collega sottolista …", cm_goto:"Apri sottolista", cm_unlink:"Rimuovi collegamento sottolista", cm_delete:"Elimina attività",
+  confirm_task:"Eliminare questa attività?", task_deleted:"Attività eliminata",
+  sub_title:"Collega sottolista di attività", sub_empty:"Non hai ancora altre liste.", sub_create:"+ Crea nuova lista e collega",
+  col_new:"Nuova colonna", col_edit:"Modifica colonna", col_name:"Nome", col_type:"Tipo", ty_text:"Testo", ty_number:"Numero", ty_date:"Data", ty_check:"Casella", col_delete:"Elimina colonna", confirm_col:"Eliminare la colonna «{name}»? I valori al suo interno andranno persi.", col_name_req:"Inserisci un nome.",
+  share_title:"Condividi «{name}»", by_link:"Tramite link", link_off:"Disattivato: solo account invitati", link_view:"Chiunque abbia il link può visualizzare", link_edit:"Chiunque abbia il link può modificare", link_note:"Chi apre il link deve avere un account ed essere connesso.", link_copy:"Copia", link_copied:"Link copiato.", link_rotate:"Genera nuovo link (il vecchio smette di funzionare)", confirm_rotate:"Il link attuale smetterà di funzionare. Continuare?", link_new:"Nuovo link generato.", by_user:"Tramite nome utente", user_ph:"Nome utente", r_edit:"Può modificare", r_view:"Solo visualizzazione", nobody:"Nessuno è stato ancora invitato tramite nome utente.", remove:"Rimuovi", shared_ok:"Condiviso.",
+  save_fail:"Salvataggio non riuscito: {msg}", create_fail:"Impossibile creare l'attività: {msg}", delete_fail:"Eliminazione non riuscita: {msg}",
+  acc_title:"Account", acc_profile:"Profilo", acc_picture:"Immagine del profilo", acc_upload:"Carica immagine", acc_remove:"Rimuovi immagine", acc_username:"Nome utente", acc_saved:"Salvato.", acc_prefs:"Preferenze", pref_confirm:"Chiedi conferma prima di eliminare un'attività", pref_sound:"Riproduci il suono di avvio", pref_sound_test:"Prova il suono", acc_password:"Password", pw_current:"Password attuale", pw_new:"Nuova password", pw_confirm:"Ripeti la nuova password", pw_hint:"Almeno 8 caratteri.", pw_change:"Cambia password", pw_changed:"Password cambiata.", pw_forgot:"Password dimenticata? Invia il link di reimpostazione a {email}", pw_mail_sent:"Link di reimpostazione inviato a {email}.", acc_email:"E-mail", rec_title:"Scegli una nuova password", rec_btn:"Salva nuova password", rec_done:"Nuova password salvata."
+},
+fr: {
+  loading:"Chargement …", cancel:"Annuler", create:"Créer", save:"Enregistrer", delete:"Supprimer", undo:"Annuler", done:"Terminé", add:"Ajouter", back:"Retour", copy:"Copier", you:"Vous",
+  setup_title:"Configurer TPC2Do", setup_missing:"Les identifiants Supabase sont manquants.", setup_nolib:"La bibliothèque Supabase n'a pas pu être chargée (connexion internet ?).", setup_howto:"Ouvrez config.js et renseignez SUPABASE_URL et SUPABASE_ANON_KEY. Le guide pas à pas se trouve dans README.md.",
+  tagline:"Des listes de tâches en tableau, partageables par lien ou nom d'utilisateur.", tab_login:"Connexion", tab_signup:"Inscription", email:"E-mail", username:"Nom d'utilisateur", username_hint:"3 à 24 caractères : lettres, chiffres, _ . -  (c'est ainsi qu'on vous trouve pour partager des listes)", password:"Mot de passe", btn_login:"Se connecter", btn_signup:"Créer un compte", forgot:"Mot de passe oublié ?", reset_title:"Réinitialiser le mot de passe", reset_send:"Envoyer le lien de réinitialisation", reset_sent:"Si un compte existe pour cette adresse, un lien est en route.", back_login:"Retour à la connexion", signup_ok:"Presque terminé ! Confirmez votre adresse e-mail avec le lien que nous venons de vous envoyer.", join_hint:"Connectez-vous ou inscrivez-vous pour ouvrir la liste partagée.", language:"Langue",
+  err_login:"E-mail ou mot de passe incorrect.", err_unconfirmed:"Veuillez d'abord confirmer votre adresse e-mail (lien dans l'e-mail de confirmation).", err_email_taken:"Cette adresse e-mail est déjà enregistrée.", err_pw_short:"Le mot de passe est trop court (8 caractères minimum).", err_rate:"Trop de tentatives : patientez un instant puis réessayez.", err_signup_db:"Échec de l'inscription (le nom d'utilisateur est peut-être déjà pris ou invalide).", err_username_invalid:"Nom d'utilisateur : 3 à 24 caractères, uniquement lettres, chiffres, _ . -", err_username_taken:"Ce nom d'utilisateur est déjà pris.", err_pw_mismatch:"Les mots de passe ne correspondent pas.", err_pw_current:"Le mot de passe actuel est incorrect.", err_pw_same:"Le nouveau mot de passe doit être différent de l'ancien.", err_reauth:"Reconnectez-vous puis réessayez, ou utilisez le lien de réinitialisation par e-mail.", err_avatar:"L'image n'a pas pu être traitée.", err_not_owner:"Seul le propriétaire peut le faire.", err_no_perm:"Vous n'avez pas l'autorisation de le faire.", err_user_nf:"Compte « {name} » introuvable.", err_self:"C'est votre propre compte.", err_join:"Lien invalide ou partage désactivé.",
+  logout:"Se déconnecter", account:"Compte",
+  my_lists:"Mes listes", new_list:"+ Nouvelle liste", no_lists:"Aucune liste pour l'instant. Commencez avec « Nouvelle liste » !", shared_with_me:"Partagées avec moi", no_shared:"Les listes que d'autres partagent avec vous apparaîtront ici.", name:"Nom", list_default:"Nouvelle liste", sublist_default:"Sous-liste", role_owner:"Propriétaire", role_edit:"Peut modifier", role_view:"Lecture seule", tip_delete_list:"Supprimer la liste", tip_leave_list:"Quitter la liste", confirm_list_delete:"Supprimer définitivement la liste « {name} » avec toutes ses tâches ?", confirm_leave:"Quitter « {name} » ? Vous perdrez l'accès.",
+  owner_is:"Propriétaire : {name}", share:"🔗 Partager", saving:"Enregistrement …", saved:"Tout est enregistré", counts:"{open} à faire · {done} terminées", done_hdr:"Terminées ({n})", add_task:"+ Ajouter une tâche", c_task:"Tâche", c_notes:"Remarques", c_sub:"Sous-liste de tâches", task_ph:"Tâche …", link_sub:"+ Lier une liste", no_access:"Accès refusé", no_access_tip:"Vous n'avez pas accès à cette liste", unlink_tip:"Supprimer le lien", col_edit_tip:"Modifier la colonne", col_add_tip:"Ajouter une colonne", hint_ctx:"Astuce : clic droit sur une ligne (sur écran tactile : appui long) pour d'autres actions.", nf_title:"Liste introuvable", nf_text:"Elle n'existe pas (ou plus), ou vous n'y avez pas accès.", nf_back:"Retour à l'aperçu", list_gone:"Cette liste n'est plus disponible.", sub_made:"Nouvelle liste créée et liée.",
+  cm_done:"Marquer comme terminée", cm_open:"Marquer comme à faire", cm_above:"Insérer une tâche au-dessus", cm_below:"Insérer une tâche en dessous", cm_dup:"Dupliquer la tâche", cm_link:"Lier une sous-liste …", cm_goto:"Ouvrir la sous-liste", cm_unlink:"Supprimer le lien de la sous-liste", cm_delete:"Supprimer la tâche",
+  confirm_task:"Supprimer cette tâche ?", task_deleted:"Tâche supprimée",
+  sub_title:"Lier une sous-liste de tâches", sub_empty:"Vous n'avez pas encore d'autres listes.", sub_create:"+ Créer une nouvelle liste et la lier",
+  col_new:"Nouvelle colonne", col_edit:"Modifier la colonne", col_name:"Nom", col_type:"Type", ty_text:"Texte", ty_number:"Nombre", ty_date:"Date", ty_check:"Case à cocher", col_delete:"Supprimer la colonne", confirm_col:"Supprimer la colonne « {name} » ? Les valeurs qu'elle contient seront perdues.", col_name_req:"Veuillez saisir un nom.",
+  share_title:"Partager « {name} »", by_link:"Par lien", link_off:"Désactivé : comptes invités uniquement", link_view:"Toute personne disposant du lien peut consulter", link_edit:"Toute personne disposant du lien peut modifier", link_note:"Quiconque ouvre le lien doit avoir un compte et être connecté.", link_copy:"Copier", link_copied:"Lien copié.", link_rotate:"Générer un nouveau lien (l'ancien cessera de fonctionner)", confirm_rotate:"Le lien actuel cessera de fonctionner. Continuer ?", link_new:"Nouveau lien généré.", by_user:"Par nom d'utilisateur", user_ph:"Nom d'utilisateur", r_edit:"Peut modifier", r_view:"Lecture seule", nobody:"Personne n'a encore été invité par nom d'utilisateur.", remove:"Retirer", shared_ok:"Partagé.",
+  save_fail:"Échec de l'enregistrement : {msg}", create_fail:"La tâche n'a pas pu être créée : {msg}", delete_fail:"Échec de la suppression : {msg}",
+  acc_title:"Compte", acc_profile:"Profil", acc_picture:"Photo de profil", acc_upload:"Téléverser une photo", acc_remove:"Supprimer la photo", acc_username:"Nom d'utilisateur", acc_saved:"Enregistré.", acc_prefs:"Préférences", pref_confirm:"Demander confirmation avant de supprimer une tâche", pref_sound:"Jouer le son d'introduction", pref_sound_test:"Tester le son", acc_password:"Mot de passe", pw_current:"Mot de passe actuel", pw_new:"Nouveau mot de passe", pw_confirm:"Répétez le nouveau mot de passe", pw_hint:"8 caractères minimum.", pw_change:"Changer le mot de passe", pw_changed:"Mot de passe modifié.", pw_forgot:"Mot de passe oublié ? Envoyer un lien de réinitialisation à {email}", pw_mail_sent:"Lien de réinitialisation envoyé à {email}.", acc_email:"E-mail", rec_title:"Choisissez un nouveau mot de passe", rec_btn:"Enregistrer le nouveau mot de passe", rec_done:"Nouveau mot de passe enregistré."
+}};
+
+/* ---------- Preferences (language etc.) ---------- */
+const PREF_KEY = 'tpc2do_prefs';
+const prefs = { lang: 'en', confirmDelete: true, sound: true };
+function adoptPrefs(src) {
+  if (!src || typeof src !== 'object') return;
+  if (LANGS[src.lang]) prefs.lang = src.lang;
+  if (typeof src.confirmDelete === 'boolean') prefs.confirmDelete = src.confirmDelete;
+  if (typeof src.sound === 'boolean') prefs.sound = src.sound;
+}
+try { adoptPrefs(JSON.parse(localStorage.getItem(PREF_KEY) || 'null')); } catch (e) {}
+const T = (k, v) => {
+  let s = (I18N[prefs.lang] && I18N[prefs.lang][k]);
+  if (s == null) s = I18N.en[k];
+  if (s == null) s = k;
+  return v ? s.replace(/\{(\w+)\}/g, (m, n) => (v[n] ?? '')) : s;
+};
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const TE = (k, v) => esc(T(k, v));
+const applyLang = () => { document.documentElement.lang = prefs.lang; };
+applyLang();
+
+/* ---------- Basics ---------- */
+const $ = (s, el = document) => el.querySelector(s);
 const app = $('#app');
 const LIST_COLS = 'id,owner_id,title,columns,link_role,created_at';
-const COL_TYPES = { text: 'Text', number: 'Zahl', date: 'Datum', checkbox: 'Häkchen' };
-const ROLE_LABEL = { owner: 'Besitzer', edit: 'Bearbeiten', view: 'Nur lesen' };
+const BIRD_VB = '0 0 759 533';
+const birdSVG = cls => `<svg class="${cls}" viewBox="${BIRD_VB}" aria-hidden="true"><use href="#birdp"/></svg>`;
+const pageUrl = () => location.origin + location.pathname;
+const uuid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+  : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 3 | 8)).toString(16); });
 
-const CFG_OK = /^https?:\/\//.test(SUPABASE_URL) && SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.startsWith('DEIN');
+const CFG_OK = /^https?:\/\//.test(SUPABASE_URL) && SUPABASE_ANON_KEY.length > 20 && !/^(PASTE|DEIN|YOUR)/i.test(SUPABASE_ANON_KEY);
 const sb = (CFG_OK && typeof supabase !== 'undefined') ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
 const state = {
@@ -146,75 +320,151 @@ const state = {
   cur: null, role: null, tasks: [],
   crumbs: [], keepCrumbs: false, poll: null, needsRefresh: false, routeSeq: 0
 };
+let recoveryMode = RECOVERY_HASH;
 
-function toast(msg, isErr) {
-  const t = $('#toast'); t.textContent = msg; t.className = isErr ? 'err' : ''; t.style.display = 'block';
-  clearTimeout(toast._t); toast._t = setTimeout(() => { t.style.display = 'none'; }, isErr ? 5000 : 2200);
+function toast(msg, isErr, action) {
+  const t = $('#toast'); t.className = isErr ? 'err' : ''; t.textContent = '';
+  const s = document.createElement('span'); s.textContent = msg; t.appendChild(s);
+  if (action) {
+    const b = document.createElement('button'); b.textContent = action.label;
+    b.onclick = () => { t.style.display = 'none'; action.fn(); }; t.appendChild(b);
+  }
+  t.style.display = 'flex'; clearTimeout(toast._t);
+  toast._t = setTimeout(() => { t.style.display = 'none'; }, action ? 7000 : (isErr ? 5000 : 2200));
 }
+
+const DB_ERRS = [
+  [/Nur der Besitzer/i, 'err_not_owner'], [/Keine Berechtigung/i, 'err_no_perm'],
+  [/Konto "(.*)" wurde nicht gefunden/i, 'err_user_nf', m => ({ name: m[1] })],
+  [/eigenes Konto/i, 'err_self'], [/Link ung.ltig/i, 'err_join']
+];
 function errText(err) {
   const m = (err && err.message) || String(err);
-  if (/Invalid login credentials/i.test(m)) return 'E-Mail oder Passwort ist falsch.';
-  if (/Email not confirmed/i.test(m)) return 'Bitte bestätige zuerst deine E-Mail-Adresse (Link in der Bestätigungs-Mail).';
-  if (/already registered/i.test(m)) return 'Diese E-Mail-Adresse ist bereits registriert.';
-  if (/Password should be at least/i.test(m)) return 'Das Passwort ist zu kurz (mindestens 8 Zeichen).';
-  if (/rate limit/i.test(m)) return 'Zu viele Versuche – bitte warte kurz und probiere es erneut.';
-  if (/Database error saving new user/i.test(m)) return 'Registrierung fehlgeschlagen (Konto-Name evtl. vergeben oder ungültig).';
+  if (/Invalid login credentials/i.test(m)) return T('err_login');
+  if (/Email not confirmed/i.test(m)) return T('err_unconfirmed');
+  if (/already registered/i.test(m)) return T('err_email_taken');
+  if (/Password should be at least/i.test(m)) return T('err_pw_short');
+  if (/rate limit|too many requests|security purposes/i.test(m)) return T('err_rate');
+  if (/Database error saving new user/i.test(m)) return T('err_signup_db');
+  if (/different from the old password/i.test(m)) return T('err_pw_same');
+  if (/reauthentication/i.test(m)) return T('err_reauth');
+  for (const [re, key, vars] of DB_ERRS) { const x = m.match(re); if (x) return T(key, vars ? vars(x) : null); }
   return m;
 }
-function modal(html, mount) {
+
+function modal(html, mount, onClose, extraCls) {
   const ov = document.createElement('div'); ov.className = 'overlay';
-  ov.innerHTML = `<div class="modal" role="dialog" aria-modal="true">${html}</div>`;
-  const close = () => ov.remove();
+  ov.innerHTML = `<div class="modal ${extraCls || ''}" role="dialog" aria-modal="true">${html}</div>`;
+  const close = () => { if (!ov.isConnected) return; ov.remove(); if (onClose) onClose(); };
+  ov._close = close;
   ov.addEventListener('mousedown', e => { if (e.target === ov) close(); });
   document.body.appendChild(ov);
   if (mount) mount(ov.firstElementChild, close);
   const f = ov.querySelector('input,select,textarea'); if (f) f.focus();
   return close;
 }
+function confirmBox(text, okLabel) {
+  return new Promise(resolve => {
+    modal(`<p style="margin:0 0 4px;font-size:16px">${esc(text)}</p>
+      <div class="actions"><span class="spacer"></span><button class="btn" data-no>${TE('cancel')}</button>
+      <button class="btn danger solid" data-yes>${esc(okLabel || T('delete'))}</button></div>`,
+    (m, close) => {
+      $('[data-no]', m).onclick = close;
+      $('[data-yes]', m).onclick = () => { resolve(true); close(); };
+      $('[data-yes]', m).focus();
+    }, () => resolve(false), 'small-modal');
+  });
+}
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { const o = [...document.querySelectorAll('.overlay')].pop(); if (o) o.remove(); }
+  if (e.key !== 'Escape') return;
+  if (ctxEl) { closeCtx(); return; }
+  const o = [...document.querySelectorAll('.overlay')].pop(); if (o && o._close) o._close();
 });
 
-/* ---------- Start & Sitzung ---------- */
+/* ---------- Avatars ---------- */
+const AV_RE = /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/;
+function avatarHTML(p, size) {
+  const st = `width:${size}px;height:${size}px;font-size:${Math.round(size * .45)}px`;
+  if (p && p.avatar && AV_RE.test(p.avatar)) return `<img class="av" style="${st}" src="${p.avatar}" alt="">`;
+  const ch = ((p && p.username) || '?').trim().charAt(0).toUpperCase() || '?';
+  return `<span class="av" style="${st}">${esc(ch)}</span>`;
+}
+function resizeToDataURL(file, size) {
+  return new Promise((resolve, reject) => {
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      const s = Math.min(img.width, img.height), c = document.createElement('canvas');
+      c.width = c.height = size;
+      const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, size, size);
+      g.drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, size, size);
+      URL.revokeObjectURL(url); resolve(c.toDataURL('image/jpeg', 0.85));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('image')); };
+    img.src = url;
+  });
+}
+
+
+
+/* ---------- Intro screen ---------- */
+const splash = $('#splash');
+const SPLASH_IMPACT = 1250, SPLASH_MIN = 2400;
+const reducedMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const splashStart = performance.now();
+let splashMinDone = false, appRendered = false, splashHidden = false;
+function hideSplash() { if (splashHidden) return; splashHidden = true; splash.classList.add('out'); setTimeout(() => splash.remove(), 700); }
+function checkSplash() { if (splashMinDone && appRendered) hideSplash(); }
+function appReady() { appRendered = true; checkSplash(); }
+setTimeout(() => { splashMinDone = true; checkSplash(); }, reducedMotion ? 500 : SPLASH_MIN);
+setTimeout(hideSplash, 9000);
+if (!reducedMotion) {
+  setTimeout(() => splash.classList.add('hit'), SPLASH_IMPACT);
+  if (prefs.sound) {
+    setTimeout(() => document.getElementById('intro-sound').play().catch(() => {}), SPLASH_IMPACT);
+  }
+}   
+
+/* ---------- Start & session ---------- */
 function renderSetup() {
-  app.innerHTML = `<div class="auth"><h1>TPC2Do einrichten</h1>
-    <p>${sb ? 'Die Supabase-Zugangsdaten fehlen noch.' : 'Die Supabase-Bibliothek konnte nicht geladen werden (Internetverbindung?).'}</p>
-    <p class="muted">Öffne <code>index.html</code> in einem Editor und trage oben im Script <b>SUPABASE_URL</b> und <b>SUPABASE_ANON_KEY</b> ein.
-    Die Schritt-für-Schritt-Anleitung steht in der <b>README.md</b>.</p></div>`;
+  app.innerHTML = `<div class="auth"><div class="logo-lock">${birdSVG('')}<b>2DO</b></div><h2>${TE('setup_title')}</h2>
+    <p>${sb ? TE('setup_missing') : TE('setup_nolib')}</p><p class="muted">${TE('setup_howto')}</p></div>`;
 }
 
 async function setSession(session) {
   state.user = session ? session.user : null;
-  state.profile = null; state.lists = []; state.memberRoles = {}; state.owners = {};
+  state.profile = null; state.lists = []; state.memberRoles = {}; state.owners = {}; state.cur = null;
   if (state.user) {
-    const { data } = await sb.from('profiles').select('id,username').eq('id', state.user.id).maybeSingle();
+    const mp = state.user.user_metadata && state.user.user_metadata.prefs;
+    if (mp) { adoptPrefs(mp); try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {} applyLang(); }
+    const { data } = await sb.from('profiles').select('id,username,avatar').eq('id', state.user.id).maybeSingle();
     state.profile = data || { id: state.user.id, username: state.user.email };
     await loadLists();
   }
   state.ready = true;
 }
+function savePrefs() {
+  try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {}
+  if (sb && state.user) sb.auth.updateUser({ data: { prefs: { ...prefs } } }).then(r => { if (r.data && r.data.user) state.user = r.data.user; });
+}
 
 if (!sb) {
-  renderSetup();
+  renderSetup(); appReady();
 } else {
   sb.auth.onAuthStateChange((event, session) => {
-    // Nicht direkt in diesem Callback auf Supabase warten → in den nächsten Tick verschieben
+    if (event === 'PASSWORD_RECOVERY') { recoveryMode = true; if (state.ready) setTimeout(route, 0); }
+    // don't await Supabase calls inside this callback → defer to the next tick
     setTimeout(async () => {
       const next = session ? session.user.id : null;
       const prev = state.user ? state.user.id : null;
       if (state.ready && prev === next) return;
       await setSession(session);
-      route();
+      try { await route(); } finally { appReady(); }
     }, 0);
   });
   window.addEventListener('hashchange', route);
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) flushAll(); else refreshCur(true);
-  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) flushAll(); else refreshCur(true); });
   window.addEventListener('pagehide', flushAll);
-  document.addEventListener('focusout', () => {
-    setTimeout(() => { if (state.needsRefresh) refreshCur(true); }, 60);
-  });
+  document.addEventListener('focusout', () => { setTimeout(() => { if (state.needsRefresh) refreshCur(true); }, 60); });
 }
 
 async function loadLists() {
@@ -222,7 +472,7 @@ async function loadLists() {
     sb.from('lists').select(LIST_COLS).order('created_at'),
     sb.from('list_members').select('list_id,role').eq('user_id', state.user.id)
   ]);
-  if (l.error) { toast(l.error.message, true); return; }
+  if (l.error) { toast(errText(l.error), true); return; }
   state.lists = l.data || [];
   state.memberRoles = Object.fromEntries((m.data || []).map(x => [x.list_id, x.role]));
   const ids = [...new Set(state.lists.map(x => x.owner_id))].filter(id => id !== state.user.id && !state.owners[id]);
@@ -232,24 +482,25 @@ async function loadLists() {
   }
 }
 const roleOf = l => l.owner_id === state.user.id ? 'owner' : (state.memberRoles[l.id] || 'view');
-const ownerName = l => l.owner_id === state.user.id ? 'Du' : (state.owners[l.owner_id] || '?');
+const ownerName = l => l.owner_id === state.user.id ? T('you') : (state.owners[l.owner_id] || '?');
+const roleLabel = r => T(r === 'owner' ? 'role_owner' : r === 'edit' ? 'role_edit' : 'role_view');
 
 /* ---------- Routing ---------- */
 async function route() {
   if (!state.ready) return;
+  closeCtx();
   const seq = ++state.routeSeq;
   stopPolling(); flushAll();
   const [name, arg] = location.hash.replace(/^#\/?/, '').split('/');
+  if (recoveryMode && state.user) return renderRecovery();
   if (name === 'join' && arg) {
-    if (!state.user) {
-      sessionStorage.setItem('pendingJoin', arg);
-      return renderAuth('Melde dich an oder registriere dich, um die geteilte Liste zu öffnen.');
-    }
+    if (!state.user) { sessionStorage.setItem('pendingJoin', arg); return renderAuth(T('join_hint')); }
     return doJoin(arg);
   }
   if (!state.user) return renderAuth();
-  const pending = sessionStorage.getItem('pendingJoin');
-  if (pending) { sessionStorage.removeItem('pendingJoin'); return doJoin(pending); }
+  const pj = sessionStorage.getItem('pendingJoin');
+  if (pj) { sessionStorage.removeItem('pendingJoin'); return doJoin(pj); }
+  if (name === 'account') { state.crumbs = []; state.cur = null; return renderAccount(); }
   if (name === 'list' && arg) {
     if (!state.keepCrumbs) state.crumbs = [];
     state.keepCrumbs = false;
@@ -261,32 +512,41 @@ async function route() {
 
 async function doJoin(token) {
   const { data, error } = await sb.rpc('join_list_by_token', { tok: token });
-  if (error) { toast('Link ungültig oder Freigabe deaktiviert.', true); location.hash = '#/'; return; }
+  if (error) { toast(T('err_join'), true); location.hash = '#/'; return; }
   await loadLists();
   location.hash = '#/list/' + data;
 }
 
-/* ---------- Anmeldung ---------- */
+/* ---------- Login / sign-up / forgot password ---------- */
+const lockHTML = () => `<div class="logo-lock">${birdSVG('')}<b>2DO</b></div>`;
+const langSelectHTML = () => `<div class="langsel"><select id="langSel" aria-label="${TE('language')}">${
+  Object.entries(LANGS).map(([k, v]) => `<option value="${k}" ${k === prefs.lang ? 'selected' : ''}>${v}</option>`).join('')}</select></div>`;
+
 function renderAuth(msg = '') {
+  document.title = 'TPC2Do';
   let mode = 'login';
   const draw = () => {
-    app.innerHTML = `<div class="auth">
-      <h1>✅ TPC2Do</h1>
-      <p class="muted">To-Do-Listen als Tabelle – teilbar per Link oder Konto-Name.</p>
+    const forgot = mode === 'forgot';
+    app.innerHTML = `<div class="auth">${langSelectHTML()}${lockHTML()}
+      <p class="muted tagline">${TE('tagline')}</p>
       ${msg ? `<div class="notice">${esc(msg)}</div>` : ''}
-      <div class="tabs">
-        <button type="button" data-m="login" class="${mode === 'login' ? 'on' : ''}">Anmelden</button>
-        <button type="button" data-m="signup" class="${mode === 'signup' ? 'on' : ''}">Registrieren</button>
-      </div>
+      ${forgot ? `<h3 style="margin-top:14px">${TE('reset_title')}</h3>` : `<div class="tabs">
+        <button type="button" data-m="login" class="${mode === 'login' ? 'on' : ''}">${TE('tab_login')}</button>
+        <button type="button" data-m="signup" class="${mode === 'signup' ? 'on' : ''}">${TE('tab_signup')}</button></div>`}
       <form id="authForm">
-        <label>E-Mail<input type="email" name="email" required autocomplete="email"></label>
-        ${mode === 'signup' ? `<label>Konto-Name<input name="username" required maxlength="24" autocomplete="username">
-          <small>3–24 Zeichen: Buchstaben, Zahlen, _ . -  (so findet man dich zum Teilen)</small></label>` : ''}
-        <label>Passwort<input type="password" name="password" required minlength="8" autocomplete="${mode === 'login' ? 'current-password' : 'new-password'}"></label>
-        <button class="btn primary" style="width:100%" type="submit">${mode === 'login' ? 'Anmelden' : 'Konto erstellen'}</button>
+        <label>${TE('email')}<input type="email" name="email" required autocomplete="email"></label>
+        ${mode === 'signup' ? `<label>${TE('username')}<input name="username" required maxlength="24" autocomplete="username">
+          <small>${TE('username_hint')}</small></label>` : ''}
+        ${forgot ? '' : `<label>${TE('password')}<input type="password" name="password" required minlength="8" autocomplete="${mode === 'login' ? 'current-password' : 'new-password'}"></label>`}
+        <button class="btn primary" style="width:100%" type="submit">${forgot ? TE('reset_send') : mode === 'login' ? TE('btn_login') : TE('btn_signup')}</button>
         <div id="authMsg" class="msg"></div>
+        ${mode === 'login' ? `<button type="button" class="linkbtn" id="toForgot">${TE('forgot')}</button>` : ''}
+        ${forgot ? `<button type="button" class="linkbtn" id="toLogin">${TE('back_login')}</button>` : ''}
       </form></div>`;
+    $('#langSel').onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); draw(); };
     app.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { mode = b.dataset.m; draw(); });
+    const tf = $('#toForgot'); if (tf) tf.onclick = () => { mode = 'forgot'; draw(); };
+    const tl = $('#toLogin'); if (tl) tl.onclick = () => { mode = 'login'; draw(); };
     const form = $('#authForm'), out = $('#authMsg'), btn = $('button[type=submit]', form);
     form.onsubmit = async e => {
       e.preventDefault();
@@ -296,18 +556,19 @@ function renderAuth(msg = '') {
         if (mode === 'login') {
           const { error } = await sb.auth.signInWithPassword({ email, password });
           if (error) throw error;
+        } else if (forgot) {
+          const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: pageUrl() });
+          if (error) throw error;
+          out.className = 'msg ok'; out.textContent = T('reset_sent');
         } else {
           const username = f.get('username').trim();
-          if (!/^[A-Za-z0-9_.-]{3,24}$/.test(username)) throw new Error('Konto-Name: 3–24 Zeichen, nur Buchstaben, Zahlen, _ . -');
+          if (!/^[A-Za-z0-9_.-]{3,24}$/.test(username)) throw new Error(T('err_username_invalid'));
           const av = await sb.rpc('username_available', { uname: username });
           if (av.error) throw av.error;
-          if (!av.data) throw new Error('Dieser Konto-Name ist schon vergeben.');
-          const { data, error } = await sb.auth.signUp({
-            email, password,
-            options: { data: { username }, emailRedirectTo: location.href.split('#')[0] }
-          });
+          if (!av.data) throw new Error(T('err_username_taken'));
+          const { data, error } = await sb.auth.signUp({ email, password, options: { data: { username, prefs: { ...prefs } }, emailRedirectTo: pageUrl() } });
           if (error) throw error;
-          if (!data.session) { out.className = 'msg ok'; out.textContent = 'Fast geschafft! Bitte bestätige deine E-Mail-Adresse über den Link in der Mail, die wir dir geschickt haben.'; }
+          if (!data.session) { out.className = 'msg ok'; out.textContent = T('signup_ok'); }
         }
       } catch (err) { out.textContent = errText(err); }
       btn.disabled = false;
@@ -316,29 +577,52 @@ function renderAuth(msg = '') {
   draw();
 }
 
-/* ---------- Kopfleiste ---------- */
-const topbar = () => `<header class="top"><a class="brand" href="#/">✅ TPC2Do</a><span class="spacer"></span>
-  <span class="user">👤 ${esc(state.profile ? state.profile.username : '')}</span><button class="btn" id="logout">Abmelden</button></header>`;
+function renderRecovery() {
+  document.title = 'TPC2Do';
+  app.innerHTML = `<div class="auth">${lockHTML()}<h3 style="margin-top:6px">${TE('rec_title')}</h3>
+    <form id="recForm">
+      <label>${TE('pw_new')}<input type="password" name="pw" required minlength="8" autocomplete="new-password"></label>
+      <label>${TE('pw_confirm')}<input type="password" name="pw2" required minlength="8" autocomplete="new-password"></label>
+      <small>${TE('pw_hint')}</small>
+      <button class="btn primary" style="width:100%;margin-top:12px" type="submit">${TE('rec_btn')}</button>
+      <div id="recMsg" class="msg"></div></form></div>`;
+  const form = $('#recForm'), out = $('#recMsg');
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(form), pw = f.get('pw'), pw2 = f.get('pw2');
+    out.className = 'msg'; out.textContent = '';
+    if (pw.length < 8) { out.textContent = T('err_pw_short'); return; }
+    if (pw !== pw2) { out.textContent = T('err_pw_mismatch'); return; }
+    const { error } = await sb.auth.updateUser({ password: pw });
+    if (error) { out.textContent = errText(error); return; }
+    recoveryMode = false; toast(T('rec_done')); location.hash = '#/'; route();
+  };
+}
+
+/* ---------- Top bar ---------- */
+const topbar = () => `<header class="top"><a class="brand" href="#/" aria-label="TPC2Do"><span class="tile">${birdSVG('')}</span><span>2DO</span></a><span class="spacer"></span>
+  <a class="me" href="#/account" title="${TE('account')}">${avatarHTML(state.profile, 30)}<span>${esc(state.profile ? state.profile.username : '')}</span></a>
+  <button class="btn" id="logout">${TE('logout')}</button></header>`;
 function bindTop() {
   const b = $('#logout'); if (b) b.onclick = async () => { await flushAllWait(); await sb.auth.signOut(); };
 }
 
-/* ---------- Startseite ---------- */
+/* ---------- Home ---------- */
 function renderHome() {
-  document.title = 'TPC2Do – To-Do-Listen als Tabelle';
+  document.title = 'TPC2Do';
   const mine = state.lists.filter(l => l.owner_id === state.user.id);
   const shared = state.lists.filter(l => l.owner_id !== state.user.id);
   const card = l => {
     const r = roleOf(l);
     return `<div class="card" data-id="${l.id}"><h3>📋 ${esc(l.title)}</h3>
-      <div class="muted small">${r === 'owner' ? ROLE_LABEL.owner : esc(ownerName(l)) + ' · ' + ROLE_LABEL[r]}</div>
-      <button class="icon" data-act="${r === 'owner' ? 'delete' : 'leave'}" title="${r === 'owner' ? 'Liste löschen' : 'Liste verlassen'}">${r === 'owner' ? '🗑' : '🚪'}</button></div>`;
+      <div class="muted small">${r === 'owner' ? TE('role_owner') : esc(ownerName(l)) + ' · ' + esc(roleLabel(r))}</div>
+      <button class="icon" data-act="${r === 'owner' ? 'delete' : 'leave'}" title="${TE(r === 'owner' ? 'tip_delete_list' : 'tip_leave_list')}">${r === 'owner' ? '🗑' : '🚪'}</button></div>`;
   };
   app.innerHTML = topbar() + `<main class="wrap">
-    <div class="row between"><h2>Meine Listen</h2><button class="btn primary" id="newList">＋ Neue Liste</button></div>
-    ${mine.length ? `<div class="grid">${mine.map(card).join('')}</div>` : `<div class="empty">Noch keine Liste. Leg mit „Neue Liste“ los!</div>`}
-    <h2>Mit mir geteilt</h2>
-    ${shared.length ? `<div class="grid">${shared.map(card).join('')}</div>` : `<div class="empty">Hier erscheinen Listen, die andere mit dir teilen.</div>`}
+    <div class="row between"><h2>${TE('my_lists')}</h2><button class="btn primary" id="newList">${TE('new_list')}</button></div>
+    ${mine.length ? `<div class="grid">${mine.map(card).join('')}</div>` : `<div class="empty">${TE('no_lists')}</div>`}
+    <h2>${TE('shared_with_me')}</h2>
+    ${shared.length ? `<div class="grid">${shared.map(card).join('')}</div>` : `<div class="empty">${TE('no_shared')}</div>`}
   </main>`;
   bindTop();
   $('#newList').onclick = newListModal;
@@ -347,51 +631,51 @@ function renderHome() {
     if (!b) { location.hash = '#/list/' + id; return; }
     const l = state.lists.find(x => x.id === id);
     if (b.dataset.act === 'delete') {
-      if (!confirm(`Liste „${l.title}“ mit allen Aufgaben endgültig löschen?`)) return;
+      if (!(await confirmBox(T('confirm_list_delete', { name: l.title })))) return;
       const { error } = await sb.from('lists').delete().eq('id', id);
-      if (error) return toast(error.message, true);
+      if (error) return toast(errText(error), true);
     } else {
-      if (!confirm(`„${l.title}“ verlassen? Du verlierst den Zugriff.`)) return;
+      if (!(await confirmBox(T('confirm_leave', { name: l.title }), T('tip_leave_list')))) return;
       const { error } = await sb.from('list_members').delete().eq('list_id', id).eq('user_id', state.user.id);
-      if (error) return toast(error.message, true);
+      if (error) return toast(errText(error), true);
     }
     await loadLists(); renderHome();
   });
 }
 
 function newListModal() {
-  modal(`<h3>Neue Liste</h3><label>Name<input id="nl" maxlength="120" placeholder="z. B. Einkauf"></label>
-    <div class="actions"><span class="spacer"></span><button class="btn" data-x>Abbrechen</button><button class="btn primary" id="ok">Erstellen</button></div>`,
+  modal(`<h3>${TE('new_list').replace(/^[+＋]\s*/, '')}</h3><label>${TE('name')}<input id="nl" maxlength="120"></label>
+    <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="ok">${TE('create')}</button></div>`,
   (m, close) => {
-    const go = async () => { const t = $('#nl', m).value.trim() || 'Neue Liste'; close(); const l = await createList(t); if (l) location.hash = '#/list/' + l.id; };
+    const go = async () => { const t = $('#nl', m).value.trim() || T('list_default'); close(); const l = await createList(t); if (l) location.hash = '#/list/' + l.id; };
     $('#ok', m).onclick = go; $('[data-x]', m).onclick = close;
     $('#nl', m).addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
   });
 }
 async function createList(title) {
   const { data, error } = await sb.from('lists').insert({ title }).select(LIST_COLS).single();
-  if (error) { toast(error.message, true); return null; }
+  if (error) { toast(errText(error), true); return null; }
   state.lists.push(data); return data;
 }
 
-/* ---------- Listenansicht ---------- */
+/* ---------- List view ---------- */
 const pending = new Map();         // taskId -> {patch, timer}
-const insertPromises = new Map();  // taskId -> Promise (Insert läuft noch)
+const insertPromises = new Map();  // taskId -> Promise (insert still running)
 let inflight = 0;
 
 async function renderList(id, seq) {
-  app.innerHTML = topbar() + '<main class="wrap"><p class="muted">Lade …</p></main>'; bindTop();
+  app.innerHTML = topbar() + `<main class="wrap"><p class="muted">${TE('loading')}</p></main>`; bindTop();
   let list = state.lists.find(l => l.id === id);
   if (!list) { await loadLists(); list = state.lists.find(l => l.id === id); }
   if (seq !== state.routeSeq) return;
   if (!list) {
-    app.innerHTML = topbar() + `<main class="wrap"><h2>Liste nicht gefunden</h2>
-      <p class="muted">Sie existiert nicht (mehr) oder du hast keinen Zugriff.</p><a class="btn" href="#/">Zur Übersicht</a></main>`;
+    app.innerHTML = topbar() + `<main class="wrap"><h2>${TE('nf_title')}</h2>
+      <p class="muted">${TE('nf_text')}</p><a class="btn" href="#/">${TE('nf_back')}</a></main>`;
     bindTop(); return;
   }
   const { data, error } = await sb.from('tasks').select('*').eq('list_id', id).order('position');
   if (seq !== state.routeSeq) return;
-  if (error) { toast(error.message, true); return; }
+  if (error) { toast(errText(error), true); return; }
   state.cur = list; state.role = roleOf(list); state.tasks = data || [];
   document.title = list.title + ' – TPC2Do';
   drawList(); startPolling();
@@ -407,15 +691,16 @@ function drawList() {
   const l = state.cur, owner = state.role === 'owner';
   const crumbs = state.crumbs.map((c, i) => `<a href="#/list/${c.id}" data-crumb="${i}">${esc(c.title)}</a>`).join(' › ');
   app.innerHTML = topbar() + `<main class="wrap wide">
-    <nav class="crumbs"><a href="#/">Meine Listen</a> › ${crumbs ? crumbs + ' › ' : ''}<span>${esc(l.title)}</span></nav>
+    <nav class="crumbs"><a href="#/">${TE('my_lists')}</a> › ${crumbs ? crumbs + ' › ' : ''}<span>${esc(l.title)}</span></nav>
     <div class="row between wrapx">
-      <div>${owner ? `<input id="listTitle" class="h-input" value="${esc(l.title)}" maxlength="120" aria-label="Listenname">` : `<h2>${esc(l.title)}</h2>`}</div>
-      <div class="row gap"><span class="badge">${ROLE_LABEL[state.role]}</span><span id="saveState" class="muted small"></span>
-        ${owner ? '<button class="btn" id="shareBtn">🔗 Teilen</button>' : ''}</div>
+      <div>${owner ? `<input id="listTitle" class="h-input" value="${esc(l.title)}" maxlength="120" aria-label="${TE('name')}">` : `<h2>${esc(l.title)}</h2>`}</div>
+      <div class="row gap"><span class="badge">${TE(state.role === 'owner' ? 'role_owner' : state.role === 'edit' ? 'role_edit' : 'role_view')}</span><span id="saveState" class="muted small"></span>
+        ${owner ? `<button class="btn" id="shareBtn">${TE('share')}</button>` : ''}</div>
     </div>
     <div class="sheet-wrap" id="sheetWrap"></div>
     <p class="muted small" id="counter"></p>
-    ${owner ? '' : `<p class="muted small">Besitzer: ${esc(ownerName(l))}</p>`}
+    ${state.role !== 'view' ? `<p class="muted small">${TE('hint_ctx')}</p>` : ''}
+    ${owner ? '' : `<p class="muted small">${TE('owner_is', { name: ownerName(l) })}</p>`}
   </main>`;
   bindTop();
   $('.crumbs').addEventListener('click', e => {
@@ -427,10 +712,10 @@ function drawList() {
   });
   const ti = $('#listTitle');
   if (ti) ti.addEventListener('change', async () => {
-    const title = ti.value.trim() || 'Neue Liste'; ti.value = title;
+    const title = ti.value.trim() || T('list_default'); ti.value = title;
     if (title === l.title) return;
     const { error } = await sb.from('lists').update({ title }).eq('id', l.id);
-    if (error) return toast(error.message, true);
+    if (error) return toast(errText(error), true);
     l.title = title; document.title = title + ' – TPC2Do';
   });
   const sh = $('#shareBtn'); if (sh) sh.onclick = shareModal;
@@ -440,31 +725,28 @@ function drawList() {
 
 function tableHTML() {
   const cols = state.cur.columns || [], ro = state.role === 'view';
-  const W = { chk: 46, task: 330, notes: 280, sub: 220, custom: 170, add: 46, del: 46 };
-  const widths = [W.chk, W.task, W.notes, W.sub, ...cols.map(() => W.custom), ...(ro ? [] : [W.add]), W.del];
+  const W = { chk: 46, task: 330, notes: 280, sub: 220, custom: 170, add: 46 };
+  const widths = [W.chk, W.task, W.notes, W.sub, ...cols.map(() => W.custom), ...(ro ? [] : [W.add])];
   const total = widths.reduce((a, b) => a + b, 0);
-  const head = `<thead><tr><th class="c-chk" title="Erledigt">✓</th><th>Aufgabe</th><th>Hinweise</th><th>Sub-To-Do-List</th>
-    ${cols.map(c => `<th title="${esc(c.name)}">${esc(c.name)}${ro ? '' : `<button class="colbtn" data-act="editcol" data-col="${c.id}" title="Spalte bearbeiten">⋯</button>`}</th>`).join('')}
-    ${ro ? '' : '<th class="c-add"><button class="colbtn" style="float:none;opacity:1;font-size:18px" data-act="addcol" title="Spalte hinzufügen">＋</button></th>'}<th></th></tr></thead>`;
-  const un = undoneTasks(), dn = doneTasks();
-  const ncols = widths.length;
+  const head = `<thead><tr><th class="c-chk" title="${TE('done')}">✓</th><th>${TE('c_task')}</th><th>${TE('c_notes')}</th><th>${TE('c_sub')}</th>
+    ${cols.map(c => `<th title="${esc(c.name)}">${esc(c.name)}${ro ? '' : `<button class="colbtn" data-act="editcol" data-col="${c.id}" title="${TE('col_edit_tip')}">⋯</button>`}</th>`).join('')}
+    ${ro ? '' : `<th class="c-add"><button class="colbtn" style="float:none;opacity:1;font-size:18px" data-act="addcol" title="${TE('col_add_tip')}">＋</button></th>`}</tr></thead>`;
+  const un = undoneTasks(), dn = doneTasks(), ncols = widths.length;
   let body = un.map(rowHTML).join('');
-  if (!ro) body += `<tr class="addrow"><td></td><td colspan="${ncols - 1}"><button class="linkbtn" data-act="addtask">＋ Aufgabe hinzufügen</button></td></tr>`;
-  if (dn.length) body += `<tr class="sep"><td colspan="${ncols}">Erledigt (${dn.length})</td></tr>` + dn.map(rowHTML).join('');
+  if (!ro) body += `<tr class="addrow"><td></td><td colspan="${ncols - 1}"><button class="linkbtn" data-act="addtask">${TE('add_task')}</button></td></tr>`;
+  if (dn.length) body += `<tr class="sep"><td colspan="${ncols}">${TE('done_hdr', { n: dn.length })}</td></tr>` + dn.map(rowHTML).join('');
   return `<table class="sheet" style="width:${total}px"><colgroup>${widths.map(w => `<col style="width:${w}px">`).join('')}</colgroup>${head}<tbody>${body}</tbody></table>`;
 }
 
 function rowHTML(t) {
-  const cols = state.cur.columns || [], ro = state.role === 'view';
-  const dis = ro ? 'readonly' : '';
+  const cols = state.cur.columns || [], ro = state.role === 'view', dis = ro ? 'readonly' : '';
   return `<tr data-id="${t.id}" class="${t.done ? 'done' : ''}">
-    <td class="c-chk"><input type="checkbox" data-f="done" ${t.done ? 'checked' : ''} ${ro ? 'disabled' : ''} aria-label="Erledigt"></td>
-    <td><textarea rows="1" data-f="title" placeholder="Aufgabe …" ${dis}>${esc(t.title)}</textarea></td>
+    <td class="c-chk"><input type="checkbox" data-f="done" ${t.done ? 'checked' : ''} ${ro ? 'disabled' : ''} aria-label="${TE('done')}"></td>
+    <td><textarea rows="1" data-f="title" placeholder="${TE('task_ph')}" ${dis}>${esc(t.title)}</textarea></td>
     <td><textarea rows="1" data-f="notes" ${dis}>${esc(t.notes)}</textarea></td>
     <td class="c-sub">${subCell(t, ro)}</td>
     ${cols.map(c => customCell(t, c, ro)).join('')}
-    ${ro ? '' : '<td class="c-add"></td>'}
-    <td class="c-del">${ro ? '' : '<button class="icon" data-act="del" title="Aufgabe löschen">🗑</button>'}</td></tr>`;
+    ${ro ? '' : '<td class="c-add"></td>'}</tr>`;
 }
 
 function subCell(t, ro) {
@@ -472,10 +754,10 @@ function subCell(t, ro) {
     const sl = state.lists.find(l => l.id === t.sub_list_id);
     const chip = sl
       ? `<a class="chip" href="#/list/${sl.id}" data-act="opensub" data-sub="${sl.id}" title="${esc(sl.title)}">📋 ${esc(sl.title)} →</a>`
-      : `<span class="chip lock" title="Du hast keinen Zugriff auf diese Liste">🔒 Kein Zugriff</span>`;
-    return chip + (ro ? '' : `<button class="icon" data-act="unlinksub" title="Verknüpfung lösen">✕</button>`);
+      : `<span class="chip lock" title="${TE('no_access_tip')}">🔒 ${TE('no_access')}</span>`;
+    return chip + (ro ? '' : `<button class="icon" data-act="unlinksub" title="${TE('unlink_tip')}">✕</button>`);
   }
-  return ro ? '' : `<button class="linkbtn" data-act="linksub">＋ Liste verknüpfen</button>`;
+  return ro ? '' : `<button class="linkbtn" data-act="linksub">${TE('link_sub')}</button>`;
 }
 
 function customCell(t, c, ro) {
@@ -493,10 +775,63 @@ function drawTable() {
   wrap.innerHTML = tableHTML();
   wrap.scrollLeft = sl; wrap.scrollTop = st;
   wrap.querySelectorAll('textarea').forEach(fit);
-  const un = undoneTasks().length, dn = doneTasks().length, c = $('#counter');
-  if (c) c.textContent = `${un} offen · ${dn} erledigt`;
+  const c = $('#counter'); if (c) c.textContent = T('counts', { open: undoneTasks().length, done: doneTasks().length });
 }
 window.addEventListener('resize', () => document.querySelectorAll('#sheetWrap textarea').forEach(fit));
+
+/* ---------- Right-click / long-press menu ---------- */
+let ctxEl = null;
+function closeCtx() {
+  if (ctxEl) { ctxEl.remove(); ctxEl = null; }
+  document.querySelectorAll('tr.ctxrow').forEach(r => r.classList.remove('ctxrow'));
+}
+function openCtx(x, y, task) {
+  closeCtx();
+  const ro = state.role === 'view', items = [];
+  const sub = task.sub_list_id ? state.lists.find(l => l.id === task.sub_list_id) : null;
+  if (!ro) {
+    items.push({ ic: task.done ? '↩' : '✓', k: task.done ? 'cm_open' : 'cm_done', fn: () => toggleDone(task) });
+    if (!task.done) items.push(
+      { ic: '↑', k: 'cm_above', fn: () => addTask(task.id, 'above') },
+      { ic: '↓', k: 'cm_below', fn: () => addTask(task.id, 'below') },
+      { ic: '⧉', k: 'cm_dup', fn: () => duplicateTask(task) });
+    items.push('-');
+  }
+  if (sub) items.push({ ic: '↗', k: 'cm_goto', fn: () => openSub(sub.id) });
+  if (!ro) {
+    items.push(task.sub_list_id ? { ic: '✕', k: 'cm_unlink', fn: () => unlinkSub(task) } : { ic: '🔗', k: 'cm_link', fn: () => subModal(task) });
+    items.push('-', { ic: '🗑', k: 'cm_delete', danger: true, fn: () => askDeleteTask(task) });
+  }
+  const clean = items.filter((it, i, a) => !(it === '-' && (i === 0 || a[i - 1] === '-' || i === a.length - 1)));
+  if (!clean.length) return false;
+  const m = document.createElement('div'); m.className = 'ctx'; m.setAttribute('role', 'menu');
+  clean.forEach(it => {
+    if (it === '-') { m.appendChild(document.createElement('hr')); return; }
+    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'menuitem');
+    if (it.danger) b.className = 'danger';
+    const ic = document.createElement('span'); ic.className = 'ic'; ic.textContent = it.ic;
+    const tx = document.createElement('span'); tx.textContent = T(it.k);
+    b.append(ic, tx);
+    b.onclick = () => { closeCtx(); it.fn(); };
+    m.appendChild(b);
+  });
+  m.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    e.preventDefault();
+    const bs = [...m.querySelectorAll('button')], i = bs.indexOf(document.activeElement);
+    bs[(i + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length].focus();
+  });
+  document.body.appendChild(m); ctxEl = m;
+  const r = m.getBoundingClientRect();
+  m.style.left = Math.max(6, Math.min(x, innerWidth - r.width - 6)) + 'px';
+  m.style.top = Math.max(6, Math.min(y, innerHeight - r.height - 6)) + 'px';
+  const row = $(`tr[data-id="${task.id}"]`); if (row) row.classList.add('ctxrow');
+  m.querySelector('button').focus();
+  return true;
+}
+document.addEventListener('pointerdown', e => { if (ctxEl && !ctxEl.contains(e.target)) closeCtx(); }, true);
+window.addEventListener('scroll', () => { if (ctxEl) closeCtx(); }, true);
+window.addEventListener('resize', () => { if (ctxEl) closeCtx(); });
 
 function bindSheet(wrap) {
   wrap.addEventListener('input', e => {
@@ -516,16 +851,14 @@ function bindSheet(wrap) {
     const el = e.target;
     if (el.dataset.f !== 'done') return;
     const t = taskById(el.closest('tr').dataset.id); if (!t) return;
-    t.done = el.checked; t.done_at = el.checked ? new Date().toISOString() : null;
-    queueSave(t.id, { done: t.done, done_at: t.done_at }, 0);
-    drawTable();
+    setDone(t, el.checked);
   });
   wrap.addEventListener('keydown', e => {
     const el = e.target;
     if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && el.dataset.f === 'title' && state.role !== 'view') {
       e.preventDefault();
       const t = taskById(el.closest('tr').dataset.id);
-      if (t && !t.done) addTask(t.id);
+      if (t && !t.done) addTask(t.id, 'below');
     }
   });
   wrap.addEventListener('click', e => {
@@ -533,14 +866,30 @@ function bindSheet(wrap) {
     const tr = b.closest('tr[data-id]'), t = tr ? taskById(tr.dataset.id) : null;
     switch (b.dataset.act) {
       case 'addtask': addTask(); break;
-      case 'del': if (t) deleteTask(t); break;
       case 'linksub': if (t) subModal(t); break;
-      case 'unlinksub': if (t) { t.sub_list_id = null; queueSave(t.id, { sub_list_id: null }, 0); drawTable(); } break;
+      case 'unlinksub': if (t) unlinkSub(t); break;
       case 'opensub': e.preventDefault(); openSub(b.dataset.sub); break;
       case 'addcol': colModal(); break;
       case 'editcol': colModal(colById(b.dataset.col)); break;
     }
   });
+  // right-click (desktop, Android long-press)
+  wrap.addEventListener('contextmenu', e => {
+    const tr = e.target.closest('tr[data-id]'); if (!tr) return;
+    const el = e.target;
+    try { if ((el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') && el.selectionStart != null && el.selectionStart !== el.selectionEnd) return; } catch (x) {}
+    const t = taskById(tr.dataset.id); if (!t) return;
+    if (openCtx(e.clientX, e.clientY, t)) e.preventDefault();
+  });
+  // long-press for touch devices without a contextmenu event (iOS)
+  let lp = null;
+  wrap.addEventListener('touchstart', e => {
+    const tr = e.target.closest('tr[data-id]');
+    if (!tr || /^(TEXTAREA|INPUT|BUTTON|A|SELECT)$/.test(e.target.tagName)) return;
+    const p = e.touches[0];
+    lp = setTimeout(() => { lp = null; const t = taskById(tr.dataset.id); if (t) { if (navigator.vibrate) navigator.vibrate(15); openCtx(p.clientX, p.clientY, t); } }, 550);
+  }, { passive: true });
+  ['touchend', 'touchmove', 'touchcancel'].forEach(ev => wrap.addEventListener(ev, () => { clearTimeout(lp); lp = null; }, { passive: true }));
 }
 
 function openSub(id) {
@@ -548,11 +897,18 @@ function openSub(id) {
   state.keepCrumbs = true;
   location.hash = '#/list/' + id;
 }
+function unlinkSub(t) { t.sub_list_id = null; queueSave(t.id, { sub_list_id: null }, 0); drawTable(); }
+function setDone(t, val) {
+  t.done = val; t.done_at = val ? new Date().toISOString() : null;
+  queueSave(t.id, { done: t.done, done_at: t.done_at }, 0);
+  drawTable();
+}
+function toggleDone(t) { setDone(t, !t.done); }
 
-/* ---------- Speichern ---------- */
+/* ---------- Saving ---------- */
 function updateStatus() {
   const s = $('#saveState'); if (!s) return;
-  s.textContent = (pending.size || inflight) ? 'Speichere …' : 'Alles gespeichert';
+  s.textContent = (pending.size || inflight) ? T('saving') : T('saved');
 }
 function queueSave(id, patch, delay = 600) {
   const p = pending.get(id) || { patch: {}, timer: null };
@@ -567,7 +923,7 @@ async function flush(id) {
   try {
     if (insertPromises.has(id)) await insertPromises.get(id);
     const { error } = await sb.from('tasks').update(p.patch).eq('id', id);
-    if (error) toast('Speichern fehlgeschlagen: ' + error.message, true);
+    if (error) toast(T('save_fail', { msg: errText(error) }), true);
   } finally {
     inflight--; updateStatus();
     if (!pending.size && !inflight && state.needsRefresh) refreshCur(true);
@@ -579,71 +935,89 @@ async function flushAllWait() {
   for (let i = 0; i < 50 && (pending.size || inflight); i++) await new Promise(r => setTimeout(r, 100));
 }
 
-/* ---------- Aufgaben ---------- */
-async function addTask(afterId) {
-  const un = undoneTasks();
-  let pos;
-  if (afterId) {
-    const i = un.findIndex(x => x.id === afterId), cur = un[i], nxt = un[i + 1];
-    pos = nxt ? (cur.position + nxt.position) / 2 : cur.position + 1;
-  } else {
-    pos = state.tasks.reduce((m, t) => Math.max(m, t.position), 0) + 1;
-  }
-  const t = { id: crypto.randomUUID(), list_id: state.cur.id, done: false, title: '', notes: '', sub_list_id: null,
-              data: {}, position: pos, created_at: new Date().toISOString(), done_at: null };
+/* ---------- Tasks ---------- */
+function posFor(refId, where) {
+  const un = undoneTasks(), i = un.findIndex(x => x.id === refId);
+  if (i < 0) return state.tasks.reduce((m, x) => Math.max(m, x.position), 0) + 1;
+  const cur = un[i];
+  if (where === 'above') { const prv = un[i - 1]; return prv ? (prv.position + cur.position) / 2 : cur.position - 1; }
+  const nxt = un[i + 1]; return nxt ? (cur.position + nxt.position) / 2 : cur.position + 1;
+}
+async function addTask(refId, where = 'below', init = {}) {
+  const pos = refId ? posFor(refId, where) : state.tasks.reduce((m, x) => Math.max(m, x.position), 0) + 1;
+  const t = Object.assign({ id: uuid(), list_id: state.cur.id, done: false, title: '', notes: '', sub_list_id: null, data: {},
+    created_at: new Date().toISOString(), done_at: null }, init, { position: pos });
+  await insertTask(t, true);
+}
+async function insertTask(t, focus) {
   state.tasks.push(t); drawTable();
-  const el = $(`tr[data-id="${t.id}"] textarea[data-f="title"]`); if (el) el.focus();
-  const ins = sb.from('tasks').insert({ id: t.id, list_id: t.list_id, position: pos }).then(r => r);
+  if (focus) { const el = $(`tr[data-id="${t.id}"] textarea[data-f="title"]`); if (el) el.focus(); }
+  const payload = { id: t.id, list_id: t.list_id, position: t.position, done: t.done, done_at: t.done_at,
+    title: t.title, notes: t.notes, sub_list_id: t.sub_list_id, data: t.data };
+  const ins = sb.from('tasks').insert(payload).then(r => r);
   insertPromises.set(t.id, ins);
   const { error } = await ins;
   insertPromises.delete(t.id);
   if (error) {
-    toast('Aufgabe konnte nicht angelegt werden: ' + error.message, true);
+    toast(T('create_fail', { msg: errText(error) }), true);
     pending.delete(t.id); state.tasks = state.tasks.filter(x => x.id !== t.id); drawTable();
   }
 }
+function duplicateTask(t) {
+  addTask(t.id, 'below', { title: t.title, notes: t.notes, sub_list_id: t.sub_list_id, data: JSON.parse(JSON.stringify(t.data || {})) });
+}
+const isEmptyTask = t => !t.title && !t.notes && !t.sub_list_id && !Object.values(t.data || {}).some(v => v !== '' && v != null && v !== false);
 
+async function askDeleteTask(t) {
+  const empty = isEmptyTask(t);
+  if (prefs.confirmDelete && !empty && !(await confirmBox(T('confirm_task')))) return;
+  const snap = JSON.parse(JSON.stringify(t));
+  await deleteTask(t);
+  if (!prefs.confirmDelete && !empty) toast(T('task_deleted'), false, { label: T('undo'), fn: () => {
+    if (state.cur && state.cur.id === snap.list_id) insertTask(snap, false);
+  } });
+}
 async function deleteTask(t) {
-  if ((t.title || t.notes) && !confirm('Diese Aufgabe löschen?')) return;
   const p = pending.get(t.id); if (p) { clearTimeout(p.timer); pending.delete(t.id); }
   state.tasks = state.tasks.filter(x => x.id !== t.id); drawTable(); updateStatus();
   if (insertPromises.has(t.id)) await insertPromises.get(t.id);
   const { error } = await sb.from('tasks').delete().eq('id', t.id);
-  if (error) { toast('Löschen fehlgeschlagen: ' + error.message, true); refreshCur(true); }
+  if (error) { toast(T('delete_fail', { msg: errText(error) }), true); refreshCur(true); }
 }
 
-/* ---------- Sub-To-Do-Listen ---------- */
+/* ---------- Sub lists ---------- */
 function subModal(t) {
   const others = state.lists.filter(l => l.id !== state.cur.id);
-  modal(`<h3>Sub-To-Do-List verknüpfen</h3>
+  modal(`<h3>${TE('sub_title')}</h3>
     <div class="pick">${others.map(l => `<button class="pickitem" data-id="${l.id}"><span>📋 ${esc(l.title)}</span><small>${esc(ownerName(l))}</small></button>`).join('')
-      || '<p class="muted">Du hast noch keine weiteren Listen.</p>'}</div>
-    <button class="btn primary" id="mkSub">＋ Neue Liste erstellen &amp; verknüpfen</button>
-    <div class="actions"><span class="spacer"></span><button class="btn" data-x>Abbrechen</button></div>`,
+      || `<p class="muted">${TE('sub_empty')}</p>`}</div>
+    <button class="btn primary" id="mkSub">${TE('sub_create')}</button>
+    <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button></div>`,
   (m, close) => {
     const setSub = id => { t.sub_list_id = id; queueSave(t.id, { sub_list_id: id }, 0); drawTable(); };
     m.querySelectorAll('.pickitem').forEach(b => b.onclick = () => { close(); setSub(b.dataset.id); });
     $('[data-x]', m).onclick = close;
     $('#mkSub', m).onclick = async () => {
       close();
-      const l = await createList(t.title.trim() || 'Unterliste');
-      if (l) { setSub(l.id); toast('Neue Liste erstellt und verknüpft.'); }
+      const l = await createList(t.title.trim() || T('sublist_default'));
+      if (l) { setSub(l.id); toast(T('sub_made')); }
     };
   });
 }
 
-/* ---------- Eigene Spalten ---------- */
+/* ---------- Custom columns ---------- */
 function colModal(col) {
-  modal(`<h3>${col ? 'Spalte bearbeiten' : 'Neue Spalte'}</h3>
-    <label>Name<input id="cn" maxlength="40" value="${esc(col ? col.name : '')}"></label>
-    <label>Typ<select id="ct" ${col ? 'disabled' : ''}>${Object.entries(COL_TYPES).map(([k, v]) =>
-      `<option value="${k}" ${col && col.type === k ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
-    <div class="actions">${col ? '<button class="btn danger" id="cdel">Spalte löschen</button>' : ''}<span class="spacer"></span>
-      <button class="btn" data-x>Abbrechen</button><button class="btn primary" id="cok">Speichern</button></div>`,
+  const types = { text: 'ty_text', number: 'ty_number', date: 'ty_date', checkbox: 'ty_check' };
+  modal(`<h3>${TE(col ? 'col_edit' : 'col_new')}</h3>
+    <label>${TE('col_name')}<input id="cn" maxlength="40" value="${esc(col ? col.name : '')}"></label>
+    <label>${TE('col_type')}<select id="ct" ${col ? 'disabled' : ''}>${Object.entries(types).map(([k, v]) =>
+      `<option value="${k}" ${col && col.type === k ? 'selected' : ''}>${TE(v)}</option>`).join('')}</select></label>
+    <div class="actions">${col ? `<button class="btn danger" id="cdel">${TE('col_delete')}</button>` : ''}<span class="spacer"></span>
+      <button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="cok">${TE('save')}</button></div>`,
   (m, close) => {
     $('[data-x]', m).onclick = close;
     const save = async () => {
-      const name = $('#cn', m).value.trim(); if (!name) return toast('Bitte einen Namen eingeben.', true);
+      const name = $('#cn', m).value.trim(); if (!name) return toast(T('col_name_req'), true);
       const cols = (state.cur.columns || []).map(c => ({ ...c }));
       if (col) cols.find(c => c.id === col.id).name = name;
       else cols.push({ id: 'c' + Math.random().toString(36).slice(2, 8), name, type: $('#ct', m).value });
@@ -653,89 +1027,91 @@ function colModal(col) {
     $('#cn', m).addEventListener('keydown', e => { if (e.key === 'Enter') save(); });
     const d = $('#cdel', m);
     if (d) d.onclick = async () => {
-      if (!confirm(`Spalte „${col.name}“ löschen? Die Werte darin gehen verloren.`)) return;
-      close(); await saveColumns((state.cur.columns || []).filter(c => c.id !== col.id));
+      close();
+      if (!(await confirmBox(T('confirm_col', { name: col.name })))) return;
+      await saveColumns((state.cur.columns || []).filter(c => c.id !== col.id));
     };
   });
 }
 async function saveColumns(cols) {
   const { error } = await sb.rpc('set_list_columns', { lid: state.cur.id, cols });
-  if (error) return toast(error.message, true);
+  if (error) return toast(errText(error), true);
   state.cur.columns = cols; drawTable();
 }
 
-/* ---------- Teilen ---------- */
+/* ---------- Sharing ---------- */
 async function loadMembers(lid) {
   const r = await sb.from('list_members').select('user_id,role').eq('list_id', lid);
   const rows = r.data || []; if (!rows.length) return [];
-  const p = await sb.from('profiles').select('id,username').in('id', rows.map(x => x.user_id));
-  const names = Object.fromEntries((p.data || []).map(x => [x.id, x.username]));
-  return rows.map(x => ({ ...x, username: names[x.user_id] || '?' })).sort((a, b) => a.username.localeCompare(b.username));
+  const p = await sb.from('profiles').select('id,username,avatar').in('id', rows.map(x => x.user_id));
+  const by = Object.fromEntries((p.data || []).map(x => [x.id, x]));
+  return rows.map(x => ({ ...x, username: (by[x.user_id] || {}).username || '?', avatar: (by[x.user_id] || {}).avatar }))
+    .sort((a, b) => a.username.localeCompare(b.username));
 }
 
 async function shareModal() {
   const l = state.cur;
   const [tk, members0] = await Promise.all([sb.rpc('get_share_token', { lid: l.id }), loadMembers(l.id)]);
-  if (tk.error) return toast(tk.error.message, true);
+  if (tk.error) return toast(errText(tk.error), true);
   let token = tk.data, members = members0;
-  const url = () => location.href.split('#')[0] + '#/join/' + token;
-  modal(`<h3>„${esc(l.title)}“ teilen</h3>
-    <h4>Per Link</h4>
+  const url = () => pageUrl() + '#/join/' + token;
+  modal(`<h3>${TE('share_title', { name: l.title })}</h3>
+    <h4>${TE('by_link')}</h4>
     <select id="linkRole" style="width:100%">
-      <option value="none">Aus – nur eingeladene Konten</option>
-      <option value="view">Jeder mit Link kann ansehen</option>
-      <option value="edit">Jeder mit Link kann bearbeiten</option>
+      <option value="none">${TE('link_off')}</option>
+      <option value="view">${TE('link_view')}</option>
+      <option value="edit">${TE('link_edit')}</option>
     </select>
     <div id="linkBox"></div>
-    <h4>Per Konto-Name</h4>
-    <div class="row"><input id="shUser" placeholder="Konto-Name" style="flex:1;min-width:0" autocomplete="off">
-      <select id="shRole"><option value="edit">Bearbeiten</option><option value="view">Nur ansehen</option></select>
-      <button class="btn primary" id="shAdd">Hinzufügen</button></div>
+    <h4>${TE('by_user')}</h4>
+    <div class="row"><input id="shUser" placeholder="${TE('user_ph')}" style="flex:1;min-width:0" autocomplete="off">
+      <select id="shRole"><option value="edit">${TE('r_edit')}</option><option value="view">${TE('r_view')}</option></select>
+      <button class="btn primary" id="shAdd">${TE('add')}</button></div>
     <div class="members" id="memberList"></div>
-    <div class="actions"><span class="spacer"></span><button class="btn" data-x>Fertig</button></div>`,
+    <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('done')}</button></div>`,
   (m, close) => {
     $('[data-x]', m).onclick = close;
     const roleSel = $('#linkRole', m); roleSel.value = l.link_role;
     const drawLink = () => {
       const box = $('#linkBox', m);
       if (roleSel.value === 'none') { box.innerHTML = ''; return; }
-      box.innerHTML = `<div class="linkrow"><input id="lnk" readonly value="${esc(url())}"><button class="btn" id="cp">Kopieren</button></div>
-        <small>Wer den Link öffnet, braucht ein Konto und muss angemeldet sein.</small><br>
-        <button class="linkbtn small" id="rot">Neuen Link erzeugen (alter Link wird ungültig)</button>`;
+      box.innerHTML = `<div class="linkrow"><input id="lnk" readonly value="${esc(url())}"><button class="btn" id="cp">${TE('link_copy')}</button></div>
+        <small>${TE('link_note')}</small><br>
+        <button class="linkbtn small" id="rot">${TE('link_rotate')}</button>`;
       $('#cp', m).onclick = async () => {
         const inp = $('#lnk', m);
-        try { await navigator.clipboard.writeText(inp.value); toast('Link kopiert.'); }
-        catch (e) { inp.select(); document.execCommand('copy'); toast('Link kopiert.'); }
+        try { await navigator.clipboard.writeText(inp.value); toast(T('link_copied')); }
+        catch (e) { inp.select(); document.execCommand('copy'); toast(T('link_copied')); }
       };
       $('#rot', m).onclick = async () => {
-        if (!confirm('Der bisherige Link funktioniert danach nicht mehr. Fortfahren?')) return;
+        if (!(await confirmBox(T('confirm_rotate'), T('link_rotate').replace(/\s*\(.*\)$/, '')))) return;
         const r = await sb.rpc('rotate_share_token', { lid: l.id });
-        if (r.error) return toast(r.error.message, true);
-        token = r.data; drawLink(); toast('Neuer Link erzeugt.');
+        if (r.error) return toast(errText(r.error), true);
+        token = r.data; drawLink(); toast(T('link_new'));
       };
     };
     roleSel.onchange = async () => {
       const { error } = await sb.from('lists').update({ link_role: roleSel.value }).eq('id', l.id);
-      if (error) { roleSel.value = l.link_role; return toast(error.message, true); }
+      if (error) { roleSel.value = l.link_role; return toast(errText(error), true); }
       l.link_role = roleSel.value; drawLink();
     };
     drawLink();
 
     const drawMembers = () => {
       const box = $('#memberList', m);
-      box.innerHTML = members.length ? members.map(x => `<div class="member" data-uid="${x.user_id}"><span>👤 ${esc(x.username)}</span>
-        <select data-mrole><option value="edit" ${x.role === 'edit' ? 'selected' : ''}>Bearbeiten</option><option value="view" ${x.role === 'view' ? 'selected' : ''}>Nur ansehen</option></select>
-        <button class="icon" data-mrm title="Entfernen">✕</button></div>`).join('')
-        : '<p class="muted small">Noch niemand per Konto-Name eingeladen.</p>';
+      box.innerHTML = members.length ? members.map(x => `<div class="member" data-uid="${x.user_id}">${avatarHTML(x, 24)}<span class="nm">${esc(x.username)}</span>
+        <select data-mrole><option value="edit" ${x.role === 'edit' ? 'selected' : ''}>${TE('r_edit')}</option><option value="view" ${x.role === 'view' ? 'selected' : ''}>${TE('r_view')}</option></select>
+        <button class="icon" data-mrm title="${TE('remove')}">✕</button></div>`).join('')
+        : `<p class="muted small">${TE('nobody')}</p>`;
       box.querySelectorAll('.member').forEach(row => {
         const uid = row.dataset.uid;
         $('[data-mrole]', row).onchange = async e => {
           const { error } = await sb.from('list_members').update({ role: e.target.value }).eq('list_id', l.id).eq('user_id', uid);
-          if (error) toast(error.message, true); else members.find(x => x.user_id === uid).role = e.target.value;
+          if (error) toast(errText(error), true); else members.find(x => x.user_id === uid).role = e.target.value;
         };
         $('[data-mrm]', row).onclick = async () => {
           const { error } = await sb.from('list_members').delete().eq('list_id', l.id).eq('user_id', uid);
-          if (error) return toast(error.message, true);
+          if (error) return toast(errText(error), true);
           members = members.filter(x => x.user_id !== uid); drawMembers();
         };
       });
@@ -745,15 +1121,106 @@ async function shareModal() {
     const add = async () => {
       const name = $('#shUser', m).value.trim(); if (!name) return;
       const { error } = await sb.rpc('share_with_username', { lid: l.id, uname: name, r: $('#shRole', m).value });
-      if (error) return toast(error.message, true);
-      $('#shUser', m).value = ''; members = await loadMembers(l.id); drawMembers(); toast('Geteilt.');
+      if (error) return toast(errText(error), true);
+      $('#shUser', m).value = ''; members = await loadMembers(l.id); drawMembers(); toast(T('shared_ok'));
     };
     $('#shAdd', m).onclick = add;
     $('#shUser', m).addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
   });
 }
 
-/* ---------- Automatisches Aktualisieren (alle 8 s, wenn nichts bearbeitet wird) ---------- */
+/* ---------- Account page ---------- */
+function renderAccount() {
+  const p = state.profile || {}, email = state.user.email || '';
+  document.title = T('acc_title') + ' – TPC2Do';
+  app.innerHTML = topbar() + `<main class="wrap narrow">
+    <nav class="crumbs"><a href="#/">${TE('my_lists')}</a> › <span>${TE('acc_title')}</span></nav>
+    <h2>${TE('acc_title')}</h2>
+
+    <section class="panel"><h3>${TE('acc_profile')}</h3>
+      <div class="row gap wrapx"><div>${avatarHTML(p, 84)}</div>
+        <div><div class="row wrapx"><button class="btn" id="avUp">${TE('acc_upload')}</button>${p.avatar ? `<button class="btn" id="avRm">${TE('acc_remove')}</button>` : ''}</div>
+          <input type="file" id="avFile" accept="image/png,image/jpeg,image/webp,image/gif" hidden></div></div>
+      <label style="margin-top:16px">${TE('acc_email')}<input value="${esc(email)}" disabled></label>
+      <label>${TE('acc_username')}<input id="unameIn" value="${esc(p.username || '')}" maxlength="24" autocomplete="off"></label>
+      <div class="actions"><button class="btn primary" id="unameSave">${TE('save')}</button><span id="unameMsg" class="msg inline"></span></div>
+    </section>
+
+    <section class="panel"><h3>${TE('language')}</h3>
+      <select id="langPick">${Object.entries(LANGS).map(([k, v]) => `<option value="${k}" ${k === prefs.lang ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    </section>
+
+    <section class="panel"><h3>${TE('acc_prefs')}</h3>
+      <label class="check"><input type="checkbox" id="prefConfirm" ${prefs.confirmDelete ? 'checked' : ''}>${TE('pref_confirm')}</label>
+      <div class="row wrapx"><label class="check" style="margin:0"><input type="checkbox" id="prefSound" ${prefs.sound ? 'checked' : ''}>${TE('pref_sound')}</label>
+        <button class="btn" id="soundTest">🔊 ${TE('pref_sound_test')}</button></div>
+    </section>
+
+    <section class="panel"><h3>${TE('acc_password')}</h3>
+      <form id="pwForm">
+        <label>${TE('pw_current')}<input type="password" name="cur" required autocomplete="current-password"></label>
+        <label>${TE('pw_new')}<input type="password" name="pw" required minlength="8" autocomplete="new-password"></label>
+        <label>${TE('pw_confirm')}<input type="password" name="pw2" required minlength="8" autocomplete="new-password"></label>
+        <small>${TE('pw_hint')}</small>
+        <div class="actions"><button class="btn primary" type="submit">${TE('pw_change')}</button><span id="pwMsg" class="msg inline"></span></div>
+      </form>
+      <p style="margin:16px 0 0"><button class="linkbtn" id="pwMail">${TE('pw_forgot', { email })}</button></p>
+    </section>
+  </main>`;
+  bindTop();
+
+  const fileIn = $('#avFile');
+  $('#avUp').onclick = () => fileIn.click();
+  fileIn.onchange = async () => {
+    const f = fileIn.files[0]; if (!f) return;
+    try { await saveAvatar(await resizeToDataURL(f, 160)); } catch (e) { toast(T('err_avatar'), true); }
+  };
+  const rm = $('#avRm'); if (rm) rm.onclick = () => saveAvatar(null);
+  async function saveAvatar(dataUrl) {
+    const { error } = await sb.from('profiles').update({ avatar: dataUrl }).eq('id', state.user.id);
+    if (error) return toast(errText(error), true);
+    state.profile.avatar = dataUrl; renderAccount();
+  }
+
+  $('#unameSave').onclick = async () => {
+    const out = $('#unameMsg'), v = $('#unameIn').value.trim(); out.className = 'msg inline'; out.textContent = '';
+    if (!/^[A-Za-z0-9_.-]{3,24}$/.test(v)) { out.textContent = T('err_username_invalid'); return; }
+    if (v === state.profile.username) { out.className = 'msg inline ok'; out.textContent = T('acc_saved'); return; }
+    const { error } = await sb.from('profiles').update({ username: v }).eq('id', state.user.id);
+    if (error) { out.textContent = error.code === '23505' ? T('err_username_taken') : error.code === '23514' ? T('err_username_invalid') : errText(error); return; }
+    state.profile.username = v; renderAccount(); toast(T('acc_saved'));
+  };
+
+  $('#langPick').onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); route(); };
+  $('#prefConfirm').onchange = e => { prefs.confirmDelete = e.target.checked; savePrefs(); };
+  $('#prefSound').onchange = e => { prefs.sound = e.target.checked; savePrefs(); };
+  $('#soundTest').onclick = () => {
+    const a = document.getElementById('intro-sound');
+    a.currentTime = 0;
+    a.play().catch(() => {});
+  };   
+
+  const pwForm = $('#pwForm'), pwMsg = $('#pwMsg');
+  pwForm.onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(pwForm), cur = f.get('cur'), pw = f.get('pw'), pw2 = f.get('pw2');
+    pwMsg.className = 'msg inline'; pwMsg.textContent = '';
+    if (pw.length < 8) { pwMsg.textContent = T('err_pw_short'); return; }
+    if (pw !== pw2) { pwMsg.textContent = T('err_pw_mismatch'); return; }
+    const chk = await sb.auth.signInWithPassword({ email: state.user.email, password: cur });
+    if (chk.error) { pwMsg.textContent = T('err_pw_current'); return; }
+    const { error } = await sb.auth.updateUser({ password: pw });
+    if (error) { pwMsg.textContent = errText(error); return; }
+    pwForm.reset(); pwMsg.className = 'msg inline ok'; pwMsg.textContent = T('pw_changed');
+  };
+  $('#pwMail').onclick = async () => {
+    const { error } = await sb.auth.resetPasswordForEmail(state.user.email, { redirectTo: pageUrl() });
+    if (error) return toast(errText(error), true);
+    toast(T('pw_mail_sent', { email: state.user.email }));
+  };
+}
+
+/* ---------- Auto refresh (every 8 s while you are not typing) ---------- */
 function startPolling() { stopPolling(); state.poll = setInterval(() => refreshCur(false), 8000); }
 function stopPolling() { clearInterval(state.poll); state.poll = null; state.needsRefresh = false; }
 const typing = () => { const a = document.activeElement; return !!a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName); };
@@ -762,7 +1229,7 @@ const sig = ts => JSON.stringify(ts.map(t => [t.id, t.done, t.title, t.notes, t.
 async function refreshCur(force) {
   if (!state.cur || !state.user) return;
   if (document.hidden && !force) return;
-  if (pending.size || inflight || typing()) { state.needsRefresh = true; return; }
+  if (pending.size || inflight || typing() || ctxEl || document.querySelector('.overlay')) { state.needsRefresh = true; return; }
   state.needsRefresh = false;
   const id = state.cur.id;
   const [lr, tr] = await Promise.all([
@@ -770,8 +1237,8 @@ async function refreshCur(force) {
     sb.from('tasks').select('*').eq('list_id', id).order('position')
   ]);
   if (!state.cur || state.cur.id !== id || lr.error || tr.error) return;
-  if (!lr.data) { toast('Diese Liste ist nicht mehr verfügbar.', true); await loadLists(); location.hash = '#/'; return; }
-  if (pending.size || inflight || typing()) { state.needsRefresh = true; return; }
+  if (!lr.data) { toast(T('list_gone'), true); await loadLists(); location.hash = '#/'; return; }
+  if (pending.size || inflight || typing() || ctxEl || document.querySelector('.overlay')) { state.needsRefresh = true; return; }
   const meta = x => JSON.stringify([x.title, x.columns, x.link_role]);
   const listChanged = meta(lr.data) !== meta(state.cur);
   const tasksChanged = sig(tr.data) !== sig(state.tasks);
