@@ -239,3 +239,10 @@ grant update (role) on public.list_members to authenticated;
 grant delete on public.list_members to authenticated;
 
 grant select, insert, update, delete on public.tasks to authenticated;
+
+
+-- Live updates (Realtime) for tasks (not for lists: share_token must not leak via Realtime)
+do $$ begin
+  alter publication supabase_realtime add table public.tasks;
+exception when duplicate_object then null;
+end $$;

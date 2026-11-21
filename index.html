@@ -141,6 +141,23 @@ table.sheet{border-collapse:separate;border-spacing:0;table-layout:fixed}
 #toast.err{background:var(--danger);color:#fff}
 #toast button{border:0;background:none;color:inherit;font-weight:700;text-decoration:underline;cursor:pointer;padding:0}
 
+/* Priority / due date */
+.sheet td.c-prio{padding:0}
+.sheet td.c-prio select{width:100%;border:0;border-left:5px solid transparent;border-radius:0;background:transparent;padding:8px 6px;min-height:36px;cursor:pointer}
+.sheet td.c-prio select:focus{outline:2px solid var(--accent);outline-offset:-2px;background:var(--panel)}
+.sheet td.c-prio.p1 select{border-left-color:#94a3b8}
+.sheet td.c-prio.p2 select{border-left-color:#3b82f6}
+.sheet td.c-prio.p3 select{border-left-color:#eab308}
+.sheet td.c-prio.p4 select{border-left-color:#f97316}
+.sheet td.c-prio.p5 select{border-left-color:#dc2626}
+.sheet td.c-prio.p0 select{color:var(--muted)}
+.sheet td.c-due.over{background:color-mix(in srgb,var(--danger) 13%,var(--panel))}
+.sheet td.c-due.over input{color:var(--danger);font-weight:600}
+.sheet td.c-due.today{background:color-mix(in srgb,#f97316 15%,var(--panel))}
+.sheet td.c-due.today input{color:#c2410c;font-weight:600}
+@media (prefers-color-scheme:dark){.sheet td.c-due.today input{color:#fdba74}}
+.sheet tr.done td.c-due.over,.sheet tr.done td.c-due.today{background:var(--panel)}
+
 /* Intro / Splash */
 #splash{position:fixed;inset:0;z-index:1000;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .5s ease}
 #splash.out{opacity:0;pointer-events:none}
@@ -166,11 +183,114 @@ table.sheet{border-collapse:separate;border-spacing:0;table-layout:fixed}
 @media (prefers-reduced-motion:reduce){
   #splash *{animation:none!important;transform:none!important}
 }
+
+/* ===== Themes & appearance ===== */
+:root{--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;color-scheme:light dark}
+.iconbtn{display:inline-grid;place-items:center;width:36px;height:34px;padding:0;font-size:17px;text-decoration:none}
+.iconbtn:hover{text-decoration:none}
+/* settings page */
+.themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.theme-opt{display:flex;align-items:center;gap:12px;text-align:left;border:2px solid var(--line);background:var(--panel);border-radius:12px;padding:10px 12px;cursor:pointer}
+.theme-opt:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.theme-opt.sel{border-color:var(--accent)}
+.theme-opt b{display:block;font-size:14px} .theme-opt small{display:block;line-height:1.3;margin-top:2px}
+.dots{display:flex;flex:none}
+.dots i{width:20px;height:34px;border:1px solid rgba(128,128,128,.45);margin-right:-1px}
+.dots i:first-child{border-radius:8px 0 0 8px} .dots i:last-child{border-radius:0 8px 8px 0}
+.setrow{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 12px;flex-wrap:wrap}
+.setrow>span{font-weight:600;font-size:13.5px}
+.setrow select{width:auto;margin:0}
+.setrow input[type=color]{width:46px;height:32px;padding:2px;border-radius:8px;cursor:pointer}
+.hint{margin:-6px 0 12px 28px}
+/* density + text size */
+:root[data-font="s"] body{font-size:13.5px} :root[data-font="l"] body{font-size:17px}
+:root[data-density="compact"] .sheet textarea,:root[data-density="compact"] .sheet td input[type=text],:root[data-density="compact"] .sheet td input[type=number],:root[data-density="compact"] .sheet td input[type=date]{padding:4px 8px;min-height:28px}
+:root[data-density="compact"] .sheet td.c-prio select{padding:4px 6px;min-height:28px}
+:root[data-density="compact"] .sheet td.c-chk,:root[data-density="compact"] .sheet td.c-bool{padding-top:5px}
+:root[data-density="compact"] .sheet td.c-sub{padding:3px 8px}
+:root[data-density="comfy"] .sheet textarea,:root[data-density="comfy"] .sheet td input[type=text],:root[data-density="comfy"] .sheet td input[type=number],:root[data-density="comfy"] .sheet td input[type=date]{padding:13px 10px;min-height:48px}
+:root[data-density="comfy"] .sheet td.c-prio select{padding:13px 6px;min-height:48px}
+:root[data-density="comfy"] .sheet td.c-chk,:root[data-density="comfy"] .sheet td.c-bool{padding-top:15px}
+:root[data-density="comfy"] .sheet td.c-sub{padding:13px 8px}
+/* ---- Light ---- */
+:root[data-theme="light"]{color-scheme:light;--bg:#ebeae2;--panel:#f7f6f0;--text:#131824;--muted:#6b6d5c;--line:#c9c7b3;--head:#dedcd0;--accent:#175cc2;--accent-text:#eaf1fc;--danger:#b23b30;--done:#8c8e7c;--hover:#eceae0;--shadow:0 8px 30px rgba(40,38,20,.2)}
+:root[data-theme="light"] .sheet td.c-due.today input{color:#c2410c}
+:root[data-theme="light"] .msg.ok{color:#16a34a}
+/* ---- Dark ---- */
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0a0a0a;--panel:#161616;--text:#f2f2f2;--muted:#8a8a8a;--line:#2c2c2c;--head:#1f1f1f;--accent:#fff;--accent-text:#14151d;--danger:#e0604f;--done:#6b6b6b;--hover:#202020;--shadow:0 8px 30px rgba(0,0,0,.75)}
+:root[data-theme="dark"] .tile,:root[data-theme="dark"] .logo-lock{border:1px solid #2c2c2c}
+/* ---- Modern (console look, lightly frosted) ---- */
+:root[data-theme="modern"]{color-scheme:dark;--bg:#0d1416;--panel:rgba(20,29,33,.84);--text:#dfe9ea;--muted:#6d8288;--line:#233034;--head:rgba(25,42,44,.92);--accent:#5eead4;--accent-text:#06302a;--danger:#e0453f;--done:#56696f;--hover:rgba(94,234,212,.07);--shadow:0 10px 34px rgba(0,0,0,.55)}
+:root[data-theme="modern"] body{background:radial-gradient(900px 500px at 85% 0%,rgba(94,234,212,.09),transparent 60%),radial-gradient(1200px 600px at 50% -10%,#16302c 0%,#0d1416 55%) fixed}
+:root[data-theme="modern"] :is(h1,h2,h3,h4,.brand,.h-input,.crumbs,.sheet th,.badge,.btn,.tabs button){font-family:var(--mono)}
+:root[data-theme="modern"] .sheet th{text-transform:uppercase;letter-spacing:.07em;font-size:11.5px;color:var(--accent)}
+:root[data-theme="modern"] :is(.top,.panel,.auth,.card,.modal,.ctx,.sheet-wrap){backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+:root[data-theme="modern"] :is(.panel,.auth,.card,.modal,.sheet-wrap,.ctx){border-radius:10px}
+:root[data-theme="modern"] .sheet th,:root[data-theme="modern"] .sheet td{background:transparent}
+:root[data-theme="modern"] .sheet th{background:var(--head)}
+:root[data-theme="modern"] .sheet tr.sep td{background:var(--head)}
+:root[data-theme="modern"] .sheet tr.addrow:hover td{background:transparent}
+:root[data-theme="modern"] .sheet textarea:focus,:root[data-theme="modern"] .sheet td input:focus,:root[data-theme="modern"] .sheet td.c-prio select:focus{background:rgba(94,234,212,.06)}
+:root[data-theme="modern"] .btn.primary{box-shadow:0 0 0 1px rgba(94,234,212,.45),0 0 18px rgba(94,234,212,.2)}
+:root[data-theme="modern"] .card:hover{box-shadow:0 0 0 1px var(--accent),0 0 22px rgba(94,234,212,.15)}
+:root[data-theme="modern"] .overlay{background:rgba(3,8,9,.6)}
+:root[data-theme="modern"] .sheet td.c-due.today input{color:#fdba74}
+:root[data-theme="modern"] .logo-lock,:root[data-theme="modern"] .tile{border:1px solid #233034}
+/* ---- Glass (layered: coloured light, blur + saturation, specular edges; real refraction in Chromium) ---- */
+:root[data-theme="glass"]{color-scheme:dark;--bg:#13224a;--panel:rgba(255,255,255,.10);--text:#fff;--muted:rgba(255,255,255,.74);--line:rgba(255,255,255,.26);--head:rgba(255,255,255,.15);--accent:#00deff;--accent-text:#04233a;--danger:#ff7066;--done:rgba(255,255,255,.5);--hover:rgba(255,255,255,.13);--shadow:0 14px 44px rgba(6,12,45,.4);
+  --glass-filter:blur(16px) saturate(185%) brightness(1.1)}
+:root.refract[data-theme="glass"]{--glass-filter:url(#glass-refract) blur(5px) saturate(190%) brightness(1.1)}
+:root[data-theme="glass"] body{background:radial-gradient(640px 460px at 12% 18%,rgba(255,95,190,.55),transparent 65%),radial-gradient(720px 520px at 88% 26%,rgba(0,222,255,.45),transparent 65%),radial-gradient(820px 620px at 55% 95%,rgba(140,95,255,.6),transparent 65%),linear-gradient(160deg,#1e3c72 0%,#2a5298 38%,#6a4fc2 70%,#1fa9c4 100%) fixed;min-height:100vh}
+:root[data-theme="glass"] html,:root[data-theme="glass"]{background:#13224a}
+:root[data-theme="glass"] :is(.auth,.panel,.modal,.card){position:relative;isolation:isolate;border:1px solid rgba(255,255,255,.28);border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.06) 30%,rgba(255,255,255,.02) 58%,rgba(255,255,255,.11) 100%),var(--panel);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.8),inset -1px -1px 1px -.5px rgba(255,255,255,.4),inset 0 0 26px rgba(255,255,255,.06),var(--shadow);
+  backdrop-filter:var(--glass-filter);-webkit-backdrop-filter:var(--glass-filter)}
+:root[data-theme="glass"] :is(.auth,.panel,.modal)::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(130% 70% at 14% -8%,rgba(255,255,255,.38),rgba(255,255,255,0) 52%),radial-gradient(90% 60% at 96% 112%,rgba(255,255,255,.16),rgba(255,255,255,0) 60%)}
+:root[data-theme="glass"] .top{background:rgba(255,255,255,.10);border-bottom:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 8px 28px rgba(6,12,45,.25);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%)}
+:root[data-theme="glass"] .sheet-wrap{border:1px solid rgba(255,255,255,.3);border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.04) 45%,rgba(255,255,255,.09));
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.8),inset -1px -1px 1px -.5px rgba(255,255,255,.35),var(--shadow);backdrop-filter:blur(16px) saturate(185%) brightness(1.08);-webkit-backdrop-filter:blur(16px) saturate(185%) brightness(1.08)}
+:root[data-theme="glass"] .sheet th,:root[data-theme="glass"] .sheet td{background:transparent;border-color:rgba(255,255,255,.18)}
+:root[data-theme="glass"] .sheet th{background:rgba(40,64,140,.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+:root[data-theme="glass"] .sheet tr.sep td{background:rgba(255,255,255,.12)}
+:root[data-theme="glass"] .sheet tr.addrow:hover td{background:transparent}
+:root[data-theme="glass"] .sheet textarea:focus,:root[data-theme="glass"] .sheet td input:focus,:root[data-theme="glass"] .sheet td.c-prio select:focus{background:rgba(255,255,255,.14)}
+:root[data-theme="glass"] :is(.btn,.chip,.pickitem,.member,.badge,.tabs button,.theme-opt,.notice){
+  background:linear-gradient(160deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.04) 45%,rgba(255,255,255,.10) 100%),rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);
+  box-shadow:inset 1px 1px .5px -.5px rgba(255,255,255,.75),inset -1px -1px .5px -.5px rgba(255,255,255,.3),0 6px 18px rgba(6,12,45,.2)}
+:root[data-theme="glass"] :is(.btn,.tabs button,.theme-opt){border-radius:999px}
+:root[data-theme="glass"] .theme-opt{border-radius:18px}
+:root[data-theme="glass"] :is(.btn:hover,.pickitem:hover,.theme-opt:hover){background-color:rgba(255,255,255,.2)}
+:root[data-theme="glass"] .theme-opt.sel{border-color:var(--accent)}
+:root[data-theme="glass"] .btn.primary,:root[data-theme="glass"] .tabs button.on{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0) 58%),var(--accent);border:1px solid rgba(255,255,255,.65);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.9),inset 0 -3px 8px rgba(0,70,110,.28),0 8px 26px rgba(0,222,255,.38)}
+:root[data-theme="glass"] .btn.danger.solid{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 58%),#ff453a;border-color:rgba(255,255,255,.5);color:#fff}
+:root[data-theme="glass"] :is(input,select,textarea){background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.3)}
+:root[data-theme="glass"] .sheet :is(textarea,input,select){background:transparent}
+:root[data-theme="glass"] option{background:#1d2f66;color:#fff}
+:root[data-theme="glass"] .ctx{border-radius:16px;background:rgba(30,50,120,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%)}
+:root[data-theme="glass"] .overlay{background:rgba(8,16,60,.35);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+:root[data-theme="glass"] .modal{background-color:rgba(255,255,255,.12)}
+:root[data-theme="glass"] .tile,:root[data-theme="glass"] .logo-lock{background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.35)}
+:root[data-theme="glass"] .sheet td.c-due.today input{color:#ffd29a}
+:root[data-theme="glass"] .sheet td.c-due.over input{color:#ffb3ac}
+:root[data-theme="glass"] .msg.ok{color:#7dffa6}
+:root[data-theme="glass"] .linkbtn,:root[data-theme="glass"] a{color:#9ff3ff}
+:root[data-theme="glass"] .me:hover{background:rgba(255,255,255,.14)}
+/* reduced effects */
+:root.lowfx *,:root.lowfx *::before{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;transition:none!important}
+:root.lowfx[data-theme="glass"]{--panel:rgba(36,58,128,.94);--head:rgba(52,78,160,.95)}
+:root.lowfx[data-theme="glass"] .sheet-wrap{background:rgba(30,50,118,.92)}
+:root.lowfx[data-theme="glass"] .ctx{background:rgb(34,56,126)}
+:root.lowfx[data-theme="glass"] .sheet th{background:rgb(52,78,160)}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><path id="birdp" fill="currentColor" fill-rule="evenodd" d="M424.3 509.6C389.1 491.9 347.2 469.8 328 458.8C322.2 455.4 313.9 450.7 309.5 448.2C305.1 445.7 300.7 443.1 299.8 442.5C298.5 441.6 306.6 441.4 333.8 441.4C372.8 441.4 392.7 440.1 420.5 435.4C496.5 422.7 555.5 386.6 592.5 330.2C613.9 297.5 630.7 246.7 638.4 191L639.1 186.5L653.5 177.7C661.4 172.9 668.3 169 668.8 169C670.6 169 674 203.9 674 222.6C674.1 309.9 637.5 383.2 573.2 424.7C536.4 448.4 483.9 466.6 433 473.1C427.8 473.7 423.3 474.4 423.2 474.6C422.8 474.9 425.8 479.1 437.8 495.4C451.6 514.2 460.5 527 459.6 527C459.3 527 443.4 519.1 424.3 509.6ZM6 434.7C6 433.4 43.3 402.8 69.5 382.5C75.9 377.6 86.9 369 93.9 363.5C101 358 110.2 350.8 114.5 347.5C118.8 344.2 126.2 338.4 131.1 334.5C135.9 330.6 144.3 324 149.7 319.8C155.1 315.6 170.3 303.7 183.5 293.4C196.7 283.1 214.5 269.2 223 262.5C231.5 255.8 261 232.8 288.4 211.4C315.9 190 340.6 170.1 343.4 167.2C350.6 159.7 355.4 151.4 365.4 128.5C377.2 101.6 379 98 385.6 87C411 44.8 448.6 17.9 495.5 8.3C509.6 5.5 545.7 5.8 560 8.8C588.2 14.9 614.4 27.4 633.9 43.9C644.2 52.6 662.6 75.7 660.8 77.6C660.5 77.8 653.6 76.7 645.4 75.1C584.9 63.1 550.1 64.8 524.5 80.9C501.9 95.2 492.2 109.4 471.6 158C467.7 167.3 467.4 167.6 455.4 172.4C407.4 191.8 339.1 228.4 274 269.8C251.3 284.2 207.3 312.9 193 322.5C145.9 354.4 135.4 361.6 115.6 375.5L102.8 384.5L152.8 384.8L202.8 385L207 387.4C210.4 389.3 210.9 389.9 209.4 390.3C175.4 400.2 68.4 424.5 30.2 431C5.7 435.2 6 435.1 6 434.7ZM274 399C254 397.4 231 391.9 216 385.2L209.5 382.3L218 381.6C254.7 378.5 302.1 370.1 338.3 360.4C429 336 477.7 299.2 473.6 258.2C471.3 235.4 457.5 215.2 435.2 201.9L430.8 199.3L437.7 197.9C448.8 195.6 474.6 196.2 484.5 198.8C509.8 205.8 532.3 223.9 543.8 246.5C551.2 261.2 552.8 283.1 547.7 298.5C535.4 335.5 497 364 435.5 382C388 395.8 322.3 402.8 274 399ZM635 172C635 170.6 638.3 157.3 644.8 132.5C650 112.7 655.4 95.8 658.9 87.9L661 83.3L666.5 84.2C669.5 84.6 682.5 87.5 695.2 90.4C708 93.4 725.9 97.5 735 99.5C744.1 101.4 751.9 103.2 752.5 103.3C753 103.5 748.9 106.3 743.5 109.4C738 112.6 727 119.2 719 123.9C711 128.7 696.9 137.1 687.5 142.5C678.1 147.9 663.5 156.5 655 161.5C635.3 173.2 635 173.3 635 172ZM571.9 117.9C559.7 110.6 561.1 92 574.3 86.5C589.8 80.1 604.6 95.4 597.5 110.5C593.3 119.1 580.3 122.9 571.9 117.9Z"/></defs></svg>
 
+<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true" focusable="false"><filter id="glass-refract" x="-4%" y="-4%" width="108%" height="108%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.007 0.011" numOctaves="2" seed="11" result="noise"/><feGaussianBlur in="noise" stdDeviation="3" result="soft"/><feDisplacementMap in="SourceGraphic" in2="soft" scale="34" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<audio id="intro-sound" src="introsound.mp3" preload="auto"></audio>
 <div id="splash" aria-hidden="true">
   <div class="sp-stage">
     <svg class="sp-bird" viewBox="0 0 759 533"><use href="#birdp"/></svg>
@@ -178,7 +298,6 @@ table.sheet{border-collapse:separate;border-spacing:0;table-layout:fixed}
   </div>
   <div class="sp-flash"></div>
 </div>
-<audio id="intro-sound" src="introsound.mp3" preload="auto"></audio>   
 
 <div id="app"></div>
 <div id="toast" role="status"></div>
@@ -213,7 +332,8 @@ en: {
   col_new:"New column", col_edit:"Edit column", col_name:"Name", col_type:"Type", ty_text:"Text", ty_number:"Number", ty_date:"Date", ty_check:"Checkbox", col_delete:"Delete column", confirm_col:"Delete the column “{name}”? The values in it will be lost.", col_name_req:"Please enter a name.",
   share_title:"Share “{name}”", by_link:"By link", link_off:"Off – invited accounts only", link_view:"Anyone with the link can view", link_edit:"Anyone with the link can edit", link_note:"Anyone opening the link needs an account and has to be logged in.", link_copy:"Copy", link_copied:"Link copied.", link_rotate:"Generate new link (old link stops working)", confirm_rotate:"The current link will stop working. Continue?", link_new:"New link generated.", by_user:"By username", user_ph:"Username", r_edit:"Can edit", r_view:"View only", nobody:"Nobody invited by username yet.", remove:"Remove", shared_ok:"Shared.",
   save_fail:"Saving failed: {msg}", create_fail:"Task could not be created: {msg}", delete_fail:"Deleting failed: {msg}",
-  acc_title:"Account", acc_profile:"Profile", acc_picture:"Profile picture", acc_upload:"Upload picture", acc_remove:"Remove picture", acc_username:"Username", acc_saved:"Saved.", acc_prefs:"Preferences", pref_confirm:"Ask before deleting a task", pref_sound:"Play intro sound", pref_sound_test:"Play sound", acc_password:"Password", pw_current:"Current password", pw_new:"New password", pw_confirm:"Repeat new password", pw_hint:"At least 8 characters.", pw_change:"Change password", pw_changed:"Password changed.", pw_forgot:"Forgot your password? Send a reset link to {email}", pw_mail_sent:"Reset link sent to {email}.", acc_email:"Email", rec_title:"Choose a new password", rec_btn:"Save new password", rec_done:"New password saved."
+  acc_title:"Account", acc_profile:"Profile", acc_picture:"Profile picture", acc_upload:"Upload picture", acc_remove:"Remove picture", acc_username:"Username", acc_saved:"Saved.", acc_prefs:"Preferences", pref_confirm:"Ask before deleting a task", pref_sound:"Play intro sound", pref_sound_test:"Play sound", acc_password:"Password", pw_current:"Current password", pw_new:"New password", pw_confirm:"Repeat new password", pw_hint:"At least 8 characters.", pw_change:"Change password", pw_changed:"Password changed.", pw_forgot:"Forgot your password? Send a reset link to {email}", pw_mail_sent:"Reset link sent to {email}.", acc_email:"Email", rec_title:"Choose a new password", rec_btn:"Save new password", rec_done:"New password saved.", set_title:"Preferences", set_appearance:"Appearance", set_behavior:"Behavior", pref_theme:"Theme", theme_default:"Standard", theme_default_d:"Light or dark, following your device", theme_light:"Light", theme_light_d:"Warm paper tones, blue accent", theme_dark:"Dark", theme_dark_d:"Pure black, white accent", theme_modern:"Modern", theme_modern_d:"Console look with a teal glow", theme_glass:"Glass", theme_glass_d:"Frosted, translucent panels with light refraction", pref_accent:"Accent color", accent_reset:"Reset", pref_density:"Row height", dens_compact:"Compact", dens_normal:"Normal", dens_comfy:"Comfortable", pref_font:"Text size", font_s:"Small", font_m:"Medium", font_l:"Large", pref_lowfx:"Reduce effects", pref_lowfx_d:"Turns off blur, light refraction and shadows (faster on older devices).", pref_skipintro:"Skip intro animation", gs_import:"Import from Google Sheets …", gs_title:"Import from Google Sheets", gs_hint:"Paste the link of your sheet. It must be shared as “Anyone with the link can view”. Only the tab from the link is imported.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Import", gs_bad_url:"That doesn’t look like a Google Sheets link.", gs_fail:"Couldn’t load the sheet. Check that it is shared with “Anyone with the link”, or download it via File → Download → CSV and use “Import CSV”.",
+  columns_btn:"Columns", csv_btn:"CSV", csv_export:"Export as CSV", csv_import:"Import CSV …", csv_done_n:"{n} tasks imported.", csv_done_skip:"{n} tasks imported ({skipped} unknown columns ignored).", csv_empty:"No tasks found in this file.", csv_too_many:"Too many rows (max. {max}).", csv_fail:"Import failed: {msg}", csv_no_task:"Import failed: no “Task” column found.", ty_priority:"Priority", ty_due:"Due date", prio_1:"Very low", prio_2:"Low", prio_3:"Medium", prio_4:"High", prio_5:"Very high", prio_none:"–", cols_title:"Columns", cols_add:"+ Add column", col_visible:"Show in this list", col_hidden:"hidden", pref_sort:"Sort open tasks by priority automatically", due_over:"Overdue", due_today:"Due today"
 },
 de: {
   loading:"Lade …", cancel:"Abbrechen", create:"Erstellen", save:"Speichern", delete:"Löschen", undo:"Rückgängig", done:"Fertig", add:"Hinzufügen", back:"Zurück", copy:"Kopieren", you:"Du",
@@ -229,7 +349,8 @@ de: {
   col_new:"Neue Spalte", col_edit:"Spalte bearbeiten", col_name:"Name", col_type:"Typ", ty_text:"Text", ty_number:"Zahl", ty_date:"Datum", ty_check:"Häkchen", col_delete:"Spalte löschen", confirm_col:"Spalte „{name}“ löschen? Die Werte darin gehen verloren.", col_name_req:"Bitte einen Namen eingeben.",
   share_title:"„{name}“ teilen", by_link:"Per Link", link_off:"Aus – nur eingeladene Konten", link_view:"Jeder mit Link kann ansehen", link_edit:"Jeder mit Link kann bearbeiten", link_note:"Wer den Link öffnet, braucht ein Konto und muss angemeldet sein.", link_copy:"Kopieren", link_copied:"Link kopiert.", link_rotate:"Neuen Link erzeugen (alter Link wird ungültig)", confirm_rotate:"Der bisherige Link funktioniert danach nicht mehr. Fortfahren?", link_new:"Neuer Link erzeugt.", by_user:"Per Konto-Name", user_ph:"Konto-Name", r_edit:"Bearbeiten", r_view:"Nur ansehen", nobody:"Noch niemand per Konto-Name eingeladen.", remove:"Entfernen", shared_ok:"Geteilt.",
   save_fail:"Speichern fehlgeschlagen: {msg}", create_fail:"Aufgabe konnte nicht angelegt werden: {msg}", delete_fail:"Löschen fehlgeschlagen: {msg}",
-  acc_title:"Konto", acc_profile:"Profil", acc_picture:"Profilbild", acc_upload:"Bild hochladen", acc_remove:"Bild entfernen", acc_username:"Konto-Name", acc_saved:"Gespeichert.", acc_prefs:"Einstellungen", pref_confirm:"Vor dem Löschen einer Aufgabe nachfragen", pref_sound:"Intro-Sound abspielen", pref_sound_test:"Sound testen", acc_password:"Passwort", pw_current:"Aktuelles Passwort", pw_new:"Neues Passwort", pw_confirm:"Neues Passwort wiederholen", pw_hint:"Mindestens 8 Zeichen.", pw_change:"Passwort ändern", pw_changed:"Passwort geändert.", pw_forgot:"Passwort vergessen? Reset-Link an {email} senden", pw_mail_sent:"Reset-Link an {email} gesendet.", acc_email:"E-Mail", rec_title:"Neues Passwort festlegen", rec_btn:"Neues Passwort speichern", rec_done:"Neues Passwort gespeichert."
+  acc_title:"Konto", acc_profile:"Profil", acc_picture:"Profilbild", acc_upload:"Bild hochladen", acc_remove:"Bild entfernen", acc_username:"Konto-Name", acc_saved:"Gespeichert.", acc_prefs:"Einstellungen", pref_confirm:"Vor dem Löschen einer Aufgabe nachfragen", pref_sound:"Intro-Sound abspielen", pref_sound_test:"Sound testen", acc_password:"Passwort", pw_current:"Aktuelles Passwort", pw_new:"Neues Passwort", pw_confirm:"Neues Passwort wiederholen", pw_hint:"Mindestens 8 Zeichen.", pw_change:"Passwort ändern", pw_changed:"Passwort geändert.", pw_forgot:"Passwort vergessen? Reset-Link an {email} senden", pw_mail_sent:"Reset-Link an {email} gesendet.", acc_email:"E-Mail", rec_title:"Neues Passwort festlegen", rec_btn:"Neues Passwort speichern", rec_done:"Neues Passwort gespeichert.", set_title:"Einstellungen", set_appearance:"Darstellung", set_behavior:"Verhalten", pref_theme:"Design", theme_default:"Standard", theme_default_d:"Hell oder dunkel, passend zum Gerät", theme_light:"Hell", theme_light_d:"Warme Papiertöne, blauer Akzent", theme_dark:"Dunkel", theme_dark_d:"Tiefschwarz, weißer Akzent", theme_modern:"Modern", theme_modern_d:"Konsolen-Look mit türkisem Leuchten", theme_glass:"Glas", theme_glass_d:"Mattierte, durchscheinende Flächen mit Lichtbrechung", pref_accent:"Akzentfarbe", accent_reset:"Zurücksetzen", pref_density:"Zeilenhöhe", dens_compact:"Kompakt", dens_normal:"Normal", dens_comfy:"Großzügig", pref_font:"Textgröße", font_s:"Klein", font_m:"Mittel", font_l:"Groß", pref_lowfx:"Effekte reduzieren", pref_lowfx_d:"Schaltet Unschärfe, Lichtbrechung und Schatten ab (schneller auf älteren Geräten).", pref_skipintro:"Intro-Animation überspringen", gs_import:"Aus Google Sheets importieren …", gs_title:"Aus Google Sheets importieren", gs_hint:"Füge den Link deiner Tabelle ein. Sie muss mit „Jeder mit dem Link kann ansehen“ freigegeben sein. Es wird nur das Tabellenblatt aus dem Link importiert.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importieren", gs_bad_url:"Das sieht nicht wie ein Google-Sheets-Link aus.", gs_fail:"Die Tabelle konnte nicht geladen werden. Prüfe die Freigabe („Jeder mit dem Link“) oder lade sie über Datei → Herunterladen → CSV herunter und nutze „CSV importieren“.",
+  columns_btn:"Spalten", csv_btn:"CSV", csv_export:"Als CSV exportieren", csv_import:"CSV importieren …", csv_done_n:"{n} Aufgaben importiert.", csv_done_skip:"{n} Aufgaben importiert ({skipped} unbekannte Spalten ignoriert).", csv_empty:"In dieser Datei wurden keine Aufgaben gefunden.", csv_too_many:"Zu viele Zeilen (max. {max}).", csv_fail:"Import fehlgeschlagen: {msg}", csv_no_task:"Import fehlgeschlagen: keine Spalte „Aufgabe“ gefunden.", ty_priority:"Priorität", ty_due:"Fälligkeitsdatum", prio_1:"Sehr niedrig", prio_2:"Niedrig", prio_3:"Mittel", prio_4:"Hoch", prio_5:"Sehr hoch", prio_none:"–", cols_title:"Spalten", cols_add:"＋ Spalte hinzufügen", col_visible:"In dieser Liste anzeigen", col_hidden:"ausgeblendet", pref_sort:"Offene Aufgaben automatisch nach Priorität sortieren", due_over:"Überfällig", due_today:"Heute fällig"
 },
 es: {
   loading:"Cargando …", cancel:"Cancelar", create:"Crear", save:"Guardar", delete:"Eliminar", undo:"Deshacer", done:"Listo", add:"Añadir", back:"Volver", copy:"Copiar", you:"Tú",
@@ -245,7 +366,8 @@ es: {
   col_new:"Nueva columna", col_edit:"Editar columna", col_name:"Nombre", col_type:"Tipo", ty_text:"Texto", ty_number:"Número", ty_date:"Fecha", ty_check:"Casilla", col_delete:"Eliminar columna", confirm_col:"¿Eliminar la columna «{name}»? Se perderán sus valores.", col_name_req:"Introduce un nombre.",
   share_title:"Compartir «{name}»", by_link:"Por enlace", link_off:"Desactivado: solo cuentas invitadas", link_view:"Cualquiera con el enlace puede ver", link_edit:"Cualquiera con el enlace puede editar", link_note:"Quien abra el enlace necesita una cuenta e iniciar sesión.", link_copy:"Copiar", link_copied:"Enlace copiado.", link_rotate:"Generar enlace nuevo (el anterior dejará de funcionar)", confirm_rotate:"El enlace actual dejará de funcionar. ¿Continuar?", link_new:"Enlace nuevo generado.", by_user:"Por nombre de usuario", user_ph:"Nombre de usuario", r_edit:"Puede editar", r_view:"Solo ver", nobody:"Aún no has invitado a nadie por nombre de usuario.", remove:"Quitar", shared_ok:"Compartido.",
   save_fail:"Error al guardar: {msg}", create_fail:"No se pudo crear la tarea: {msg}", delete_fail:"Error al eliminar: {msg}",
-  acc_title:"Cuenta", acc_profile:"Perfil", acc_picture:"Foto de perfil", acc_upload:"Subir foto", acc_remove:"Quitar foto", acc_username:"Nombre de usuario", acc_saved:"Guardado.", acc_prefs:"Preferencias", pref_confirm:"Preguntar antes de eliminar una tarea", pref_sound:"Reproducir sonido de inicio", pref_sound_test:"Probar sonido", acc_password:"Contraseña", pw_current:"Contraseña actual", pw_new:"Contraseña nueva", pw_confirm:"Repite la contraseña nueva", pw_hint:"Mínimo 8 caracteres.", pw_change:"Cambiar contraseña", pw_changed:"Contraseña cambiada.", pw_forgot:"¿Olvidaste tu contraseña? Enviar enlace de restablecimiento a {email}", pw_mail_sent:"Enlace de restablecimiento enviado a {email}.", acc_email:"Correo electrónico", rec_title:"Elige una contraseña nueva", rec_btn:"Guardar contraseña nueva", rec_done:"Contraseña nueva guardada."
+  acc_title:"Cuenta", acc_profile:"Perfil", acc_picture:"Foto de perfil", acc_upload:"Subir foto", acc_remove:"Quitar foto", acc_username:"Nombre de usuario", acc_saved:"Guardado.", acc_prefs:"Preferencias", pref_confirm:"Preguntar antes de eliminar una tarea", pref_sound:"Reproducir sonido de inicio", pref_sound_test:"Probar sonido", acc_password:"Contraseña", pw_current:"Contraseña actual", pw_new:"Contraseña nueva", pw_confirm:"Repite la contraseña nueva", pw_hint:"Mínimo 8 caracteres.", pw_change:"Cambiar contraseña", pw_changed:"Contraseña cambiada.", pw_forgot:"¿Olvidaste tu contraseña? Enviar enlace de restablecimiento a {email}", pw_mail_sent:"Enlace de restablecimiento enviado a {email}.", acc_email:"Correo electrónico", rec_title:"Elige una contraseña nueva", rec_btn:"Guardar contraseña nueva", rec_done:"Contraseña nueva guardada.", set_title:"Preferencias", set_appearance:"Apariencia", set_behavior:"Comportamiento", pref_theme:"Tema", theme_default:"Estándar", theme_default_d:"Claro u oscuro, según tu dispositivo", theme_light:"Claro", theme_light_d:"Tonos cálidos de papel, acento azul", theme_dark:"Oscuro", theme_dark_d:"Negro puro, acento blanco", theme_modern:"Moderno", theme_modern_d:"Aspecto de consola con brillo turquesa", theme_glass:"Cristal", theme_glass_d:"Paneles translúcidos esmerilados con refracción de luz", pref_accent:"Color de acento", accent_reset:"Restablecer", pref_density:"Altura de fila", dens_compact:"Compacta", dens_normal:"Normal", dens_comfy:"Amplia", pref_font:"Tamaño del texto", font_s:"Pequeño", font_m:"Mediano", font_l:"Grande", pref_lowfx:"Reducir efectos", pref_lowfx_d:"Desactiva el desenfoque, la refracción y las sombras (más rápido en dispositivos antiguos).", pref_skipintro:"Omitir la animación de inicio", gs_import:"Importar desde Google Sheets …", gs_title:"Importar desde Google Sheets", gs_hint:"Pega el enlace de tu hoja. Debe estar compartida como «Cualquier persona con el enlace puede ver». Solo se importa la pestaña del enlace.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importar", gs_bad_url:"Eso no parece un enlace de Google Sheets.", gs_fail:"No se pudo cargar la hoja. Comprueba que esté compartida con «Cualquier persona con el enlace», o descárgala con Archivo → Descargar → CSV y usa «Importar CSV».",
+  columns_btn:"Columnas", csv_btn:"CSV", csv_export:"Exportar como CSV", csv_import:"Importar CSV …", csv_done_n:"{n} tareas importadas.", csv_done_skip:"{n} tareas importadas ({skipped} columnas desconocidas ignoradas).", csv_empty:"No se encontraron tareas en este archivo.", csv_too_many:"Demasiadas filas (máx. {max}).", csv_fail:"Error al importar: {msg}", csv_no_task:"Error al importar: no se encontró la columna «Tarea».", ty_priority:"Prioridad", ty_due:"Fecha límite", prio_1:"Muy baja", prio_2:"Baja", prio_3:"Media", prio_4:"Alta", prio_5:"Muy alta", prio_none:"–", cols_title:"Columnas", cols_add:"+ Añadir columna", col_visible:"Mostrar en esta lista", col_hidden:"oculta", pref_sort:"Ordenar automáticamente las tareas pendientes por prioridad", due_over:"Vencida", due_today:"Vence hoy"
 },
 it: {
   loading:"Caricamento …", cancel:"Annulla", create:"Crea", save:"Salva", delete:"Elimina", undo:"Annulla azione", done:"Fine", add:"Aggiungi", back:"Indietro", copy:"Copia", you:"Tu",
@@ -261,7 +383,8 @@ it: {
   col_new:"Nuova colonna", col_edit:"Modifica colonna", col_name:"Nome", col_type:"Tipo", ty_text:"Testo", ty_number:"Numero", ty_date:"Data", ty_check:"Casella", col_delete:"Elimina colonna", confirm_col:"Eliminare la colonna «{name}»? I valori al suo interno andranno persi.", col_name_req:"Inserisci un nome.",
   share_title:"Condividi «{name}»", by_link:"Tramite link", link_off:"Disattivato: solo account invitati", link_view:"Chiunque abbia il link può visualizzare", link_edit:"Chiunque abbia il link può modificare", link_note:"Chi apre il link deve avere un account ed essere connesso.", link_copy:"Copia", link_copied:"Link copiato.", link_rotate:"Genera nuovo link (il vecchio smette di funzionare)", confirm_rotate:"Il link attuale smetterà di funzionare. Continuare?", link_new:"Nuovo link generato.", by_user:"Tramite nome utente", user_ph:"Nome utente", r_edit:"Può modificare", r_view:"Solo visualizzazione", nobody:"Nessuno è stato ancora invitato tramite nome utente.", remove:"Rimuovi", shared_ok:"Condiviso.",
   save_fail:"Salvataggio non riuscito: {msg}", create_fail:"Impossibile creare l'attività: {msg}", delete_fail:"Eliminazione non riuscita: {msg}",
-  acc_title:"Account", acc_profile:"Profilo", acc_picture:"Immagine del profilo", acc_upload:"Carica immagine", acc_remove:"Rimuovi immagine", acc_username:"Nome utente", acc_saved:"Salvato.", acc_prefs:"Preferenze", pref_confirm:"Chiedi conferma prima di eliminare un'attività", pref_sound:"Riproduci il suono di avvio", pref_sound_test:"Prova il suono", acc_password:"Password", pw_current:"Password attuale", pw_new:"Nuova password", pw_confirm:"Ripeti la nuova password", pw_hint:"Almeno 8 caratteri.", pw_change:"Cambia password", pw_changed:"Password cambiata.", pw_forgot:"Password dimenticata? Invia il link di reimpostazione a {email}", pw_mail_sent:"Link di reimpostazione inviato a {email}.", acc_email:"E-mail", rec_title:"Scegli una nuova password", rec_btn:"Salva nuova password", rec_done:"Nuova password salvata."
+  acc_title:"Account", acc_profile:"Profilo", acc_picture:"Immagine del profilo", acc_upload:"Carica immagine", acc_remove:"Rimuovi immagine", acc_username:"Nome utente", acc_saved:"Salvato.", acc_prefs:"Preferenze", pref_confirm:"Chiedi conferma prima di eliminare un'attività", pref_sound:"Riproduci il suono di avvio", pref_sound_test:"Prova il suono", acc_password:"Password", pw_current:"Password attuale", pw_new:"Nuova password", pw_confirm:"Ripeti la nuova password", pw_hint:"Almeno 8 caratteri.", pw_change:"Cambia password", pw_changed:"Password cambiata.", pw_forgot:"Password dimenticata? Invia il link di reimpostazione a {email}", pw_mail_sent:"Link di reimpostazione inviato a {email}.", acc_email:"E-mail", rec_title:"Scegli una nuova password", rec_btn:"Salva nuova password", rec_done:"Nuova password salvata.", set_title:"Preferenze", set_appearance:"Aspetto", set_behavior:"Comportamento", pref_theme:"Tema", theme_default:"Standard", theme_default_d:"Chiaro o scuro, secondo il dispositivo", theme_light:"Chiaro", theme_light_d:"Toni caldi di carta, accento blu", theme_dark:"Scuro", theme_dark_d:"Nero puro, accento bianco", theme_modern:"Moderno", theme_modern_d:"Aspetto da console con bagliore turchese", theme_glass:"Vetro", theme_glass_d:"Pannelli traslucidi satinati con rifrazione della luce", pref_accent:"Colore di accento", accent_reset:"Ripristina", pref_density:"Altezza delle righe", dens_compact:"Compatta", dens_normal:"Normale", dens_comfy:"Ampia", pref_font:"Dimensione del testo", font_s:"Piccola", font_m:"Media", font_l:"Grande", pref_lowfx:"Riduci gli effetti", pref_lowfx_d:"Disattiva sfocatura, rifrazione e ombre (più veloce sui dispositivi datati).", pref_skipintro:"Salta l'animazione iniziale", gs_import:"Importa da Google Sheets …", gs_title:"Importa da Google Sheets", gs_hint:"Incolla il link del tuo foglio. Deve essere condiviso come «Chiunque abbia il link può visualizzare». Viene importata solo la scheda del link.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importa", gs_bad_url:"Non sembra un link di Google Sheets.", gs_fail:"Impossibile caricare il foglio. Verifica che sia condiviso con «Chiunque abbia il link», oppure scaricalo con File → Scarica → CSV e usa «Importa CSV».",
+  columns_btn:"Colonne", csv_btn:"CSV", csv_export:"Esporta come CSV", csv_import:"Importa CSV …", csv_done_n:"{n} attività importate.", csv_done_skip:"{n} attività importate ({skipped} colonne sconosciute ignorate).", csv_empty:"Nessuna attività trovata in questo file.", csv_too_many:"Troppe righe (max. {max}).", csv_fail:"Importazione non riuscita: {msg}", csv_no_task:"Importazione non riuscita: colonna «Attività» non trovata.", ty_priority:"Priorità", ty_due:"Scadenza", prio_1:"Molto bassa", prio_2:"Bassa", prio_3:"Media", prio_4:"Alta", prio_5:"Molto alta", prio_none:"–", cols_title:"Colonne", cols_add:"+ Aggiungi colonna", col_visible:"Mostra in questa lista", col_hidden:"nascosta", pref_sort:"Ordina automaticamente le attività aperte per priorità", due_over:"Scaduta", due_today:"Scade oggi"
 },
 fr: {
   loading:"Chargement …", cancel:"Annuler", create:"Créer", save:"Enregistrer", delete:"Supprimer", undo:"Annuler", done:"Terminé", add:"Ajouter", back:"Retour", copy:"Copier", you:"Vous",
@@ -277,17 +400,26 @@ fr: {
   col_new:"Nouvelle colonne", col_edit:"Modifier la colonne", col_name:"Nom", col_type:"Type", ty_text:"Texte", ty_number:"Nombre", ty_date:"Date", ty_check:"Case à cocher", col_delete:"Supprimer la colonne", confirm_col:"Supprimer la colonne « {name} » ? Les valeurs qu'elle contient seront perdues.", col_name_req:"Veuillez saisir un nom.",
   share_title:"Partager « {name} »", by_link:"Par lien", link_off:"Désactivé : comptes invités uniquement", link_view:"Toute personne disposant du lien peut consulter", link_edit:"Toute personne disposant du lien peut modifier", link_note:"Quiconque ouvre le lien doit avoir un compte et être connecté.", link_copy:"Copier", link_copied:"Lien copié.", link_rotate:"Générer un nouveau lien (l'ancien cessera de fonctionner)", confirm_rotate:"Le lien actuel cessera de fonctionner. Continuer ?", link_new:"Nouveau lien généré.", by_user:"Par nom d'utilisateur", user_ph:"Nom d'utilisateur", r_edit:"Peut modifier", r_view:"Lecture seule", nobody:"Personne n'a encore été invité par nom d'utilisateur.", remove:"Retirer", shared_ok:"Partagé.",
   save_fail:"Échec de l'enregistrement : {msg}", create_fail:"La tâche n'a pas pu être créée : {msg}", delete_fail:"Échec de la suppression : {msg}",
-  acc_title:"Compte", acc_profile:"Profil", acc_picture:"Photo de profil", acc_upload:"Téléverser une photo", acc_remove:"Supprimer la photo", acc_username:"Nom d'utilisateur", acc_saved:"Enregistré.", acc_prefs:"Préférences", pref_confirm:"Demander confirmation avant de supprimer une tâche", pref_sound:"Jouer le son d'introduction", pref_sound_test:"Tester le son", acc_password:"Mot de passe", pw_current:"Mot de passe actuel", pw_new:"Nouveau mot de passe", pw_confirm:"Répétez le nouveau mot de passe", pw_hint:"8 caractères minimum.", pw_change:"Changer le mot de passe", pw_changed:"Mot de passe modifié.", pw_forgot:"Mot de passe oublié ? Envoyer un lien de réinitialisation à {email}", pw_mail_sent:"Lien de réinitialisation envoyé à {email}.", acc_email:"E-mail", rec_title:"Choisissez un nouveau mot de passe", rec_btn:"Enregistrer le nouveau mot de passe", rec_done:"Nouveau mot de passe enregistré."
+  acc_title:"Compte", acc_profile:"Profil", acc_picture:"Photo de profil", acc_upload:"Téléverser une photo", acc_remove:"Supprimer la photo", acc_username:"Nom d'utilisateur", acc_saved:"Enregistré.", acc_prefs:"Préférences", pref_confirm:"Demander confirmation avant de supprimer une tâche", pref_sound:"Jouer le son d'introduction", pref_sound_test:"Tester le son", acc_password:"Mot de passe", pw_current:"Mot de passe actuel", pw_new:"Nouveau mot de passe", pw_confirm:"Répétez le nouveau mot de passe", pw_hint:"8 caractères minimum.", pw_change:"Changer le mot de passe", pw_changed:"Mot de passe modifié.", pw_forgot:"Mot de passe oublié ? Envoyer un lien de réinitialisation à {email}", pw_mail_sent:"Lien de réinitialisation envoyé à {email}.", acc_email:"E-mail", rec_title:"Choisissez un nouveau mot de passe", rec_btn:"Enregistrer le nouveau mot de passe", rec_done:"Nouveau mot de passe enregistré.", set_title:"Préférences", set_appearance:"Apparence", set_behavior:"Comportement", pref_theme:"Thème", theme_default:"Standard", theme_default_d:"Clair ou sombre, selon votre appareil", theme_light:"Clair", theme_light_d:"Tons chauds de papier, accent bleu", theme_dark:"Sombre", theme_dark_d:"Noir pur, accent blanc", theme_modern:"Moderne", theme_modern_d:"Look console avec lueur turquoise", theme_glass:"Verre", theme_glass_d:"Panneaux translucides dépolis avec réfraction de la lumière", pref_accent:"Couleur d'accent", accent_reset:"Réinitialiser", pref_density:"Hauteur des lignes", dens_compact:"Compacte", dens_normal:"Normale", dens_comfy:"Aérée", pref_font:"Taille du texte", font_s:"Petite", font_m:"Moyenne", font_l:"Grande", pref_lowfx:"Réduire les effets", pref_lowfx_d:"Désactive le flou, la réfraction et les ombres (plus rapide sur les appareils anciens).", pref_skipintro:"Passer l'animation d'introduction", gs_import:"Importer depuis Google Sheets …", gs_title:"Importer depuis Google Sheets", gs_hint:"Collez le lien de votre feuille. Elle doit être partagée avec « Toute personne disposant du lien peut afficher ». Seul l'onglet du lien est importé.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importer", gs_bad_url:"Cela ne ressemble pas à un lien Google Sheets.", gs_fail:"Impossible de charger la feuille. Vérifiez qu'elle est partagée avec « Toute personne disposant du lien », ou téléchargez-la via Fichier → Télécharger → CSV et utilisez « Importer un CSV ».",
+  columns_btn:"Colonnes", csv_btn:"CSV", csv_export:"Exporter en CSV", csv_import:"Importer un CSV …", csv_done_n:"{n} tâches importées.", csv_done_skip:"{n} tâches importées ({skipped} colonnes inconnues ignorées).", csv_empty:"Aucune tâche trouvée dans ce fichier.", csv_too_many:"Trop de lignes (max. {max}).", csv_fail:"Échec de l'importation : {msg}", csv_no_task:"Échec de l'importation : colonne « Tâche » introuvable.", ty_priority:"Priorité", ty_due:"Échéance", prio_1:"Très basse", prio_2:"Basse", prio_3:"Moyenne", prio_4:"Haute", prio_5:"Très haute", prio_none:"–", cols_title:"Colonnes", cols_add:"+ Ajouter une colonne", col_visible:"Afficher dans cette liste", col_hidden:"masquée", pref_sort:"Trier automatiquement les tâches ouvertes par priorité", due_over:"En retard", due_today:"Échéance aujourd'hui"
 }};
 
 /* ---------- Preferences (language etc.) ---------- */
 const PREF_KEY = 'tpc2do_prefs';
-const prefs = { lang: 'en', confirmDelete: true, sound: true };
+const prefs = { lang: 'en', confirmDelete: true, sound: true, sortPrio: true, theme: 'default', accent: '', density: 'normal', fontsize: 'm', lowfx: false, skipIntro: false };
+const THEMES = ['default', 'light', 'dark', 'modern', 'glass'], DENSITIES = ['compact', 'normal', 'comfy'], FONTS = ['s', 'm', 'l'];
 function adoptPrefs(src) {
   if (!src || typeof src !== 'object') return;
   if (LANGS[src.lang]) prefs.lang = src.lang;
   if (typeof src.confirmDelete === 'boolean') prefs.confirmDelete = src.confirmDelete;
   if (typeof src.sound === 'boolean') prefs.sound = src.sound;
+  if (typeof src.sortPrio === 'boolean') prefs.sortPrio = src.sortPrio;
+  if (THEMES.includes(src.theme)) prefs.theme = src.theme;
+  if (typeof src.accent === 'string' && (src.accent === '' || /^#[0-9a-f]{6}$/i.test(src.accent))) prefs.accent = src.accent;
+  if (DENSITIES.includes(src.density)) prefs.density = src.density;
+  if (FONTS.includes(src.fontsize)) prefs.fontsize = src.fontsize;
+  if (typeof src.lowfx === 'boolean') prefs.lowfx = src.lowfx;
+  if (typeof src.skipIntro === 'boolean') prefs.skipIntro = src.skipIntro;
 }
 try { adoptPrefs(JSON.parse(localStorage.getItem(PREF_KEY) || 'null')); } catch (e) {}
 const T = (k, v) => {
@@ -300,6 +432,20 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const TE = (k, v) => esc(T(k, v));
 const applyLang = () => { document.documentElement.lang = prefs.lang; };
 applyLang();
+const CHROMIUM = (() => { const ua = navigator.userAgent || ''; return /(Chrome|Chromium|Edg|OPR)\//.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua); })();
+function applyAppearance() {
+  const r = document.documentElement;
+  r.dataset.theme = prefs.theme; r.dataset.density = prefs.density; r.dataset.font = prefs.fontsize;
+  r.classList.toggle('lowfx', prefs.lowfx);
+  const calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  r.classList.toggle('refract', prefs.theme === 'glass' && CHROMIUM && !prefs.lowfx && !calm);
+  if (prefs.accent) {
+    const h = prefs.accent, v = [1, 3, 5].map(i => parseInt(h.substr(i, 2), 16) / 255);
+    const lum = 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+    r.style.setProperty('--accent', h); r.style.setProperty('--accent-text', lum > 0.55 ? '#0b1020' : '#ffffff');
+  } else { r.style.removeProperty('--accent'); r.style.removeProperty('--accent-text'); }
+}
+applyAppearance();
 
 /* ---------- Basics ---------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -404,7 +550,70 @@ function resizeToDataURL(file, size) {
   });
 }
 
-
+/* ---------- Intro sound (synthesized with Web Audio, no audio file) ---------- */
+let audioCtx = null;
+function getAudio() {
+  if (audioCtx) return audioCtx;
+  const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+  try { audioCtx = new AC(); } catch (e) { return null; }
+  return audioCtx;
+}
+function bam(ctx, when) {
+  const out = ctx.createGain(); out.gain.value = 0.68;
+  const comp = ctx.createDynamicsCompressor(); out.connect(comp); comp.connect(ctx.destination);
+  // short metallic "room"
+  const len = Math.floor(ctx.sampleRate * 0.7), ir = ctx.createBuffer(2, len, ctx.sampleRate);
+  for (let ch = 0; ch < 2; ch++) { const d = ir.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+  const rev = ctx.createConvolver(); rev.buffer = ir; const wet = ctx.createGain(); wet.gain.value = 0.22;
+  out.connect(rev); rev.connect(wet); wet.connect(comp);
+  // low thump
+  const th = ctx.createOscillator(), tg = ctx.createGain(); th.type = 'sine';
+  th.frequency.setValueAtTime(150, when); th.frequency.exponentialRampToValueAtTime(40, when + 0.3);
+  tg.gain.setValueAtTime(0.0001, when); tg.gain.exponentialRampToValueAtTime(1, when + 0.006); tg.gain.exponentialRampToValueAtTime(0.0001, when + 0.38);
+  th.connect(tg); tg.connect(out); th.start(when); th.stop(when + 0.42);
+  // inharmonic partials = metal clang
+  const f0 = 232;
+  [[1, .5, 1.1], [2.76, .42, .85], [5.4, .3, .6], [8.93, .22, .42], [13.3, .14, .26], [18.6, .08, .16]].forEach(([r, a, d]) => {
+    const o = ctx.createOscillator(), g = ctx.createGain(); o.type = r < 3 ? 'triangle' : 'sine'; o.frequency.value = f0 * r;
+    g.gain.setValueAtTime(0.0001, when); g.gain.exponentialRampToValueAtTime(a * 0.6, when + 0.003); g.gain.exponentialRampToValueAtTime(0.0001, when + d);
+    o.connect(g); g.connect(out); o.start(when); o.stop(when + d + 0.05);
+  });
+  // impact click
+  const nl = Math.floor(ctx.sampleRate * 0.08), nb = ctx.createBuffer(1, nl, ctx.sampleRate), nd = nb.getChannelData(0);
+  for (let i = 0; i < nl; i++) nd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / nl, 3);
+  const ns = ctx.createBufferSource(); ns.buffer = nb;
+  const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 1800;
+  const ng = ctx.createGain(); ng.gain.value = 0.7; ns.connect(hp); hp.connect(ng); ng.connect(out); ns.start(when);
+}
+const introAudio = document.getElementById('intro-sound');
+let introFileOk = !!introAudio;
+if (introAudio) introAudio.addEventListener('error', () => { introFileOk = false; });
+function synthBam(delaySec) {
+  const ctx = getAudio(); if (!ctx) return;
+  const p = ctx.resume(); const go = () => { if (ctx.state === 'running') bam(ctx, ctx.currentTime + Math.max(0.01, delaySec)); };
+  try { if (p && p.then) p.then(go).catch(() => {}); else go(); } catch (e) {}
+}
+// plays introsound.mp3 (next to index.html); if the file is missing, the synthesized BAM is used instead
+function playSoundNow() {
+  if (introFileOk && introAudio) {
+    try { introAudio.currentTime = 0; } catch (e) {}
+    const pr = introAudio.play();
+    if (pr && pr.catch) pr.catch(e => { if (e && e.name !== 'NotAllowedError') { introFileOk = false; synthBam(0.03); } });
+  } else synthBam(0.03);
+}
+function playBamAt(impactAt) {            // impactAt: performance.now() timestamp
+  setTimeout(playSoundNow, Math.max(0, impactAt - performance.now()));
+}
+function playBamAtOld(impactAt) {
+  const ctx = getAudio(); if (!ctx) return;
+  const go = () => {
+    if (ctx.state !== 'running') return;
+    const wait = impactAt - performance.now();
+    if (wait < -250) return;              // too late (autoplay was blocked until later) – stay silent
+    bam(ctx, ctx.currentTime + Math.max(0.01, wait / 1000));
+  };
+  try { const p = ctx.resume(); if (p && p.then) p.then(go).catch(() => {}); else go(); } catch (e) {}
+}
 
 /* ---------- Intro screen ---------- */
 const splash = $('#splash');
@@ -417,12 +626,11 @@ function checkSplash() { if (splashMinDone && appRendered) hideSplash(); }
 function appReady() { appRendered = true; checkSplash(); }
 setTimeout(() => { splashMinDone = true; checkSplash(); }, reducedMotion ? 500 : SPLASH_MIN);
 setTimeout(hideSplash, 9000);
-if (!reducedMotion) {
+if (prefs.skipIntro) { splashHidden = true; splash.remove(); }
+else if (!reducedMotion) {
   setTimeout(() => splash.classList.add('hit'), SPLASH_IMPACT);
-  if (prefs.sound) {
-    setTimeout(() => document.getElementById('intro-sound').play().catch(() => {}), SPLASH_IMPACT);
-  }
-}   
+  if (prefs.sound) playBamAt(splashStart + SPLASH_IMPACT);
+}
 
 /* ---------- Start & session ---------- */
 function renderSetup() {
@@ -435,7 +643,7 @@ async function setSession(session) {
   state.profile = null; state.lists = []; state.memberRoles = {}; state.owners = {}; state.cur = null;
   if (state.user) {
     const mp = state.user.user_metadata && state.user.user_metadata.prefs;
-    if (mp) { adoptPrefs(mp); try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {} applyLang(); }
+    if (mp) { adoptPrefs(mp); try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {} applyLang(); applyAppearance(); }
     const { data } = await sb.from('profiles').select('id,username,avatar').eq('id', state.user.id).maybeSingle();
     state.profile = data || { id: state.user.id, username: state.user.email };
     await loadLists();
@@ -500,6 +708,7 @@ async function route() {
   if (!state.user) return renderAuth();
   const pj = sessionStorage.getItem('pendingJoin');
   if (pj) { sessionStorage.removeItem('pendingJoin'); return doJoin(pj); }
+  if (name === 'settings') { state.crumbs = []; state.cur = null; return renderSettings(); }
   if (name === 'account') { state.crumbs = []; state.cur = null; return renderAccount(); }
   if (name === 'list' && arg) {
     if (!state.keepCrumbs) state.crumbs = [];
@@ -601,6 +810,7 @@ function renderRecovery() {
 
 /* ---------- Top bar ---------- */
 const topbar = () => `<header class="top"><a class="brand" href="#/" aria-label="TPC2Do"><span class="tile">${birdSVG('')}</span><span>2DO</span></a><span class="spacer"></span>
+  <a class="btn iconbtn" href="#/settings" title="${TE('set_title')}" aria-label="${TE('set_title')}">⚙</a>
   <a class="me" href="#/account" title="${TE('account')}">${avatarHTML(state.profile, 30)}<span>${esc(state.profile ? state.profile.username : '')}</span></a>
   <button class="btn" id="logout">${TE('logout')}</button></header>`;
 function bindTop() {
@@ -681,7 +891,15 @@ async function renderList(id, seq) {
   drawList(); startPolling();
 }
 
-const undoneTasks = () => state.tasks.filter(t => !t.done).sort((a, b) => a.position - b.position);
+const visibleCols = () => (state.cur.columns || []).filter(c => !c.hidden);
+const prioCol = () => (state.cur.columns || []).find(c => c.type === 'priority' && !c.hidden);
+const prioOf = (t, c) => Number(t.data && t.data[c.id]) || 0;
+const todayStr = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const dueClass = (t, c) => { const v = t.data && t.data[c.id]; if (!v || t.done) return ''; const n = todayStr(); return v < n ? 'over' : v === n ? 'today' : ''; };
+const undoneTasks = () => {
+  const pc = prefs.sortPrio ? prioCol() : null;
+  return state.tasks.filter(t => !t.done).sort((a, b) => (pc ? prioOf(b, pc) - prioOf(a, pc) : 0) || a.position - b.position);
+};
 const doneTasks = () => state.tasks.filter(t => t.done)
   .sort((a, b) => new Date(b.done_at || b.created_at).getTime() - new Date(a.done_at || a.created_at).getTime());
 const taskById = id => state.tasks.find(t => t.id === id);
@@ -694,7 +912,9 @@ function drawList() {
     <nav class="crumbs"><a href="#/">${TE('my_lists')}</a> › ${crumbs ? crumbs + ' › ' : ''}<span>${esc(l.title)}</span></nav>
     <div class="row between wrapx">
       <div>${owner ? `<input id="listTitle" class="h-input" value="${esc(l.title)}" maxlength="120" aria-label="${TE('name')}">` : `<h2>${esc(l.title)}</h2>`}</div>
-      <div class="row gap"><span class="badge">${TE(state.role === 'owner' ? 'role_owner' : state.role === 'edit' ? 'role_edit' : 'role_view')}</span><span id="saveState" class="muted small"></span>
+      <div class="row gap wrapx"><span class="badge">${TE(state.role === 'owner' ? 'role_owner' : state.role === 'edit' ? 'role_edit' : 'role_view')}</span><span id="saveState" class="muted small"></span>
+        <button class="btn" id="csvBtn">${TE('csv_btn')}</button>
+        ${state.role !== 'view' ? `<button class="btn" id="colsBtn">${TE('columns_btn')}</button>` : ''}
         ${owner ? `<button class="btn" id="shareBtn">${TE('share')}</button>` : ''}</div>
     </div>
     <div class="sheet-wrap" id="sheetWrap"></div>
@@ -719,12 +939,14 @@ function drawList() {
     l.title = title; document.title = title + ' – TPC2Do';
   });
   const sh = $('#shareBtn'); if (sh) sh.onclick = shareModal;
+  const cb = $('#csvBtn'); if (cb) cb.onclick = () => { const r = cb.getBoundingClientRect(); showMenu(r.left, r.bottom + 4, csvItems()); };
+  const cl = $('#colsBtn'); if (cl) cl.onclick = columnsModal;
   bindSheet($('#sheetWrap'));
   drawTable(); updateStatus();
 }
 
 function tableHTML() {
-  const cols = state.cur.columns || [], ro = state.role === 'view';
+  const cols = visibleCols(), ro = state.role === 'view';
   const W = { chk: 46, task: 330, notes: 280, sub: 220, custom: 170, add: 46 };
   const widths = [W.chk, W.task, W.notes, W.sub, ...cols.map(() => W.custom), ...(ro ? [] : [W.add])];
   const total = widths.reduce((a, b) => a + b, 0);
@@ -739,7 +961,7 @@ function tableHTML() {
 }
 
 function rowHTML(t) {
-  const cols = state.cur.columns || [], ro = state.role === 'view', dis = ro ? 'readonly' : '';
+  const cols = visibleCols(), ro = state.role === 'view', dis = ro ? 'readonly' : '';
   return `<tr data-id="${t.id}" class="${t.done ? 'done' : ''}">
     <td class="c-chk"><input type="checkbox" data-f="done" ${t.done ? 'checked' : ''} ${ro ? 'disabled' : ''} aria-label="${TE('done')}"></td>
     <td><textarea rows="1" data-f="title" placeholder="${TE('task_ph')}" ${dis}>${esc(t.title)}</textarea></td>
@@ -762,6 +984,15 @@ function subCell(t, ro) {
 
 function customCell(t, c, ro) {
   const v = t.data ? t.data[c.id] : undefined;
+  if (c.type === 'priority') {
+    const n = Number(v) || 0;
+    return `<td class="c-prio p${n}"><select data-cf="${c.id}" data-num ${ro ? 'disabled' : ''} aria-label="${esc(c.name)}"><option value="">${TE('prio_none')}</option>${
+      [1, 2, 3, 4, 5].map(k => `<option value="${k}" ${n === k ? 'selected' : ''}>${TE('prio_' + k)}</option>`).join('')}</select></td>`;
+  }
+  if (c.type === 'due') {
+    const dc = dueClass(t, c), tip = dc === 'over' ? T('due_over') : dc === 'today' ? T('due_today') : '';
+    return `<td class="c-due ${dc}" ${tip ? `title="${esc(tip)}"` : ''}><input type="date" data-cf="${c.id}" value="${esc(v ?? '')}" ${ro ? 'readonly' : ''}></td>`;
+  }
   if (c.type === 'checkbox') return `<td class="c-bool"><input type="checkbox" data-cf="${c.id}" ${v ? 'checked' : ''} ${ro ? 'disabled' : ''}></td>`;
   if (c.type === 'number') return `<td><input type="number" step="any" data-cf="${c.id}" value="${esc(v ?? '')}" ${ro ? 'readonly' : ''}></td>`;
   if (c.type === 'date') return `<td><input type="date" data-cf="${c.id}" value="${esc(v ?? '')}" ${ro ? 'readonly' : ''}></td>`;
@@ -772,9 +1003,18 @@ function fit(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight +
 function drawTable() {
   const wrap = $('#sheetWrap'); if (!wrap) return;
   const sl = wrap.scrollLeft, st = wrap.scrollTop;
+  const ae = document.activeElement; let keep = null;       // remember focus + caret so live updates don't interrupt typing
+  if (ae && wrap.contains(ae) && ae.closest('tr[data-id]')) {
+    let s0 = null, s1 = null; try { s0 = ae.selectionStart; s1 = ae.selectionEnd; } catch (e) {}
+    keep = { id: ae.closest('tr[data-id]').dataset.id, f: ae.dataset.f, cf: ae.dataset.cf, s0, s1 };
+  }
   wrap.innerHTML = tableHTML();
   wrap.scrollLeft = sl; wrap.scrollTop = st;
   wrap.querySelectorAll('textarea').forEach(fit);
+  if (keep && (keep.f || keep.cf)) {
+    const el = wrap.querySelector(`tr[data-id="${keep.id}"] ` + (keep.f ? `[data-f="${keep.f}"]` : `[data-cf="${keep.cf}"]`));
+    if (el) { el.focus({ preventScroll: true }); try { if (keep.s0 != null) el.setSelectionRange(keep.s0, keep.s1); } catch (e) {} }
+  }
   const c = $('#counter'); if (c) c.textContent = T('counts', { open: undoneTasks().length, done: doneTasks().length });
 }
 window.addEventListener('resize', () => document.querySelectorAll('#sheetWrap textarea').forEach(fit));
@@ -785,8 +1025,36 @@ function closeCtx() {
   if (ctxEl) { ctxEl.remove(); ctxEl = null; }
   document.querySelectorAll('tr.ctxrow').forEach(r => r.classList.remove('ctxrow'));
 }
-function openCtx(x, y, task) {
+function showMenu(x, y, items, rowId) {
   closeCtx();
+  const clean = items.filter((it, i, arr) => !(it === '-' && (i === 0 || arr[i - 1] === '-' || i === arr.length - 1)));
+  if (!clean.length) return false;
+  const m = document.createElement('div'); m.className = 'ctx'; m.setAttribute('role', 'menu');
+  clean.forEach(it => {
+    if (it === '-') { m.appendChild(document.createElement('hr')); return; }
+    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'menuitem');
+    if (it.danger) b.className = 'danger';
+    const ic = document.createElement('span'); ic.className = 'ic'; ic.textContent = it.ic;
+    const tx = document.createElement('span'); tx.textContent = it.label || T(it.k);
+    b.append(ic, tx);
+    b.onclick = () => { closeCtx(); it.fn(); };
+    m.appendChild(b);
+  });
+  m.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    e.preventDefault();
+    const bs = [...m.querySelectorAll('button')], i = bs.indexOf(document.activeElement);
+    bs[(i + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length].focus();
+  });
+  document.body.appendChild(m); ctxEl = m;
+  const r = m.getBoundingClientRect();
+  m.style.left = Math.max(6, Math.min(x, innerWidth - r.width - 6)) + 'px';
+  m.style.top = Math.max(6, Math.min(y, innerHeight - r.height - 6)) + 'px';
+  if (rowId) { const row = $(`tr[data-id="${rowId}"]`); if (row) row.classList.add('ctxrow'); }
+  m.querySelector('button').focus();
+  return true;
+}
+function openCtx(x, y, task) {
   const ro = state.role === 'view', items = [];
   const sub = task.sub_list_id ? state.lists.find(l => l.id === task.sub_list_id) : null;
   if (!ro) {
@@ -802,32 +1070,7 @@ function openCtx(x, y, task) {
     items.push(task.sub_list_id ? { ic: '✕', k: 'cm_unlink', fn: () => unlinkSub(task) } : { ic: '🔗', k: 'cm_link', fn: () => subModal(task) });
     items.push('-', { ic: '🗑', k: 'cm_delete', danger: true, fn: () => askDeleteTask(task) });
   }
-  const clean = items.filter((it, i, a) => !(it === '-' && (i === 0 || a[i - 1] === '-' || i === a.length - 1)));
-  if (!clean.length) return false;
-  const m = document.createElement('div'); m.className = 'ctx'; m.setAttribute('role', 'menu');
-  clean.forEach(it => {
-    if (it === '-') { m.appendChild(document.createElement('hr')); return; }
-    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'menuitem');
-    if (it.danger) b.className = 'danger';
-    const ic = document.createElement('span'); ic.className = 'ic'; ic.textContent = it.ic;
-    const tx = document.createElement('span'); tx.textContent = T(it.k);
-    b.append(ic, tx);
-    b.onclick = () => { closeCtx(); it.fn(); };
-    m.appendChild(b);
-  });
-  m.addEventListener('keydown', e => {
-    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
-    e.preventDefault();
-    const bs = [...m.querySelectorAll('button')], i = bs.indexOf(document.activeElement);
-    bs[(i + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length].focus();
-  });
-  document.body.appendChild(m); ctxEl = m;
-  const r = m.getBoundingClientRect();
-  m.style.left = Math.max(6, Math.min(x, innerWidth - r.width - 6)) + 'px';
-  m.style.top = Math.max(6, Math.min(y, innerHeight - r.height - 6)) + 'px';
-  const row = $(`tr[data-id="${task.id}"]`); if (row) row.classList.add('ctxrow');
-  m.querySelector('button').focus();
-  return true;
+  return showMenu(x, y, items, task.id);
 }
 document.addEventListener('pointerdown', e => { if (ctxEl && !ctxEl.contains(e.target)) closeCtx(); }, true);
 window.addEventListener('scroll', () => { if (ctxEl) closeCtx(); }, true);
@@ -841,10 +1084,13 @@ function bindSheet(wrap) {
       t[el.dataset.f] = el.value; queueSave(t.id, { [el.dataset.f]: el.value }); fit(el);
     } else if (el.dataset.cf) {
       let v = el.type === 'checkbox' ? el.checked : el.value;
-      if (el.type === 'number') v = el.value === '' ? null : Number(el.value);
+      if (el.type === 'number' || el.dataset.num != null) v = el.value === '' ? null : Number(el.value);
       t.data = { ...(t.data || {}), [el.dataset.cf]: v };
       queueSave(t.id, { data: t.data });
       if (el.tagName === 'TEXTAREA') fit(el);
+      const cdef = colById(el.dataset.cf);
+      if (cdef && cdef.type === 'priority') drawTable();
+      if (cdef && cdef.type === 'due') { const td = el.closest('td'); td.classList.remove('over', 'today'); const dc = dueClass(t, cdef); if (dc) td.classList.add(dc); }
     }
   });
   wrap.addEventListener('change', e => {
@@ -1006,21 +1252,27 @@ function subModal(t) {
 }
 
 /* ---------- Custom columns ---------- */
+const COL_TYPES = { text: 'ty_text', number: 'ty_number', date: 'ty_date', checkbox: 'ty_check', priority: 'ty_priority', due: 'ty_due' };
 function colModal(col) {
-  const types = { text: 'ty_text', number: 'ty_number', date: 'ty_date', checkbox: 'ty_check' };
+  const hasPrio = (state.cur.columns || []).some(c => c.type === 'priority');
   modal(`<h3>${TE(col ? 'col_edit' : 'col_new')}</h3>
     <label>${TE('col_name')}<input id="cn" maxlength="40" value="${esc(col ? col.name : '')}"></label>
-    <label>${TE('col_type')}<select id="ct" ${col ? 'disabled' : ''}>${Object.entries(types).map(([k, v]) =>
-      `<option value="${k}" ${col && col.type === k ? 'selected' : ''}>${TE(v)}</option>`).join('')}</select></label>
+    <label>${TE('col_type')}<select id="ct" ${col ? 'disabled' : ''}>${Object.entries(COL_TYPES).map(([k, v]) =>
+      `<option value="${k}" ${col && col.type === k ? 'selected' : ''} ${(!col && k === 'priority' && hasPrio) ? 'disabled' : ''}>${TE(v)}</option>`).join('')}</select></label>
+    ${col ? `<label class="check"><input type="checkbox" id="cvis" ${col.hidden ? '' : 'checked'}>${TE('col_visible')}</label>` : ''}
     <div class="actions">${col ? `<button class="btn danger" id="cdel">${TE('col_delete')}</button>` : ''}<span class="spacer"></span>
       <button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="cok">${TE('save')}</button></div>`,
   (m, close) => {
     $('[data-x]', m).onclick = close;
     const save = async () => {
-      const name = $('#cn', m).value.trim(); if (!name) return toast(T('col_name_req'), true);
+      const type = col ? col.type : $('#ct', m).value;
+      const name = $('#cn', m).value.trim() || ((type === 'priority' || type === 'due') ? T('ty_' + (type === 'due' ? 'due' : 'priority')) : '');
+      if (!name) return toast(T('col_name_req'), true);
       const cols = (state.cur.columns || []).map(c => ({ ...c }));
-      if (col) cols.find(c => c.id === col.id).name = name;
-      else cols.push({ id: 'c' + Math.random().toString(36).slice(2, 8), name, type: $('#ct', m).value });
+      if (col) {
+        const c = cols.find(x => x.id === col.id); c.name = name;
+        if ($('#cvis', m).checked) delete c.hidden; else c.hidden = true;
+      } else cols.push({ id: 'c' + Math.random().toString(36).slice(2, 8), name, type });
       close(); await saveColumns(cols);
     };
     $('#cok', m).onclick = save;
@@ -1033,10 +1285,147 @@ function colModal(col) {
     };
   });
 }
+function columnsModal() {
+  modal(`<h3>${TE('cols_title')}</h3><div class="members" id="colList"></div>
+    <div class="actions"><button class="btn primary" id="colAdd">${TE('cols_add')}</button><span class="spacer"></span><button class="btn" data-x>${TE('done')}</button></div>`,
+  (m, close) => {
+    $('[data-x]', m).onclick = close;
+    $('#colAdd', m).onclick = () => { close(); colModal(); };
+    const draw = () => {
+      const cols = state.cur.columns || [];
+      $('#colList', m).innerHTML = cols.map(c => `<div class="member" data-cid="${c.id}"><label class="check" style="margin:0;flex:1"><input type="checkbox" ${c.hidden ? '' : 'checked'}><span>${esc(c.name)} <small>· ${TE(COL_TYPES[c.type] || 'ty_text')}${c.hidden ? ' · ' + TE('col_hidden') : ''}</small></span></label><button class="icon" data-edit title="${TE('col_edit_tip')}">✎</button></div>`).join('');
+      m.querySelectorAll('.member').forEach(row => {
+        const c = cols.find(x => x.id === row.dataset.cid);
+        $('input', row).onchange = async e => {
+          const next = cols.map(x => { if (x.id !== c.id) return x; const nc = { ...x }; if (e.target.checked) delete nc.hidden; else nc.hidden = true; return nc; });
+          await saveColumns(next); draw();
+        };
+        $('[data-edit]', row).onclick = () => { close(); colModal(c); };
+      });
+    };
+    draw();
+  });
+}
 async function saveColumns(cols) {
   const { error } = await sb.rpc('set_list_columns', { lid: state.cur.id, cols });
   if (error) return toast(errText(error), true);
   state.cur.columns = cols; drawTable();
+}
+
+/* ---------- CSV export / import ---------- */
+const CSV_MAX = 1000;
+const norm = x => String(x == null ? '' : x).trim().toLowerCase();
+const CSV_ALIAS = { done: new Set(['✓', '✔', 'erledigt']), task: new Set(), notes: new Set(), sub: new Set() };
+const PRIO_ALIAS = {};
+Object.values(I18N).forEach(L => {
+  CSV_ALIAS.done.add(norm(L.done)); CSV_ALIAS.task.add(norm(L.c_task)); CSV_ALIAS.notes.add(norm(L.c_notes)); CSV_ALIAS.sub.add(norm(L.c_sub));
+  [1, 2, 3, 4, 5].forEach(n => { PRIO_ALIAS[norm(L['prio_' + n])] = n; });
+});
+const TRUTHY = new Set(['1', 'true', 'yes', 'y', 'x', '✓', '✔', 'ja', 'j', 'si', 'sí', 'sì', 'oui', 'wahr']);
+const csvSafe = v => { const s = v == null ? '' : String(v); return /^[=+\-@\t\r]/.test(s) ? "'" + s : s; };
+const csvUnsafe = v => v.replace(/^'(?=[=+\-@\t\r])/, '');
+const csvQuote = (v, d) => { const s = v == null ? '' : String(v); return (s.includes(d) || /["\r\n]/.test(s)) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+
+function csvItems() {
+  const items = [{ ic: '⬇', k: 'csv_export', fn: exportCsv }];
+  if (state.role !== 'view') { items.push({ ic: '⬆', k: 'csv_import', fn: importCsvPick }); items.push({ ic: '🌐', k: 'gs_import', fn: importGoogleSheet }); }
+  return items;
+}
+function exportCsv() {
+  const d = prefs.lang === 'en' ? ',' : ';', cols = visibleCols();
+  const head = [T('done'), T('c_task'), T('c_notes'), T('c_sub'), ...cols.map(c => c.name)];
+  const cell = (t, c) => {
+    const v = t.data ? t.data[c.id] : undefined;
+    if (c.type === 'checkbox') return v ? 'TRUE' : 'FALSE';
+    if (c.type === 'number' || c.type === 'priority') return v == null ? '' : v;
+    if (c.type === 'date' || c.type === 'due') return v || '';
+    return csvSafe(v);
+  };
+  const rows = [...undoneTasks(), ...doneTasks()].map(t => {
+    const sl = t.sub_list_id ? state.lists.find(l => l.id === t.sub_list_id) : null;
+    return [t.done ? 'TRUE' : 'FALSE', csvSafe(t.title), csvSafe(t.notes), sl ? csvSafe(sl.title) : '', ...cols.map(c => cell(t, c))];
+  });
+  const text = '﻿' + [head, ...rows].map(r => r.map(v => csvQuote(v, d)).join(d)).join('\r\n') + '\r\n';
+  const name = (state.cur.title.replace(/[\\/:*?"<>|]+/g, '_').trim() || 'TPC2Do') + '.csv';
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8' })); a.download = name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+function parseCsv(text) {
+  text = text.replace(/^﻿/, '');
+  const first = text.split(/\r?\n/, 1)[0] || '', cnt = ch => first.split(ch).length - 1;
+  const delim = [',', ';', '\t'].reduce((best, ch) => cnt(ch) > cnt(best) ? ch : best, ',');
+  const rows = []; let row = [], cur = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
+    else if (c === '"') q = true;
+    else if (c === delim) { row.push(cur); cur = ''; }
+    else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(cur); cur = ''; rows.push(row); row = []; }
+    else cur += c;
+  }
+  if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
+  return rows.filter(r => r.some(v => String(v).trim() !== ''));
+}
+function toIsoDate(v) {
+  let m = v.match(/^(\d{4})-(\d{2})-(\d{2})/); if (m) return m[1] + '-' + m[2] + '-' + m[3];
+  m = v.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/); if (m) return m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0');
+  return undefined;
+}
+function coerceCell(c, v) {
+  v = v.trim(); if (v === '') return undefined;
+  if (c.type === 'number') { const n = Number(v.replace(',', '.')); return isNaN(n) ? undefined : n; }
+  if (c.type === 'checkbox') return TRUTHY.has(norm(v));
+  if (c.type === 'date' || c.type === 'due') return toIsoDate(v);
+  if (c.type === 'priority') { const n = Number(v); return (Number.isInteger(n) && n >= 1 && n <= 5) ? n : PRIO_ALIAS[norm(v)]; }
+  return csvUnsafe(v);
+}
+function importCsvPick() {
+  const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.csv,text/csv,text/plain';
+  inp.onchange = async () => {
+    const f = inp.files[0]; if (!f) return;
+    try {
+      const buf = await f.arrayBuffer(); let text;
+      try { text = new TextDecoder('utf-8', { fatal: true }).decode(buf); } catch (e) { text = new TextDecoder('windows-1252').decode(buf); }
+      await importCsvText(text);
+    } catch (e) { toast(T('csv_fail', { msg: e.message }), true); }
+  };
+  inp.click();
+}
+async function importCsvText(text) {
+  const rows = parseCsv(text);
+  if (rows.length < 2) return toast(T('csv_empty'), true);
+  if (rows.length - 1 > CSV_MAX) return toast(T('csv_too_many', { max: CSV_MAX }), true);
+  const cols = state.cur.columns || [];
+  const kinds = rows[0].map(h => {
+    const n = norm(h);
+    if (CSV_ALIAS.task.has(n)) return { k: 'task' }; if (CSV_ALIAS.notes.has(n)) return { k: 'notes' };
+    if (CSV_ALIAS.done.has(n)) return { k: 'done' }; if (CSV_ALIAS.sub.has(n)) return { k: 'sub' };
+    const c = cols.find(x => norm(x.name) === n); return c ? { k: 'col', c } : null;
+  });
+  if (!kinds.some(x => x && x.k === 'task')) return toast(T('csv_no_task'), true);
+  const skipped = kinds.filter((x, i) => !x && norm(rows[0][i]) !== '').length;
+  let pos = state.tasks.reduce((m, x) => Math.max(m, x.position), 0);
+  const now = new Date().toISOString();
+  const made = rows.slice(1).map(r => {
+    const t = { id: uuid(), list_id: state.cur.id, done: false, title: '', notes: '', sub_list_id: null, data: {}, position: 0, created_at: now, done_at: null };
+    kinds.forEach((kd, i) => {
+      if (!kd) return; const v = r[i] == null ? '' : String(r[i]);
+      if (kd.k === 'done') t.done = TRUTHY.has(norm(v));
+      else if (kd.k === 'task') t.title = csvUnsafe(v.trim());
+      else if (kd.k === 'notes') t.notes = csvUnsafe(v.trim());
+      else if (kd.k === 'col') { const val = coerceCell(kd.c, v); if (val !== undefined) t.data[kd.c.id] = val; }
+    });
+    if (t.done) t.done_at = now;
+    return t;
+  }).filter(t => t.title || t.notes || Object.keys(t.data).length).map(t => { t.position = ++pos; return t; });
+  if (!made.length) return toast(T('csv_empty'), true);
+  for (let i = 0; i < made.length; i += 200) {
+    const chunk = made.slice(i, i + 200).map(t => ({ id: t.id, list_id: t.list_id, position: t.position, done: t.done, done_at: t.done_at, title: t.title, notes: t.notes, data: t.data }));
+    const { error } = await sb.from('tasks').insert(chunk);
+    if (error) { toast(T('csv_fail', { msg: errText(error) }), true); refreshCur(true); return; }
+  }
+  state.tasks.push(...made); drawTable();
+  toast(skipped ? T('csv_done_skip', { n: made.length, skipped }) : T('csv_done_n', { n: made.length }));
 }
 
 /* ---------- Sharing ---------- */
@@ -1146,16 +1535,6 @@ function renderAccount() {
       <div class="actions"><button class="btn primary" id="unameSave">${TE('save')}</button><span id="unameMsg" class="msg inline"></span></div>
     </section>
 
-    <section class="panel"><h3>${TE('language')}</h3>
-      <select id="langPick">${Object.entries(LANGS).map(([k, v]) => `<option value="${k}" ${k === prefs.lang ? 'selected' : ''}>${v}</option>`).join('')}</select>
-    </section>
-
-    <section class="panel"><h3>${TE('acc_prefs')}</h3>
-      <label class="check"><input type="checkbox" id="prefConfirm" ${prefs.confirmDelete ? 'checked' : ''}>${TE('pref_confirm')}</label>
-      <div class="row wrapx"><label class="check" style="margin:0"><input type="checkbox" id="prefSound" ${prefs.sound ? 'checked' : ''}>${TE('pref_sound')}</label>
-        <button class="btn" id="soundTest">🔊 ${TE('pref_sound_test')}</button></div>
-    </section>
-
     <section class="panel"><h3>${TE('acc_password')}</h3>
       <form id="pwForm">
         <label>${TE('pw_current')}<input type="password" name="cur" required autocomplete="current-password"></label>
@@ -1191,15 +1570,6 @@ function renderAccount() {
     state.profile.username = v; renderAccount(); toast(T('acc_saved'));
   };
 
-  $('#langPick').onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); route(); };
-  $('#prefConfirm').onchange = e => { prefs.confirmDelete = e.target.checked; savePrefs(); };
-  $('#prefSound').onchange = e => { prefs.sound = e.target.checked; savePrefs(); };
-  $('#soundTest').onclick = () => {
-    const a = document.getElementById('intro-sound');
-    a.currentTime = 0;
-    a.play().catch(() => {});
-  };   
-
   const pwForm = $('#pwForm'), pwMsg = $('#pwMsg');
   pwForm.onsubmit = async e => {
     e.preventDefault();
@@ -1220,11 +1590,124 @@ function renderAccount() {
   };
 }
 
-/* ---------- Auto refresh (every 8 s while you are not typing) ---------- */
-function startPolling() { stopPolling(); state.poll = setInterval(() => refreshCur(false), 8000); }
-function stopPolling() { clearInterval(state.poll); state.poll = null; state.needsRefresh = false; }
-const typing = () => { const a = document.activeElement; return !!a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName); };
-const sig = ts => JSON.stringify(ts.map(t => [t.id, t.done, t.title, t.notes, t.sub_list_id, t.position, t.data]).sort());
+
+/* ---------- Settings page ---------- */
+const THEME_DOTS = {
+  default: ['#f6f7f9', '#ffffff', '#2563eb'], light: ['#ebeae2', '#dedcd0', '#175cc2'], dark: ['#0a0a0a', '#161616', '#ffffff'],
+  modern: ['#0d1416', '#141d21', '#5eead4'], glass: ['linear-gradient(135deg,#2a5298,#7e57c2)', 'rgba(255,255,255,.4)', '#00deff']
+};
+function renderSettings() {
+  document.title = T('set_title') + ' – TPC2Do';
+  app.innerHTML = topbar() + `<main class="wrap narrow">
+    <nav class="crumbs"><a href="#/">${TE('my_lists')}</a> › <span>${TE('set_title')}</span></nav>
+    <h2>${TE('set_title')}</h2>
+
+    <section class="panel"><h3>${TE('set_appearance')}</h3>
+      <div class="themes">${THEMES.map(k => `<button type="button" class="theme-opt ${k === prefs.theme ? 'sel' : ''}" data-theme-pick="${k}">
+        <span class="dots">${THEME_DOTS[k].map(c => `<i style="background:${c}"></i>`).join('')}</span>
+        <span><b>${TE('theme_' + k)}</b><small class="muted">${TE('theme_' + k + '_d')}</small></span></button>`).join('')}</div>
+      <div class="setrow" style="margin-top:16px"><span>${TE('pref_accent')}</span>
+        <span class="row"><input type="color" id="prefAccent" value="${prefs.accent || '#2563eb'}"><button class="btn" id="accentReset" ${prefs.accent ? '' : 'disabled'}>${TE('accent_reset')}</button></span></div>
+      <div class="setrow"><span>${TE('pref_density')}</span>
+        <select id="prefDensity">${DENSITIES.map(k => `<option value="${k}" ${k === prefs.density ? 'selected' : ''}>${TE('dens_' + k)}</option>`).join('')}</select></div>
+      <div class="setrow"><span>${TE('pref_font')}</span>
+        <select id="prefFont">${FONTS.map(k => `<option value="${k}" ${k === prefs.fontsize ? 'selected' : ''}>${TE('font_' + k)}</option>`).join('')}</select></div>
+      <label class="check" style="margin-bottom:4px"><input type="checkbox" id="prefLowfx" ${prefs.lowfx ? 'checked' : ''}>${TE('pref_lowfx')}</label>
+      <p class="muted small hint">${TE('pref_lowfx_d')}</p>
+    </section>
+
+    <section class="panel"><h3>${TE('language')}</h3>
+      <select id="langPick">${Object.entries(LANGS).map(([k, v]) => `<option value="${k}" ${k === prefs.lang ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    </section>
+
+    <section class="panel"><h3>${TE('set_behavior')}</h3>
+      <label class="check"><input type="checkbox" id="prefConfirm" ${prefs.confirmDelete ? 'checked' : ''}>${TE('pref_confirm')}</label>
+      <label class="check"><input type="checkbox" id="prefSort" ${prefs.sortPrio ? 'checked' : ''}>${TE('pref_sort')}</label>
+      <label class="check"><input type="checkbox" id="prefSkip" ${prefs.skipIntro ? 'checked' : ''}>${TE('pref_skipintro')}</label>
+      <div class="row wrapx"><label class="check" style="margin:0"><input type="checkbox" id="prefSound" ${prefs.sound ? 'checked' : ''}>${TE('pref_sound')}</label>
+        <button class="btn" id="soundTest">🔊 ${TE('pref_sound_test')}</button></div>
+    </section>
+  </main>`;
+  bindTop();
+  const change = () => { applyAppearance(); savePrefs(); };
+  document.querySelectorAll('[data-theme-pick]').forEach(b => b.onclick = () => {
+    prefs.theme = b.dataset.themePick; change();
+    document.querySelectorAll('[data-theme-pick]').forEach(x => x.classList.toggle('sel', x === b));
+  });
+  $('#prefAccent').oninput = e => { prefs.accent = e.target.value; applyAppearance(); $('#accentReset').disabled = false; };
+  $('#prefAccent').onchange = e => { prefs.accent = e.target.value; change(); };
+  $('#accentReset').onclick = e => { prefs.accent = ''; change(); e.target.disabled = true; $('#prefAccent').value = '#2563eb'; };
+  $('#prefDensity').onchange = e => { prefs.density = e.target.value; change(); };
+  $('#prefFont').onchange = e => { prefs.fontsize = e.target.value; change(); };
+  $('#prefLowfx').onchange = e => { prefs.lowfx = e.target.checked; change(); };
+  $('#langPick').onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); route(); };
+  $('#prefConfirm').onchange = e => { prefs.confirmDelete = e.target.checked; savePrefs(); };
+  $('#prefSort').onchange = e => { prefs.sortPrio = e.target.checked; savePrefs(); };
+  $('#prefSkip').onchange = e => { prefs.skipIntro = e.target.checked; savePrefs(); };
+  $('#prefSound').onchange = e => { prefs.sound = e.target.checked; savePrefs(); };
+  $('#soundTest').onclick = playSoundNow;
+}
+
+/* ---------- Google Sheets import (public sheets: "Anyone with the link") ---------- */
+async function fetchGoogleSheetCsv(url) {
+  const m = url.match(/\/spreadsheets\/d\/(e\/)?([A-Za-z0-9_-]+)/); if (!m) throw new Error('bad_url');
+  const g = (url.match(/[#&?]gid=(\d+)/) || [])[1], gq = g ? '&gid=' + g : '';
+  const base = 'https://docs.google.com/spreadsheets/d/' + (m[1] || '') + m[2];
+  const tries = m[1] ? [base + '/pub?output=csv' + gq]
+    : [base + '/export?format=csv' + gq, base + '/gviz/tq?tqx=out:csv' + gq];
+  for (const u of tries) {
+    try {
+      const r = await fetch(u, { credentials: 'omit' }); if (!r.ok) continue;
+      const t = await r.text(); if (t && !/^\s*</.test(t)) return t;
+    } catch (e) { /* try next */ }
+  }
+  throw new Error('fetch');
+}
+function importGoogleSheet() {
+  modal(`<h3>${TE('gs_title')}</h3><p class="muted small">${TE('gs_hint')}</p>
+    <input id="gsUrl" type="url" placeholder="${TE('gs_ph')}" style="width:100%" autocomplete="off">
+    <div class="msg" id="gsMsg"></div>
+    <div class="actions"><span class="spacer"></span><button class="btn" data-no>${TE('cancel')}</button><button class="btn primary" id="gsGo">${TE('gs_load')}</button></div>`,
+  (m, close) => {
+    const out = $('#gsMsg', m), inp = $('#gsUrl', m);
+    $('[data-no]', m).onclick = close; inp.focus();
+    const go = async () => {
+      out.textContent = '';
+      if (!/\/spreadsheets\/d\//.test(inp.value)) { out.textContent = T('gs_bad_url'); return; }
+      $('#gsGo', m).disabled = true;
+      try { const text = await fetchGoogleSheetCsv(inp.value.trim()); close(); await importCsvText(text); }
+      catch (e) { out.textContent = T('gs_fail'); $('#gsGo', m).disabled = false; }
+    };
+    $('#gsGo', m).onclick = go; inp.addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
+  });
+}
+
+/* ---------- Live updates (Realtime) + fallback refresh every 15 s while you are not typing ---------- */
+let liveCh = null, liveTimer = null;
+function startPolling() { stopPolling(); state.poll = setInterval(() => refreshCur(false), 15000); startLive(); }
+function stopPolling() { clearInterval(state.poll); state.poll = null; state.needsRefresh = false; stopLive(); }
+function startLive() {                       // Supabase Realtime for tasks (falls back to polling if not enabled)
+  stopLive(); if (!sb || !state.cur || typeof sb.channel !== 'function') return;
+  const id = state.cur.id;
+  try {
+    liveCh = sb.channel('tasks-' + id)
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tasks', filter: 'list_id=eq.' + id }, p => liveEvent('ins', p))
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'tasks', filter: 'list_id=eq.' + id }, p => liveEvent('upd', p))
+      .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'tasks' }, p => liveEvent('del', p))
+      .subscribe();
+  } catch (e) { liveCh = null; }
+}
+function stopLive() { clearTimeout(liveTimer); if (liveCh) { try { sb.removeChannel(liveCh); } catch (e) {} liveCh = null; } }
+function liveEvent(kind, p) {
+  const row = (p && p.new) || {}, old = (p && p.old) || {};
+  if (kind === 'del') { if (!taskById(old.id)) return; }
+  else { const l = taskById(row.id); if (l && sameTask(l, row)) return; }
+  clearTimeout(liveTimer); liveTimer = setTimeout(() => refreshCur(true), 250);
+}
+const typing = () => { const a = document.activeElement; return !!a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && !a.closest('#sheetWrap'); };   // typing in the sheet is fine: drawTable keeps the focus
+const ss = v => JSON.stringify(v, (k, x) => (x && typeof x === 'object' && !Array.isArray(x)) ? Object.fromEntries(Object.entries(x).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)) : x);
+const sameTask = (a, b) => a.done === b.done && a.title === b.title && a.notes === b.notes && a.sub_list_id === b.sub_list_id && a.position === b.position && ss(a.data || {}) === ss(b.data || {});
+const sig = ts => JSON.stringify(ts.map(t => [t.id, t.done, t.title, t.notes, t.sub_list_id, t.position, ss(t.data || {})]).sort());
 
 async function refreshCur(force) {
   if (!state.cur || !state.user) return;
@@ -1239,7 +1722,7 @@ async function refreshCur(force) {
   if (!state.cur || state.cur.id !== id || lr.error || tr.error) return;
   if (!lr.data) { toast(T('list_gone'), true); await loadLists(); location.hash = '#/'; return; }
   if (pending.size || inflight || typing() || ctxEl || document.querySelector('.overlay')) { state.needsRefresh = true; return; }
-  const meta = x => JSON.stringify([x.title, x.columns, x.link_role]);
+  const meta = x => ss([x.title, x.columns, x.link_role]);
   const listChanged = meta(lr.data) !== meta(state.cur);
   const tasksChanged = sig(tr.data) !== sig(state.tasks);
   if (listChanged) Object.assign(state.cur, lr.data);
