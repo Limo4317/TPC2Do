@@ -439,6 +439,17 @@ body.picking .sheet th[data-col]:hover,body.picking .sheet tbody td:hover{outlin
 .rtbar{position:fixed;z-index:60;display:flex;gap:2px;padding:3px;background:var(--panel);border:1px solid var(--line);border-radius:9px;box-shadow:0 6px 22px rgba(0,0,0,.25)}
 .rtbar button{min-width:30px;height:28px;border:0;border-radius:6px;background:transparent;color:var(--text);font:inherit;cursor:pointer}
 .rtbar button:hover{background:var(--hover)}
+.rtbar{flex-wrap:wrap;max-width:230px;align-items:center}
+.rtpal{display:flex;gap:4px;padding:4px 3px 2px;width:100%;flex-wrap:wrap}
+.rtpal[hidden]{display:none}
+.rtpal button{min-width:0;width:20px;height:20px;border-radius:50%;border:1px solid var(--line);padding:0;font-size:11px}
+.lkrow{padding:6px 0;border-bottom:1px solid var(--line)}
+input[type=range].rng{-webkit-appearance:none;appearance:none;background:transparent;width:170px;height:24px;margin:0;padding:0;border:0;--f:1;cursor:pointer}
+.rng::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--accent) calc(9px + (100% - 18px) * var(--f)),color-mix(in srgb,var(--text) 22%,transparent) calc(9px + (100% - 18px) * var(--f)))}
+.rng::-moz-range-track{height:6px;border-radius:3px;background:color-mix(in srgb,var(--text) 22%,transparent)}
+.rng::-moz-range-progress{height:6px;border-radius:3px;background:var(--accent)}
+.rng::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--accent);margin-top:-6px;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.rng::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--accent);box-shadow:0 1px 3px rgba(0,0,0,.3)}
 </style>
 </head>
 <body>
@@ -505,7 +516,8 @@ en: {
   lc_open_new:"Open in new tab", lc_rename:"Rename", lc_share:"Share…", lc_dup:"Duplicate list", lc_copy:" (copy)", ov_edit_hint:"Edit mode: drag the cards anywhere to arrange them, then press “Done”.", lc_dup_ok:"List duplicated", lc_rename_title:"Rename list",
   lc_open:"Open",
   sel_n:"{n} selected – clear", confirm_tasks:"Delete {n} selected tasks?", md_prev:"Previous task", md_next:"Next task",
-  fmt_bold:"Bold (Ctrl+B)", fmt_italic:"Italic (Ctrl+I)", fmt_strike:"Strikethrough", fmt_under:"Underline (Ctrl+U)"
+  fmt_bold:"Bold (Ctrl+B)", fmt_italic:"Italic (Ctrl+I)", fmt_strike:"Strikethrough", fmt_under:"Underline (Ctrl+U)",
+  linked_lists:"Linked accounts’ lists", lk_title:"Linked accounts", lk_intro:"Link another account of yours: both accounts then share all their lists (both can edit; sharing and deleting stay with the owner). You need the account name, e-mail and password of the other account – the password is only used to sign in once and is not stored.", lk_none:"No accounts linked yet.", lk_user:"Account name of the other account", lk_email:"E-mail of the other account", lk_pw:"Password of the other account", lk_go:"Link account", lk_ok:"Account linked", lk_mismatch:"Account name and e-mail do not belong together.", lk_unlink:"Unlink", lk_unlink_q:"Unlink “{name}”? The lists of both accounts will no longer be shared automatically.", lk_busy:"Linking…", fmt_color:"Text color", fmt_nocolor:"Remove color", pub_signed_as:"Signed in as {name}", pub_open_app:"Open app"
 },
 de: {
   loading:"Lade …", cancel:"Abbrechen", create:"Erstellen", save:"Speichern", delete:"Löschen", undo:"Rückgängig", done:"Fertig", add:"Hinzufügen", back:"Zurück", copy:"Kopieren", you:"Du",
@@ -532,7 +544,8 @@ de: {
   lc_open_new:"In neuem Tab öffnen", lc_rename:"Umbenennen", lc_share:"Teilen …", lc_dup:"Liste duplizieren", lc_copy:" (Kopie)", ov_edit_hint:"Bearbeitungsmodus: Karten beliebig ziehen, danach „Fertig“ drücken.", lc_dup_ok:"Liste dupliziert", lc_rename_title:"Liste umbenennen",
   lc_open:"Öffnen",
   sel_n:"{n} ausgewählt – aufheben", confirm_tasks:"{n} ausgewählte Aufgaben löschen?", md_prev:"Vorherige Aufgabe", md_next:"Nächste Aufgabe",
-  fmt_bold:"Fett (Strg+B)", fmt_italic:"Kursiv (Strg+I)", fmt_strike:"Durchgestrichen", fmt_under:"Unterstrichen (Strg+U)"
+  fmt_bold:"Fett (Strg+B)", fmt_italic:"Kursiv (Strg+I)", fmt_strike:"Durchgestrichen", fmt_under:"Unterstrichen (Strg+U)",
+  linked_lists:"Listen verknüpfter Konten", lk_title:"Verknüpfte Konten", lk_intro:"Verknüpfe ein weiteres eigenes Konto: Beide Konten teilen dann alle ihre Listen (beide dürfen bearbeiten; Teilen und Löschen bleibt beim Besitzer). Du brauchst Konto-Name, E-Mail und Passwort des anderen Kontos – das Passwort dient nur zur einmaligen Anmeldung und wird nicht gespeichert.", lk_none:"Noch keine Konten verknüpft.", lk_user:"Konto-Name des anderen Kontos", lk_email:"E-Mail des anderen Kontos", lk_pw:"Passwort des anderen Kontos", lk_go:"Konto verknüpfen", lk_ok:"Konto verknüpft", lk_mismatch:"Konto-Name und E-Mail gehören nicht zusammen.", lk_unlink:"Trennen", lk_unlink_q:"„{name}“ trennen? Die Listen beider Konten werden dann nicht mehr automatisch geteilt.", lk_busy:"Verknüpfe …", fmt_color:"Textfarbe", fmt_nocolor:"Farbe entfernen", pub_signed_as:"Angemeldet als {name}", pub_open_app:"App öffnen"
 },
 es: {
   loading:"Cargando …", cancel:"Cancelar", create:"Crear", save:"Guardar", delete:"Eliminar", undo:"Deshacer", done:"Listo", add:"Añadir", back:"Volver", copy:"Copiar", you:"Tú",
@@ -559,7 +572,8 @@ es: {
   lc_open_new:"Abrir en pestaña nueva", lc_rename:"Renombrar", lc_share:"Compartir…", lc_dup:"Duplicar lista", lc_copy:" (copia)", ov_edit_hint:"Modo de edición: arrastra las tarjetas donde quieras y pulsa «Listo».", lc_dup_ok:"Lista duplicada", lc_rename_title:"Renombrar lista",
   lc_open:"Abrir",
   sel_n:"{n} seleccionadas – quitar", confirm_tasks:"¿Eliminar {n} tareas seleccionadas?", md_prev:"Tarea anterior", md_next:"Tarea siguiente",
-  fmt_bold:"Negrita (Ctrl+B)", fmt_italic:"Cursiva (Ctrl+I)", fmt_strike:"Tachado", fmt_under:"Subrayado (Ctrl+U)"
+  fmt_bold:"Negrita (Ctrl+B)", fmt_italic:"Cursiva (Ctrl+I)", fmt_strike:"Tachado", fmt_under:"Subrayado (Ctrl+U)",
+  linked_lists:"Listas de cuentas vinculadas", lk_title:"Cuentas vinculadas", lk_intro:"Vincula otra cuenta tuya: ambas cuentas compartirán todas sus listas (ambas pueden editar; compartir y eliminar sigue siendo del propietario). Necesitas el nombre de cuenta, el correo y la contraseña de la otra cuenta; la contraseña solo se usa para iniciar sesión una vez y no se guarda.", lk_none:"Aún no hay cuentas vinculadas.", lk_user:"Nombre de la otra cuenta", lk_email:"Correo de la otra cuenta", lk_pw:"Contraseña de la otra cuenta", lk_go:"Vincular cuenta", lk_ok:"Cuenta vinculada", lk_mismatch:"El nombre de cuenta y el correo no coinciden.", lk_unlink:"Desvincular", lk_unlink_q:"¿Desvincular «{name}»? Las listas de ambas cuentas dejarán de compartirse automáticamente.", lk_busy:"Vinculando…", fmt_color:"Color del texto", fmt_nocolor:"Quitar color", pub_signed_as:"Sesión iniciada como {name}", pub_open_app:"Abrir la app"
 },
 it: {
   loading:"Caricamento …", cancel:"Annulla", create:"Crea", save:"Salva", delete:"Elimina", undo:"Annulla azione", done:"Fine", add:"Aggiungi", back:"Indietro", copy:"Copia", you:"Tu",
@@ -586,7 +600,8 @@ it: {
   lc_open_new:"Apri in una nuova scheda", lc_rename:"Rinomina", lc_share:"Condividi…", lc_dup:"Duplica lista", lc_copy:" (copia)", ov_edit_hint:"Modalità modifica: trascina le schede dove vuoi, poi premi «Fatto».", lc_dup_ok:"Lista duplicata", lc_rename_title:"Rinomina lista",
   lc_open:"Apri",
   sel_n:"{n} selezionate – annulla", confirm_tasks:"Eliminare {n} attività selezionate?", md_prev:"Attività precedente", md_next:"Attività successiva",
-  fmt_bold:"Grassetto (Ctrl+B)", fmt_italic:"Corsivo (Ctrl+I)", fmt_strike:"Barrato", fmt_under:"Sottolineato (Ctrl+U)"
+  fmt_bold:"Grassetto (Ctrl+B)", fmt_italic:"Corsivo (Ctrl+I)", fmt_strike:"Barrato", fmt_under:"Sottolineato (Ctrl+U)",
+  linked_lists:"Liste degli account collegati", lk_title:"Account collegati", lk_intro:"Collega un altro tuo account: entrambi condivideranno tutte le liste (entrambi possono modificare; condividere ed eliminare resta al proprietario). Servono nome account, e-mail e password dell’altro account; la password serve solo per un accesso e non viene salvata.", lk_none:"Nessun account collegato.", lk_user:"Nome dell’altro account", lk_email:"E-mail dell’altro account", lk_pw:"Password dell’altro account", lk_go:"Collega account", lk_ok:"Account collegato", lk_mismatch:"Nome account ed e-mail non corrispondono.", lk_unlink:"Scollega", lk_unlink_q:"Scollegare «{name}»? Le liste dei due account non saranno più condivise automaticamente.", lk_busy:"Collegamento…", fmt_color:"Colore del testo", fmt_nocolor:"Rimuovi colore", pub_signed_as:"Accesso eseguito come {name}", pub_open_app:"Apri l’app"
 },
 fr: {
   loading:"Chargement …", cancel:"Annuler", create:"Créer", save:"Enregistrer", delete:"Supprimer", undo:"Annuler", done:"Terminé", add:"Ajouter", back:"Retour", copy:"Copier", you:"Vous",
@@ -613,7 +628,8 @@ fr: {
   lc_open_new:"Ouvrir dans un nouvel onglet", lc_rename:"Renommer", lc_share:"Partager…", lc_dup:"Dupliquer la liste", lc_copy:" (copie)", ov_edit_hint:"Mode édition : faites glisser les cartes où vous voulez, puis appuyez sur « Terminé ».", lc_dup_ok:"Liste dupliquée", lc_rename_title:"Renommer la liste",
   lc_open:"Ouvrir",
   sel_n:"{n} sélectionnées – effacer", confirm_tasks:"Supprimer {n} tâches sélectionnées ?", md_prev:"Tâche précédente", md_next:"Tâche suivante",
-  fmt_bold:"Gras (Ctrl+B)", fmt_italic:"Italique (Ctrl+I)", fmt_strike:"Barré", fmt_under:"Souligné (Ctrl+U)"
+  fmt_bold:"Gras (Ctrl+B)", fmt_italic:"Italique (Ctrl+I)", fmt_strike:"Barré", fmt_under:"Souligné (Ctrl+U)",
+  linked_lists:"Listes des comptes liés", lk_title:"Comptes liés", lk_intro:"Liez un autre de vos comptes : les deux comptes partagent alors toutes leurs listes (les deux peuvent modifier ; partager et supprimer restent réservés au propriétaire). Il faut le nom, l’e-mail et le mot de passe de l’autre compte ; le mot de passe ne sert qu’à une connexion et n’est pas enregistré.", lk_none:"Aucun compte lié.", lk_user:"Nom de l’autre compte", lk_email:"E-mail de l’autre compte", lk_pw:"Mot de passe de l’autre compte", lk_go:"Lier le compte", lk_ok:"Compte lié", lk_mismatch:"Le nom et l’e-mail ne correspondent pas.", lk_unlink:"Délier", lk_unlink_q:"Délier « {name} » ? Les listes des deux comptes ne seront plus partagées automatiquement.", lk_busy:"Liaison…", fmt_color:"Couleur du texte", fmt_nocolor:"Retirer la couleur", pub_signed_as:"Connecté en tant que {name}", pub_open_app:"Ouvrir l’app"
 }};
 
 /* ---------- Preferences (language etc.) ---------- */
@@ -874,7 +890,7 @@ function renderSetup() {
 
 async function setSession(session) {
   state.user = session ? session.user : null;
-  state.profile = null; state.lists = []; state.memberRoles = {}; state.owners = {}; state.cur = null;
+  state.profile = null; state.links = []; state.lists = []; state.memberRoles = {}; state.owners = {}; state.cur = null;
   if (state.user) {
     const mp = state.user.user_metadata && state.user.user_metadata.prefs;
     if (mp) { adoptPrefs(mp); try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {} applyLang(); applyAppearance(); }
@@ -916,6 +932,7 @@ async function loadLists() {
   ]);
   if (l.error) { toast(errText(l.error), true); return; }
   state.lists = l.data || [];
+  try { const k = await sb.rpc('my_links'); state.links = k.error ? [] : (k.data || []); } catch (e) { state.links = []; }
   state.memberRoles = Object.fromEntries((m.data || []).map(x => [x.list_id, x.role]));
   const ids = [...new Set(state.lists.map(x => x.owner_id))].filter(id => id !== state.user.id && !state.owners[id]);
   if (ids.length) {
@@ -962,21 +979,25 @@ async function route() {
 
 async function renderPublic(tok, seq) {
   document.title = 'TPC2Do';
-  app.innerHTML = `<main class="wrap"><p class="muted">${TE('loading')}</p></main>`;
+  const me = state.user ? (state.profile || { username: state.user.email }) : null;
+  const head = () => `<header class="top"><a class="brand" href="#/" aria-label="TPC2Do"><span class="tile">${birdSVG('')}</span><span>2DO</span></a><span class="spacer"></span>` + (me
+    ? `<span class="muted small pubas">${TE('pub_signed_as', { name: esc(me.username) })}</span><a class="me" href="#/account" title="${TE('account')}">${avatarHTML(state.profile, 30)}</a><a class="btn primary" href="#/">${TE('pub_open_app')}</a>`
+    : `${langSelectHTML()}<a class="btn primary" href="#/">${TE('pub_login')}</a>`) + `</header>`;
+  const bindLang = () => { const ls = $('#langSel'); if (ls) ls.onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); renderPublic(tok, seq); }; };
+  app.innerHTML = head() + `<main class="wrap wide"><p class="muted">${TE('loading')}</p></main>`; bindLang();
   const r = await sb.rpc('get_public_list', { tok });
   if (seq !== state.routeSeq) return;
   const d = r.data;
-  const bar = `<div class="row between wrapx" style="margin-bottom:10px"><div class="logo-lock">${birdSVG('')}<b>2DO</b></div>${langSelectHTML()}<a class="btn primary" href="#/">${TE('pub_login')}</a></div>`;
-  if (r.error || !d) { app.innerHTML = `<main class="wrap">${bar}<p class="muted">${TE('pub_missing')}</p></main>`; $('#langSel').onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); renderPublic(tok, seq); }; return; }
-  const cols = (d.columns || []).filter(c => c && !c.hidden && c.type !== 'formula' && !['task', 'notes', 'sub'].includes(c.type) || (c && ['task', 'notes'].includes(c.type) && !c.hidden));
+  if (r.error || !d) { app.innerHTML = head() + `<main class="wrap wide"><p class="muted">${TE('pub_missing')}</p></main>`; bindLang(); return; }
+  const cols = (d.columns || []).filter(c => c && !c.hidden && c.type !== 'formula' && c.type !== 'sub');
   const val = (t, c) => c.type === 'task' ? t.title : c.type === 'notes' ? t.notes : (t.data || {})[c.id];
   const nm = c => c.name || T(c.type === 'task' ? 'c_task' : c.type === 'notes' ? 'c_notes' : 'c_task');
   const showCols = cols.some(c => c.type === 'task') ? cols : [{ id: 'task', type: 'task' }, ...cols];
-  const cell = (t, c) => { const v = val(t, c); if (v == null || v === '') return ''; if (c.type === 'checkbox') return v ? '☑' : '☐'; return esc(String(v)).replace(/\n/g, '<br>'); };
-  app.innerHTML = `<main class="wrap">${bar}<h2>📋 ${esc(d.title)}</h2><p class="muted small">${TE('pub_title')}</p>
-    <div class="sheetwrap"><table class="sheet"><thead><tr><th style="width:36px">✓</th>${showCols.map(c => `<th>${esc(nm(c))}</th>`).join('')}</tr></thead>
-    <tbody>${(d.tasks || []).map(t => `<tr class="${t.done ? 'done' : ''}"><td>${t.done ? '☑' : '☐'}</td>${showCols.map(c => `<td>${cell(t, c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></main>`;
-  $('#langSel').onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); renderPublic(tok, seq); };
+  const cell = (t, c) => { const v = val(t, c); if (v == null || v === '') return ''; if (c.type === 'checkbox') return v ? '☑' : '☐'; return rtHTML(v); };
+  app.innerHTML = head() + `<main class="wrap wide"><h2>📋 ${esc(d.title)}</h2><p class="muted small">${TE('pub_title')}</p>
+    <div class="sheetwrap"><table class="sheet" style="width:100%"><thead><tr><th style="width:36px">✓</th>${showCols.map(c => `<th>${esc(nm(c))}</th>`).join('')}</tr></thead>
+    <tbody>${(d.tasks || []).map(t => `<tr class="${t.done ? 'done' : ''}"><td style="text-align:center">${t.done ? '☑' : '☐'}</td>${showCols.map(c => `<td style="padding:8px 10px;vertical-align:top;white-space:pre-wrap">${cell(t, c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></main>`;
+  bindLang();
 }
 async function doJoin(token) {
   const { data, error } = await sb.rpc('join_list_by_token', { tok: token });
@@ -1099,6 +1120,7 @@ function renderHome() {
       <button class="btn small" id="ovDir" ${prefs.ovSort === 'custom' ? 'hidden' : ''} title="${TE(prefs.ovDir === 'desc' ? 'ov_desc' : 'ov_asc')}" aria-label="${TE(prefs.ovDir === 'desc' ? 'ov_desc' : 'ov_asc')}">${ovGlyph()}</button>
       <span class="muted small" id="ovHint" ${prefs.ovSort === 'custom' && state.ovEdit ? '' : 'hidden'}>${TE('ov_edit_hint')}</span></div>
     <div id="gridMine"></div>
+    <div id="linkedBox"></div>
     <h2>${TE('shared_with_me')}</h2>
     <div id="gridShared"></div>
     </div>
@@ -1247,9 +1269,12 @@ function cardHTML(l, custom) {
 }
 function drawGrids() {
   const gm = $('#gridMine'), gs = $('#gridShared'); if (!gm || !gs) return;
-  const mine = state.lists.filter(l => l.owner_id === state.user.id), shared = state.lists.filter(l => l.owner_id !== state.user.id), custom = prefs.ovSort === 'custom' && !!state.ovEdit;
+  const lkIds = new Set((state.links || []).map(x => x.id));
+  const mine = state.lists.filter(l => l.owner_id === state.user.id), linked = state.lists.filter(l => lkIds.has(l.owner_id)), shared = state.lists.filter(l => l.owner_id !== state.user.id && !lkIds.has(l.owner_id)), custom = prefs.ovSort === 'custom' && !!state.ovEdit;
   const fill = (el, arr, emptyKey) => { el.className = ''; el.innerHTML = arr.length ? `<div class="grid">${ovSorted(arr).map(l => cardHTML(l, custom)).join('')}</div>` : `<div class="empty">${TE(emptyKey)}</div>`; };
   fill(gm, mine, 'no_lists'); fill(gs, shared, 'no_shared');
+  const lb = $('#linkedBox');
+  if (lb) { if (lkIds.size) { lb.innerHTML = `<h2>${TE('linked_lists')}</h2><div id="gridLinked"></div>`; fill($('#gridLinked'), linked, 'no_shared'); } else lb.innerHTML = ''; }
 }
 function startCardDrag(e, card) {
   const grid = card.parentElement, x0 = e.clientX, y0 = e.clientY, id = card.dataset.id;
@@ -1820,11 +1845,11 @@ function subCell(t, ro) {
 }
 
 /* light text formatting: **bold**  *italic*  ~~strike~~  __underline__ (stored as plain text, rendered when the cell isn't being edited) */
-const RT_RE = /\*\*[^*\n]+\*\*|~~[^~\n]+~~|__[^_\n]+__|(^|[^*\w])\*[^*\s][^*\n]*\*(?![*\w])/;
+const RT_RE = /\{\{#[0-9a-fA-F]{6}:[^\n]+?\}\}|\*\*[^*\n]+\*\*|~~[^~\n]+~~|__[^_\n]+__|(^|[^*\w])\*[^*\s][^*\n]*\*(?![*\w])/;
 const hasRt = v => typeof v === 'string' && v.length > 2 && RT_RE.test(v);
 const rtCls = v => hasRt(v) ? ' class="hasrt"' : '';
 function rtHTML(v) {
-  return esc(String(v ?? '')).replace(/\*\*([^*\n]+)\*\*/g, '<b>$1</b>').replace(/~~([^~\n]+)~~/g, '<s>$1</s>').replace(/__([^_\n]+)__/g, '<u>$1</u>')
+  return esc(String(v ?? '')).replace(/\{\{(#[0-9a-fA-F]{6}):([^\n]+?)\}\}/g, '<span style="color:$1">$2</span>').replace(/\*\*([^*\n]+)\*\*/g, '<b>$1</b>').replace(/~~([^~\n]+)~~/g, '<s>$1</s>').replace(/__([^_\n]+)__/g, '<u>$1</u>')
     .replace(/(^|[^*\w])\*([^*\s][^*\n]*)\*(?![*\w])/g, '$1<i>$2</i>').replace(/\n/g, '<br>');
 }
 const rtView = v => `<div class="rtview" aria-hidden="true">${hasRt(v) ? rtHTML(v) : ''}</div>`;
@@ -2028,6 +2053,17 @@ function openDetail(id) {
 }
 /* floating format toolbar (appears when text is selected in a text cell / detail field) */
 const RT_MARK = { b: '**', i: '*', s: '~~', u: '__' };
+const RT_COLORS = ['#e03131', '#f08c00', '#2f9e44', '#1971c2', '#7048e8', '#c2255c', '#868e96', '#000000'];
+function rtColor(el, hex) {
+  const a = el.selectionStart, b = el.selectionEnd; if (a === b) return;
+  const v = el.value, sel = v.slice(a, b), re = /^\{\{#[0-9a-fA-F]{6}:([\s\S]*)\}\}$/, pm = v.slice(0, a).match(/\{\{#[0-9a-fA-F]{6}:$/);
+  let inner = sel, from = a, to = b;
+  const m = sel.match(re);
+  if (m) inner = m[1];
+  else if (pm && v.slice(b, b + 2) === '}}') { from = a - pm[0].length; to = b + 2; }
+  const nv = v.slice(0, from) + (hex ? `{{${hex}:${inner}}}` : inner) + v.slice(to);
+  el.value = nv; const na = from + (hex ? 10 : 0); el.setSelectionRange(na, na + inner.length); el.dispatchEvent(new Event('input', { bubbles: true }));
+}
 function rtTarget(el) {
   if (!el || el.tagName !== 'TEXTAREA' || el.readOnly || state.role === 'view') return false;
   if (el.dataset.f === 'title' || el.dataset.f === 'notes') return true;
@@ -2049,9 +2085,15 @@ function rtShow(el) {
   if (!rtTarget(el) || el.selectionStart === el.selectionEnd) return rtHide();
   if (!rtBar) {
     rtBar = document.createElement('div'); rtBar.className = 'rtbar'; rtBar.setAttribute('role', 'toolbar');
-    rtBar.innerHTML = `<button type="button" data-k="b" title="${TE('fmt_bold')}" aria-label="${TE('fmt_bold')}"><b>B</b></button><button type="button" data-k="i" title="${TE('fmt_italic')}" aria-label="${TE('fmt_italic')}"><i>I</i></button><button type="button" data-k="s" title="${TE('fmt_strike')}" aria-label="${TE('fmt_strike')}"><s>S</s></button><button type="button" data-k="u" title="${TE('fmt_under')}" aria-label="${TE('fmt_under')}"><u>U</u></button>`;
+    rtBar.innerHTML = `<button type="button" data-k="b" title="${TE('fmt_bold')}" aria-label="${TE('fmt_bold')}"><b>B</b></button><button type="button" data-k="i" title="${TE('fmt_italic')}" aria-label="${TE('fmt_italic')}"><i>I</i></button><button type="button" data-k="s" title="${TE('fmt_strike')}" aria-label="${TE('fmt_strike')}"><s>S</s></button><button type="button" data-k="u" title="${TE('fmt_under')}" aria-label="${TE('fmt_under')}"><u>U</u></button><button type="button" data-k="color" title="${TE('fmt_color')}" aria-label="${TE('fmt_color')}"><span style="border-bottom:3px solid #e03131;line-height:1">A</span></button><div class="rtpal" hidden>${RT_COLORS.map(c => `<button type="button" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}<button type="button" data-c="" title="${TE('fmt_nocolor')}" aria-label="${TE('fmt_nocolor')}">✕</button></div>`;
     rtBar.addEventListener('mousedown', e => e.preventDefault());
-    rtBar.addEventListener('click', e => { const b = e.target.closest('[data-k]'); if (b && rtBar._el) { rtApply(rtBar._el, b.dataset.k); rtShow(rtBar._el); } });
+    rtBar.addEventListener('click', e => {
+      if (!rtBar._el) return;
+      const c = e.target.closest('[data-c]'); if (c) { rtColor(rtBar._el, c.dataset.c || null); rtBar.querySelector('.rtpal').hidden = true; rtShow(rtBar._el); return; }
+      const b = e.target.closest('[data-k]'); if (!b) return;
+      if (b.dataset.k === 'color') { const pal = rtBar.querySelector('.rtpal'); pal.hidden = !pal.hidden; return; }
+      rtApply(rtBar._el, b.dataset.k); rtShow(rtBar._el);
+    });
     document.body.appendChild(rtBar);
   }
   rtBar._el = el;
@@ -2784,7 +2826,7 @@ async function shareModal(l = state.cur) {
     <div class="row"><input id="shUser" placeholder="${TE('user_ph')}" style="flex:1;min-width:0" autocomplete="off">
       <select id="shRole"><option value="edit">${TE('r_edit')}</option><option value="view">${TE('r_view')}</option></select>
       <button class="btn primary" id="shAdd">${TE('add')}</button></div>
-    <label class="check small"><input type="checkbox" id="shSubs">${TE('share_subs')}</label>
+    <label class="check small" style="margin:12px 0 6px"><input type="checkbox" id="shSubs">${TE('share_subs')}</label>
     <div id="recentBox" class="recent"></div>
     <div class="members" id="memberList"></div>
     <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('done')}</button></div>`,
@@ -2795,7 +2837,7 @@ async function shareModal(l = state.cur) {
       const box = $('#linkBox', m);
       if (roleSel.value === 'none') { box.innerHTML = ''; return; }
       box.innerHTML = `<div class="linkrow"><input id="lnk" readonly value="${esc(url())}"><button class="btn" id="cp">${TE('link_copy')}</button></div>
-        <label class="check small"><input type="checkbox" id="lnkSubs" ${l.link_subs ? 'checked' : ''}>${TE('share_subs_link')}</label>
+        <label class="check small" style="margin:10px 0 6px"><input type="checkbox" id="lnkSubs" ${l.link_subs ? 'checked' : ''}>${TE('share_subs_link')}</label>
         <small>${TE('link_note')}</small><br>
         <button class="linkbtn small" id="rot">${TE('link_rotate')}</button>`;
       $('#cp', m).onclick = async () => {
@@ -2872,6 +2914,22 @@ async function shareModal(l = state.cur) {
 }
 
 /* ---------- Account page ---------- */
+async function linkAccountFlow(uname, email, pw) {
+  const tmp = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false, storageKey: 'tpc2do-link-tmp' } });
+  try {
+    const r = await tmp.auth.signInWithPassword({ email, password: pw });
+    if (r.error) return { err: T('err_login') };
+    const uid = (r.data.user || (r.data.session && r.data.session.user) || {}).id;
+    const pr = await tmp.from('profiles').select('id,username').eq('id', uid);
+    const row = (pr.data || [])[0];
+    if (!row || String(row.username).toLowerCase() !== uname.toLowerCase()) return { err: T('lk_mismatch') };
+    if (uid === state.user.id) return { err: T('lk_mismatch') };
+    const tk = await tmp.rpc('make_link_token'); if (tk.error) return { err: errText(tk.error) };
+    const l = await sb.rpc('link_accounts', { tok: tk.data }); if (l.error) return { err: errText(l.error) };
+    return { ok: true };
+  } catch (e) { return { err: String(e.message || e) }; }
+  finally { try { await tmp.auth.signOut({ scope: 'local' }); } catch (e) {} }
+}
 function renderAccount() {
   const p = state.profile || {}, email = state.user.email || '';
   document.title = T('acc_title') + ' – TPC2Do';
@@ -2898,8 +2956,31 @@ function renderAccount() {
       </form>
       <p style="margin:16px 0 0"><button class="linkbtn" id="pwMail">${TE('pw_forgot', { email })}</button></p>
     </section>
+
+    <section class="panel" id="lkPanel"><h3>${TE('lk_title')}</h3>
+      <p class="muted small">${TE('lk_intro')}</p>
+      <div id="lkList">${(state.links || []).length ? state.links.map(x => `<div class="row between lkrow"><span class="row gap">${avatarHTML(x, 28)}<b>${esc(x.username)}</b></span><button class="btn small" data-unlink="${x.id}" data-name="${esc(x.username)}">${TE('lk_unlink')}</button></div>`).join('') : `<p class="muted small">${TE('lk_none')}</p>`}</div>
+      <form id="lkForm" autocomplete="off">
+        <label>${TE('lk_user')}<input name="u" required maxlength="24" autocomplete="off"></label>
+        <label>${TE('lk_email')}<input name="e" type="email" required autocomplete="off"></label>
+        <label>${TE('lk_pw')}<input name="p" type="password" required autocomplete="new-password"></label>
+        <div class="actions"><button class="btn primary" type="submit">${TE('lk_go')}</button><span id="lkMsg" class="msg inline"></span></div>
+      </form>
+    </section>
   </main>`;
   bindTop();
+  $('#lkForm').onsubmit = async e => {
+    e.preventDefault(); const f = new FormData(e.target), msg = $('#lkMsg'); msg.className = 'msg inline'; msg.textContent = T('lk_busy');
+    const r = await linkAccountFlow(String(f.get('u')).trim(), String(f.get('e')).trim(), String(f.get('p')));
+    if (r.err) { msg.textContent = r.err; return; }
+    await loadLists(); renderAccount(); toast(T('lk_ok'));
+  };
+  document.querySelectorAll('[data-unlink]').forEach(b => b.onclick = async () => {
+    if (!(await confirmBox(T('lk_unlink_q', { name: b.dataset.name })))) return;
+    const { error } = await sb.rpc('unlink_account', { other: b.dataset.unlink });
+    if (error) return toast(errText(error), true);
+    await loadLists(); renderAccount();
+  });
 
   const fileIn = $('#avFile');
   $('#avUp').onclick = () => fileIn.click();
@@ -2983,7 +3064,7 @@ function renderSettings() {
       <label class="check"><input type="checkbox" id="prefSkip" ${prefs.skipIntro ? 'checked' : ''}>${TE('pref_skipintro')}</label>
       <div class="row wrapx"><label class="check" style="margin:0"><input type="checkbox" id="prefSound" ${prefs.sound ? 'checked' : ''}>${TE('pref_sound')}</label>
         <button class="btn" id="soundTest">🔊 ${TE('pref_sound_test')}</button></div>
-      <div class="setrow"><span>${TE('pref_volume')}</span><span class="row"><input type="range" id="prefVol" min="0" max="100" step="5" value="${prefs.volume}" aria-label="${TE('pref_volume')}" style="width:160px"><output id="prefVolOut" style="min-width:3.2em;text-align:right">${prefs.volume}%</output></span></div>
+      <div class="setrow"><span>${TE('pref_volume')}</span><span class="row"><input type="range" class="rng" id="prefVol" min="0" max="100" step="5" value="${prefs.volume}" aria-label="${TE('pref_volume')}" style="width:160px"><output id="prefVolOut" style="min-width:3.2em;text-align:right">${prefs.volume}%</output></span></div>
     </section>
     ${hasBetaList() ? `<section class="panel beta"><h3>🧪 ${TE('set_beta')}</h3><p class="muted small hint">${TE('beta_desc')}</p>
       ${['Public'].map(k => `<label class="check" style="margin-bottom:2px"><input type="checkbox" data-beta="${k}" ${prefs['beta' + k] ? 'checked' : ''}>${TE('beta_' + k.toLowerCase())}</label><p class="muted small hint" style="margin-top:0">${TE('beta_' + k.toLowerCase() + '_d')}</p>`).join('')}
@@ -3009,7 +3090,7 @@ function renderSettings() {
   $('#prefSkip').onchange = e => { prefs.skipIntro = e.target.checked; savePrefs(); };
   $('#prefSound').onchange = e => { prefs.sound = e.target.checked; savePrefs(); };
   $('#soundTest').onclick = playSoundNow;
-  const pv = $('#prefVol'); pv.oninput = () => { prefs.volume = +pv.value; $('#prefVolOut').textContent = pv.value + '%'; }; pv.onchange = () => { savePrefs(); playSoundNow(); };
+  const pv = $('#prefVol'); const pvFill = () => pv.style.setProperty('--f', (pv.value / 100).toFixed(3)); pvFill(); pv.oninput = () => { pvFill(); prefs.volume = +pv.value; $('#prefVolOut').textContent = pv.value + '%'; }; pv.onchange = () => { savePrefs(); playSoundNow(); };
   document.querySelectorAll('[data-beta]').forEach(b => b.onchange = () => { prefs['beta' + b.dataset.beta] = b.checked; savePrefs(); });
 }
 

@@ -3,7 +3,7 @@
 -- Supabase-Dashboard → SQL Editor → New query → alles einfügen → Run
 --
 -- Das ist die EINZIGE Datei, die für eine neue Installation nötig ist.
--- (Du hast schon eine ältere Version laufen? Dann stattdessen migration_round9.sql ausführen.)
+-- (Du hast schon eine ältere Version laufen? Dann stattdessen migration_round9.sql und danach migration_round10.sql ausführen.)
 -- Die SQL-Editor-Einträge ("Snippets") darfst du nach dem Ausführen löschen –
 -- die Tabellen/Funktionen bleiben in der Datenbank bestehen.
 -- =====================================================================
@@ -299,5 +299,95 @@ do $$ begin
   alter publication supabase_realtime add table public.tasks;
 exception when duplicate_object then null;
 end $$;
+
+-- ---------------------------------------------------------------------
+-- Verknüpfte Konten: zwei eigene Konten teilen automatisch alle Listen (beide dürfen bearbeiten).
+-- Verknüpfen läuft über ein kurzlebiges Token: Konto B meldet sich in der App kurz an und erzeugt es,
+-- Konto A löst es ein. So werden Passwörter nie an eigene Funktionen geschickt.
+-- ---------------------------------------------------------------------
+create table if not exists public.account_links (
+  user_id   uuid not null references public.profiles(id) on delete cascade,
+  linked_id uuid not null references public.profiles(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (user_id, linked_id)
+);
+alter table public.account_links enable row level security;
+drop policy if exists account_links_select on public.account_links;
+create policy account_links_select on public.account_links for select to authenticated using (user_id = auth.uid());
+revoke all on public.account_links from anon, authenticated;
+grant select on public.account_links to authenticated;
+
+create table if not exists public.link_tokens (
+  token      uuid primary key default gen_random_uuid(),
+  user_id    uuid not null references public.profiles(id) on delete cascade,
+  expires_at timestamptz not null default now() + interval '5 minutes'
+);
+alter table public.link_tokens enable row level security;     -- keine Policy, kein Grant: nur über Funktionen erreichbar
+revoke all on public.link_tokens from anon, authenticated;
+
+create or replace function public.make_link_token() returns uuid
+language plpgsql security definer set search_path = public as $$
+declare t uuid;
+begin
+  if auth.uid() is null then raise exception 'Nicht angemeldet.'; end if;
+  delete from public.link_tokens where user_id = auth.uid() or expires_at < now();
+  insert into public.link_tokens (user_id) values (auth.uid()) returning token into t;
+  return t;
+end $$;
+
+-- gegenseitig alle eigenen Listen als "bearbeiten"-Mitglied eintragen
+create or replace function public.link_sync_lists(a uuid, b uuid) returns void
+language sql security definer set search_path = public as $$
+  insert into public.list_members (list_id, user_id, role)
+    select l.id, b, 'edit' from public.lists l where l.owner_id = a
+  on conflict (list_id, user_id) do update set role = 'edit';
+  insert into public.list_members (list_id, user_id, role)
+    select l.id, a, 'edit' from public.lists l where l.owner_id = b
+  on conflict (list_id, user_id) do update set role = 'edit';
+$$;
+
+create or replace function public.link_accounts(tok uuid) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare other uuid;
+begin
+  if auth.uid() is null then raise exception 'Nicht angemeldet.'; end if;
+  select user_id into other from public.link_tokens where token = tok and expires_at > now();
+  if other is null then raise exception 'Der Verknüpfungs-Code ist ungültig oder abgelaufen.'; end if;
+  if other = auth.uid() then raise exception 'Das ist dasselbe Konto.'; end if;
+  delete from public.link_tokens where token = tok;
+  insert into public.account_links (user_id, linked_id) values (auth.uid(), other), (other, auth.uid()) on conflict do nothing;
+  perform public.link_sync_lists(auth.uid(), other);
+  return other;
+end $$;
+
+create or replace function public.my_links() returns table (id uuid, username text, avatar text)
+language sql stable security definer set search_path = public as $$
+  select p.id, p.username, p.avatar from public.account_links k join public.profiles p on p.id = k.linked_id where k.user_id = auth.uid();
+$$;
+
+-- Verknüpfung lösen: auch die dadurch entstandenen gegenseitigen Mitgliedschaften entfernen
+create or replace function public.unlink_account(other uuid) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not exists (select 1 from public.account_links where user_id = auth.uid() and linked_id = other) then return; end if;
+  delete from public.account_links where (user_id = auth.uid() and linked_id = other) or (user_id = other and linked_id = auth.uid());
+  delete from public.list_members m using public.lists l where m.list_id = l.id
+    and ((l.owner_id = other and m.user_id = auth.uid()) or (l.owner_id = auth.uid() and m.user_id = other));
+end $$;
+
+-- neue Listen eines verknüpften Kontos sofort für alle Verknüpften eintragen
+create or replace function public.link_new_list() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.list_members (list_id, user_id, role)
+    select new.id, k.linked_id, 'edit' from public.account_links k where k.user_id = new.owner_id
+  on conflict (list_id, user_id) do nothing;
+  return new;
+end $$;
+drop trigger if exists link_new_list on public.lists;
+create trigger link_new_list after insert on public.lists for each row execute function public.link_new_list();
+
+revoke all on function public.make_link_token(), public.link_sync_lists(uuid, uuid), public.link_accounts(uuid), public.my_links(), public.unlink_account(uuid), public.link_new_list() from public, anon, authenticated;
+grant execute on function public.make_link_token(), public.link_accounts(uuid), public.my_links(), public.unlink_account(uuid) to authenticated;
 
 -- Der frühere Google-Sheets/Apps-Script-Sync ist entfernt. Falls du ihn je installiert hattest: remigration.sql ausführen.
