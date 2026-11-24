@@ -387,7 +387,7 @@ main.full .sheet th{top:var(--top-h,53px)}
 .card .prog{margin-top:6px} .card .bar{height:5px;border-radius:9px;background:color-mix(in srgb,var(--muted) 22%,transparent);margin-top:6px;overflow:hidden}
 .card .bar i{display:block;height:100%;background:var(--accent);border-radius:9px}
 .card.drag{padding-left:34px} .cgrip{position:absolute;left:11px;top:13px;cursor:grab;color:var(--muted);touch-action:none;user-select:none;font-size:15px;line-height:1.2;writing-mode:vertical-rl;letter-spacing:-1px}
-body.dragging .card.drag{cursor:grabbing}
+body.dragging .card.drag{cursor:grabbing} .card.drag{touch-action:none;user-select:none;cursor:grab}
 .dropline.col{background:var(--accent);position:fixed;border-radius:3px;z-index:300;pointer-events:none}
 :root[data-contrast="high"][data-cmode="light"] .card .icon{opacity:1;filter:grayscale(1) brightness(.2)}
 :root[data-contrast="high"][data-cmode="dark"] .card .icon{opacity:1;filter:grayscale(1) brightness(2)}
@@ -421,6 +421,24 @@ body.picking .sheet th[data-col]:hover,body.picking .sheet tbody td:hover{outlin
 .md-body .mf textarea{resize:none}
 .syncsteps{padding-left:20px;margin:6px 0 10px} .syncsteps li{margin-bottom:4px}
 #syncSrc{width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;white-space:pre;resize:vertical;border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--panel);color:var(--text)}
+
+.parentline{margin:-2px 0 8px} .parentline:empty{display:none}
+:root .sheet td:focus-within{background:color-mix(in srgb,var(--text) 6%,var(--panel))!important}
+:root .sheet td:focus-within :is(textarea,input,select):focus{background:transparent!important}
+
+.recent{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center} .recent .muted{width:100%} .recent .chip{cursor:pointer;font:inherit;font-size:13px}
+
+.sheet tr.sel td{background:color-mix(in srgb,var(--accent) 18%,var(--panel))!important;box-shadow:inset 0 1px 0 var(--accent),inset 0 -1px 0 var(--accent)}
+.md-head .nav{padding:2px 10px;font-size:18px;line-height:1}
+
+.sheet td .rtview{display:none;padding:8px;min-height:36px;white-space:pre-wrap;word-break:break-word;cursor:text}
+:root[data-density="compact"] .sheet td .rtview{padding:4px 8px;min-height:28px} :root[data-density="comfy"] .sheet td .rtview{padding:13px 10px;min-height:48px}
+.sheet td.hasrt:not(:focus-within) .rtview{display:block}
+.sheet td.hasrt:not(:focus-within) textarea{position:absolute;opacity:0;height:0!important;min-height:0;padding:0;pointer-events:none}
+.sheet td.hasrt{position:relative}
+.rtbar{position:fixed;z-index:60;display:flex;gap:2px;padding:3px;background:var(--panel);border:1px solid var(--line);border-radius:9px;box-shadow:0 6px 22px rgba(0,0,0,.25)}
+.rtbar button{min-width:30px;height:28px;border:0;border-radius:6px;background:transparent;color:var(--text);font:inherit;cursor:pointer}
+.rtbar button:hover{background:var(--hover)}
 </style>
 </head>
 <body>
@@ -479,10 +497,15 @@ en: {
   acc_title:"Account", acc_profile:"Profile", acc_picture:"Profile picture", acc_upload:"Upload picture", acc_remove:"Remove picture", acc_username:"Username", acc_saved:"Saved.", acc_prefs:"Preferences", pref_confirm:"Ask before deleting a task", pref_sound:"Play intro sound", pref_sound_test:"Play sound", acc_password:"Password", pw_current:"Current password", pw_new:"New password", pw_confirm:"Repeat new password", pw_hint:"At least 8 characters.", pw_change:"Change password", pw_changed:"Password changed.", pw_forgot:"Forgot your password? Send a reset link to {email}", pw_mail_sent:"Reset link sent to {email}.", acc_email:"Email", rec_title:"Choose a new password", rec_btn:"Save new password", rec_done:"New password saved.", cm_up:"Move up", cm_down:"Move down", grip_tip:"Drag to move", col_chtype:"Change type", col_left:"Move left", col_right:"Move right", col_hide:"Hide column", col_builtin:"built-in", ty_formula:"Formula", fm_label:"Formula", fm_insert:"Insert column …", fm_bad:"The formula is invalid.", col_agg:"Total in footer", agg_none:"None", agg_sum:"Sum", agg_avg:"Average", agg_min:"Minimum", agg_max:"Maximum", agg_count:"Count", col_one_prio:"Only one priority column per list.", col_type_lost:"{n} value(s) can't be converted and will be cleared. Continue?", imp_title:"Import: assign columns", imp_hint:"Tell me which table column is the task and which one holds notes. Everything else can be ignored or become a new column.", imp_header_row:"Header row", imp_no_header:"No header row", imp_row_n:"Row {n}", imp_ignore:"— ignore —", imp_done:"✓ Done", imp_task:"Task", imp_notes:"Notes", imp_newcol:"＋ New column", imp_col:"Column", imp_go:"Import", imp_need_task:"Please assign exactly one column as “Task”.", imp_dupe:"“Done” and “Notes” can each be used only once.", nl_import:"⬆ Import CSV …", nl_gs:"🌐 Google Sheets …", done_toggle:"Show / hide completed tasks", pref_collapse_done:"Collapse completed tasks by default", cm_repeat:"Repeat …", rep_title:"Repeat task", rep_every:"Every", u_day:"day(s)", u_week:"week(s)", u_month:"month(s)", u_year:"year(s)", rep_hint:"When you tick this task off, a new copy appears with the next due date. Needs a Due date column.", rep_remove:"Remove repeat", rep_need_due:"Add a Due date column first (Columns → Add column). Repeating tasks use it.", rep_next:"Repeats: next due {date}", rep_label:"Repeats every {n} {u}", search_ph:"Search all lists …", search_none:"Nothing found.", search_lists:"Lists", search_tasks:"Tasks", rz_tip:"Drag to resize (double-click: reset)", fs_enter:"Full screen", fs_exit:"Exit full screen", hint_cols:"Tip: add a Priority or Due date column via ＋ in the table header (or “Columns”) to sort tasks by importance and highlight deadlines.", set_title:"Preferences", set_appearance:"Appearance", set_behavior:"Behavior", pref_theme:"Theme", theme_default:"Standard", theme_default_d:"Light or dark, following your device", theme_light:"Light", theme_light_d:"Warm paper tones, blue accent", theme_dark:"Dark", theme_dark_d:"Pure black, white accent", theme_modern:"Modern", theme_modern_d:"Console look with a teal glow", theme_glass:"Glass", theme_glass_d:"Frosted, translucent panels with light refraction", pref_accent:"Accent color", accent_reset:"Reset", pref_density:"Row height", dens_compact:"Compact", dens_normal:"Normal", dens_comfy:"Comfortable", pref_font:"Text size", font_s:"Small", font_m:"Medium", font_l:"Large", pref_lowfx:"Reduce effects", pref_lowfx_d:"Turns off blur, light refraction and shadows (faster on older devices).", pref_skipintro:"Skip intro animation", gs_import:"Import from Google Sheets …", gs_title:"Import from Google Sheets", gs_hint:"Paste the link of your sheet. It must be shared as “Anyone with the link can view”. Only the tab from the link is imported.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Import", gs_bad_url:"That doesn’t look like a Google Sheets link.", gs_fail:"Couldn’t load the sheet. Check that it is shared with “Anyone with the link”, or download it via File → Download → CSV and use “Import CSV”.",
   columns_btn:"Columns", csv_btn:"CSV", csv_export:"Export as CSV", csv_import:"Import CSV …", csv_done_n:"{n} tasks imported.", csv_done_skip:"{n} tasks imported ({skipped} unknown columns ignored).", csv_empty:"No tasks found in this file.", csv_too_many:"Too many rows (max. {max}).", csv_fail:"Import failed: {msg}", csv_no_task:"Import failed: no “Task” column found.", ty_priority:"Priority", ty_due:"Due date", prio_1:"Very low", prio_2:"Low", prio_3:"Medium", prio_4:"High", prio_5:"Very high", prio_none:"–", cols_title:"Columns", cols_add:"+ Add column", col_visible:"Show in this list", col_hidden:"hidden", pref_sort:"Sort open tasks by priority automatically", due_over:"Overdue", due_today:"Due today",
   set_beta:"Beta features", beta_desc:"You can see this because you have a list called “BetaTster”. Beta features can change or contain bugs.", beta_formulas:"Formula columns", beta_formulas_d:"Calculated columns, e.g. {Amount} / 64 (new formula columns; existing ones keep working).", beta_prio:"Sort lists by priority (overview)", beta_prio_d:"Adds “Priority” to the sort options on the overview.", beta_sync:"Google Sheets sync", beta_sync_d:"Two-way sync of a list with a Google Sheet via Google Apps Script (one-time setup).", pref_contrast:"High contrast", pref_contrast_d:"Strong colours, thick borders, no transparency or blur – easier to read.", col_mark:"Highlight overdue and due-today dates", col_sort:"Sort open tasks by this priority", prog:"{done} of {total} done", prog_none:"No tasks yet", row_prio_hint:"This list is sorted by priority: rows can only be moved within the same priority (or turn off sorting in the priority column’s settings).",
-  ov_sort:"Sort", ov_alpha:"Alphabetical", ov_created:"Creation date", ov_prio:"Priority (beta)", ov_custom:"Custom (drag cards)", ov_asc:"Ascending", ov_desc:"Descending", ov_drag_tip:"Drag to reorder", ov_custom_hint:"Drag the cards by the ⋮⋮ handle to arrange them.", search_cols:"Also search other columns", search_in_col:"in “{col}”",
+  ov_sort:"Sort", ov_alpha:"Alphabetical", ov_created:"Creation date", ov_prio:"Priority", ov_custom:"Custom (drag cards)", ov_asc:"Ascending", ov_desc:"Descending", ov_drag_tip:"Drag to reorder", ov_custom_hint:"Drag the cards by the ⋮⋮ handle to arrange them.", search_cols:"Also search other columns", search_in_col:"in “{col}”",
   fm_hint:"Put column names in curly braces: {Name}. Example: {Amount} / 64", fm_pick:"Select column", fm_funcs:"Functions & operators", fm_pick_msg:"Click a column (header or any cell) to insert it.", fm_build_msg:"Click a column or type a number into the blinking box.", fm_use:"Insert", fm_new_num:"＋ New number column", fm_new_name:"Name of the new column", fm_custom_only:"Only custom columns can be used in formulas.", fm_self:"A column can't use itself.", fm_fill:"Fill all boxes first.", fm_created:"Column created – now click it.", fm_nonum:"No number column yet?", fm_make:"Create", fx_add:"Add two values", fx_sub:"Subtract", fx_mul:"Multiply", fx_div:"Divide", fx_pow:"Raise to a power", fx_round:"Round to n decimals", fx_floor:"Round down", fx_ceil:"Round up", fx_abs:"Remove the sign", fx_sqrt:"Square root", fx_mod:"Remainder of a division", fx_min:"Smaller value", fx_max:"Larger value", fx_sum:"Add values together", fx_avg:"Average of values", fx_colsum:"Total of a whole column", fx_colavg:"Average of a whole column", fx_colmin:"Smallest value in a column", fx_colmax:"Largest value in a column", fx_colcount:"Count filled cells in a column", fx_if:"Condition: IF(test, then, else)", fx_today:"Today's date",
   pref_mobile:"Phone layout", pref_mobile_d:"On small screens only the checkbox and task are shown; tap a task to edit everything else.", mob_auto:"Automatic (small screens)", mob_on:"Always", mob_off:"Never", md_close:"Close",
-  sync_item:"Google Sheets sync (beta) …", sync_title:"Google Sheets sync (beta)", sync_intro:"Keeps this list and a Google Sheet in step, both ways, using a small Google Apps Script. Conflicts (same row changed on both sides): the app wins. Not synced: sub-list links, formula columns, row order.", sync_enable:"Turn on sync", sync_s1:"Create or open the Google Sheet to sync with (an empty one is best).", sync_s2:"In the sheet open “Extensions → Apps Script”, delete everything there, paste the script below and save.", sync_s3:"Choose the function “setup” and click “Run”. Google asks once for permission (the script needs to reach the internet).", sync_s4:"Reload the sheet. A “TPC2Do” menu appears and the sheet “TPC2Do” is filled. From now on it syncs every 5 minutes.", sync_copy:"Copy script", sync_copied:"Script copied.", sync_renew:"New token", sync_renew_c:"Create a new token? The old script will stop working until you paste the new one.", sync_disable:"Turn off sync", sync_disable_c:"Turn off sync for this list? The sheet keeps its data but no longer updates.", sync_warn:"The script contains a secret token for this list. Anyone who can see the script or edit the sheet can read and change this list. Don't share the sheet with people you don't trust.", sync_missing:"Sync isn't set up on the server yet. Run migration_sync.sql in the Supabase SQL editor first."
+  sync_item:"Google Sheets sync (beta) …", sync_title:"Google Sheets sync (beta)", sync_intro:"Keeps this list and a Google Sheet in step, both ways, using a small Google Apps Script. Conflicts (same row changed on both sides): the app wins. Not synced: sub-list links, formula columns, row order.", sync_enable:"Turn on sync", sync_s1:"Create or open the Google Sheet to sync with (an empty one is best).", sync_s2:"In the sheet open “Extensions → Apps Script”, delete everything there, paste the script below and save.", sync_s3:"Choose the function “setup” and click “Run”. Google asks once for permission (the script needs to reach the internet).", sync_s4:"Reload the sheet. A “TPC2Do” menu appears and the sheet “TPC2Do” is filled. From now on it syncs every 5 minutes.", sync_copy:"Copy script", sync_copied:"Script copied.", sync_renew:"New token", sync_renew_c:"Create a new token? The old script will stop working until you paste the new one.", sync_disable:"Turn off sync", sync_disable_c:"Turn off sync for this list? The sheet keeps its data but no longer updates.", sync_warn:"The script contains a secret token for this list. Anyone who can see the script or edit the sheet can read and change this list. Don't share the sheet with people you don't trust.", sync_missing:"Sync isn't set up on the server yet. Run migration_sync.sql in the Supabase SQL editor first.",
+  beta_public:"Share lists without login", beta_public_d:"Adds a “view without login” option to the share dialog (read-only public page).", imp_newcol_file:"[Use column name from file]", pref_volume:"Volume", parent_of:"Sub-list of", parent_locked:"a list you can't access", login_id:"Email or account name", share_subs:"Also share linked sub-lists", share_subs_link:"People joining by link also get the linked sub-lists", recent_title:"Recently shared with", share_public:"Allow viewing without login (read-only)", share_public_link:"Public view link", ov_edit:"Edit order", ov_edit_done:"Done", pub_title:"Shared list (read-only)", pub_login:"Log in / sign up", pub_missing:"This list isn't available (link wrong or public view switched off).",
+  lc_open_new:"Open in new tab", lc_rename:"Rename", lc_share:"Share…", lc_dup:"Duplicate list", lc_copy:" (copy)", ov_edit_hint:"Edit mode: drag the cards anywhere to arrange them, then press “Done”.", lc_dup_ok:"List duplicated", lc_rename_title:"Rename list",
+  lc_open:"Open",
+  sel_n:"{n} selected – clear", confirm_tasks:"Delete {n} selected tasks?", md_prev:"Previous task", md_next:"Next task",
+  fmt_bold:"Bold (Ctrl+B)", fmt_italic:"Italic (Ctrl+I)", fmt_strike:"Strikethrough", fmt_under:"Underline (Ctrl+U)"
 },
 de: {
   loading:"Lade …", cancel:"Abbrechen", create:"Erstellen", save:"Speichern", delete:"Löschen", undo:"Rückgängig", done:"Fertig", add:"Hinzufügen", back:"Zurück", copy:"Kopieren", you:"Du",
@@ -501,10 +524,15 @@ de: {
   acc_title:"Konto", acc_profile:"Profil", acc_picture:"Profilbild", acc_upload:"Bild hochladen", acc_remove:"Bild entfernen", acc_username:"Konto-Name", acc_saved:"Gespeichert.", acc_prefs:"Einstellungen", pref_confirm:"Vor dem Löschen einer Aufgabe nachfragen", pref_sound:"Intro-Sound abspielen", pref_sound_test:"Sound testen", acc_password:"Passwort", pw_current:"Aktuelles Passwort", pw_new:"Neues Passwort", pw_confirm:"Neues Passwort wiederholen", pw_hint:"Mindestens 8 Zeichen.", pw_change:"Passwort ändern", pw_changed:"Passwort geändert.", pw_forgot:"Passwort vergessen? Reset-Link an {email} senden", pw_mail_sent:"Reset-Link an {email} gesendet.", acc_email:"E-Mail", rec_title:"Neues Passwort festlegen", rec_btn:"Neues Passwort speichern", rec_done:"Neues Passwort gespeichert.", cm_up:"Nach oben", cm_down:"Nach unten", grip_tip:"Ziehen zum Verschieben", col_chtype:"Typ ändern", col_left:"Nach links", col_right:"Nach rechts", col_hide:"Spalte ausblenden", col_builtin:"Standard", ty_formula:"Formel", fm_label:"Formel", fm_insert:"Spalte einfügen …", fm_bad:"Die Formel ist ungültig.", col_agg:"Summe in der Fußzeile", agg_none:"Keine", agg_sum:"Summe", agg_avg:"Durchschnitt", agg_min:"Minimum", agg_max:"Maximum", agg_count:"Anzahl", col_one_prio:"Pro Liste nur eine Prioritäts-Spalte.", col_type_lost:"{n} Wert(e) lassen sich nicht umwandeln und werden geleert. Fortfahren?", imp_title:"Import: Spalten zuordnen", imp_hint:"Wähle, welche Tabellenspalte die Aufgabe ist und welche die Hinweise enthält. Alles andere kann ignoriert werden oder eine neue Spalte werden.", imp_header_row:"Kopfzeile", imp_no_header:"Keine Kopfzeile", imp_row_n:"Zeile {n}", imp_ignore:"— ignorieren —", imp_done:"✓ Erledigt", imp_task:"Aufgabe", imp_notes:"Hinweise", imp_newcol:"＋ Neue Spalte", imp_col:"Spalte", imp_go:"Importieren", imp_need_task:"Bitte genau eine Spalte als „Aufgabe“ zuweisen.", imp_dupe:"„Erledigt“ und „Hinweise“ dürfen jeweils nur einmal vorkommen.", nl_import:"⬆ CSV importieren …", nl_gs:"🌐 Google Sheets …", done_toggle:"Erledigte Aufgaben ein-/ausblenden", pref_collapse_done:"Erledigte Aufgaben standardmäßig einklappen", cm_repeat:"Wiederholen …", rep_title:"Aufgabe wiederholen", rep_every:"Alle", u_day:"Tag(e)", u_week:"Woche(n)", u_month:"Monat(e)", u_year:"Jahr(e)", rep_hint:"Wenn du die Aufgabe abhakst, erscheint eine neue Kopie mit dem nächsten Fälligkeitsdatum. Benötigt eine Fälligkeits-Spalte.", rep_remove:"Wiederholung entfernen", rep_need_due:"Lege zuerst eine Fälligkeits-Spalte an (Spalten → Spalte hinzufügen). Wiederkehrende Aufgaben nutzen sie.", rep_next:"Wiederholt sich: nächste Fälligkeit {date}", rep_label:"Wiederholt sich alle {n} {u}", search_ph:"Alle Listen durchsuchen …", search_none:"Nichts gefunden.", search_lists:"Listen", search_tasks:"Aufgaben", rz_tip:"Ziehen zum Ändern der Breite (Doppelklick: zurücksetzen)", fs_enter:"Vollbild", fs_exit:"Vollbild beenden", hint_cols:"Tipp: Über ＋ in der Kopfzeile (oder „Spalten“) kannst du eine Priorität- oder Fälligkeits-Spalte hinzufügen, um Aufgaben nach Wichtigkeit zu sortieren und Termine zu markieren.", set_title:"Einstellungen", set_appearance:"Darstellung", set_behavior:"Verhalten", pref_theme:"Design", theme_default:"Standard", theme_default_d:"Hell oder dunkel, passend zum Gerät", theme_light:"Hell", theme_light_d:"Warme Papiertöne, blauer Akzent", theme_dark:"Dunkel", theme_dark_d:"Tiefschwarz, weißer Akzent", theme_modern:"Modern", theme_modern_d:"Konsolen-Look mit türkisem Leuchten", theme_glass:"Glas", theme_glass_d:"Mattierte, durchscheinende Flächen mit Lichtbrechung", pref_accent:"Akzentfarbe", accent_reset:"Zurücksetzen", pref_density:"Zeilenhöhe", dens_compact:"Kompakt", dens_normal:"Normal", dens_comfy:"Großzügig", pref_font:"Textgröße", font_s:"Klein", font_m:"Mittel", font_l:"Groß", pref_lowfx:"Effekte reduzieren", pref_lowfx_d:"Schaltet Unschärfe, Lichtbrechung und Schatten ab (schneller auf älteren Geräten).", pref_skipintro:"Intro-Animation überspringen", gs_import:"Aus Google Sheets importieren …", gs_title:"Aus Google Sheets importieren", gs_hint:"Füge den Link deiner Tabelle ein. Sie muss mit „Jeder mit dem Link kann ansehen“ freigegeben sein. Es wird nur das Tabellenblatt aus dem Link importiert.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importieren", gs_bad_url:"Das sieht nicht wie ein Google-Sheets-Link aus.", gs_fail:"Die Tabelle konnte nicht geladen werden. Prüfe die Freigabe („Jeder mit dem Link“) oder lade sie über Datei → Herunterladen → CSV herunter und nutze „CSV importieren“.",
   columns_btn:"Spalten", csv_btn:"CSV", csv_export:"Als CSV exportieren", csv_import:"CSV importieren …", csv_done_n:"{n} Aufgaben importiert.", csv_done_skip:"{n} Aufgaben importiert ({skipped} unbekannte Spalten ignoriert).", csv_empty:"In dieser Datei wurden keine Aufgaben gefunden.", csv_too_many:"Zu viele Zeilen (max. {max}).", csv_fail:"Import fehlgeschlagen: {msg}", csv_no_task:"Import fehlgeschlagen: keine Spalte „Aufgabe“ gefunden.", ty_priority:"Priorität", ty_due:"Fälligkeitsdatum", prio_1:"Sehr niedrig", prio_2:"Niedrig", prio_3:"Mittel", prio_4:"Hoch", prio_5:"Sehr hoch", prio_none:"–", cols_title:"Spalten", cols_add:"＋ Spalte hinzufügen", col_visible:"In dieser Liste anzeigen", col_hidden:"ausgeblendet", pref_sort:"Offene Aufgaben automatisch nach Priorität sortieren", due_over:"Überfällig", due_today:"Heute fällig",
   set_beta:"Beta-Funktionen", beta_desc:"Du siehst das, weil du eine Liste namens „BetaTster“ hast. Beta-Funktionen können sich ändern oder Fehler enthalten.", beta_formulas:"Formel-Spalten", beta_formulas_d:"Berechnete Spalten, z. B. {Menge} / 64 (neue Formel-Spalten; vorhandene funktionieren weiter).", beta_prio:"Listen nach Priorität sortieren (Übersicht)", beta_prio_d:"Fügt „Priorität“ zu den Sortier-Optionen der Übersicht hinzu.", beta_sync:"Google-Sheets-Sync", beta_sync_d:"Zwei-Wege-Abgleich einer Liste mit einer Google-Tabelle über Google Apps Script (einmalige Einrichtung).", pref_contrast:"Hoher Kontrast", pref_contrast_d:"Kräftige Farben, dicke Rahmen, keine Transparenz oder Unschärfe – besser lesbar.", col_mark:"Überfällige und heute fällige Daten hervorheben", col_sort:"Offene Aufgaben nach dieser Priorität sortieren", prog:"{done} von {total} erledigt", prog_none:"Noch keine Aufgaben", row_prio_hint:"Diese Liste ist nach Priorität sortiert: Zeilen lassen sich nur innerhalb derselben Priorität verschieben (oder die Sortierung in den Einstellungen der Prioritäts-Spalte ausschalten).",
-  ov_sort:"Sortierung", ov_alpha:"Alphabetisch", ov_created:"Erstellungsdatum", ov_prio:"Priorität (Beta)", ov_custom:"Eigene (Karten ziehen)", ov_asc:"Aufsteigend", ov_desc:"Absteigend", ov_drag_tip:"Zum Umsortieren ziehen", ov_custom_hint:"Ziehe die Karten am ⋮⋮-Griff, um sie anzuordnen.", search_cols:"Auch in anderen Spalten suchen", search_in_col:"in „{col}“",
+  ov_sort:"Sortierung", ov_alpha:"Alphabetisch", ov_created:"Erstellungsdatum", ov_prio:"Priorität", ov_custom:"Eigene (Karten ziehen)", ov_asc:"Aufsteigend", ov_desc:"Absteigend", ov_drag_tip:"Zum Umsortieren ziehen", ov_custom_hint:"Ziehe die Karten am ⋮⋮-Griff, um sie anzuordnen.", search_cols:"Auch in anderen Spalten suchen", search_in_col:"in „{col}“",
   fm_hint:"Spaltennamen kommen in geschweifte Klammern: {Name}. Beispiel: {Menge} / 64", fm_pick:"Spalte auswählen", fm_funcs:"Funktionen & Operatoren", fm_pick_msg:"Klicke auf eine Spalte (Kopf oder beliebige Zelle), um sie einzufügen.", fm_build_msg:"Klicke auf eine Spalte oder tippe eine Zahl in das blinkende Feld.", fm_use:"Einfügen", fm_new_num:"＋ Neue Zahlen-Spalte", fm_new_name:"Name der neuen Spalte", fm_custom_only:"In Formeln können nur eigene Spalten verwendet werden.", fm_self:"Eine Spalte kann sich nicht selbst verwenden.", fm_fill:"Fülle erst alle Felder aus.", fm_created:"Spalte erstellt – klicke sie jetzt an.", fm_nonum:"Noch keine Zahlen-Spalte?", fm_make:"Erstellen", fx_add:"Zwei Werte addieren", fx_sub:"Subtrahieren", fx_mul:"Multiplizieren", fx_div:"Dividieren", fx_pow:"Potenzieren", fx_round:"Auf n Nachkommastellen runden", fx_floor:"Abrunden", fx_ceil:"Aufrunden", fx_abs:"Vorzeichen entfernen", fx_sqrt:"Quadratwurzel", fx_mod:"Rest einer Division", fx_min:"Kleinerer Wert", fx_max:"Größerer Wert", fx_sum:"Werte zusammenzählen", fx_avg:"Mittelwert", fx_colsum:"Summe einer ganzen Spalte", fx_colavg:"Mittelwert einer ganzen Spalte", fx_colmin:"Kleinster Wert einer Spalte", fx_colmax:"Größter Wert einer Spalte", fx_colcount:"Gefüllte Zellen einer Spalte zählen", fx_if:"Bedingung: IF(Test, dann, sonst)", fx_today:"Heutiges Datum",
   pref_mobile:"Handy-Layout", pref_mobile_d:"Auf kleinen Bildschirmen werden nur Häkchen und Aufgabe angezeigt; Tippen auf eine Aufgabe öffnet alles zum Bearbeiten.", mob_auto:"Automatisch (kleine Bildschirme)", mob_on:"Immer", mob_off:"Nie", md_close:"Schließen",
-  sync_item:"Google-Sheets-Sync (Beta) …", sync_title:"Google-Sheets-Sync (Beta)", sync_intro:"Hält diese Liste und eine Google-Tabelle in beide Richtungen auf dem gleichen Stand – über ein kleines Google-Apps-Script. Konflikte (dieselbe Zeile auf beiden Seiten geändert): die App gewinnt. Nicht synchronisiert: Unterlisten-Verknüpfungen, Formel-Spalten, Zeilenreihenfolge.", sync_enable:"Sync einschalten", sync_s1:"Erstelle oder öffne die Google-Tabelle, mit der synchronisiert werden soll (am besten eine leere).", sync_s2:"Öffne in der Tabelle „Erweiterungen → Apps Script“, lösche dort alles, füge das Script unten ein und speichere.", sync_s3:"Wähle die Funktion „setup“ und klicke „Ausführen“. Google fragt einmal nach Erlaubnis (das Script muss ins Internet).", sync_s4:"Lade die Tabelle neu. Es erscheint ein Menü „TPC2Do“ und das Blatt „TPC2Do“ wird gefüllt. Ab jetzt wird alle 5 Minuten abgeglichen.", sync_copy:"Script kopieren", sync_copied:"Script kopiert.", sync_renew:"Neuer Token", sync_renew_c:"Neuen Token erzeugen? Das alte Script funktioniert dann nicht mehr, bis du das neue einfügst.", sync_disable:"Sync ausschalten", sync_disable_c:"Sync für diese Liste ausschalten? Die Tabelle behält ihre Daten, wird aber nicht mehr aktualisiert.", sync_warn:"Das Script enthält einen geheimen Token für diese Liste. Wer das Script sieht oder die Tabelle bearbeiten darf, kann diese Liste lesen und ändern. Teile die Tabelle nicht mit Leuten, denen du nicht vertraust.", sync_missing:"Der Sync ist auf dem Server noch nicht eingerichtet. Führe zuerst migration_sync.sql im Supabase-SQL-Editor aus."
+  sync_item:"Google-Sheets-Sync (Beta) …", sync_title:"Google-Sheets-Sync (Beta)", sync_intro:"Hält diese Liste und eine Google-Tabelle in beide Richtungen auf dem gleichen Stand – über ein kleines Google-Apps-Script. Konflikte (dieselbe Zeile auf beiden Seiten geändert): die App gewinnt. Nicht synchronisiert: Unterlisten-Verknüpfungen, Formel-Spalten, Zeilenreihenfolge.", sync_enable:"Sync einschalten", sync_s1:"Erstelle oder öffne die Google-Tabelle, mit der synchronisiert werden soll (am besten eine leere).", sync_s2:"Öffne in der Tabelle „Erweiterungen → Apps Script“, lösche dort alles, füge das Script unten ein und speichere.", sync_s3:"Wähle die Funktion „setup“ und klicke „Ausführen“. Google fragt einmal nach Erlaubnis (das Script muss ins Internet).", sync_s4:"Lade die Tabelle neu. Es erscheint ein Menü „TPC2Do“ und das Blatt „TPC2Do“ wird gefüllt. Ab jetzt wird alle 5 Minuten abgeglichen.", sync_copy:"Script kopieren", sync_copied:"Script kopiert.", sync_renew:"Neuer Token", sync_renew_c:"Neuen Token erzeugen? Das alte Script funktioniert dann nicht mehr, bis du das neue einfügst.", sync_disable:"Sync ausschalten", sync_disable_c:"Sync für diese Liste ausschalten? Die Tabelle behält ihre Daten, wird aber nicht mehr aktualisiert.", sync_warn:"Das Script enthält einen geheimen Token für diese Liste. Wer das Script sieht oder die Tabelle bearbeiten darf, kann diese Liste lesen und ändern. Teile die Tabelle nicht mit Leuten, denen du nicht vertraust.", sync_missing:"Der Sync ist auf dem Server noch nicht eingerichtet. Führe zuerst migration_sync.sql im Supabase-SQL-Editor aus.",
+  beta_public:"Listen ohne Login teilen", beta_public_d:"Fügt dem Teilen-Dialog die Option „Ansicht ohne Login“ hinzu (öffentliche Seite, nur lesen).", imp_newcol_file:"[Spaltenname aus Datei benutzen]", pref_volume:"Lautstärke", parent_of:"Sub-To-Do-Liste von", parent_locked:"eine Liste ohne Zugriff", login_id:"E-Mail oder Kontoname", share_subs:"Verknüpfte Unterlisten mit freigeben", share_subs_link:"Wer per Link beitritt, bekommt auch die verknüpften Unterlisten", recent_title:"Zuletzt geteilt mit", share_public:"Ansicht ohne Login erlauben (nur lesen)", share_public_link:"Link für die öffentliche Ansicht", ov_edit:"Reihenfolge bearbeiten", ov_edit_done:"Fertig", pub_title:"Geteilte Liste (nur lesen)", pub_login:"Anmelden / Registrieren", pub_missing:"Diese Liste ist nicht verfügbar (Link falsch oder öffentliche Ansicht ausgeschaltet).",
+  lc_open_new:"In neuem Tab öffnen", lc_rename:"Umbenennen", lc_share:"Teilen …", lc_dup:"Liste duplizieren", lc_copy:" (Kopie)", ov_edit_hint:"Bearbeitungsmodus: Karten beliebig ziehen, danach „Fertig“ drücken.", lc_dup_ok:"Liste dupliziert", lc_rename_title:"Liste umbenennen",
+  lc_open:"Öffnen",
+  sel_n:"{n} ausgewählt – aufheben", confirm_tasks:"{n} ausgewählte Aufgaben löschen?", md_prev:"Vorherige Aufgabe", md_next:"Nächste Aufgabe",
+  fmt_bold:"Fett (Strg+B)", fmt_italic:"Kursiv (Strg+I)", fmt_strike:"Durchgestrichen", fmt_under:"Unterstrichen (Strg+U)"
 },
 es: {
   loading:"Cargando …", cancel:"Cancelar", create:"Crear", save:"Guardar", delete:"Eliminar", undo:"Deshacer", done:"Listo", add:"Añadir", back:"Volver", copy:"Copiar", you:"Tú",
@@ -523,10 +551,15 @@ es: {
   acc_title:"Cuenta", acc_profile:"Perfil", acc_picture:"Foto de perfil", acc_upload:"Subir foto", acc_remove:"Quitar foto", acc_username:"Nombre de usuario", acc_saved:"Guardado.", acc_prefs:"Preferencias", pref_confirm:"Preguntar antes de eliminar una tarea", pref_sound:"Reproducir sonido de inicio", pref_sound_test:"Probar sonido", acc_password:"Contraseña", pw_current:"Contraseña actual", pw_new:"Contraseña nueva", pw_confirm:"Repite la contraseña nueva", pw_hint:"Mínimo 8 caracteres.", pw_change:"Cambiar contraseña", pw_changed:"Contraseña cambiada.", pw_forgot:"¿Olvidaste tu contraseña? Enviar enlace de restablecimiento a {email}", pw_mail_sent:"Enlace de restablecimiento enviado a {email}.", acc_email:"Correo electrónico", rec_title:"Elige una contraseña nueva", rec_btn:"Guardar contraseña nueva", rec_done:"Contraseña nueva guardada.", cm_up:"Subir", cm_down:"Bajar", grip_tip:"Arrastra para mover", col_chtype:"Cambiar tipo", col_left:"Mover a la izquierda", col_right:"Mover a la derecha", col_hide:"Ocultar columna", col_builtin:"estándar", ty_formula:"Fórmula", fm_label:"Fórmula", fm_insert:"Insertar columna …", fm_bad:"La fórmula no es válida.", col_agg:"Total en el pie", agg_none:"Ninguno", agg_sum:"Suma", agg_avg:"Promedio", agg_min:"Mínimo", agg_max:"Máximo", agg_count:"Cantidad", col_one_prio:"Solo una columna de prioridad por lista.", col_type_lost:"{n} valor(es) no se pueden convertir y se borrarán. ¿Continuar?", imp_title:"Importar: asignar columnas", imp_hint:"Indica qué columna es la tarea y cuál contiene las notas. El resto se puede ignorar o convertir en una columna nueva.", imp_header_row:"Fila de encabezado", imp_no_header:"Sin encabezado", imp_row_n:"Fila {n}", imp_ignore:"— ignorar —", imp_done:"✓ Hecho", imp_task:"Tarea", imp_notes:"Notas", imp_newcol:"＋ Columna nueva", imp_col:"Columna", imp_go:"Importar", imp_need_task:"Asigna exactamente una columna como «Tarea».", imp_dupe:"«Hecho» y «Notas» solo pueden usarse una vez.", nl_import:"⬆ Importar CSV …", nl_gs:"🌐 Google Sheets …", done_toggle:"Mostrar / ocultar tareas hechas", pref_collapse_done:"Contraer las tareas hechas por defecto", cm_repeat:"Repetir …", rep_title:"Repetir tarea", rep_every:"Cada", u_day:"día(s)", u_week:"semana(s)", u_month:"mes(es)", u_year:"año(s)", rep_hint:"Al marcar esta tarea como hecha, aparece una copia nueva con la siguiente fecha límite. Requiere una columna de fecha límite.", rep_remove:"Quitar repetición", rep_need_due:"Primero añade una columna de fecha límite (Columnas → Añadir columna). Las tareas repetidas la usan.", rep_next:"Se repite: próxima fecha límite {date}", rep_label:"Se repite cada {n} {u}", search_ph:"Buscar en todas las listas …", search_none:"No se encontró nada.", search_lists:"Listas", search_tasks:"Tareas", rz_tip:"Arrastra para cambiar el ancho (doble clic: restablecer)", fs_enter:"Pantalla completa", fs_exit:"Salir de pantalla completa", hint_cols:"Consejo: añade una columna de Prioridad o de Fecha límite con ＋ en el encabezado (o en «Columnas») para ordenar las tareas por importancia y resaltar los plazos.", set_title:"Preferencias", set_appearance:"Apariencia", set_behavior:"Comportamiento", pref_theme:"Tema", theme_default:"Estándar", theme_default_d:"Claro u oscuro, según tu dispositivo", theme_light:"Claro", theme_light_d:"Tonos cálidos de papel, acento azul", theme_dark:"Oscuro", theme_dark_d:"Negro puro, acento blanco", theme_modern:"Moderno", theme_modern_d:"Aspecto de consola con brillo turquesa", theme_glass:"Cristal", theme_glass_d:"Paneles translúcidos esmerilados con refracción de luz", pref_accent:"Color de acento", accent_reset:"Restablecer", pref_density:"Altura de fila", dens_compact:"Compacta", dens_normal:"Normal", dens_comfy:"Amplia", pref_font:"Tamaño del texto", font_s:"Pequeño", font_m:"Mediano", font_l:"Grande", pref_lowfx:"Reducir efectos", pref_lowfx_d:"Desactiva el desenfoque, la refracción y las sombras (más rápido en dispositivos antiguos).", pref_skipintro:"Omitir la animación de inicio", gs_import:"Importar desde Google Sheets …", gs_title:"Importar desde Google Sheets", gs_hint:"Pega el enlace de tu hoja. Debe estar compartida como «Cualquier persona con el enlace puede ver». Solo se importa la pestaña del enlace.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importar", gs_bad_url:"Eso no parece un enlace de Google Sheets.", gs_fail:"No se pudo cargar la hoja. Comprueba que esté compartida con «Cualquier persona con el enlace», o descárgala con Archivo → Descargar → CSV y usa «Importar CSV».",
   columns_btn:"Columnas", csv_btn:"CSV", csv_export:"Exportar como CSV", csv_import:"Importar CSV …", csv_done_n:"{n} tareas importadas.", csv_done_skip:"{n} tareas importadas ({skipped} columnas desconocidas ignoradas).", csv_empty:"No se encontraron tareas en este archivo.", csv_too_many:"Demasiadas filas (máx. {max}).", csv_fail:"Error al importar: {msg}", csv_no_task:"Error al importar: no se encontró la columna «Tarea».", ty_priority:"Prioridad", ty_due:"Fecha límite", prio_1:"Muy baja", prio_2:"Baja", prio_3:"Media", prio_4:"Alta", prio_5:"Muy alta", prio_none:"–", cols_title:"Columnas", cols_add:"+ Añadir columna", col_visible:"Mostrar en esta lista", col_hidden:"oculta", pref_sort:"Ordenar automáticamente las tareas pendientes por prioridad", due_over:"Vencida", due_today:"Vence hoy",
   set_beta:"Funciones beta", beta_desc:"Lo ves porque tienes una lista llamada «BetaTster». Las funciones beta pueden cambiar o tener errores.", beta_formulas:"Columnas de fórmula", beta_formulas_d:"Columnas calculadas, p. ej. {Cantidad} / 64 (nuevas columnas de fórmula; las existentes siguen funcionando).", beta_prio:"Ordenar listas por prioridad (resumen)", beta_prio_d:"Añade «Prioridad» a las opciones de orden del resumen.", beta_sync:"Sincronización con Google Sheets", beta_sync_d:"Sincronización bidireccional de una lista con una hoja de Google mediante Google Apps Script (configuración única).", pref_contrast:"Alto contraste", pref_contrast_d:"Colores intensos, bordes gruesos, sin transparencias ni desenfoque – más legible.", col_mark:"Resaltar fechas vencidas y de hoy", col_sort:"Ordenar las tareas abiertas por esta prioridad", prog:"{done} de {total} hechas", prog_none:"Aún no hay tareas", row_prio_hint:"Esta lista está ordenada por prioridad: las filas solo se pueden mover dentro de la misma prioridad (o desactiva el orden en los ajustes de la columna de prioridad).",
-  ov_sort:"Orden", ov_alpha:"Alfabético", ov_created:"Fecha de creación", ov_prio:"Prioridad (beta)", ov_custom:"Personalizado (arrastrar)", ov_asc:"Ascendente", ov_desc:"Descendente", ov_drag_tip:"Arrastra para reordenar", ov_custom_hint:"Arrastra las tarjetas por el asa ⋮⋮ para ordenarlas.", search_cols:"Buscar también en otras columnas", search_in_col:"en «{col}»",
+  ov_sort:"Orden", ov_alpha:"Alfabético", ov_created:"Fecha de creación", ov_prio:"Prioridad", ov_custom:"Personalizado (arrastrar)", ov_asc:"Ascendente", ov_desc:"Descendente", ov_drag_tip:"Arrastra para reordenar", ov_custom_hint:"Arrastra las tarjetas por el asa ⋮⋮ para ordenarlas.", search_cols:"Buscar también en otras columnas", search_in_col:"en «{col}»",
   fm_hint:"Los nombres de columna van entre llaves: {Nombre}. Ejemplo: {Cantidad} / 64", fm_pick:"Elegir columna", fm_funcs:"Funciones y operadores", fm_pick_msg:"Haz clic en una columna (encabezado o cualquier celda) para insertarla.", fm_build_msg:"Haz clic en una columna o escribe un número en el cuadro parpadeante.", fm_use:"Insertar", fm_new_num:"＋ Nueva columna numérica", fm_new_name:"Nombre de la nueva columna", fm_custom_only:"Solo se pueden usar columnas propias en las fórmulas.", fm_self:"Una columna no puede usarse a sí misma.", fm_fill:"Rellena primero todos los cuadros.", fm_created:"Columna creada – ahora haz clic en ella.", fm_nonum:"¿Aún no hay columna numérica?", fm_make:"Crear", fx_add:"Sumar dos valores", fx_sub:"Restar", fx_mul:"Multiplicar", fx_div:"Dividir", fx_pow:"Elevar a una potencia", fx_round:"Redondear a n decimales", fx_floor:"Redondear hacia abajo", fx_ceil:"Redondear hacia arriba", fx_abs:"Quitar el signo", fx_sqrt:"Raíz cuadrada", fx_mod:"Resto de una división", fx_min:"Valor menor", fx_max:"Valor mayor", fx_sum:"Sumar valores", fx_avg:"Promedio de valores", fx_colsum:"Total de una columna entera", fx_colavg:"Promedio de una columna entera", fx_colmin:"Valor mínimo de una columna", fx_colmax:"Valor máximo de una columna", fx_colcount:"Contar celdas rellenas de una columna", fx_if:"Condición: IF(prueba, entonces, si no)", fx_today:"Fecha de hoy",
   pref_mobile:"Diseño para móvil", pref_mobile_d:"En pantallas pequeñas solo se muestran la casilla y la tarea; toca una tarea para editar todo lo demás.", mob_auto:"Automático (pantallas pequeñas)", mob_on:"Siempre", mob_off:"Nunca", md_close:"Cerrar",
-  sync_item:"Sincronización con Google Sheets (beta) …", sync_title:"Sincronización con Google Sheets (beta)", sync_intro:"Mantiene esta lista y una hoja de Google al día en ambos sentidos con un pequeño Google Apps Script. Conflictos (misma fila cambiada en ambos lados): gana la app. No se sincronizan: enlaces de sublistas, columnas de fórmula ni el orden de las filas.", sync_enable:"Activar sincronización", sync_s1:"Crea o abre la hoja de Google con la que sincronizar (mejor una vacía).", sync_s2:"En la hoja abre «Extensiones → Apps Script», borra todo, pega el script de abajo y guarda.", sync_s3:"Elige la función «setup» y pulsa «Ejecutar». Google pide permiso una vez (el script necesita acceder a internet).", sync_s4:"Recarga la hoja. Aparece un menú «TPC2Do» y se rellena la pestaña «TPC2Do». A partir de ahora se sincroniza cada 5 minutos.", sync_copy:"Copiar script", sync_copied:"Script copiado.", sync_renew:"Nuevo token", sync_renew_c:"¿Crear un token nuevo? El script antiguo dejará de funcionar hasta que pegues el nuevo.", sync_disable:"Desactivar sincronización", sync_disable_c:"¿Desactivar la sincronización de esta lista? La hoja conserva sus datos pero ya no se actualiza.", sync_warn:"El script contiene un token secreto de esta lista. Quien vea el script o pueda editar la hoja puede leer y cambiar esta lista. No compartas la hoja con personas en las que no confíes.", sync_missing:"La sincronización aún no está configurada en el servidor. Ejecuta primero migration_sync.sql en el editor SQL de Supabase."
+  sync_item:"Sincronización con Google Sheets (beta) …", sync_title:"Sincronización con Google Sheets (beta)", sync_intro:"Mantiene esta lista y una hoja de Google al día en ambos sentidos con un pequeño Google Apps Script. Conflictos (misma fila cambiada en ambos lados): gana la app. No se sincronizan: enlaces de sublistas, columnas de fórmula ni el orden de las filas.", sync_enable:"Activar sincronización", sync_s1:"Crea o abre la hoja de Google con la que sincronizar (mejor una vacía).", sync_s2:"En la hoja abre «Extensiones → Apps Script», borra todo, pega el script de abajo y guarda.", sync_s3:"Elige la función «setup» y pulsa «Ejecutar». Google pide permiso una vez (el script necesita acceder a internet).", sync_s4:"Recarga la hoja. Aparece un menú «TPC2Do» y se rellena la pestaña «TPC2Do». A partir de ahora se sincroniza cada 5 minutos.", sync_copy:"Copiar script", sync_copied:"Script copiado.", sync_renew:"Nuevo token", sync_renew_c:"¿Crear un token nuevo? El script antiguo dejará de funcionar hasta que pegues el nuevo.", sync_disable:"Desactivar sincronización", sync_disable_c:"¿Desactivar la sincronización de esta lista? La hoja conserva sus datos pero ya no se actualiza.", sync_warn:"El script contiene un token secreto de esta lista. Quien vea el script o pueda editar la hoja puede leer y cambiar esta lista. No compartas la hoja con personas en las que no confíes.", sync_missing:"La sincronización aún no está configurada en el servidor. Ejecuta primero migration_sync.sql en el editor SQL de Supabase.",
+  beta_public:"Compartir listas sin iniciar sesión", beta_public_d:"Añade la opción «ver sin iniciar sesión» al diálogo de compartir (página pública de solo lectura).", imp_newcol_file:"[Usar el nombre de columna del archivo]", pref_volume:"Volumen", parent_of:"Sublista de", parent_locked:"una lista a la que no tienes acceso", login_id:"Correo o nombre de cuenta", share_subs:"Compartir también las sublistas enlazadas", share_subs_link:"Quien se una por enlace también recibe las sublistas enlazadas", recent_title:"Compartido recientemente con", share_public:"Permitir ver sin iniciar sesión (solo lectura)", share_public_link:"Enlace de vista pública", ov_edit:"Editar orden", ov_edit_done:"Listo", pub_title:"Lista compartida (solo lectura)", pub_login:"Iniciar sesión / registrarse", pub_missing:"Esta lista no está disponible (enlace incorrecto o vista pública desactivada).",
+  lc_open_new:"Abrir en pestaña nueva", lc_rename:"Renombrar", lc_share:"Compartir…", lc_dup:"Duplicar lista", lc_copy:" (copia)", ov_edit_hint:"Modo de edición: arrastra las tarjetas donde quieras y pulsa «Listo».", lc_dup_ok:"Lista duplicada", lc_rename_title:"Renombrar lista",
+  lc_open:"Abrir",
+  sel_n:"{n} seleccionadas – quitar", confirm_tasks:"¿Eliminar {n} tareas seleccionadas?", md_prev:"Tarea anterior", md_next:"Tarea siguiente",
+  fmt_bold:"Negrita (Ctrl+B)", fmt_italic:"Cursiva (Ctrl+I)", fmt_strike:"Tachado", fmt_under:"Subrayado (Ctrl+U)"
 },
 it: {
   loading:"Caricamento …", cancel:"Annulla", create:"Crea", save:"Salva", delete:"Elimina", undo:"Annulla azione", done:"Fine", add:"Aggiungi", back:"Indietro", copy:"Copia", you:"Tu",
@@ -545,10 +578,15 @@ it: {
   acc_title:"Account", acc_profile:"Profilo", acc_picture:"Immagine del profilo", acc_upload:"Carica immagine", acc_remove:"Rimuovi immagine", acc_username:"Nome utente", acc_saved:"Salvato.", acc_prefs:"Preferenze", pref_confirm:"Chiedi conferma prima di eliminare un'attività", pref_sound:"Riproduci il suono di avvio", pref_sound_test:"Prova il suono", acc_password:"Password", pw_current:"Password attuale", pw_new:"Nuova password", pw_confirm:"Ripeti la nuova password", pw_hint:"Almeno 8 caratteri.", pw_change:"Cambia password", pw_changed:"Password cambiata.", pw_forgot:"Password dimenticata? Invia il link di reimpostazione a {email}", pw_mail_sent:"Link di reimpostazione inviato a {email}.", acc_email:"E-mail", rec_title:"Scegli una nuova password", rec_btn:"Salva nuova password", rec_done:"Nuova password salvata.", cm_up:"Sposta su", cm_down:"Sposta giù", grip_tip:"Trascina per spostare", col_chtype:"Cambia tipo", col_left:"Sposta a sinistra", col_right:"Sposta a destra", col_hide:"Nascondi colonna", col_builtin:"standard", ty_formula:"Formula", fm_label:"Formula", fm_insert:"Inserisci colonna …", fm_bad:"La formula non è valida.", col_agg:"Totale a piè di tabella", agg_none:"Nessuno", agg_sum:"Somma", agg_avg:"Media", agg_min:"Minimo", agg_max:"Massimo", agg_count:"Conteggio", col_one_prio:"Una sola colonna Priorità per lista.", col_type_lost:"{n} valore/i non possono essere convertiti e verranno cancellati. Continuare?", imp_title:"Importa: assegna le colonne", imp_hint:"Indica quale colonna è l'attività e quale contiene le note. Il resto si può ignorare o diventare una nuova colonna.", imp_header_row:"Riga di intestazione", imp_no_header:"Nessuna intestazione", imp_row_n:"Riga {n}", imp_ignore:"— ignora —", imp_done:"✓ Fatto", imp_task:"Attività", imp_notes:"Note", imp_newcol:"＋ Nuova colonna", imp_col:"Colonna", imp_go:"Importa", imp_need_task:"Assegna esattamente una colonna come «Attività».", imp_dupe:"«Fatto» e «Note» possono essere usati una sola volta.", nl_import:"⬆ Importa CSV …", nl_gs:"🌐 Google Sheets …", done_toggle:"Mostra / nascondi le attività completate", pref_collapse_done:"Comprimi le attività completate per impostazione predefinita", cm_repeat:"Ripeti …", rep_title:"Ripeti attività", rep_every:"Ogni", u_day:"giorno/i", u_week:"settimana/e", u_month:"mese/i", u_year:"anno/i", rep_hint:"Quando completi questa attività, compare una nuova copia con la scadenza successiva. Richiede una colonna Scadenza.", rep_remove:"Rimuovi ripetizione", rep_need_due:"Aggiungi prima una colonna Scadenza (Colonne → Aggiungi colonna). Le attività ricorrenti la usano.", rep_next:"Si ripete: prossima scadenza {date}", rep_label:"Si ripete ogni {n} {u}", search_ph:"Cerca in tutte le liste …", search_none:"Nessun risultato.", search_lists:"Liste", search_tasks:"Attività", rz_tip:"Trascina per ridimensionare (doppio clic: ripristina)", fs_enter:"Schermo intero", fs_exit:"Esci da schermo intero", hint_cols:"Suggerimento: aggiungi una colonna Priorità o Scadenza con ＋ nell'intestazione (o in «Colonne») per ordinare le attività per importanza ed evidenziare le scadenze.", set_title:"Preferenze", set_appearance:"Aspetto", set_behavior:"Comportamento", pref_theme:"Tema", theme_default:"Standard", theme_default_d:"Chiaro o scuro, secondo il dispositivo", theme_light:"Chiaro", theme_light_d:"Toni caldi di carta, accento blu", theme_dark:"Scuro", theme_dark_d:"Nero puro, accento bianco", theme_modern:"Moderno", theme_modern_d:"Aspetto da console con bagliore turchese", theme_glass:"Vetro", theme_glass_d:"Pannelli traslucidi satinati con rifrazione della luce", pref_accent:"Colore di accento", accent_reset:"Ripristina", pref_density:"Altezza delle righe", dens_compact:"Compatta", dens_normal:"Normale", dens_comfy:"Ampia", pref_font:"Dimensione del testo", font_s:"Piccola", font_m:"Media", font_l:"Grande", pref_lowfx:"Riduci gli effetti", pref_lowfx_d:"Disattiva sfocatura, rifrazione e ombre (più veloce sui dispositivi datati).", pref_skipintro:"Salta l'animazione iniziale", gs_import:"Importa da Google Sheets …", gs_title:"Importa da Google Sheets", gs_hint:"Incolla il link del tuo foglio. Deve essere condiviso come «Chiunque abbia il link può visualizzare». Viene importata solo la scheda del link.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importa", gs_bad_url:"Non sembra un link di Google Sheets.", gs_fail:"Impossibile caricare il foglio. Verifica che sia condiviso con «Chiunque abbia il link», oppure scaricalo con File → Scarica → CSV e usa «Importa CSV».",
   columns_btn:"Colonne", csv_btn:"CSV", csv_export:"Esporta come CSV", csv_import:"Importa CSV …", csv_done_n:"{n} attività importate.", csv_done_skip:"{n} attività importate ({skipped} colonne sconosciute ignorate).", csv_empty:"Nessuna attività trovata in questo file.", csv_too_many:"Troppe righe (max. {max}).", csv_fail:"Importazione non riuscita: {msg}", csv_no_task:"Importazione non riuscita: colonna «Attività» non trovata.", ty_priority:"Priorità", ty_due:"Scadenza", prio_1:"Molto bassa", prio_2:"Bassa", prio_3:"Media", prio_4:"Alta", prio_5:"Molto alta", prio_none:"–", cols_title:"Colonne", cols_add:"+ Aggiungi colonna", col_visible:"Mostra in questa lista", col_hidden:"nascosta", pref_sort:"Ordina automaticamente le attività aperte per priorità", due_over:"Scaduta", due_today:"Scade oggi",
   set_beta:"Funzioni beta", beta_desc:"Lo vedi perché hai una lista chiamata «BetaTster». Le funzioni beta possono cambiare o contenere errori.", beta_formulas:"Colonne con formule", beta_formulas_d:"Colonne calcolate, ad es. {Quantità} / 64 (nuove colonne con formule; quelle esistenti continuano a funzionare).", beta_prio:"Ordina le liste per priorità (panoramica)", beta_prio_d:"Aggiunge «Priorità» alle opzioni di ordinamento della panoramica.", beta_sync:"Sincronizzazione con Google Sheets", beta_sync_d:"Sincronizzazione bidirezionale di una lista con un foglio Google tramite Google Apps Script (configurazione una tantum).", pref_contrast:"Contrasto elevato", pref_contrast_d:"Colori forti, bordi spessi, nessuna trasparenza o sfocatura – più leggibile.", col_mark:"Evidenzia date scadute e in scadenza oggi", col_sort:"Ordina le attività aperte per questa priorità", prog:"{done} di {total} completate", prog_none:"Ancora nessuna attività", row_prio_hint:"Questa lista è ordinata per priorità: le righe si possono spostare solo all'interno della stessa priorità (o disattiva l'ordinamento nelle impostazioni della colonna priorità).",
-  ov_sort:"Ordine", ov_alpha:"Alfabetico", ov_created:"Data di creazione", ov_prio:"Priorità (beta)", ov_custom:"Personalizzato (trascina)", ov_asc:"Crescente", ov_desc:"Decrescente", ov_drag_tip:"Trascina per riordinare", ov_custom_hint:"Trascina le schede dalla maniglia ⋮⋮ per disporle.", search_cols:"Cerca anche in altre colonne", search_in_col:"in «{col}»",
+  ov_sort:"Ordine", ov_alpha:"Alfabetico", ov_created:"Data di creazione", ov_prio:"Priorità", ov_custom:"Personalizzato (trascina)", ov_asc:"Crescente", ov_desc:"Decrescente", ov_drag_tip:"Trascina per riordinare", ov_custom_hint:"Trascina le schede dalla maniglia ⋮⋮ per disporle.", search_cols:"Cerca anche in altre colonne", search_in_col:"in «{col}»",
   fm_hint:"I nomi delle colonne vanno tra parentesi graffe: {Nome}. Esempio: {Quantità} / 64", fm_pick:"Scegli colonna", fm_funcs:"Funzioni e operatori", fm_pick_msg:"Clicca su una colonna (intestazione o qualsiasi cella) per inserirla.", fm_build_msg:"Clicca su una colonna o scrivi un numero nella casella lampeggiante.", fm_use:"Inserisci", fm_new_num:"＋ Nuova colonna numerica", fm_new_name:"Nome della nuova colonna", fm_custom_only:"Nelle formule si possono usare solo colonne personalizzate.", fm_self:"Una colonna non può usare se stessa.", fm_fill:"Compila prima tutte le caselle.", fm_created:"Colonna creata – ora cliccala.", fm_nonum:"Ancora nessuna colonna numerica?", fm_make:"Crea", fx_add:"Somma due valori", fx_sub:"Sottrai", fx_mul:"Moltiplica", fx_div:"Dividi", fx_pow:"Eleva a potenza", fx_round:"Arrotonda a n decimali", fx_floor:"Arrotonda per difetto", fx_ceil:"Arrotonda per eccesso", fx_abs:"Rimuovi il segno", fx_sqrt:"Radice quadrata", fx_mod:"Resto di una divisione", fx_min:"Valore minore", fx_max:"Valore maggiore", fx_sum:"Somma i valori", fx_avg:"Media dei valori", fx_colsum:"Totale di un'intera colonna", fx_colavg:"Media di un'intera colonna", fx_colmin:"Valore minimo di una colonna", fx_colmax:"Valore massimo di una colonna", fx_colcount:"Conta le celle piene di una colonna", fx_if:"Condizione: IF(test, allora, altrimenti)", fx_today:"Data di oggi",
   pref_mobile:"Layout per smartphone", pref_mobile_d:"Sugli schermi piccoli compaiono solo la casella e l'attività; tocca un'attività per modificare il resto.", mob_auto:"Automatico (schermi piccoli)", mob_on:"Sempre", mob_off:"Mai", md_close:"Chiudi",
-  sync_item:"Sincronizzazione Google Sheets (beta) …", sync_title:"Sincronizzazione Google Sheets (beta)", sync_intro:"Mantiene allineati questa lista e un foglio Google in entrambe le direzioni con un piccolo Google Apps Script. Conflitti (stessa riga modificata da entrambe le parti): vince l'app. Non sincronizzati: collegamenti a sottoliste, colonne con formule, ordine delle righe.", sync_enable:"Attiva sincronizzazione", sync_s1:"Crea o apri il foglio Google con cui sincronizzare (meglio uno vuoto).", sync_s2:"Nel foglio apri «Estensioni → Apps Script», cancella tutto, incolla lo script qui sotto e salva.", sync_s3:"Scegli la funzione «setup» e clicca «Esegui». Google chiede il permesso una volta (lo script deve accedere a internet).", sync_s4:"Ricarica il foglio. Compare un menu «TPC2Do» e la scheda «TPC2Do» viene riempita. Da ora si sincronizza ogni 5 minuti.", sync_copy:"Copia script", sync_copied:"Script copiato.", sync_renew:"Nuovo token", sync_renew_c:"Creare un nuovo token? Il vecchio script smetterà di funzionare finché non incolli il nuovo.", sync_disable:"Disattiva sincronizzazione", sync_disable_c:"Disattivare la sincronizzazione per questa lista? Il foglio conserva i dati ma non si aggiorna più.", sync_warn:"Lo script contiene un token segreto per questa lista. Chi vede lo script o può modificare il foglio può leggere e cambiare questa lista. Non condividere il foglio con persone di cui non ti fidi.", sync_missing:"La sincronizzazione non è ancora configurata sul server. Esegui prima migration_sync.sql nell'editor SQL di Supabase."
+  sync_item:"Sincronizzazione Google Sheets (beta) …", sync_title:"Sincronizzazione Google Sheets (beta)", sync_intro:"Mantiene allineati questa lista e un foglio Google in entrambe le direzioni con un piccolo Google Apps Script. Conflitti (stessa riga modificata da entrambe le parti): vince l'app. Non sincronizzati: collegamenti a sottoliste, colonne con formule, ordine delle righe.", sync_enable:"Attiva sincronizzazione", sync_s1:"Crea o apri il foglio Google con cui sincronizzare (meglio uno vuoto).", sync_s2:"Nel foglio apri «Estensioni → Apps Script», cancella tutto, incolla lo script qui sotto e salva.", sync_s3:"Scegli la funzione «setup» e clicca «Esegui». Google chiede il permesso una volta (lo script deve accedere a internet).", sync_s4:"Ricarica il foglio. Compare un menu «TPC2Do» e la scheda «TPC2Do» viene riempita. Da ora si sincronizza ogni 5 minuti.", sync_copy:"Copia script", sync_copied:"Script copiato.", sync_renew:"Nuovo token", sync_renew_c:"Creare un nuovo token? Il vecchio script smetterà di funzionare finché non incolli il nuovo.", sync_disable:"Disattiva sincronizzazione", sync_disable_c:"Disattivare la sincronizzazione per questa lista? Il foglio conserva i dati ma non si aggiorna più.", sync_warn:"Lo script contiene un token segreto per questa lista. Chi vede lo script o può modificare il foglio può leggere e cambiare questa lista. Non condividere il foglio con persone di cui non ti fidi.", sync_missing:"La sincronizzazione non è ancora configurata sul server. Esegui prima migration_sync.sql nell'editor SQL di Supabase.",
+  beta_public:"Condividi liste senza accesso", beta_public_d:"Aggiunge l'opzione «visualizza senza accesso» alla finestra di condivisione (pagina pubblica di sola lettura).", imp_newcol_file:"[Usa il nome della colonna dal file]", pref_volume:"Volume", parent_of:"Sottolista di", parent_locked:"una lista a cui non hai accesso", login_id:"E-mail o nome account", share_subs:"Condividi anche le sottoliste collegate", share_subs_link:"Chi si unisce tramite link riceve anche le sottoliste collegate", recent_title:"Condiviso di recente con", share_public:"Consenti la visualizzazione senza accesso (sola lettura)", share_public_link:"Link di visualizzazione pubblica", ov_edit:"Modifica ordine", ov_edit_done:"Fatto", pub_title:"Lista condivisa (sola lettura)", pub_login:"Accedi / registrati", pub_missing:"Questa lista non è disponibile (link errato o visualizzazione pubblica disattivata).",
+  lc_open_new:"Apri in una nuova scheda", lc_rename:"Rinomina", lc_share:"Condividi…", lc_dup:"Duplica lista", lc_copy:" (copia)", ov_edit_hint:"Modalità modifica: trascina le schede dove vuoi, poi premi «Fatto».", lc_dup_ok:"Lista duplicata", lc_rename_title:"Rinomina lista",
+  lc_open:"Apri",
+  sel_n:"{n} selezionate – annulla", confirm_tasks:"Eliminare {n} attività selezionate?", md_prev:"Attività precedente", md_next:"Attività successiva",
+  fmt_bold:"Grassetto (Ctrl+B)", fmt_italic:"Corsivo (Ctrl+I)", fmt_strike:"Barrato", fmt_under:"Sottolineato (Ctrl+U)"
 },
 fr: {
   loading:"Chargement …", cancel:"Annuler", create:"Créer", save:"Enregistrer", delete:"Supprimer", undo:"Annuler", done:"Terminé", add:"Ajouter", back:"Retour", copy:"Copier", you:"Vous",
@@ -567,16 +605,21 @@ fr: {
   acc_title:"Compte", acc_profile:"Profil", acc_picture:"Photo de profil", acc_upload:"Téléverser une photo", acc_remove:"Supprimer la photo", acc_username:"Nom d'utilisateur", acc_saved:"Enregistré.", acc_prefs:"Préférences", pref_confirm:"Demander confirmation avant de supprimer une tâche", pref_sound:"Jouer le son d'introduction", pref_sound_test:"Tester le son", acc_password:"Mot de passe", pw_current:"Mot de passe actuel", pw_new:"Nouveau mot de passe", pw_confirm:"Répétez le nouveau mot de passe", pw_hint:"8 caractères minimum.", pw_change:"Changer le mot de passe", pw_changed:"Mot de passe modifié.", pw_forgot:"Mot de passe oublié ? Envoyer un lien de réinitialisation à {email}", pw_mail_sent:"Lien de réinitialisation envoyé à {email}.", acc_email:"E-mail", rec_title:"Choisissez un nouveau mot de passe", rec_btn:"Enregistrer le nouveau mot de passe", rec_done:"Nouveau mot de passe enregistré.", cm_up:"Monter", cm_down:"Descendre", grip_tip:"Glisser pour déplacer", col_chtype:"Changer le type", col_left:"Déplacer à gauche", col_right:"Déplacer à droite", col_hide:"Masquer la colonne", col_builtin:"standard", ty_formula:"Formule", fm_label:"Formule", fm_insert:"Insérer une colonne …", fm_bad:"La formule n'est pas valide.", col_agg:"Total en pied de tableau", agg_none:"Aucun", agg_sum:"Somme", agg_avg:"Moyenne", agg_min:"Minimum", agg_max:"Maximum", agg_count:"Nombre", col_one_prio:"Une seule colonne Priorité par liste.", col_type_lost:"{n} valeur(s) ne peuvent pas être converties et seront effacées. Continuer ?", imp_title:"Importer : attribuer les colonnes", imp_hint:"Indiquez quelle colonne est la tâche et laquelle contient les notes. Le reste peut être ignoré ou devenir une nouvelle colonne.", imp_header_row:"Ligne d'en-tête", imp_no_header:"Pas d'en-tête", imp_row_n:"Ligne {n}", imp_ignore:"— ignorer —", imp_done:"✓ Terminé", imp_task:"Tâche", imp_notes:"Notes", imp_newcol:"＋ Nouvelle colonne", imp_col:"Colonne", imp_go:"Importer", imp_need_task:"Attribuez exactement une colonne comme « Tâche ».", imp_dupe:"« Terminé » et « Notes » ne peuvent être utilisés qu'une fois.", nl_import:"⬆ Importer un CSV …", nl_gs:"🌐 Google Sheets …", done_toggle:"Afficher / masquer les tâches terminées", pref_collapse_done:"Replier les tâches terminées par défaut", cm_repeat:"Répéter …", rep_title:"Répéter la tâche", rep_every:"Tous les", u_day:"jour(s)", u_week:"semaine(s)", u_month:"mois", u_year:"an(s)", rep_hint:"Quand vous cochez cette tâche, une nouvelle copie apparaît avec l'échéance suivante. Nécessite une colonne Échéance.", rep_remove:"Supprimer la répétition", rep_need_due:"Ajoutez d'abord une colonne Échéance (Colonnes → Ajouter une colonne). Les tâches récurrentes l'utilisent.", rep_next:"Récurrente : prochaine échéance {date}", rep_label:"Se répète tous les {n} {u}", search_ph:"Rechercher dans toutes les listes …", search_none:"Aucun résultat.", search_lists:"Listes", search_tasks:"Tâches", rz_tip:"Glisser pour redimensionner (double-clic : réinitialiser)", fs_enter:"Plein écran", fs_exit:"Quitter le plein écran", hint_cols:"Astuce : ajoutez une colonne Priorité ou Échéance avec ＋ dans l'en-tête (ou via « Colonnes ») pour trier les tâches par importance et mettre les échéances en évidence.", set_title:"Préférences", set_appearance:"Apparence", set_behavior:"Comportement", pref_theme:"Thème", theme_default:"Standard", theme_default_d:"Clair ou sombre, selon votre appareil", theme_light:"Clair", theme_light_d:"Tons chauds de papier, accent bleu", theme_dark:"Sombre", theme_dark_d:"Noir pur, accent blanc", theme_modern:"Moderne", theme_modern_d:"Look console avec lueur turquoise", theme_glass:"Verre", theme_glass_d:"Panneaux translucides dépolis avec réfraction de la lumière", pref_accent:"Couleur d'accent", accent_reset:"Réinitialiser", pref_density:"Hauteur des lignes", dens_compact:"Compacte", dens_normal:"Normale", dens_comfy:"Aérée", pref_font:"Taille du texte", font_s:"Petite", font_m:"Moyenne", font_l:"Grande", pref_lowfx:"Réduire les effets", pref_lowfx_d:"Désactive le flou, la réfraction et les ombres (plus rapide sur les appareils anciens).", pref_skipintro:"Passer l'animation d'introduction", gs_import:"Importer depuis Google Sheets …", gs_title:"Importer depuis Google Sheets", gs_hint:"Collez le lien de votre feuille. Elle doit être partagée avec « Toute personne disposant du lien peut afficher ». Seul l'onglet du lien est importé.", gs_ph:"https://docs.google.com/spreadsheets/d/…", gs_load:"Importer", gs_bad_url:"Cela ne ressemble pas à un lien Google Sheets.", gs_fail:"Impossible de charger la feuille. Vérifiez qu'elle est partagée avec « Toute personne disposant du lien », ou téléchargez-la via Fichier → Télécharger → CSV et utilisez « Importer un CSV ».",
   columns_btn:"Colonnes", csv_btn:"CSV", csv_export:"Exporter en CSV", csv_import:"Importer un CSV …", csv_done_n:"{n} tâches importées.", csv_done_skip:"{n} tâches importées ({skipped} colonnes inconnues ignorées).", csv_empty:"Aucune tâche trouvée dans ce fichier.", csv_too_many:"Trop de lignes (max. {max}).", csv_fail:"Échec de l'importation : {msg}", csv_no_task:"Échec de l'importation : colonne « Tâche » introuvable.", ty_priority:"Priorité", ty_due:"Échéance", prio_1:"Très basse", prio_2:"Basse", prio_3:"Moyenne", prio_4:"Haute", prio_5:"Très haute", prio_none:"–", cols_title:"Colonnes", cols_add:"+ Ajouter une colonne", col_visible:"Afficher dans cette liste", col_hidden:"masquée", pref_sort:"Trier automatiquement les tâches ouvertes par priorité", due_over:"En retard", due_today:"Échéance aujourd'hui",
   set_beta:"Fonctions bêta", beta_desc:"Vous voyez ceci car vous avez une liste nommée « BetaTster ». Les fonctions bêta peuvent changer ou contenir des erreurs.", beta_formulas:"Colonnes de formule", beta_formulas_d:"Colonnes calculées, p. ex. {Quantité} / 64 (nouvelles colonnes de formule ; les existantes continuent de fonctionner).", beta_prio:"Trier les listes par priorité (aperçu)", beta_prio_d:"Ajoute « Priorité » aux options de tri de l'aperçu.", beta_sync:"Synchronisation Google Sheets", beta_sync_d:"Synchronisation bidirectionnelle d'une liste avec une feuille Google via Google Apps Script (configuration unique).", pref_contrast:"Contraste élevé", pref_contrast_d:"Couleurs vives, bordures épaisses, sans transparence ni flou – plus lisible.", col_mark:"Surligner les dates dépassées et du jour", col_sort:"Trier les tâches ouvertes selon cette priorité", prog:"{done} sur {total} terminées", prog_none:"Aucune tâche pour l'instant", row_prio_hint:"Cette liste est triée par priorité : les lignes ne peuvent être déplacées qu'au sein de la même priorité (ou désactivez le tri dans les réglages de la colonne priorité).",
-  ov_sort:"Tri", ov_alpha:"Alphabétique", ov_created:"Date de création", ov_prio:"Priorité (bêta)", ov_custom:"Personnalisé (glisser)", ov_asc:"Croissant", ov_desc:"Décroissant", ov_drag_tip:"Glisser pour réorganiser", ov_custom_hint:"Faites glisser les cartes par la poignée ⋮⋮ pour les organiser.", search_cols:"Chercher aussi dans les autres colonnes", search_in_col:"dans « {col} »",
+  ov_sort:"Tri", ov_alpha:"Alphabétique", ov_created:"Date de création", ov_prio:"Priorité", ov_custom:"Personnalisé (glisser)", ov_asc:"Croissant", ov_desc:"Décroissant", ov_drag_tip:"Glisser pour réorganiser", ov_custom_hint:"Faites glisser les cartes par la poignée ⋮⋮ pour les organiser.", search_cols:"Chercher aussi dans les autres colonnes", search_in_col:"dans « {col} »",
   fm_hint:"Les noms de colonnes se mettent entre accolades : {Nom}. Exemple : {Quantité} / 64", fm_pick:"Choisir une colonne", fm_funcs:"Fonctions et opérateurs", fm_pick_msg:"Cliquez sur une colonne (en-tête ou n'importe quelle cellule) pour l'insérer.", fm_build_msg:"Cliquez sur une colonne ou saisissez un nombre dans la case clignotante.", fm_use:"Insérer", fm_new_num:"＋ Nouvelle colonne numérique", fm_new_name:"Nom de la nouvelle colonne", fm_custom_only:"Seules les colonnes personnalisées peuvent être utilisées dans les formules.", fm_self:"Une colonne ne peut pas se référencer elle-même.", fm_fill:"Remplissez d'abord toutes les cases.", fm_created:"Colonne créée – cliquez dessus maintenant.", fm_nonum:"Pas encore de colonne numérique ?", fm_make:"Créer", fx_add:"Additionner deux valeurs", fx_sub:"Soustraire", fx_mul:"Multiplier", fx_div:"Diviser", fx_pow:"Élever à une puissance", fx_round:"Arrondir à n décimales", fx_floor:"Arrondir à l'inférieur", fx_ceil:"Arrondir au supérieur", fx_abs:"Retirer le signe", fx_sqrt:"Racine carrée", fx_mod:"Reste d'une division", fx_min:"Plus petite valeur", fx_max:"Plus grande valeur", fx_sum:"Additionner des valeurs", fx_avg:"Moyenne des valeurs", fx_colsum:"Total d'une colonne entière", fx_colavg:"Moyenne d'une colonne entière", fx_colmin:"Plus petite valeur d'une colonne", fx_colmax:"Plus grande valeur d'une colonne", fx_colcount:"Compter les cellules remplies d'une colonne", fx_if:"Condition : IF(test, alors, sinon)", fx_today:"Date du jour",
   pref_mobile:"Affichage mobile", pref_mobile_d:"Sur petit écran, seuls la case et la tâche sont affichées ; touchez une tâche pour modifier le reste.", mob_auto:"Automatique (petits écrans)", mob_on:"Toujours", mob_off:"Jamais", md_close:"Fermer",
-  sync_item:"Synchronisation Google Sheets (bêta) …", sync_title:"Synchronisation Google Sheets (bêta)", sync_intro:"Garde cette liste et une feuille Google à jour dans les deux sens grâce à un petit Google Apps Script. Conflits (même ligne modifiée des deux côtés) : l'application l'emporte. Non synchronisés : liens vers des sous-listes, colonnes de formule, ordre des lignes.", sync_enable:"Activer la synchronisation", sync_s1:"Créez ou ouvrez la feuille Google à synchroniser (idéalement vide).", sync_s2:"Dans la feuille, ouvrez « Extensions → Apps Script », supprimez tout, collez le script ci-dessous et enregistrez.", sync_s3:"Choisissez la fonction « setup » et cliquez sur « Exécuter ». Google demande une fois l'autorisation (le script doit accéder à internet).", sync_s4:"Rechargez la feuille. Un menu « TPC2Do » apparaît et l'onglet « TPC2Do » est rempli. Désormais, la synchronisation a lieu toutes les 5 minutes.", sync_copy:"Copier le script", sync_copied:"Script copié.", sync_renew:"Nouveau jeton", sync_renew_c:"Créer un nouveau jeton ? L'ancien script cessera de fonctionner jusqu'à ce que vous collez le nouveau.", sync_disable:"Désactiver la synchronisation", sync_disable_c:"Désactiver la synchronisation de cette liste ? La feuille garde ses données mais n'est plus mise à jour.", sync_warn:"Le script contient un jeton secret pour cette liste. Quiconque voit le script ou peut modifier la feuille peut lire et modifier cette liste. Ne partagez pas la feuille avec des personnes en qui vous n'avez pas confiance.", sync_missing:"La synchronisation n'est pas encore configurée sur le serveur. Exécutez d'abord migration_sync.sql dans l'éditeur SQL de Supabase."
+  sync_item:"Synchronisation Google Sheets (bêta) …", sync_title:"Synchronisation Google Sheets (bêta)", sync_intro:"Garde cette liste et une feuille Google à jour dans les deux sens grâce à un petit Google Apps Script. Conflits (même ligne modifiée des deux côtés) : l'application l'emporte. Non synchronisés : liens vers des sous-listes, colonnes de formule, ordre des lignes.", sync_enable:"Activer la synchronisation", sync_s1:"Créez ou ouvrez la feuille Google à synchroniser (idéalement vide).", sync_s2:"Dans la feuille, ouvrez « Extensions → Apps Script », supprimez tout, collez le script ci-dessous et enregistrez.", sync_s3:"Choisissez la fonction « setup » et cliquez sur « Exécuter ». Google demande une fois l'autorisation (le script doit accéder à internet).", sync_s4:"Rechargez la feuille. Un menu « TPC2Do » apparaît et l'onglet « TPC2Do » est rempli. Désormais, la synchronisation a lieu toutes les 5 minutes.", sync_copy:"Copier le script", sync_copied:"Script copié.", sync_renew:"Nouveau jeton", sync_renew_c:"Créer un nouveau jeton ? L'ancien script cessera de fonctionner jusqu'à ce que vous collez le nouveau.", sync_disable:"Désactiver la synchronisation", sync_disable_c:"Désactiver la synchronisation de cette liste ? La feuille garde ses données mais n'est plus mise à jour.", sync_warn:"Le script contient un jeton secret pour cette liste. Quiconque voit le script ou peut modifier la feuille peut lire et modifier cette liste. Ne partagez pas la feuille avec des personnes en qui vous n'avez pas confiance.", sync_missing:"La synchronisation n'est pas encore configurée sur le serveur. Exécutez d'abord migration_sync.sql dans l'éditeur SQL de Supabase.",
+  beta_public:"Partager des listes sans connexion", beta_public_d:"Ajoute l'option « voir sans connexion » à la fenêtre de partage (page publique en lecture seule).", imp_newcol_file:"[Utiliser le nom de colonne du fichier]", pref_volume:"Volume", parent_of:"Sous-liste de", parent_locked:"une liste à laquelle vous n'avez pas accès", login_id:"E-mail ou nom de compte", share_subs:"Partager aussi les sous-listes liées", share_subs_link:"Les personnes qui rejoignent par lien reçoivent aussi les sous-listes liées", recent_title:"Partagé récemment avec", share_public:"Autoriser la consultation sans connexion (lecture seule)", share_public_link:"Lien de consultation publique", ov_edit:"Modifier l'ordre", ov_edit_done:"Terminé", pub_title:"Liste partagée (lecture seule)", pub_login:"Se connecter / s'inscrire", pub_missing:"Cette liste n'est pas disponible (lien incorrect ou consultation publique désactivée).",
+  lc_open_new:"Ouvrir dans un nouvel onglet", lc_rename:"Renommer", lc_share:"Partager…", lc_dup:"Dupliquer la liste", lc_copy:" (copie)", ov_edit_hint:"Mode édition : faites glisser les cartes où vous voulez, puis appuyez sur « Terminé ».", lc_dup_ok:"Liste dupliquée", lc_rename_title:"Renommer la liste",
+  lc_open:"Ouvrir",
+  sel_n:"{n} sélectionnées – effacer", confirm_tasks:"Supprimer {n} tâches sélectionnées ?", md_prev:"Tâche précédente", md_next:"Tâche suivante",
+  fmt_bold:"Gras (Ctrl+B)", fmt_italic:"Italique (Ctrl+I)", fmt_strike:"Barré", fmt_under:"Souligné (Ctrl+U)"
 }};
 
 /* ---------- Preferences (language etc.) ---------- */
 const PREF_KEY = 'tpc2do_prefs';
 const prefs = { lang: 'en', confirmDelete: true, sound: true, theme: 'default', accent: '', density: 'normal', fontsize: 'm', lowfx: false, skipIntro: false, collapseDone: false,
-  contrast: false, betaFormulas: false, betaPrio: false, betaSync: false, mobile: 'auto', ovSort: 'alpha', ovDir: 'asc', listOrder: [] };
+  contrast: false, betaPublic: false, volume: 100, recent: [], mobile: 'auto', ovSort: 'alpha', ovDir: 'asc', listOrder: [] };
 const THEMES = ['default', 'light', 'dark', 'modern', 'glass'], DENSITIES = ['compact', 'normal', 'comfy'], FONTS = ['s', 'm', 'l'];
 function adoptPrefs(src) {
   if (!src || typeof src !== 'object') return;
@@ -590,7 +633,9 @@ function adoptPrefs(src) {
   if (typeof src.lowfx === 'boolean') prefs.lowfx = src.lowfx;
   if (typeof src.skipIntro === 'boolean') prefs.skipIntro = src.skipIntro;
   if (typeof src.collapseDone === 'boolean') prefs.collapseDone = src.collapseDone;
-  ['contrast', 'betaFormulas', 'betaPrio', 'betaSync'].forEach(k => { if (typeof src[k] === 'boolean') prefs[k] = src[k]; });
+  ['contrast', 'betaPublic'].forEach(k => { if (typeof src[k] === 'boolean') prefs[k] = src[k]; });
+  if (Number.isFinite(Number(src.volume))) prefs.volume = Math.max(0, Math.min(100, Math.round(Number(src.volume))));
+  if (Array.isArray(src.recent)) prefs.recent = src.recent.filter(x => typeof x === 'string' && x.length <= 24).slice(0, 8);
   if (['auto', 'on', 'off'].includes(src.mobile)) prefs.mobile = src.mobile;
   if (['alpha', 'created', 'prio', 'custom'].includes(src.ovSort)) prefs.ovSort = src.ovSort;
   if (src.ovDir === 'asc' || src.ovDir === 'desc') prefs.ovDir = src.ovDir;
@@ -630,7 +675,7 @@ try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () =
 /* ---------- Basics ---------- */
 const $ = (s, el = document) => el.querySelector(s);
 const app = $('#app');
-const LIST_COLS = 'id,owner_id,title,columns,link_role,created_at';
+const LIST_COLS = 'id,owner_id,title,columns,link_role,link_subs,public_view,created_at';
 const BIRD_VB = '0 0 759 533';
 const birdSVG = cls => `<svg class="${cls}" viewBox="${BIRD_VB}" aria-hidden="true"><use href="#birdp"/></svg>`;
 const pageUrl = () => location.origin + location.pathname;
@@ -644,7 +689,7 @@ const state = {
   ready: false, user: null, profile: null,
   lists: [], owners: {}, memberRoles: {},
   cur: null, role: null, tasks: [],
-  crumbs: [], keepCrumbs: false, poll: null, needsRefresh: false, routeSeq: 0, colsVer: 0, colsBusy: 0, prog: {}
+  crumbs: [], backList: null, keepCrumbs: false, poll: null, needsRefresh: false, routeSeq: 0, colsVer: 0, colsBusy: 0, prog: {}
 };
 let recoveryMode = RECOVERY_HASH;
 
@@ -738,8 +783,9 @@ function getAudio() {
   try { audioCtx = new AC(); } catch (e) { return null; }
   return audioCtx;
 }
+const vol = () => Math.max(0, Math.min(100, Number(prefs.volume))) / 100;
 function bam(ctx, when) {
-  const out = ctx.createGain(); out.gain.value = 0.68;
+  const out = ctx.createGain(); out.gain.value = 0.68 * vol();
   const comp = ctx.createDynamicsCompressor(); out.connect(comp); comp.connect(ctx.destination);
   // short metallic "room"
   const len = Math.floor(ctx.sampleRate * 0.7), ir = ctx.createBuffer(2, len, ctx.sampleRate);
@@ -775,8 +821,9 @@ function synthBam(delaySec) {
 }
 // plays introsound.mp3 (next to index.html); if the file is missing, the synthesized BAM is used instead
 function playSoundNow() {
+  if (vol() <= 0) return;
   if (introFileOk && introAudio) {
-    try { introAudio.currentTime = 0; } catch (e) {}
+    try { introAudio.currentTime = 0; introAudio.volume = vol(); } catch (e) {}
     const pr = introAudio.play();
     if (pr && pr.catch) pr.catch(e => { if (e && e.name !== 'NotAllowedError') { introFileOk = false; synthBam(0.03); } });
   } else synthBam(0.03);
@@ -895,11 +942,15 @@ async function route() {
     if (!state.user) { sessionStorage.setItem('pendingJoin', arg); return renderAuth(T('join_hint')); }
     return doJoin(arg);
   }
+  if (name === 'view' && arg) return renderPublic(arg, seq);
   if (!state.user) return renderAuth();
   const pj = sessionStorage.getItem('pendingJoin');
   if (pj) { sessionStorage.removeItem('pendingJoin'); return doJoin(pj); }
-  if (name === 'settings') { state.crumbs = []; state.cur = null; return renderSettings(); }
-  if (name === 'account') { state.crumbs = []; state.cur = null; return renderAccount(); }
+  if (name === 'settings' || name === 'account') {
+    if (state.cur) state.backList = { id: state.cur.id, title: state.cur.title };
+    state.crumbs = []; state.cur = null; return name === 'settings' ? renderSettings() : renderAccount();
+  }
+  state.backList = null;
   if (name === 'list' && arg) {
     if (!state.keepCrumbs) state.crumbs = [];
     state.keepCrumbs = false;
@@ -909,6 +960,24 @@ async function route() {
   renderHome();
 }
 
+async function renderPublic(tok, seq) {
+  document.title = 'TPC2Do';
+  app.innerHTML = `<main class="wrap"><p class="muted">${TE('loading')}</p></main>`;
+  const r = await sb.rpc('get_public_list', { tok });
+  if (seq !== state.routeSeq) return;
+  const d = r.data;
+  const bar = `<div class="row between wrapx" style="margin-bottom:10px"><div class="logo-lock">${birdSVG('')}<b>2DO</b></div>${langSelectHTML()}<a class="btn primary" href="#/">${TE('pub_login')}</a></div>`;
+  if (r.error || !d) { app.innerHTML = `<main class="wrap">${bar}<p class="muted">${TE('pub_missing')}</p></main>`; $('#langSel').onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); renderPublic(tok, seq); }; return; }
+  const cols = (d.columns || []).filter(c => c && !c.hidden && c.type !== 'formula' && !['task', 'notes', 'sub'].includes(c.type) || (c && ['task', 'notes'].includes(c.type) && !c.hidden));
+  const val = (t, c) => c.type === 'task' ? t.title : c.type === 'notes' ? t.notes : (t.data || {})[c.id];
+  const nm = c => c.name || T(c.type === 'task' ? 'c_task' : c.type === 'notes' ? 'c_notes' : 'c_task');
+  const showCols = cols.some(c => c.type === 'task') ? cols : [{ id: 'task', type: 'task' }, ...cols];
+  const cell = (t, c) => { const v = val(t, c); if (v == null || v === '') return ''; if (c.type === 'checkbox') return v ? '☑' : '☐'; return esc(String(v)).replace(/\n/g, '<br>'); };
+  app.innerHTML = `<main class="wrap">${bar}<h2>📋 ${esc(d.title)}</h2><p class="muted small">${TE('pub_title')}</p>
+    <div class="sheetwrap"><table class="sheet"><thead><tr><th style="width:36px">✓</th>${showCols.map(c => `<th>${esc(nm(c))}</th>`).join('')}</tr></thead>
+    <tbody>${(d.tasks || []).map(t => `<tr class="${t.done ? 'done' : ''}"><td>${t.done ? '☑' : '☐'}</td>${showCols.map(c => `<td>${cell(t, c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></main>`;
+  $('#langSel').onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); renderPublic(tok, seq); };
+}
 async function doJoin(token) {
   const { data, error } = await sb.rpc('join_list_by_token', { tok: token });
   if (error) { toast(T('err_join'), true); location.hash = '#/'; return; }
@@ -933,7 +1002,7 @@ function renderAuth(msg = '') {
         <button type="button" data-m="login" class="${mode === 'login' ? 'on' : ''}">${TE('tab_login')}</button>
         <button type="button" data-m="signup" class="${mode === 'signup' ? 'on' : ''}">${TE('tab_signup')}</button></div>`}
       <form id="authForm">
-        <label>${TE('email')}<input type="email" name="email" required autocomplete="email"></label>
+        ${mode === 'signup' ? `<label>${TE('email')}<input type="email" name="email" required autocomplete="email"></label>` : `<label>${TE('login_id')}<input type="text" name="email" required autocomplete="username" autocapitalize="none" spellcheck="false"></label>`}
         ${mode === 'signup' ? `<label>${TE('username')}<input name="username" required maxlength="24" autocomplete="username">
           <small>${TE('username_hint')}</small></label>` : ''}
         ${forgot ? '' : `<label>${TE('password')}<input type="password" name="password" required minlength="8" autocomplete="${mode === 'login' ? 'current-password' : 'new-password'}"></label>`}
@@ -949,9 +1018,14 @@ function renderAuth(msg = '') {
     const form = $('#authForm'), out = $('#authMsg'), btn = $('button[type=submit]', form);
     form.onsubmit = async e => {
       e.preventDefault();
-      const f = new FormData(form), email = f.get('email').trim(), password = f.get('password');
+      const f = new FormData(form), password = f.get('password'); let email = f.get('email').trim();
       btn.disabled = true; out.className = 'msg'; out.textContent = '';
       try {
+        if (mode !== 'signup' && !email.includes('@')) {            // account name instead of e-mail
+          const r = await sb.rpc('login_email', { uname: email });
+          if (r.error || !r.data) throw new Error('Invalid login credentials');
+          email = r.data;
+        }
         if (mode === 'login') {
           const { error } = await sb.auth.signInWithPassword({ email, password });
           if (error) throw error;
@@ -1008,9 +1082,10 @@ function bindTop() {
 }
 
 /* ---------- Home ---------- */
+const ovGlyph = () => { const m = prefs.ovSort, d = prefs.ovDir; return m === 'created' ? (d === 'asc' ? '↑' : '↓') : m === 'alpha' ? (d === 'asc' ? '↓' : '↑') : (d === 'desc' ? '↓' : '↑'); };
 function renderHome() {
   document.title = 'TPC2Do';
-  const sortOpts = ['alpha', 'created', ...(beta('Prio') ? ['prio'] : []), 'custom'];
+  const sortOpts = ['alpha', 'created', 'prio', 'custom'];
   if (!sortOpts.includes(prefs.ovSort)) prefs.ovSort = 'alpha';
   app.innerHTML = topbar() + `<main class="wrap">
     <input type="search" id="gsearch" class="search" placeholder="${TE('search_ph')}" autocomplete="off" aria-label="${TE('search_ph')}">
@@ -1020,8 +1095,9 @@ function renderHome() {
     <div class="row between wrapx"><h2>${TE('my_lists')}</h2><button class="btn primary" id="newList">${TE('new_list')}</button></div>
     <div class="row gap wrapx ovbar"><label class="small muted" for="ovSort">${TE('ov_sort')}</label>
       <select id="ovSort">${sortOpts.map(k => `<option value="${k}" ${k === prefs.ovSort ? 'selected' : ''}>${TE('ov_' + k)}</option>`).join('')}</select>
-      <button class="btn small" id="ovDir" ${prefs.ovSort === 'custom' ? 'hidden' : ''} title="${TE(prefs.ovDir === 'desc' ? 'ov_desc' : 'ov_asc')}" aria-label="${TE(prefs.ovDir === 'desc' ? 'ov_desc' : 'ov_asc')}">${prefs.ovDir === 'desc' ? '↓' : '↑'}</button>
-      <span class="muted small" id="ovHint" ${prefs.ovSort === 'custom' ? '' : 'hidden'}>${TE('ov_custom_hint')}</span></div>
+      <button class="btn small" id="ovEdit" ${prefs.ovSort === 'custom' ? '' : 'hidden'}>${TE(state.ovEdit ? 'ov_edit_done' : 'ov_edit')}</button>
+      <button class="btn small" id="ovDir" ${prefs.ovSort === 'custom' ? 'hidden' : ''} title="${TE(prefs.ovDir === 'desc' ? 'ov_desc' : 'ov_asc')}" aria-label="${TE(prefs.ovDir === 'desc' ? 'ov_desc' : 'ov_asc')}">${ovGlyph()}</button>
+      <span class="muted small" id="ovHint" ${prefs.ovSort === 'custom' && state.ovEdit ? '' : 'hidden'}>${TE('ov_edit_hint')}</span></div>
     <div id="gridMine"></div>
     <h2>${TE('shared_with_me')}</h2>
     <div id="gridShared"></div>
@@ -1036,30 +1112,94 @@ function renderHome() {
   const so = $('#ovSort'), sd = $('#ovDir');
   so.onchange = () => {
     prefs.ovSort = so.value; if (so.value === 'prio') prefs.ovDir = 'desc'; else if (so.value !== 'custom') prefs.ovDir = 'asc';
-    savePrefs(); sd.hidden = so.value === 'custom'; $('#ovHint').hidden = so.value !== 'custom';
-    sd.textContent = prefs.ovDir === 'desc' ? '↓' : '↑'; drawGrids();
+    state.ovEdit = false; savePrefs(); sd.hidden = so.value === 'custom'; $('#ovEdit').hidden = so.value !== 'custom'; $('#ovEdit').textContent = T('ov_edit'); $('#ovHint').hidden = true;
+    sd.textContent = ovGlyph(); drawGrids();
   };
+  $('#ovEdit').onclick = () => { state.ovEdit = !state.ovEdit; $('#ovEdit').textContent = T(state.ovEdit ? 'ov_edit_done' : 'ov_edit'); $('#ovHint').hidden = !state.ovEdit; drawGrids(); };
   sd.onclick = () => {
-    prefs.ovDir = prefs.ovDir === 'desc' ? 'asc' : 'desc'; savePrefs(); sd.textContent = prefs.ovDir === 'desc' ? '↓' : '↑';
+    prefs.ovDir = prefs.ovDir === 'desc' ? 'asc' : 'desc'; savePrefs(); sd.textContent = ovGlyph();
     const t = T(prefs.ovDir === 'desc' ? 'ov_desc' : 'ov_asc'); sd.title = t; sd.setAttribute('aria-label', t); drawGrids();
   };
-  $('#homeBody').addEventListener('click', async e => {
-    const c = e.target.closest('.card'); if (!c || e.target.closest('.cgrip')) return;
+  const hb = $('#homeBody');
+  hb.addEventListener('click', async e => {
+    const c = e.target.closest('.card'); if (!c) return;
+    if (state.noCardClick && Date.now() < state.noCardClick) return;
+    if (state.ovEdit && prefs.ovSort === 'custom') return;
     const id = c.dataset.id, b = e.target.closest('[data-act]');
     if (!b) { location.hash = '#/list/' + id; return; }
-    const l = state.lists.find(x => x.id === id);
-    if (b.dataset.act === 'delete') {
-      if (!(await confirmBox(T('confirm_list_delete', { name: l.title })))) return;
-      const { error } = await sb.from('lists').delete().eq('id', id);
-      if (error) return toast(errText(error), true);
-    } else {
-      if (!(await confirmBox(T('confirm_leave', { name: l.title }), T('tip_leave_list')))) return;
-      const { error } = await sb.from('list_members').delete().eq('list_id', id).eq('user_id', state.user.id);
-      if (error) return toast(errText(error), true);
-    }
-    await loadLists(); renderHome();
+    homeDelete(id);
   });
-  $('#homeBody').addEventListener('pointerdown', e => { const g = e.target.closest('.cgrip'); if (g && e.button === 0) { e.preventDefault(); startCardDrag(e, g.closest('.card')); } });
+  hb.addEventListener('contextmenu', e => {
+    const c = e.target.closest('.card'); if (!c) return;
+    e.preventDefault(); cardMenu(c, e.clientX, e.clientY);
+  });
+  let lp = null;                                            // long-press (touch / pen)
+  hb.addEventListener('pointerdown', e => {
+    const c = e.target.closest('.card');
+    if (c && state.ovEdit && prefs.ovSort === 'custom' && e.button === 0 && !e.target.closest('[data-act]')) { e.preventDefault(); startCardDrag(e, c); return; }
+    if (!c || e.pointerType === 'mouse') return;
+    const x0 = e.clientX, y0 = e.clientY;
+    clearTimeout(lp); lp = setTimeout(() => { lp = null; state.noCardClick = Date.now() + 700; cardMenu(c, x0, y0); }, 520);
+    const stop = ev => { if (ev.type === 'pointermove' && Math.hypot(ev.clientX - x0, ev.clientY - y0) < 8) return; clearTimeout(lp); lp = null; window.removeEventListener('pointermove', stop); window.removeEventListener('pointerup', stop); window.removeEventListener('pointercancel', stop); };
+    window.addEventListener('pointermove', stop); window.addEventListener('pointerup', stop); window.addEventListener('pointercancel', stop);
+  });
+}
+async function homeDelete(id) {
+  const l = state.lists.find(x => x.id === id); if (!l) return;
+  if (roleOf(l) === 'owner') {
+    if (!(await confirmBox(T('confirm_list_delete', { name: l.title })))) return;
+    const { error } = await sb.from('lists').delete().eq('id', id);
+    if (error) return toast(errText(error), true);
+  } else {
+    if (!(await confirmBox(T('confirm_leave', { name: l.title }), T('tip_leave_list')))) return;
+    const { error } = await sb.from('list_members').delete().eq('list_id', id).eq('user_id', state.user.id);
+    if (error) return toast(errText(error), true);
+  }
+  await loadLists(); if ($('#gridMine')) renderHome();
+}
+function cardMenu(card, x, y) {
+  const l = state.lists.find(z => z.id === card.dataset.id); if (!l) return;
+  const own = roleOf(l) === 'owner';
+  showMenu(x, y, [
+    { ic: '📂', k: 'lc_open', fn: () => { location.hash = '#/list/' + l.id; } },
+    { ic: '🗗', k: 'lc_open_new', fn: () => window.open(pageUrl() + '#/list/' + l.id, '_blank', 'noopener') },
+    own ? '-' : null,
+    own ? { ic: '✏️', k: 'lc_rename', fn: () => renameListModal(l) } : null,
+    own ? { ic: '🔗', k: 'lc_share', fn: () => shareModal(l) } : null,
+    own ? { ic: '📑', k: 'lc_dup', fn: () => duplicateList(l) } : null,
+    '-',
+    own ? { ic: '🗑', k: 'delete', danger: true, fn: () => homeDelete(l.id) } : { ic: '🚪', label: T('tip_leave_list'), danger: true, fn: () => homeDelete(l.id) }
+  ].filter(Boolean));
+}
+function renameListModal(l) {
+  modal(`<h3>${TE('lc_rename_title')}</h3><label>${TE('name')}<input id="rnl" maxlength="120" value="${esc(l.title)}"></label>
+    <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="ok">${TE('save')}</button></div>`,
+  (m, close) => {
+    $('[data-x]', m).onclick = close;
+    const go = async () => {
+      const title = $('#rnl', m).value.trim(); if (!title) return;
+      const { error } = await sb.from('lists').update({ title }).eq('id', l.id);
+      if (error) return toast(errText(error), true);
+      l.title = title; close(); if ($('#gridMine')) drawGrids();
+    };
+    $('#ok', m).onclick = go; $('#rnl', m).addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
+    $('#rnl', m).select();
+  });
+}
+async function duplicateList(l) {
+  const n = await createList(l.title + T('lc_copy')); if (!n) return;
+  if ((l.columns || []).length) {
+    const r = await sb.rpc('set_list_columns', { lid: n.id, cols: l.columns });
+    if (r.error) toast(errText(r.error), true); else n.columns = l.columns;
+  }
+  for (let from = 0; from < 20000; from += 500) {
+    const r = await sb.from('tasks').select('*').eq('list_id', l.id).order('id').range(from, from + 499);
+    if (r.error) { toast(errText(r.error), true); break; }
+    const rows = (r.data || []).map(t => { const c = { ...t }; ['id', 'created_at', 'updated_at', 'created_by'].forEach(k => delete c[k]); c.list_id = n.id; return c; });
+    if (rows.length) { const ins = await sb.from('tasks').insert(rows); if (ins.error) { toast(errText(ins.error), true); break; } }
+    if ((r.data || []).length < 500) break;
+  }
+  toast(T('lc_dup_ok')); await loadLists(); if ($('#gridMine')) renderHome();
 }
 
 /* overview: progress per list, sorting, custom order */
@@ -1082,7 +1222,7 @@ async function loadProgress() {
   state.prog = out;
 }
 function ovSorted(arr) {
-  let mode = prefs.ovSort; if (mode === 'prio' && !beta('Prio')) mode = 'alpha';
+  const mode = prefs.ovSort;
   const a = arr.slice(), dir = prefs.ovDir === 'desc' ? -1 : 1;
   if (mode === 'custom') {
     const idx = new Map(prefs.listOrder.map((id, i) => [id, i])), pos = id => idx.has(id) ? idx.get(id) : 1e6 + arr.findIndex(x => x.id === id);
@@ -1107,7 +1247,7 @@ function cardHTML(l, custom) {
 }
 function drawGrids() {
   const gm = $('#gridMine'), gs = $('#gridShared'); if (!gm || !gs) return;
-  const mine = state.lists.filter(l => l.owner_id === state.user.id), shared = state.lists.filter(l => l.owner_id !== state.user.id), custom = prefs.ovSort === 'custom';
+  const mine = state.lists.filter(l => l.owner_id === state.user.id), shared = state.lists.filter(l => l.owner_id !== state.user.id), custom = prefs.ovSort === 'custom' && !!state.ovEdit;
   const fill = (el, arr, emptyKey) => { el.className = ''; el.innerHTML = arr.length ? `<div class="grid">${ovSorted(arr).map(l => cardHTML(l, custom)).join('')}</div>` : `<div class="empty">${TE(emptyKey)}</div>`; };
   fill(gm, mine, 'no_lists'); fill(gs, shared, 'no_shared');
 }
@@ -1230,6 +1370,7 @@ const insertPromises = new Map();  // taskId -> Promise (insert still running)
 let inflight = 0;
 
 async function renderList(id, seq) {
+  state.sel = new Set(); state.selAnchor = null;
   app.innerHTML = topbar() + `<main class="wrap"><p class="muted">${TE('loading')}</p></main>`; bindTop();
   let list = state.lists.find(l => l.id === id);
   if (!list) { await loadLists(); list = state.lists.find(l => l.id === id); }
@@ -1244,7 +1385,14 @@ async function renderList(id, seq) {
   if (error) { toast(errText(error), true); return; }
   state.cur = list; state.role = roleOf(list); state.tasks = data || [];
   document.title = list.title + ' – TPC2Do';
-  drawList(); startPolling();
+  drawList(); startPolling(); loadParents(list, seq);
+}
+async function loadParents(l, seq) {            // "Sub-list of …"
+  const r = await sb.from('tasks').select('list_id').eq('sub_list_id', l.id);
+  if (seq !== state.routeSeq || !state.cur || state.cur.id !== l.id) return;
+  const ids = [...new Set((r.data || []).map(x => x.list_id))].filter(x => x !== l.id); if (!ids.length) return;
+  const el = $('#parentLine'); if (!el) return;
+  el.innerHTML = TE('parent_of') + ' ' + ids.map(id => { const p = state.lists.find(x => x.id === id); return p ? `<a href="#/list/${p.id}">${esc(p.title)}</a>` : `<span>🔒 ${TE('parent_locked')}</span>`; }).join(', ');
 }
 
 /* ---------- Columns: effective list (built-in + custom, freely ordered) ---------- */
@@ -1421,6 +1569,7 @@ function drawList() {
   const crumbs = state.crumbs.map((c, i) => `<a href="#/list/${c.id}" data-crumb="${i}">${esc(c.title)}</a>`).join(' › ');
   app.innerHTML = topbar() + `<main class="wrap wide">
     <nav class="crumbs"><a href="#/">${TE('my_lists')}</a> › ${crumbs ? crumbs + ' › ' : ''}<span>${esc(l.title)}</span></nav>
+    <div id="parentLine" class="muted small parentline"></div>
     <div class="row between wrapx">
       <div>${owner ? `<input id="listTitle" class="h-input" value="${esc(l.title)}" maxlength="120" aria-label="${TE('name')}">` : `<h2>${esc(l.title)}</h2>`}</div>
       <div class="row gap wrapx">${owner ? '' : `<span class="badge">${TE(state.role === 'edit' ? 'role_edit' : 'role_view')}</span>`}<span id="saveState" class="muted small"></span>
@@ -1450,7 +1599,7 @@ function drawList() {
     if (error) return toast(errText(error), true);
     l.title = title; document.title = title + ' – TPC2Do';
   });
-  const sh = $('#shareBtn'); if (sh) sh.onclick = shareModal;
+  const sh = $('#shareBtn'); if (sh) sh.onclick = () => shareModal();
   const cb = $('#csvBtn'); if (cb) cb.onclick = () => { const r = cb.getBoundingClientRect(); showMenu(r.left, r.bottom + 4, csvItems()); };
   const cl = $('#colsBtn'); if (cl) cl.onclick = columnsModal;
   const at = $('#addTop'); if (at) at.onclick = () => addTask();
@@ -1509,6 +1658,14 @@ function setFull(on) {
     else if (!on && document.fullscreenElement) { fsAsked = false; document.exitFullscreen(); }
   } catch (e) {}
 }
+document.addEventListener('keydown', e => { if (e.key === 'F11' && $('#fullBtn') && !e.ctrlKey && !e.altKey && !e.metaKey) { e.preventDefault(); setFull(!fullOn()); } });
+let nativeFs = false;
+window.addEventListener('resize', () => {           // F11 that the browser handled itself (e.g. when preventDefault isn't honoured)
+  if (!$('#fullBtn') || document.fullscreenElement) return;
+  const big = window.innerHeight >= screen.height - 2 && window.innerWidth >= screen.width - 2;
+  if (big && !fullOn()) { nativeFs = true; try { localStorage.setItem('tpc2do_full', '1'); } catch (e) {} applyFull(); }
+  else if (!big && nativeFs && fullOn()) { nativeFs = false; try { localStorage.setItem('tpc2do_full', '0'); } catch (e) {} applyFull(); }
+});
 document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && fsAsked) { fsAsked = false; try { localStorage.setItem('tpc2do_full', '0'); } catch (e) {} applyFull(); } });
 window.addEventListener('resize', () => { const tb = $('.top'); if (tb) document.documentElement.style.setProperty('--top-h', tb.offsetHeight + 'px'); });
 
@@ -1639,8 +1796,8 @@ function mTableHTML() {
 function rowHTML(t) {
   const cols = visibleCols(), ro = state.role === 'view', dis = ro ? 'readonly' : '';
   const cell = c => {
-    if (c.type === 'task') return `<td><textarea rows="1" data-f="title" placeholder="${TE('task_ph')}" ${dis}>${esc(t.title)}</textarea></td>`;
-    if (c.type === 'notes') return `<td><textarea rows="1" data-f="notes" ${dis}>${esc(t.notes)}</textarea></td>`;
+    if (c.type === 'task') return `<td${rtCls(t.title)}><textarea rows="1" data-f="title" placeholder="${TE('task_ph')}" ${dis}>${esc(t.title)}</textarea>${rtView(t.title)}</td>`;
+    if (c.type === 'notes') return `<td${rtCls(t.notes)}><textarea rows="1" data-f="notes" ${dis}>${esc(t.notes)}</textarea>${rtView(t.notes)}</td>`;
     if (c.type === 'sub') return `<td class="c-sub">${subCell(t, ro)}</td>`;
     if (c.type === 'formula') { const r = calcDisplay(t, c); return `<td class="c-calc ${r.err ? 'err' : ''}" data-calc="${c.id}">${esc(r.text)}</td>`; }
     return customCell(t, c, ro);
@@ -1662,6 +1819,19 @@ function subCell(t, ro) {
   return ro ? '' : `<button class="linkbtn" data-act="linksub">${TE('link_sub')}</button>`;
 }
 
+/* light text formatting: **bold**  *italic*  ~~strike~~  __underline__ (stored as plain text, rendered when the cell isn't being edited) */
+const RT_RE = /\*\*[^*\n]+\*\*|~~[^~\n]+~~|__[^_\n]+__|(^|[^*\w])\*[^*\s][^*\n]*\*(?![*\w])/;
+const hasRt = v => typeof v === 'string' && v.length > 2 && RT_RE.test(v);
+const rtCls = v => hasRt(v) ? ' class="hasrt"' : '';
+function rtHTML(v) {
+  return esc(String(v ?? '')).replace(/\*\*([^*\n]+)\*\*/g, '<b>$1</b>').replace(/~~([^~\n]+)~~/g, '<s>$1</s>').replace(/__([^_\n]+)__/g, '<u>$1</u>')
+    .replace(/(^|[^*\w])\*([^*\s][^*\n]*)\*(?![*\w])/g, '$1<i>$2</i>').replace(/\n/g, '<br>');
+}
+const rtView = v => `<div class="rtview" aria-hidden="true">${hasRt(v) ? rtHTML(v) : ''}</div>`;
+function rtUpdate(el) {
+  const td = el.closest('td'); if (!td || !td.querySelector('.rtview')) return;
+  td.classList.toggle('hasrt', hasRt(el.value)); td.querySelector('.rtview').innerHTML = hasRt(el.value) ? rtHTML(el.value) : '';
+}
 function customCell(t, c, ro) {
   const v = t.data ? t.data[c.id] : undefined;
   if (c.type === 'priority') {
@@ -1676,7 +1846,7 @@ function customCell(t, c, ro) {
   if (c.type === 'checkbox') return `<td class="c-bool"><input type="checkbox" data-cf="${c.id}" ${v ? 'checked' : ''} ${ro ? 'disabled' : ''}></td>`;
   if (c.type === 'number') return `<td><input type="number" step="any" data-cf="${c.id}" value="${esc(v ?? '')}" ${ro ? 'readonly' : ''}></td>`;
   if (c.type === 'date') return `<td><input type="date" data-cf="${c.id}" value="${esc(v ?? '')}" ${ro ? 'readonly' : ''}></td>`;
-  return `<td><textarea rows="1" data-cf="${c.id}" ${ro ? 'readonly' : ''}>${esc(v ?? '')}</textarea></td>`;
+  return `<td${rtCls(v)}><textarea rows="1" data-cf="${c.id}" ${ro ? 'readonly' : ''}>${esc(v ?? '')}</textarea>${rtView(v)}</td>`;
 }
 
 function fit(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
@@ -1698,6 +1868,9 @@ function drawTable() {
   const c = $('#counter'); if (c) c.textContent = T('counts', { open: undoneTasks().length, done: doneTasks().length });
   if (state.afterDraw) state.afterDraw();
 }
+{ const _dt = drawTable; drawTable = function () { _dt.apply(this, arguments); applySel(); }; }
+function applySel() { document.querySelectorAll('#sheetWrap tr[data-id]').forEach(r => r.classList.toggle('sel', !!(state.sel && state.sel.has(r.dataset.id)))); }
+function clearSel() { if (state.sel && state.sel.size) { state.sel = new Set(); applySel(); } }
 window.addEventListener('resize', () => document.querySelectorAll('#sheetWrap textarea').forEach(fit));
 
 /* ---------- Right-click / long-press menu ---------- */
@@ -1756,7 +1929,25 @@ function showMenu(x, y, items, rowId) {
   m.querySelector('button').focus();
   return true;
 }
+function multiMenu(x, y) {
+  const tasks = state.tasks.filter(t => state.sel.has(t.id)), n = tasks.length, allDone = tasks.every(t => t.done);
+  return showMenu(x, y, [
+    { ic: '✕', label: T('sel_n', { n }), fn: clearSel }, '-',
+    { ic: allDone ? '↩' : '✓', k: allDone ? 'cm_open' : 'cm_done', fn: () => { tasks.forEach(t => { if (t.done !== !allDone) setDone(t, !allDone); }); } },
+    { ic: '⧉', k: 'cm_dup', fn: async () => { for (const t of tasks.sort((a, b) => a.position - b.position)) await insertTask(Object.assign({ id: uuid(), list_id: state.cur.id, done: false, done_at: null, created_at: new Date().toISOString() },
+        { title: t.title, notes: t.notes, sub_list_id: t.sub_list_id, data: JSON.parse(JSON.stringify(t.data || {})) }, { position: posFor(t.id, 'below') }), false); } },
+    { ic: '🔁', k: 'cm_repeat', fn: () => repeatModal(tasks) },
+    { ic: '🔗', k: 'cm_link', fn: () => subModal(tasks) },
+    '-',
+    { ic: '🗑', k: 'cm_delete', danger: true, fn: async () => {
+      if (prefs.confirmDelete && !(await confirmBox(T('confirm_tasks', { n })))) return;
+      for (const t of tasks) await deleteTask(t); clearSel();
+    } }
+  ]);
+}
 function openCtx(x, y, task) {
+  if (state.sel && state.sel.size > 1 && state.sel.has(task.id) && state.role !== 'view') return multiMenu(x, y);
+  if (state.sel && state.sel.size) clearSel();
   const ro = state.role === 'view', items = [];
   const sub = task.sub_list_id ? state.lists.find(l => l.id === task.sub_list_id) : null;
   if (!ro) {
@@ -1783,13 +1974,13 @@ window.addEventListener('resize', () => { if (ctxEl) closeCtx(); });
 
 function fieldInput(el, t, inDetail) {          // shared by the table and the phone detail view
   if (el.dataset.f === 'title' || el.dataset.f === 'notes') {
-    t[el.dataset.f] = el.value; queueSave(t.id, { [el.dataset.f]: el.value }); fit(el);
+    t[el.dataset.f] = el.value; queueSave(t.id, { [el.dataset.f]: el.value }); fit(el); rtUpdate(el);
   } else if (el.dataset.cf) {
     let v = el.type === 'checkbox' ? el.checked : el.value;
     if (el.type === 'number' || el.dataset.num != null) v = el.value === '' ? null : Number(el.value);
     t.data = { ...(t.data || {}), [el.dataset.cf]: v };
     queueSave(t.id, { data: t.data });
-    if (el.tagName === 'TEXTAREA') fit(el);
+    if (el.tagName === 'TEXTAREA') { fit(el); rtUpdate(el); }
     updateCalc();
     const cdef = colById(el.dataset.cf);
     if (cdef && cdef.type === 'priority' && !inDetail) drawTable();
@@ -1807,9 +1998,18 @@ function openDetail(id) {
     const inner = customCell(t, c, ro).replace(/^<td[^>]*>/, '').replace(/<\/td>$/, '');
     return `<label class="mf"><span>${esc(colName(c))}</span>${inner}</label>`;
   };
-  modal(`<div class="md-head"><button class="btn small" data-x aria-label="${TE('md_close')}">← ${TE('md_close')}</button><span class="spacer"></span>${ro ? '' : `<label class="check md-done"><input type="checkbox" data-df ${t.done ? 'checked' : ''}>${TE('done')}</label><button class="icon" data-del title="${TE('cm_delete')}">🗑</button>`}</div>
+  modal(`<div class="md-head"><button class="btn small" data-x aria-label="${TE('md_close')}">← ${TE('md_close')}</button><button class="btn small nav" data-nav="-1" title="${TE('md_prev')}" aria-label="${TE('md_prev')}">‹</button><button class="btn small nav" data-nav="1" title="${TE('md_next')}" aria-label="${TE('md_next')}">›</button><span class="spacer"></span>${ro ? '' : `<label class="check md-done"><input type="checkbox" data-df ${t.done ? 'checked' : ''}>${TE('done')}</label><button class="icon" data-del title="${TE('cm_delete')}">🗑</button>`}</div>
     <div class="md-body">${cols.map(field).join('')}</div>`, (m, close) => {
     $('[data-x]', m).onclick = close;
+    const order = () => [...undoneTasks(), ...doneTasks()].map(x => x.id);
+    const go = d => { const o = order(), i = o.indexOf(t.id), nx = o[i + d]; if (!nx) return; close(); setTimeout(() => openDetail(nx), 0); };
+    m.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => go(+b.dataset.nav));
+    let sx = null, sy = null;
+    m.addEventListener('touchstart', e => { const p = e.touches[0]; sx = p.clientX; sy = p.clientY; }, { passive: true });
+    m.addEventListener('touchend', e => {
+      if (sx == null) return; const p = e.changedTouches[0], dx = p.clientX - sx, dy = p.clientY - sy; sx = null;
+      if (Math.abs(dx) > 70 && Math.abs(dy) < 45 && Math.abs(dx) > 2 * Math.abs(dy)) { const sel = window.getSelection && String(window.getSelection()); if (!sel) go(dx < 0 ? 1 : -1); }
+    }, { passive: true });
     m.querySelectorAll('textarea').forEach(fit);
     m.addEventListener('input', e => { const el = e.target; if (!el.dataset.f && !el.dataset.cf) return; fieldInput(el, t, true); calcs(); });
     m.addEventListener('change', e => { const el = e.target; if (el.dataset.cf && el.type !== 'checkbox' && el.tagName !== 'SELECT') return; if (el.dataset.cf) { fieldInput(el, t, true); calcs(); } });
@@ -1826,6 +2026,45 @@ function openDetail(id) {
     if (!t.title && !ro) setTimeout(() => { const f = $('[data-f=title]', m); if (f) f.focus(); }, 50);
   }, () => { state.afterDraw = null; drawTable(); if (state.needsRefresh) refreshCur(true); }, 'mdetail');
 }
+/* floating format toolbar (appears when text is selected in a text cell / detail field) */
+const RT_MARK = { b: '**', i: '*', s: '~~', u: '__' };
+function rtTarget(el) {
+  if (!el || el.tagName !== 'TEXTAREA' || el.readOnly || state.role === 'view') return false;
+  if (el.dataset.f === 'title' || el.dataset.f === 'notes') return true;
+  if (el.dataset.cf) { const c = colById(el.dataset.cf); return !!c && c.type === 'text'; }
+  return false;
+}
+function rtApply(el, k) {
+  const m = RT_MARK[k], a = el.selectionStart, b = el.selectionEnd; if (a === b) return;
+  const v = el.value, sel = v.slice(a, b), pre = v.slice(a - m.length, a), post = v.slice(b, b + m.length);
+  let nv, na, nb;
+  if (pre === m && post === m && !(k === 'i' && (v[a - 2] === '*' || v[b + 1] === '*'))) { nv = v.slice(0, a - m.length) + sel + v.slice(b + m.length); na = a - m.length; nb = b - m.length; }
+  else if (sel.startsWith(m) && sel.endsWith(m) && sel.length > 2 * m.length) { nv = v.slice(0, a) + sel.slice(m.length, -m.length) + v.slice(b); na = a; nb = b - 2 * m.length; }
+  else { nv = v.slice(0, a) + m + sel + m + v.slice(b); na = a + m.length; nb = b + m.length; }
+  el.value = nv; el.setSelectionRange(na, nb); el.dispatchEvent(new Event('input', { bubbles: true }));
+}
+let rtBar = null;
+function rtHide() { if (rtBar) { rtBar.remove(); rtBar = null; } }
+function rtShow(el) {
+  if (!rtTarget(el) || el.selectionStart === el.selectionEnd) return rtHide();
+  if (!rtBar) {
+    rtBar = document.createElement('div'); rtBar.className = 'rtbar'; rtBar.setAttribute('role', 'toolbar');
+    rtBar.innerHTML = `<button type="button" data-k="b" title="${TE('fmt_bold')}" aria-label="${TE('fmt_bold')}"><b>B</b></button><button type="button" data-k="i" title="${TE('fmt_italic')}" aria-label="${TE('fmt_italic')}"><i>I</i></button><button type="button" data-k="s" title="${TE('fmt_strike')}" aria-label="${TE('fmt_strike')}"><s>S</s></button><button type="button" data-k="u" title="${TE('fmt_under')}" aria-label="${TE('fmt_under')}"><u>U</u></button>`;
+    rtBar.addEventListener('mousedown', e => e.preventDefault());
+    rtBar.addEventListener('click', e => { const b = e.target.closest('[data-k]'); if (b && rtBar._el) { rtApply(rtBar._el, b.dataset.k); rtShow(rtBar._el); } });
+    document.body.appendChild(rtBar);
+  }
+  rtBar._el = el;
+  const r = el.getBoundingClientRect(), w = rtBar.offsetWidth || 130;
+  rtBar.style.left = Math.max(6, Math.min(r.left + 8, innerWidth - w - 6)) + 'px';
+  rtBar.style.top = Math.max(6, r.top - 38 < 6 ? r.bottom + 4 : r.top - 38) + 'px';
+}
+document.addEventListener('selectionchange', () => { const el = document.activeElement; if (el && el.tagName === 'TEXTAREA') rtShow(el); else rtHide(); });
+document.addEventListener('keydown', e => {
+  const el = e.target, k = e.key.toLowerCase();
+  if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && 'biu'.includes(k) && k.length === 1 && rtTarget(el) && el.selectionStart !== el.selectionEnd) { e.preventDefault(); rtApply(el, k); rtShow(el); }
+}, true);
+window.addEventListener('scroll', rtHide, true);
 function bindSheet(wrap) {
   wrap.addEventListener('input', e => {
     const el = e.target, tr = el.closest('tr[data-id]'); if (!tr) return;
@@ -1847,6 +2086,23 @@ function bindSheet(wrap) {
       if (t && !t.done) addTask(t.id, 'below');
     }
   });
+  const rowSel = e => {
+    if (state.role === 'view' || isMobile()) return false;
+    const tr = e.target.closest('tbody tr[data-id]'); if (!tr) return false;
+    if (!(e.ctrlKey || e.metaKey || e.shiftKey)) return false;
+    const id = tr.dataset.id; if (!state.sel) state.sel = new Set();
+    if (e.shiftKey) {
+      const ids = [...wrap.querySelectorAll('tbody tr[data-id]')].map(r => r.dataset.id);
+      const a = ids.indexOf(state.selAnchor != null ? state.selAnchor : [...state.sel][0] || id), b = ids.indexOf(id), lo = Math.min(a < 0 ? b : a, b), hi = Math.max(a < 0 ? b : a, b);
+      if (!(e.ctrlKey || e.metaKey)) state.sel = new Set();
+      ids.slice(lo, hi + 1).forEach(i => state.sel.add(i));
+    } else { if (state.sel.has(id)) state.sel.delete(id); else state.sel.add(id); state.selAnchor = id; }
+    if (document.activeElement && document.activeElement.blur && wrap.contains(document.activeElement)) document.activeElement.blur();
+    applySel(); return true;
+  };
+  wrap.addEventListener('mousedown', e => { if (e.button !== 0) return; if (rowSel(e)) { e.preventDefault(); state.selSwallow = true; } else if (state.sel && state.sel.size && !e.target.closest('tr.sel') ) clearSel(); }, true);
+  wrap.addEventListener('click', e => { if (state.selSwallow) { state.selSwallow = false; e.preventDefault(); e.stopPropagation(); } }, true);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && state.sel && state.sel.size && !document.querySelector('.overlay') && !ctxEl) clearSel(); });
   wrap.addEventListener('click', e => {
     const mt = e.target.closest('.c-mtask'); if (mt) { openDetail(mt.closest('tr').dataset.id); return; }
     const td = e.target.closest('tbody td');      // click anywhere in a cell -> edit it (not only on the first text line)
@@ -1927,8 +2183,9 @@ function nextDue(rec, due) {
   return nx;
 }
 const recLabel = r => T('rep_label', { n: r.n, u: T('u_' + r.u) });
-function repeatModal(task) {
+function repeatModal(tasks0) {
   if (!dueCol()) return toast(T('rep_need_due'), true);
+  const many = Array.isArray(tasks0), tasks = [].concat(tasks0), task = tasks[0];
   const cur = (task.data && task.data._rec) || { u: 'week', n: 1 };
   modal(`<h3>${TE('rep_title')}</h3>
     <div class="row wrapx"><span>${TE('rep_every')}</span><input id="repN" type="number" min="1" max="365" value="${cur.n}" style="width:80px">
@@ -1937,7 +2194,7 @@ function repeatModal(task) {
     <div class="actions">${task.data && task.data._rec ? `<button class="btn danger" id="repOff">${TE('rep_remove')}</button>` : ''}<span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="repOk">${TE('save')}</button></div>`,
   (m, close) => {
     $('[data-x]', m).onclick = close;
-    const set = rec => { task.data = Object.assign({}, task.data); if (rec) task.data._rec = rec; else delete task.data._rec; queueSave(task.id, { data: task.data }, 0); drawTable(); close(); };
+    const set = rec => { tasks.forEach(tk => { tk.data = Object.assign({}, tk.data); if (rec) tk.data._rec = rec; else delete tk.data._rec; queueSave(tk.id, { data: tk.data }, 0); }); drawTable(); close(); };
     $('#repOk', m).onclick = () => set({ u: $('#repU', m).value, n: Math.max(1, Math.min(365, parseInt($('#repN', m).value, 10) || 1)) });
     const off = $('#repOff', m); if (off) off.onclick = () => set(null);
   });
@@ -2026,7 +2283,8 @@ async function deleteTask(t) {
 }
 
 /* ---------- Sub lists ---------- */
-function subModal(t) {
+function subModal(t0) {
+  const ts = [].concat(t0), t = ts[0];
   const others = state.lists.filter(l => l.id !== state.cur.id);
   modal(`<h3>${TE('sub_title')}</h3>
     <div class="pick">${others.map(l => `<button class="pickitem" data-id="${l.id}"><span>📋 ${esc(l.title)}</span><small>${esc(ownerName(l))}</small></button>`).join('')
@@ -2034,20 +2292,20 @@ function subModal(t) {
     <button class="btn primary" id="mkSub">${TE('sub_create')}</button>
     <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button></div>`,
   (m, close) => {
-    const setSub = id => { t.sub_list_id = id; queueSave(t.id, { sub_list_id: id }, 0); drawTable(); };
+    const setSub = (id, tk) => { (tk ? [tk] : ts).forEach(x => { x.sub_list_id = id; queueSave(x.id, { sub_list_id: id }, 0); }); drawTable(); };
     m.querySelectorAll('.pickitem').forEach(b => b.onclick = () => { close(); setSub(b.dataset.id); });
     $('[data-x]', m).onclick = close;
     $('#mkSub', m).onclick = async () => {
       close();
-      const l = await createList(t.title.trim() || T('sublist_default'));
-      if (l) { setSub(l.id); toast(T('sub_made')); }
+      for (const tk of ts) { const l = await createList((tk.title || '').trim() || T('sublist_default')); if (l) setSub(l.id, tk); }
+      toast(T('sub_made'));
     };
   });
 }
 
 /* ---------- Custom columns ---------- */
 const COL_TYPES = { text: 'ty_text', number: 'ty_number', date: 'ty_date', checkbox: 'ty_check', priority: 'ty_priority', due: 'ty_due', formula: 'ty_formula' };
-const typesFor = cur => Object.keys(COL_TYPES).filter(k => k !== 'formula' || cur === 'formula' || beta('Formulas'));   // formulas are a beta feature
+const typesFor = cur => Object.keys(COL_TYPES);
 const AGGS = ['sum', 'avg', 'min', 'max', 'count'];
 const newColId = () => 'c' + Math.random().toString(36).slice(2, 8);
 const cloneCols = () => effCols().map(c => ({ ...c }));
@@ -2301,38 +2559,39 @@ const csvSafe = v => { const s = v == null ? '' : String(v); return /^[=+\-@\t\r
 const csvUnsafe = v => v.replace(/^'(?=[=+\-@\t\r])/, '');
 const csvQuote = (v, d) => { const s = v == null ? '' : String(v); return (s.includes(d) || /["\r\n]/.test(s)) ? '"' + s.replace(/"/g, '""') + '"' : s; };
 
-const SYNC_SRC = "/*  TPC2Do <-> Google Sheets sync (BETA)\n *  Generated for the list \"__TITLE__\". This script contains a secret token for exactly this list:\n *  anyone who can see this script (or the spreadsheet's script project) can read and change that list.\n *\n *  Setup: paste this into Extensions > Apps Script, save, reload the spreadsheet, then menu\n *  \"TPC2Do\" > \"Set up auto sync\". Google asks once for permission (it needs to call the internet).\n *\n *  Sheet \"TPC2Do\": column A = ID (hidden, do not edit), B = done, C = task, D = notes, then your own columns.\n *  Conflicts: if a row was changed on BOTH sides since the last sync, the app version wins.\n *  Not synced: sub-list links, formula columns, row order.\n */\nvar CFG = { url: '__URL__', key: '__KEY__', token: '__TOKEN__', sheet: 'TPC2Do', base: '_tpc2do_base' };\n\n/* ---- pure logic (no Google services) ---- */\nfunction norm_(type, v, tz, fmt) {\n  if (type === 'number' || type === 'priority') {\n    if (v === '' || v == null) return null;\n    var n = Number(typeof v === 'string' ? v.replace(',', '.') : v);\n    return isFinite(n) ? n : null;\n  }\n  if (type === 'checkbox') return v === true || v === 'true' || v === 'TRUE' || v === 1;\n  if (type === 'date' || type === 'due') {\n    if (v instanceof Date) return fmt ? fmt(v, tz) : v.toISOString().slice(0, 10);\n    if (typeof v === 'string' && /^\\d{4}-\\d{2}-\\d{2}/.test(v.trim())) return v.trim().slice(0, 10);\n    return null;\n  }\n  if (v == null || v === '') return null;\n  return String(v);\n}\nfunction hashRec_(r, cols, hash) {\n  var a = [r.done ? 1 : 0, r.title || '', r.notes || ''];\n  for (var i = 0; i < cols.length; i++) { var v = r.data ? r.data[cols[i].id] : null; a.push(v == null ? null : v); }\n  return hash(JSON.stringify(a));\n}\n// app / sheet: {id: rec}; base: {id: hash}; returns what has to be done on each side\nfunction planSync_(app, sheet, base, cols, hash) {\n  var out = { pushUp: [], pushDel: [], toSheet: [], delSheet: [], newBase: {} }, ids = {}, k;\n  for (k in app) ids[k] = 1; for (k in sheet) ids[k] = 1; for (k in base) ids[k] = 1;\n  Object.keys(ids).forEach(function (id) {\n    var a = app[id], s = sheet[id], b = base[id];\n    var ha = a ? hashRec_(a, cols, hash) : null, hs = s ? hashRec_(s, cols, hash) : null;\n    if (a && s) {\n      if (ha === hs) { out.newBase[id] = ha; return; }\n      if (b !== undefined && hs !== b && ha === b) { out.pushUp.push(id); out.newBase[id] = hs; }     // only the sheet changed\n      else { out.toSheet.push(id); out.newBase[id] = ha; }                                          // app changed (or both / first sync): app wins\n    } else if (a) {\n      if (b === undefined || ha !== b) { out.toSheet.push(id); out.newBase[id] = ha; }               // new in app, or edited while the row was deleted\n      else out.pushDel.push(id);                                                                     // deleted in the sheet, untouched in the app\n    } else if (s) {\n      if (b === undefined || hs !== b) { out.pushUp.push(id); out.newBase[id] = hs; }                // new in sheet, or edited while deleted in app\n      else out.delSheet.push(id);                                                                    // deleted in the app, untouched in the sheet\n    }\n  });\n  return out;\n}\n/* ---- end of pure logic ---- */\n\nfunction onOpen() {\n  SpreadsheetApp.getUi().createMenu('TPC2Do')\n    .addItem('Sync now', 'syncNow').addItem('Set up auto sync (every 5 min)', 'setup').addItem('Stop auto sync', 'stopAuto').addToUi();\n}\nfunction setup() { stopAuto(); ScriptApp.newTrigger('syncNow').timeBased().everyMinutes(5).create(); syncNow(); }\nfunction stopAuto() {\n  ScriptApp.getProjectTriggers().forEach(function (t) { if (t.getHandlerFunction() === 'syncNow') ScriptApp.deleteTrigger(t); });\n}\nfunction api_(fn, body) {\n  var r = UrlFetchApp.fetch(CFG.url + '/rest/v1/rpc/' + fn, {\n    method: 'post', contentType: 'application/json', headers: { apikey: CFG.key },\n    payload: JSON.stringify(body), muteHttpExceptions: true\n  });\n  if (r.getResponseCode() >= 300) throw new Error(fn + ' failed (' + r.getResponseCode() + '): ' + r.getContentText());\n  return JSON.parse(r.getContentText());\n}\nfunction hash_(s) {\n  return Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, s, Utilities.Charset.UTF_8)).slice(0, 22);\n}\nfunction safeText_(s) { s = s == null ? '' : String(s); return /^[=+\\-@]/.test(s) ? \"'\" + s : s; }\n\nfunction syncNow() {\n  var lock = LockService.getScriptLock();\n  if (!lock.tryLock(25000)) return;\n  try { run_(); } finally { lock.releaseLock(); }\n}\n\nfunction run_() {\n  var pull = api_('sync_pull', { tok: CFG.token });\n  var cols = (pull.columns || []).filter(function (c) {\n    return c && c.id && ['task', 'notes', 'sub'].indexOf(c.id) < 0 && ['text', 'number', 'date', 'checkbox', 'priority', 'due'].indexOf(c.type) >= 0;\n  });\n  var ss = SpreadsheetApp.getActive(), tz = ss.getSpreadsheetTimeZone();\n  var fmt = function (d, z) { return Utilities.formatDate(d, z, 'yyyy-MM-dd'); };\n  var sh = ss.getSheetByName(CFG.sheet) || ss.insertSheet(CFG.sheet);\n\n  // header: A..D fixed, then one column per custom column (matched by name, missing ones are appended)\n  var width = Math.max(sh.getLastColumn(), 4), head = sh.getRange(1, 1, 1, width).getValues()[0];\n  ['ID', '\u2713', 'Task', 'Notes'].forEach(function (h, i) { if (!head[i]) { sh.getRange(1, i + 1).setValue(h); head[i] = h; } });\n  var colIdx = {};\n  cols.forEach(function (c) {\n    var name = String(c.name || c.id).trim().toLowerCase(), j = -1;\n    for (var i = 4; i < head.length; i++) if (String(head[i]).trim().toLowerCase() === name) { j = i; break; }\n    if (j < 0) { j = head.length; head.push(c.name || c.id); sh.getRange(1, j + 1).setValue(c.name || c.id); }\n    colIdx[c.id] = j;\n  });\n  sh.getRange(1, 1, 1, head.length).setFontWeight('bold'); sh.setFrozenRows(1); sh.hideColumns(1);\n\n  // app side\n  var app = {};\n  (pull.tasks || []).forEach(function (t) {\n    var d = {}; cols.forEach(function (c) { d[c.id] = norm_(c.type, t.data ? t.data[c.id] : null, tz, fmt); });\n    app[t.id] = { done: !!t.done, title: t.title || '', notes: t.notes || '', data: d };\n  });\n\n  // sheet side\n  var last = sh.getLastRow(), vals = last > 1 ? sh.getRange(2, 1, last - 1, head.length).getValues() : [];\n  var sheet = {}, rowOf = {}, idWrites = [];\n  vals.forEach(function (row, i) {\n    var any = row.slice(1).some(function (v) { return v !== '' && v !== false && v != null; });\n    if (!any && !row[0]) return;\n    var id = String(row[0] || '').trim();\n    if (!id || sheet[id]) {                                    // new row typed into the sheet (or a copied row): give it its own id\n      if (!any) return;\n      id = Utilities.getUuid(); idWrites.push([i + 2, id]);\n    }\n    var d = {}; cols.forEach(function (c) { d[c.id] = norm_(c.type, row[colIdx[c.id]], tz, fmt); });\n    sheet[id] = { done: row[1] === true || String(row[1]).toLowerCase() === 'true', title: String(row[2] == null ? '' : row[2]), notes: String(row[3] == null ? '' : row[3]), data: d };\n    rowOf[id] = i + 2;\n  });\n  idWrites.forEach(function (w) { sh.getRange(w[0], 1).setValue(w[1]); });\n\n  // baseline = state both sides agreed on after the previous sync\n  var bs = ss.getSheetByName(CFG.base) || ss.insertSheet(CFG.base), base = {};\n  if (bs.getLastRow() > 0) bs.getRange(1, 1, bs.getLastRow(), 2).getValues().forEach(function (r) { if (r[0]) base[r[0]] = String(r[1]); });\n\n  var plan = planSync_(app, sheet, base, cols, hash_);\n\n  // 1) sheet -> app\n  var ups = plan.pushUp.map(function (id) {\n    var r = sheet[id], data = {}; cols.forEach(function (c) { data[c.id] = r.data[c.id]; });\n    return { id: id, done: r.done, title: r.title, notes: r.notes, data: data };\n  });\n  if (ups.length || plan.pushDel.length) api_('sync_push', { tok: CFG.token, upserts: ups, deletes: plan.pushDel });\n\n  // 2) app -> sheet (update rows, append new ones, then delete from the bottom up)\n  var rowValues = function (id, r) {\n    var out = new Array(head.length); for (var i = 0; i < out.length; i++) out[i] = '';\n    out[0] = id; out[1] = !!r.done; out[2] = safeText_(r.title); out[3] = safeText_(r.notes);\n    cols.forEach(function (c) { var v = r.data[c.id]; out[colIdx[c.id]] = v == null ? '' : (c.type === 'text' ? safeText_(v) : v); });\n    return out;\n  };\n  var appendRows = [];\n  plan.toSheet.forEach(function (id) {\n    if (rowOf[id]) sh.getRange(rowOf[id], 1, 1, head.length).setValues([rowValues(id, app[id])]); else appendRows.push(rowValues(id, app[id]));\n  });\n  if (appendRows.length) {\n    var start = Math.max(sh.getLastRow(), 1) + 1;\n    sh.getRange(start, 1, appendRows.length, head.length).setValues(appendRows);\n  }\n  plan.delSheet.map(function (id) { return rowOf[id]; }).sort(function (a, b) { return b - a; }).forEach(function (r) { sh.deleteRow(r); });\n\n  // checkboxes + date format for the whole used range\n  var n = Math.max(sh.getLastRow() - 1, 1);\n  sh.getRange(2, 2, n, 1).insertCheckboxes();\n  cols.forEach(function (c) {\n    if (c.type === 'checkbox') sh.getRange(2, colIdx[c.id] + 1, n, 1).insertCheckboxes();\n    if (c.type === 'date' || c.type === 'due') sh.getRange(2, colIdx[c.id] + 1, n, 1).setNumberFormat('yyyy-mm-dd');\n  });\n\n  // 3) remember the agreed state\n  var ids = Object.keys(plan.newBase);\n  bs.clear(); if (ids.length) bs.getRange(1, 1, ids.length, 2).setValues(ids.map(function (id) { return [id, plan.newBase[id]]; }));\n  bs.hideSheet();\n}\n";
-function buildSyncScript(token) {
-  return SYNC_SRC.replace('__TITLE__', () => String(state.cur.title).replace(/[\r\n*\/]/g, ' ')).replace('__URL__', () => SUPABASE_URL).replace('__KEY__', () => SUPABASE_ANON_KEY).replace('__TOKEN__', () => token);
-}
-async function syncModal() {
-  const lid = state.cur.id;
-  const draw = (token, err) => {
-    const close = modal(`<h3>🔄 ${TE('sync_title')}</h3><p class="muted small">${TE('sync_intro')}</p>
-      ${err ? `<div class="msg">${esc(err)}</div>` : token ? `<ol class="small syncsteps"><li>${TE('sync_s1')}</li><li>${TE('sync_s2')}</li><li>${TE('sync_s3')}</li><li>${TE('sync_s4')}</li></ol>
-        <textarea id="syncSrc" readonly rows="7" spellcheck="false"></textarea>
-        <p class="small" style="color:var(--danger)">⚠ ${TE('sync_warn')}</p>
-        <div class="actions"><button class="btn primary" id="syncCopy">${TE('sync_copy')}</button><button class="btn" id="syncRenew">${TE('sync_renew')}</button><span class="spacer"></span><button class="btn danger" id="syncOff">${TE('sync_disable')}</button></div>`
-      : `<div class="actions"><button class="btn primary" id="syncOn">${TE('sync_enable')}</button><span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button></div>`}`,
-    (m, cl) => {
-      const x = $('[data-x]', m); if (x) x.onclick = cl;
-      const on = $('#syncOn', m); if (on) on.onclick = async () => { const r = await sb.rpc('enable_list_sync', { lid }); cl(); if (r.error) return toast(errText(r.error), true); draw(r.data); };
-      if (token) {
-        $('#syncSrc', m).value = buildSyncScript(token);
-        $('#syncCopy', m).onclick = async () => { const ta = $('#syncSrc', m); ta.select(); try { await navigator.clipboard.writeText(ta.value); } catch (e) { document.execCommand('copy'); } toast(T('sync_copied')); };
-        $('#syncRenew', m).onclick = async () => { if (!(await confirmBox(T('sync_renew_c'), T('sync_renew')))) return; const r = await sb.rpc('enable_list_sync', { lid, renew: true }); cl(); if (r.error) return toast(errText(r.error), true); draw(r.data); };
-        $('#syncOff', m).onclick = async () => { if (!(await confirmBox(T('sync_disable_c'), T('sync_disable')))) return; const r = await sb.rpc('disable_list_sync', { lid }); if (r.error) return toast(errText(r.error), true); cl(); draw(null); };
-      }
-    }, null, 'wide');
-  };
-  const r = await sb.rpc('get_list_sync', { lid });
-  if (r.error) return draw(null, /function|schema cache|does not exist|404/i.test(r.error.message || '') ? T('sync_missing') : errText(r.error));
-  draw(r.data || null);
-}
+// ===== Google-Sheets / Apps-Script sync: DISABLED (commented out). Remove the DB side with remigration.sql. =====
+// const SYNC_SRC = "/*  TPC2Do <-> Google Sheets sync (BETA)\n *  Generated for the list \"__TITLE__\". This script contains a secret token for exactly this list:\n *  anyone who can see this script (or the spreadsheet's script project) can read and change that list.\n *\n *  Setup: paste this into Extensions > Apps Script, save, reload the spreadsheet, then menu\n *  \"TPC2Do\" > \"Set up auto sync\". Google asks once for permission (it needs to call the internet).\n *\n *  Sheet \"TPC2Do\": column A = ID (hidden, do not edit), B = done, C = task, D = notes, then your own columns.\n *  Conflicts: if a row was changed on BOTH sides since the last sync, the app version wins.\n *  Not synced: sub-list links, formula columns, row order.\n */\nvar CFG = { url: '__URL__', key: '__KEY__', token: '__TOKEN__', sheet: 'TPC2Do', base: '_tpc2do_base' };\n\n/* ---- pure logic (no Google services) ---- */\nfunction norm_(type, v, tz, fmt) {\n  if (type === 'number' || type === 'priority') {\n    if (v === '' || v == null) return null;\n    var n = Number(typeof v === 'string' ? v.replace(',', '.') : v);\n    return isFinite(n) ? n : null;\n  }\n  if (type === 'checkbox') return v === true || v === 'true' || v === 'TRUE' || v === 1;\n  if (type === 'date' || type === 'due') {\n    if (v instanceof Date) return fmt ? fmt(v, tz) : v.toISOString().slice(0, 10);\n    if (typeof v === 'string' && /^\\d{4}-\\d{2}-\\d{2}/.test(v.trim())) return v.trim().slice(0, 10);\n    return null;\n  }\n  if (v == null || v === '') return null;\n  return String(v);\n}\nfunction hashRec_(r, cols, hash) {\n  var a = [r.done ? 1 : 0, r.title || '', r.notes || ''];\n  for (var i = 0; i < cols.length; i++) { var v = r.data ? r.data[cols[i].id] : null; a.push(v == null ? null : v); }\n  return hash(JSON.stringify(a));\n}\n// app / sheet: {id: rec}; base: {id: hash}; returns what has to be done on each side\nfunction planSync_(app, sheet, base, cols, hash) {\n  var out = { pushUp: [], pushDel: [], toSheet: [], delSheet: [], newBase: {} }, ids = {}, k;\n  for (k in app) ids[k] = 1; for (k in sheet) ids[k] = 1; for (k in base) ids[k] = 1;\n  Object.keys(ids).forEach(function (id) {\n    var a = app[id], s = sheet[id], b = base[id];\n    var ha = a ? hashRec_(a, cols, hash) : null, hs = s ? hashRec_(s, cols, hash) : null;\n    if (a && s) {\n      if (ha === hs) { out.newBase[id] = ha; return; }\n      if (b !== undefined && hs !== b && ha === b) { out.pushUp.push(id); out.newBase[id] = hs; }     // only the sheet changed\n      else { out.toSheet.push(id); out.newBase[id] = ha; }                                          // app changed (or both / first sync): app wins\n    } else if (a) {\n      if (b === undefined || ha !== b) { out.toSheet.push(id); out.newBase[id] = ha; }               // new in app, or edited while the row was deleted\n      else out.pushDel.push(id);                                                                     // deleted in the sheet, untouched in the app\n    } else if (s) {\n      if (b === undefined || hs !== b) { out.pushUp.push(id); out.newBase[id] = hs; }                // new in sheet, or edited while deleted in app\n      else out.delSheet.push(id);                                                                    // deleted in the app, untouched in the sheet\n    }\n  });\n  return out;\n}\n/* ---- end of pure logic ---- */\n\nfunction onOpen() {\n  SpreadsheetApp.getUi().createMenu('TPC2Do')\n    .addItem('Sync now', 'syncNow').addItem('Set up auto sync (every 5 min)', 'setup').addItem('Stop auto sync', 'stopAuto').addToUi();\n}\nfunction setup() { stopAuto(); ScriptApp.newTrigger('syncNow').timeBased().everyMinutes(5).create(); syncNow(); }\nfunction stopAuto() {\n  ScriptApp.getProjectTriggers().forEach(function (t) { if (t.getHandlerFunction() === 'syncNow') ScriptApp.deleteTrigger(t); });\n}\nfunction api_(fn, body) {\n  var r = UrlFetchApp.fetch(CFG.url + '/rest/v1/rpc/' + fn, {\n    method: 'post', contentType: 'application/json', headers: { apikey: CFG.key },\n    payload: JSON.stringify(body), muteHttpExceptions: true\n  });\n  if (r.getResponseCode() >= 300) throw new Error(fn + ' failed (' + r.getResponseCode() + '): ' + r.getContentText());\n  return JSON.parse(r.getContentText());\n}\nfunction hash_(s) {\n  return Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, s, Utilities.Charset.UTF_8)).slice(0, 22);\n}\nfunction safeText_(s) { s = s == null ? '' : String(s); return /^[=+\\-@]/.test(s) ? \"'\" + s : s; }\n\nfunction syncNow() {\n  var lock = LockService.getScriptLock();\n  if (!lock.tryLock(25000)) return;\n  try { run_(); } finally { lock.releaseLock(); }\n}\n\nfunction run_() {\n  var pull = api_('sync_pull', { tok: CFG.token });\n  var cols = (pull.columns || []).filter(function (c) {\n    return c && c.id && ['task', 'notes', 'sub'].indexOf(c.id) < 0 && ['text', 'number', 'date', 'checkbox', 'priority', 'due'].indexOf(c.type) >= 0;\n  });\n  var ss = SpreadsheetApp.getActive(), tz = ss.getSpreadsheetTimeZone();\n  var fmt = function (d, z) { return Utilities.formatDate(d, z, 'yyyy-MM-dd'); };\n  var sh = ss.getSheetByName(CFG.sheet) || ss.insertSheet(CFG.sheet);\n\n  // header: A..D fixed, then one column per custom column (matched by name, missing ones are appended)\n  var width = Math.max(sh.getLastColumn(), 4), head = sh.getRange(1, 1, 1, width).getValues()[0];\n  ['ID', '\u2713', 'Task', 'Notes'].forEach(function (h, i) { if (!head[i]) { sh.getRange(1, i + 1).setValue(h); head[i] = h; } });\n  var colIdx = {};\n  cols.forEach(function (c) {\n    var name = String(c.name || c.id).trim().toLowerCase(), j = -1;\n    for (var i = 4; i < head.length; i++) if (String(head[i]).trim().toLowerCase() === name) { j = i; break; }\n    if (j < 0) { j = head.length; head.push(c.name || c.id); sh.getRange(1, j + 1).setValue(c.name || c.id); }\n    colIdx[c.id] = j;\n  });\n  sh.getRange(1, 1, 1, head.length).setFontWeight('bold'); sh.setFrozenRows(1); sh.hideColumns(1);\n\n  // app side\n  var app = {};\n  (pull.tasks || []).forEach(function (t) {\n    var d = {}; cols.forEach(function (c) { d[c.id] = norm_(c.type, t.data ? t.data[c.id] : null, tz, fmt); });\n    app[t.id] = { done: !!t.done, title: t.title || '', notes: t.notes || '', data: d };\n  });\n\n  // sheet side\n  var last = sh.getLastRow(), vals = last > 1 ? sh.getRange(2, 1, last - 1, head.length).getValues() : [];\n  var sheet = {}, rowOf = {}, idWrites = [];\n  vals.forEach(function (row, i) {\n    var any = row.slice(1).some(function (v) { return v !== '' && v !== false && v != null; });\n    if (!any && !row[0]) return;\n    var id = String(row[0] || '').trim();\n    if (!id || sheet[id]) {                                    // new row typed into the sheet (or a copied row): give it its own id\n      if (!any) return;\n      id = Utilities.getUuid(); idWrites.push([i + 2, id]);\n    }\n    var d = {}; cols.forEach(function (c) { d[c.id] = norm_(c.type, row[colIdx[c.id]], tz, fmt); });\n    sheet[id] = { done: row[1] === true || String(row[1]).toLowerCase() === 'true', title: String(row[2] == null ? '' : row[2]), notes: String(row[3] == null ? '' : row[3]), data: d };\n    rowOf[id] = i + 2;\n  });\n  idWrites.forEach(function (w) { sh.getRange(w[0], 1).setValue(w[1]); });\n\n  // baseline = state both sides agreed on after the previous sync\n  var bs = ss.getSheetByName(CFG.base) || ss.insertSheet(CFG.base), base = {};\n  if (bs.getLastRow() > 0) bs.getRange(1, 1, bs.getLastRow(), 2).getValues().forEach(function (r) { if (r[0]) base[r[0]] = String(r[1]); });\n\n  var plan = planSync_(app, sheet, base, cols, hash_);\n\n  // 1) sheet -> app\n  var ups = plan.pushUp.map(function (id) {\n    var r = sheet[id], data = {}; cols.forEach(function (c) { data[c.id] = r.data[c.id]; });\n    return { id: id, done: r.done, title: r.title, notes: r.notes, data: data };\n  });\n  if (ups.length || plan.pushDel.length) api_('sync_push', { tok: CFG.token, upserts: ups, deletes: plan.pushDel });\n\n  // 2) app -> sheet (update rows, append new ones, then delete from the bottom up)\n  var rowValues = function (id, r) {\n    var out = new Array(head.length); for (var i = 0; i < out.length; i++) out[i] = '';\n    out[0] = id; out[1] = !!r.done; out[2] = safeText_(r.title); out[3] = safeText_(r.notes);\n    cols.forEach(function (c) { var v = r.data[c.id]; out[colIdx[c.id]] = v == null ? '' : (c.type === 'text' ? safeText_(v) : v); });\n    return out;\n  };\n  var appendRows = [];\n  plan.toSheet.forEach(function (id) {\n    if (rowOf[id]) sh.getRange(rowOf[id], 1, 1, head.length).setValues([rowValues(id, app[id])]); else appendRows.push(rowValues(id, app[id]));\n  });\n  if (appendRows.length) {\n    var start = Math.max(sh.getLastRow(), 1) + 1;\n    sh.getRange(start, 1, appendRows.length, head.length).setValues(appendRows);\n  }\n  plan.delSheet.map(function (id) { return rowOf[id]; }).sort(function (a, b) { return b - a; }).forEach(function (r) { sh.deleteRow(r); });\n\n  // checkboxes + date format for the whole used range\n  var n = Math.max(sh.getLastRow() - 1, 1);\n  sh.getRange(2, 2, n, 1).insertCheckboxes();\n  cols.forEach(function (c) {\n    if (c.type === 'checkbox') sh.getRange(2, colIdx[c.id] + 1, n, 1).insertCheckboxes();\n    if (c.type === 'date' || c.type === 'due') sh.getRange(2, colIdx[c.id] + 1, n, 1).setNumberFormat('yyyy-mm-dd');\n  });\n\n  // 3) remember the agreed state\n  var ids = Object.keys(plan.newBase);\n  bs.clear(); if (ids.length) bs.getRange(1, 1, ids.length, 2).setValues(ids.map(function (id) { return [id, plan.newBase[id]]; }));\n  bs.hideSheet();\n}\n";
+// function buildSyncScript(token) {
+//   return SYNC_SRC.replace('__TITLE__', () => String(state.cur.title).replace(/[\r\n*\/]/g, ' ')).replace('__URL__', () => SUPABASE_URL).replace('__KEY__', () => SUPABASE_ANON_KEY).replace('__TOKEN__', () => token);
+// }
+// async function syncModal() {
+//   const lid = state.cur.id;
+//   const draw = (token, err) => {
+//     const close = modal(`<h3>🔄 ${TE('sync_title')}</h3><p class="muted small">${TE('sync_intro')}</p>
+//       ${err ? `<div class="msg">${esc(err)}</div>` : token ? `<ol class="small syncsteps"><li>${TE('sync_s1')}</li><li>${TE('sync_s2')}</li><li>${TE('sync_s3')}</li><li>${TE('sync_s4')}</li></ol>
+//         <textarea id="syncSrc" readonly rows="7" spellcheck="false"></textarea>
+//         <p class="small" style="color:var(--danger)">⚠ ${TE('sync_warn')}</p>
+//         <div class="actions"><button class="btn primary" id="syncCopy">${TE('sync_copy')}</button><button class="btn" id="syncRenew">${TE('sync_renew')}</button><span class="spacer"></span><button class="btn danger" id="syncOff">${TE('sync_disable')}</button></div>`
+//       : `<div class="actions"><button class="btn primary" id="syncOn">${TE('sync_enable')}</button><span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button></div>`}`,
+//     (m, cl) => {
+//       const x = $('[data-x]', m); if (x) x.onclick = cl;
+//       const on = $('#syncOn', m); if (on) on.onclick = async () => { const r = await sb.rpc('enable_list_sync', { lid }); cl(); if (r.error) return toast(errText(r.error), true); draw(r.data); };
+//       if (token) {
+//         $('#syncSrc', m).value = buildSyncScript(token);
+//         $('#syncCopy', m).onclick = async () => { const ta = $('#syncSrc', m); ta.select(); try { await navigator.clipboard.writeText(ta.value); } catch (e) { document.execCommand('copy'); } toast(T('sync_copied')); };
+//         $('#syncRenew', m).onclick = async () => { if (!(await confirmBox(T('sync_renew_c'), T('sync_renew')))) return; const r = await sb.rpc('enable_list_sync', { lid, renew: true }); cl(); if (r.error) return toast(errText(r.error), true); draw(r.data); };
+//         $('#syncOff', m).onclick = async () => { if (!(await confirmBox(T('sync_disable_c'), T('sync_disable')))) return; const r = await sb.rpc('disable_list_sync', { lid }); if (r.error) return toast(errText(r.error), true); cl(); draw(null); };
+//       }
+//     }, null, 'wide');
+//   };
+//   const r = await sb.rpc('get_list_sync', { lid });
+//   if (r.error) return draw(null, /function|schema cache|does not exist|404/i.test(r.error.message || '') ? T('sync_missing') : errText(r.error));
+//   draw(r.data || null);
+// }
 function csvItems() {
   const items = [{ ic: '⬇', k: 'csv_export', fn: exportCsv }];
   if (state.role !== 'view') { items.push({ ic: '⬆', k: 'csv_import', fn: importCsvPick }); items.push({ ic: '🌐', k: 'gs_import', fn: importGoogleSheet }); }
-  if (state.role === 'owner' && beta('Sync')) items.push({ ic: '🔄', k: 'sync_item', fn: syncModal });
+  // sync disabled: if (state.role === 'owner' && beta('Sync')) items.push({ ic: '🔄', k: 'sync_item', fn: syncModal });
   return items;
 }
 function exportCsv() {
@@ -2434,9 +2693,9 @@ function importDialog(rows, hr0) {
     const clip = v => { v = String(v == null ? '' : v); return v.length > 26 ? v.slice(0, 25) + '…' : v; };
     const render = () => {
       const hr = +sel.value, map = guessMap(rows, hr), head = hr >= 0 ? rows[hr] : [];
-      const opts = v => `<option value="skip" ${v === 'skip' ? 'selected' : ''}>${TE('imp_ignore')}</option><option value="done" ${v === 'done' ? 'selected' : ''}>${TE('imp_done')}</option><option value="task" ${v === 'task' ? 'selected' : ''}>${TE('imp_task')}</option><option value="notes" ${v === 'notes' ? 'selected' : ''}>${TE('imp_notes')}</option>` +
-        custom.map(c => `<option value="col:${c.id}" ${v === 'col:' + c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('') + `<option value="new">${TE('imp_newcol')}</option>`;
-      $('#ihead', m).innerHTML = `<tr>${map.map((v, i) => `<th><div class="ih">${esc(clip(head[i]) || TE('imp_col') + ' ' + letter(i))}</div><select data-i="${i}">${opts(v)}</select></th>`).join('')}</tr>`;
+      const opts = (v, i) => `<option value="skip" ${v === 'skip' ? 'selected' : ''}>${TE('imp_ignore')}</option><option value="done" ${v === 'done' ? 'selected' : ''}>${TE('imp_done')}</option><option value="task" ${v === 'task' ? 'selected' : ''}>${TE('imp_task')}</option><option value="notes" ${v === 'notes' ? 'selected' : ''}>${TE('imp_notes')}</option>` +
+        custom.map(c => `<option value="col:${c.id}" ${v === 'col:' + c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('') + `<option value="new" ${v === 'new' ? 'selected' : ''}>${TE('imp_newcol_file')}${head[i] ? ' “' + esc(clip(head[i])) + '”' : ''}</option>`;
+      $('#ihead', m).innerHTML = `<tr>${map.map((v, i) => `<th><div class="ih">${esc(clip(head[i]) || TE('imp_col') + ' ' + letter(i))}</div><select data-i="${i}">${opts(v, i)}</select></th>`).join('')}</tr>`;
       $('#ibody', m).innerHTML = rows.slice(hr + 1, hr + 4).map(r => `<tr>${map.map((_, i) => `<td>${esc(clip(r[i]))}</td>`).join('')}</tr>`).join('');
     };
     sel.onchange = render; render();
@@ -2507,8 +2766,7 @@ async function loadMembers(lid) {
     .sort((a, b) => a.username.localeCompare(b.username));
 }
 
-async function shareModal() {
-  const l = state.cur;
+async function shareModal(l = state.cur) {
   const [tk, members0] = await Promise.all([sb.rpc('get_share_token', { lid: l.id }), loadMembers(l.id)]);
   if (tk.error) return toast(errText(tk.error), true);
   let token = tk.data, members = members0;
@@ -2521,10 +2779,13 @@ async function shareModal() {
       <option value="edit">${TE('link_edit')}</option>
     </select>
     <div id="linkBox"></div>
+    ${beta('Public') ? `<label class="check small" style="margin-top:10px"><input type="checkbox" id="pubView" ${l.public_view ? 'checked' : ''}>${TE('share_public')}</label><div id="pubBox"></div>` : ''}
     <h4>${TE('by_user')}</h4>
     <div class="row"><input id="shUser" placeholder="${TE('user_ph')}" style="flex:1;min-width:0" autocomplete="off">
       <select id="shRole"><option value="edit">${TE('r_edit')}</option><option value="view">${TE('r_view')}</option></select>
       <button class="btn primary" id="shAdd">${TE('add')}</button></div>
+    <label class="check small"><input type="checkbox" id="shSubs">${TE('share_subs')}</label>
+    <div id="recentBox" class="recent"></div>
     <div class="members" id="memberList"></div>
     <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('done')}</button></div>`,
   (m, close) => {
@@ -2534,12 +2795,18 @@ async function shareModal() {
       const box = $('#linkBox', m);
       if (roleSel.value === 'none') { box.innerHTML = ''; return; }
       box.innerHTML = `<div class="linkrow"><input id="lnk" readonly value="${esc(url())}"><button class="btn" id="cp">${TE('link_copy')}</button></div>
+        <label class="check small"><input type="checkbox" id="lnkSubs" ${l.link_subs ? 'checked' : ''}>${TE('share_subs_link')}</label>
         <small>${TE('link_note')}</small><br>
         <button class="linkbtn small" id="rot">${TE('link_rotate')}</button>`;
       $('#cp', m).onclick = async () => {
         const inp = $('#lnk', m);
         try { await navigator.clipboard.writeText(inp.value); toast(T('link_copied')); }
         catch (e) { inp.select(); document.execCommand('copy'); toast(T('link_copied')); }
+      };
+      $('#lnkSubs', m).onchange = async e => {
+        const { error } = await sb.from('lists').update({ link_subs: e.target.checked }).eq('id', l.id);
+        if (error) { e.target.checked = !!l.link_subs; return toast(errText(error), true); }
+        l.link_subs = e.target.checked;
       };
       $('#rot', m).onclick = async () => {
         if (!(await confirmBox(T('confirm_rotate'), T('link_rotate').replace(/\s*\(.*\)$/, '')))) return;
@@ -2554,6 +2821,16 @@ async function shareModal() {
       l.link_role = roleSel.value; drawLink();
     };
     drawLink();
+    const pv = $('#pubView', m);
+    if (pv) {
+      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div>` : ''; const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
+      pv.onchange = async () => {
+        const { error } = await sb.from('lists').update({ public_view: pv.checked }).eq('id', l.id);
+        if (error) { pv.checked = !!l.public_view; return toast(errText(error), true); }
+        l.public_view = pv.checked; drawPub();
+      };
+      drawPub();
+    }
 
     const drawMembers = () => {
       const box = $('#memberList', m);
@@ -2576,13 +2853,20 @@ async function shareModal() {
     };
     drawMembers();
 
-    const add = async () => {
-      const name = $('#shUser', m).value.trim(); if (!name) return;
-      const { error } = await sb.rpc('share_with_username', { lid: l.id, uname: name, r: $('#shRole', m).value });
-      if (error) return toast(errText(error), true);
-      $('#shUser', m).value = ''; members = await loadMembers(l.id); drawMembers(); toast(T('shared_ok'));
+    const drawRecent = () => {
+      const box = $('#recentBox', m), names = prefs.recent.filter(n => !members.some(x => x.username.toLowerCase() === n.toLowerCase()));
+      box.innerHTML = names.length ? `<div class="muted small">${TE('recent_title')}</div>` + names.map(n => `<button type="button" class="chip" data-rn="${esc(n)}">👤 ${esc(n)}</button>`).join(' ') : '';
+      box.querySelectorAll('[data-rn]').forEach(b => { b.onclick = () => add(b.dataset.rn); });
     };
-    $('#shAdd', m).onclick = add;
+    const add = async name => {
+      name = (typeof name === 'string' ? name : $('#shUser', m).value).trim(); if (!name) return;
+      const { error } = await sb.rpc('share_with_username', { lid: l.id, uname: name, r: $('#shRole', m).value, subs: $('#shSubs', m).checked });
+      if (error) return toast(errText(error), true);
+      prefs.recent = [name, ...prefs.recent.filter(n => n.toLowerCase() !== name.toLowerCase())].slice(0, 8); savePrefs();
+      $('#shUser', m).value = ''; members = await loadMembers(l.id); drawMembers(); drawRecent(); toast(T('shared_ok'));
+    };
+    drawRecent();
+    $('#shAdd', m).onclick = () => add();
     $('#shUser', m).addEventListener('keydown', e => { if (e.key === 'Enter') add(); });
   });
 }
@@ -2592,7 +2876,7 @@ function renderAccount() {
   const p = state.profile || {}, email = state.user.email || '';
   document.title = T('acc_title') + ' – TPC2Do';
   app.innerHTML = topbar() + `<main class="wrap narrow">
-    <nav class="crumbs"><a href="#/">${TE('my_lists')}</a> › <span>${TE('acc_title')}</span></nav>
+    <nav class="crumbs"><a href="#/">${TE('my_lists')}</a> › ${state.backList ? `<a href="#/list/${state.backList.id}">${esc(state.backList.title)}</a> › ` : ''}<span>${TE('acc_title')}</span></nav>
     <h2>${TE('acc_title')}</h2>
 
     <section class="panel"><h3>${TE('acc_profile')}</h3>
@@ -2668,7 +2952,7 @@ const THEME_DOTS = {
 function renderSettings() {
   document.title = T('set_title') + ' – TPC2Do';
   app.innerHTML = topbar() + `<main class="wrap narrow">
-    <nav class="crumbs"><a href="#/">${TE('my_lists')}</a> › <span>${TE('set_title')}</span></nav>
+    <nav class="crumbs"><a href="#/">${TE('my_lists')}</a> › ${state.backList ? `<a href="#/list/${state.backList.id}">${esc(state.backList.title)}</a> › ` : ''}<span>${TE('set_title')}</span></nav>
     <h2>${TE('set_title')}</h2>
 
     <section class="panel"><h3>${TE('set_appearance')}</h3>
@@ -2699,9 +2983,10 @@ function renderSettings() {
       <label class="check"><input type="checkbox" id="prefSkip" ${prefs.skipIntro ? 'checked' : ''}>${TE('pref_skipintro')}</label>
       <div class="row wrapx"><label class="check" style="margin:0"><input type="checkbox" id="prefSound" ${prefs.sound ? 'checked' : ''}>${TE('pref_sound')}</label>
         <button class="btn" id="soundTest">🔊 ${TE('pref_sound_test')}</button></div>
+      <div class="setrow"><span>${TE('pref_volume')}</span><span class="row"><input type="range" id="prefVol" min="0" max="100" step="5" value="${prefs.volume}" aria-label="${TE('pref_volume')}" style="width:160px"><output id="prefVolOut" style="min-width:3.2em;text-align:right">${prefs.volume}%</output></span></div>
     </section>
     ${hasBetaList() ? `<section class="panel beta"><h3>🧪 ${TE('set_beta')}</h3><p class="muted small hint">${TE('beta_desc')}</p>
-      ${['Formulas', 'Prio', 'Sync'].map(k => `<label class="check" style="margin-bottom:2px"><input type="checkbox" data-beta="${k}" ${prefs['beta' + k] ? 'checked' : ''}>${TE('beta_' + k.toLowerCase())}</label><p class="muted small hint" style="margin-top:0">${TE('beta_' + k.toLowerCase() + '_d')}</p>`).join('')}
+      ${['Public'].map(k => `<label class="check" style="margin-bottom:2px"><input type="checkbox" data-beta="${k}" ${prefs['beta' + k] ? 'checked' : ''}>${TE('beta_' + k.toLowerCase())}</label><p class="muted small hint" style="margin-top:0">${TE('beta_' + k.toLowerCase() + '_d')}</p>`).join('')}
     </section>` : ''}
   </main>`;
   bindTop();
@@ -2724,6 +3009,7 @@ function renderSettings() {
   $('#prefSkip').onchange = e => { prefs.skipIntro = e.target.checked; savePrefs(); };
   $('#prefSound').onchange = e => { prefs.sound = e.target.checked; savePrefs(); };
   $('#soundTest').onclick = playSoundNow;
+  const pv = $('#prefVol'); pv.oninput = () => { prefs.volume = +pv.value; $('#prefVolOut').textContent = pv.value + '%'; }; pv.onchange = () => { savePrefs(); playSoundNow(); };
   document.querySelectorAll('[data-beta]').forEach(b => b.onchange = () => { prefs['beta' + b.dataset.beta] = b.checked; savePrefs(); });
 }
 

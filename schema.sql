@@ -1,6 +1,11 @@
 -- =====================================================================
--- TPC2Do – Datenbank-Schema für Supabase
+-- TPC2Do – Datenbank-Schema für Supabase (komplett, Stand: alle Funktionen)
 -- Supabase-Dashboard → SQL Editor → New query → alles einfügen → Run
+--
+-- Das ist die EINZIGE Datei, die für eine neue Installation nötig ist.
+-- (Du hast schon eine ältere Version laufen? Dann stattdessen migration_round9.sql ausführen.)
+-- Die SQL-Editor-Einträge ("Snippets") darfst du nach dem Ausführen löschen –
+-- die Tabellen/Funktionen bleiben in der Datenbank bestehen.
 -- =====================================================================
 
 -- ---------- Tabellen -------------------------------------------------
@@ -22,6 +27,8 @@ create table public.lists (
   columns     jsonb not null default '[]'::jsonb,      -- eigene Spalten: [{id,name,type}]
   link_role   text not null default 'none' check (link_role in ('none','view','edit')),
   share_token uuid not null default gen_random_uuid(), -- geheimer Token für den Teilen-Link
+  link_subs   boolean not null default false,          -- Beitritt per Link gibt auch die verknüpften Unterlisten frei
+  public_view boolean not null default false,          -- (Beta) schreibgeschützte Ansicht ohne Login unter #/view/<token>
   created_at  timestamptz not null default now()
 );
 create unique index lists_share_token_idx on public.lists (share_token);
@@ -96,10 +103,21 @@ language sql stable security definer set search_path = public as $$
   select not exists (select 1 from public.profiles where lower(username) = lower(trim(uname)));
 $$;
 
--- Liste mit einem Konto (per Konto-Name) teilen – nur Besitzer
-create or replace function public.share_with_username(lid uuid, uname text, r text) returns void
+-- Alle (auch verschachtelten) verknüpften Unterlisten einer Liste, die dem Aufrufer gehören
+create or replace function public.owned_sublists(lid uuid) returns setof uuid
+language sql stable security definer set search_path = public as $$
+  with recursive s(id) as (
+    select t.sub_list_id from public.tasks t where t.list_id = lid and t.sub_list_id is not null
+    union
+    select t.sub_list_id from public.tasks t join s on t.list_id = s.id where t.sub_list_id is not null
+  )
+  select l.id from s join public.lists l on l.id = s.id where l.owner_id = auth.uid() and l.id <> lid;
+$$;
+
+-- Liste mit einem Konto (per Konto-Name) teilen – nur Besitzer; optional inkl. Unterlisten
+create or replace function public.share_with_username(lid uuid, uname text, r text, subs boolean default false) returns void
 language plpgsql security definer set search_path = public as $$
-declare target uuid;
+declare target uuid; sid uuid;
 begin
   if not public.is_list_owner(lid) then
     raise exception 'Nur der Besitzer kann diese Liste teilen.';
@@ -116,6 +134,13 @@ begin
   end if;
   insert into public.list_members (list_id, user_id, role) values (lid, target, r)
   on conflict (list_id, user_id) do update set role = excluded.role;
+  if subs then
+    for sid in select public.owned_sublists(lid) loop
+      insert into public.list_members (list_id, user_id, role) values (sid, target, r)
+      on conflict (list_id, user_id) do update
+        set role = case when public.list_members.role = 'edit' or excluded.role = 'edit' then 'edit' else 'view' end;
+    end loop;
+  end if;
 end $$;
 
 -- Über Teilen-Link beitreten (Berechtigung = link_role der Liste, nie eine Herabstufung)
@@ -134,6 +159,17 @@ begin
     insert into public.list_members (list_id, user_id, role) values (l.id, auth.uid(), l.link_role)
     on conflict (list_id, user_id) do update
       set role = case when public.list_members.role = 'edit' or excluded.role = 'edit' then 'edit' else 'view' end;
+    if l.link_subs then          -- verknüpfte Unterlisten des Besitzers ebenfalls (mit derselben Berechtigung)
+      insert into public.list_members (list_id, user_id, role)
+        select s.id, auth.uid(), l.link_role
+        from (with recursive s(id) as (
+                select t.sub_list_id from public.tasks t where t.list_id = l.id and t.sub_list_id is not null
+                union
+                select t.sub_list_id from public.tasks t join s on t.list_id = s.id where t.sub_list_id is not null)
+              select x.id from s join public.lists x on x.id = s.id where x.owner_id = l.owner_id and x.id <> l.id) s
+      on conflict (list_id, user_id) do update
+        set role = case when public.list_members.role = 'edit' or excluded.role = 'edit' then 'edit' else 'view' end;
+    end if;
   end if;
   return l.id;
 end $$;
@@ -174,18 +210,35 @@ begin
   return t;
 end $$;
 
+-- Anmeldung per Konto-Name: liefert die E-Mail zu einem Konto-Namen (nötig, weil Supabase nur mit E-Mail anmeldet).
+-- Hinweis: Wer einen Konto-Namen kennt, kann damit die zugehörige E-Mail abfragen.
+create or replace function public.login_email(uname text) returns text
+language sql stable security definer set search_path = public, auth as $$
+  select u.email::text from public.profiles p join auth.users u on u.id = p.id
+  where lower(p.username) = lower(trim(uname)) limit 1;
+$$;
+
+-- (Beta) Öffentliche, schreibgeschützte Ansicht einer Liste anhand ihres Tokens (ohne Login)
+create or replace function public.get_public_list(tok uuid) returns jsonb
+language sql stable security definer set search_path = public as $$
+  select jsonb_build_object('title', l.title, 'columns', l.columns,
+    'tasks', coalesce((select jsonb_agg(jsonb_build_object('id', t.id, 'done', t.done, 'title', t.title, 'notes', t.notes, 'data', t.data)
+                       order by t.done, t.position) from public.tasks t where t.list_id = l.id), '[]'::jsonb))
+  from public.lists l where l.share_token = tok and l.public_view;
+$$;
+
 -- Funktionsrechte: nur angemeldete Nutzer (username_available auch anonym)
 revoke all on function public.is_list_owner(uuid), public.is_list_member(uuid), public.can_view_list(uuid), public.can_edit_list(uuid),
-  public.username_available(text), public.share_with_username(uuid, text, text),
+  public.username_available(text), public.share_with_username(uuid, text, text, boolean), public.owned_sublists(uuid),
   public.join_list_by_token(uuid), public.set_list_columns(uuid, jsonb),
-  public.get_share_token(uuid), public.rotate_share_token(uuid)
+  public.get_share_token(uuid), public.rotate_share_token(uuid), public.login_email(text), public.get_public_list(uuid)
   from public, anon, authenticated;
 
 grant execute on function public.is_list_owner(uuid), public.is_list_member(uuid), public.can_view_list(uuid), public.can_edit_list(uuid),
-  public.share_with_username(uuid, text, text), public.join_list_by_token(uuid),
+  public.share_with_username(uuid, text, text, boolean), public.owned_sublists(uuid), public.join_list_by_token(uuid),
   public.set_list_columns(uuid, jsonb), public.get_share_token(uuid), public.rotate_share_token(uuid)
   to authenticated;
-grant execute on function public.username_available(text) to anon, authenticated;
+grant execute on function public.username_available(text), public.login_email(text), public.get_public_list(uuid) to anon, authenticated;
 
 -- ---------- Row Level Security ---------------------------------------
 
@@ -229,9 +282,9 @@ revoke all on public.profiles, public.lists, public.list_members, public.tasks f
 grant select on public.profiles to authenticated;
 grant update (username, avatar) on public.profiles to authenticated;
 
-grant select (id, owner_id, title, columns, link_role, created_at) on public.lists to authenticated;
+grant select (id, owner_id, title, columns, link_role, link_subs, public_view, created_at) on public.lists to authenticated;
 grant insert (id, owner_id, title, columns, link_role) on public.lists to authenticated;
-grant update (title, columns, link_role) on public.lists to authenticated;
+grant update (title, columns, link_role, link_subs, public_view) on public.lists to authenticated;
 grant delete on public.lists to authenticated;
 
 grant select on public.list_members to authenticated;
@@ -246,3 +299,5 @@ do $$ begin
   alter publication supabase_realtime add table public.tasks;
 exception when duplicate_object then null;
 end $$;
+
+-- Der frühere Google-Sheets/Apps-Script-Sync ist entfernt. Falls du ihn je installiert hattest: remigration.sql ausführen.
