@@ -439,11 +439,17 @@ body.picking .sheet th[data-col]:hover,body.picking .sheet tbody td:hover{outlin
 .rtbar{position:fixed;z-index:60;display:flex;gap:2px;padding:3px;background:var(--panel);border:1px solid var(--line);border-radius:9px;box-shadow:0 6px 22px rgba(0,0,0,.25)}
 .rtbar button{min-width:30px;height:28px;border:0;border-radius:6px;background:transparent;color:var(--text);font:inherit;cursor:pointer}
 .rtbar button:hover{background:var(--hover)}
-.rtbar{flex-wrap:wrap;max-width:230px;align-items:center}
-.rtpal{display:flex;gap:4px;padding:4px 3px 2px;width:100%;flex-wrap:wrap}
+.rtbar{flex-wrap:wrap;max-width:290px;align-items:center}
+.rtpal{display:flex;flex-direction:column;gap:5px;padding:4px 3px 2px;width:100%}
+.rtrow{display:flex;gap:4px;align-items:center;flex-wrap:wrap}.rtlbl{width:20px;height:20px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+.rtcust{position:relative;width:20px;height:20px;border-radius:50%;border:1px dashed var(--muted);display:inline-flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;overflow:hidden}
+.rtcust input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;padding:0;border:0}
 .rtpal[hidden]{display:none}
 .rtpal button{min-width:0;width:20px;height:20px;border-radius:50%;border:1px solid var(--line);padding:0;font-size:11px}
 .lkrow{padding:6px 0;border-bottom:1px solid var(--line)}
+.bklist{display:flex;flex-direction:column;gap:6px;margin:10px 0;max-height:46vh;overflow:auto}
+.selbar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;align-items:center;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--panel);border-top:1px solid var(--line);box-shadow:0 -6px 22px rgba(0,0,0,.18)}
+.selbar .grow{flex:1}
 input[type=range].rng{-webkit-appearance:none;appearance:none;background:transparent;width:170px;height:24px;margin:0;padding:0;border:0;--f:1;cursor:pointer}
 .rng::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--accent) calc(9px + (100% - 18px) * var(--f)),color-mix(in srgb,var(--text) 22%,transparent) calc(9px + (100% - 18px) * var(--f)))}
 .rng::-moz-range-track{height:6px;border-radius:3px;background:color-mix(in srgb,var(--text) 22%,transparent)}
@@ -517,7 +523,10 @@ en: {
   lc_open:"Open",
   sel_n:"{n} selected – clear", confirm_tasks:"Delete {n} selected tasks?", md_prev:"Previous task", md_next:"Next task",
   fmt_bold:"Bold (Ctrl+B)", fmt_italic:"Italic (Ctrl+I)", fmt_strike:"Strikethrough", fmt_under:"Underline (Ctrl+U)",
-  linked_lists:"Linked accounts’ lists", lk_title:"Linked accounts", lk_intro:"Link another account of yours: both accounts then share all their lists (both can edit; sharing and deleting stay with the owner). You need the account name, e-mail and password of the other account – the password is only used to sign in once and is not stored.", lk_none:"No accounts linked yet.", lk_user:"Account name of the other account", lk_email:"E-mail of the other account", lk_pw:"Password of the other account", lk_go:"Link account", lk_ok:"Account linked", lk_mismatch:"Account name and e-mail do not belong together.", lk_unlink:"Unlink", lk_unlink_q:"Unlink “{name}”? The lists of both accounts will no longer be shared automatically.", lk_busy:"Linking…", fmt_color:"Text color", fmt_nocolor:"Remove color", pub_signed_as:"Signed in as {name}", pub_open_app:"Open app"
+  linked_lists:"Linked accounts’ lists", lk_title:"Linked accounts", lk_intro:"Link another account of yours: both accounts then share all their lists (both can edit; sharing and deleting stay with the owner). You need the account name, e-mail and password of the other account – the password is only used to sign in once and is not stored.", lk_none:"No accounts linked yet.", lk_user:"Account name of the other account", lk_email:"E-mail of the other account", lk_pw:"Password of the other account", lk_go:"Link account", lk_ok:"Account linked", lk_mismatch:"Account name and e-mail do not belong together.", lk_unlink:"Unlink", lk_unlink_q:"Unlink “{name}”? The lists of both accounts will no longer be shared automatically.", lk_busy:"Linking…", fmt_color:"Text color", fmt_nocolor:"Remove color", pub_signed_as:"Signed in as {name}", pub_open_app:"Open app",
+  enc_menu:"Encrypt list…", enc_off_menu:"Remove encryption…", enc_title:"Encrypt this list", enc_intro:"The list is encrypted in your browser (AES-256) with a passphrase. The server – and anyone reading the database – only sees scrambled data. Whoever should open the list needs the passphrase, so tell it to them separately. Search across lists and the public view do not work for encrypted lists.", enc_pass:"Passphrase", enc_pass2:"Repeat passphrase", enc_warn:"I understand: if the passphrase is lost, the list cannot be recovered – not even by me.", enc_go:"Encrypt", enc_busy:"Encrypting…", enc_done:"List encrypted", enc_unlock_title:"Encrypted list", enc_unlock_text:"Enter the passphrase for “{name}”.", enc_remember:"Remember on this device (until I log out)", enc_wrong:"Wrong passphrase.", enc_unlock_go:"Unlock", enc_locked:"Encrypted list", enc_off_q:"Remove the encryption of this list? It will be stored readable in the database again.", enc_off_done:"Encryption removed", enc_mismatch:"The passphrases do not match.", enc_short:"The passphrase needs at least 8 characters.", enc_note:"🔒 Encrypted list: share the passphrase separately (it is never sent to the server).", enc_no_dup:"Encrypted lists cannot be duplicated.", enc_fail:"Encryption failed: {msg}", enc_nocrypto:"Encryption needs a secure connection (https).",
+  r_admin:"Admin (can share)", role_admin:"Admin", sw_title:"Switch account", sw_pw:"Sign in to “{name}”", sw_fail:"Switching failed.", pub_copy:"Copy to my account", pub_copied:"List copied to your account", sel_done:"Done / not done", sel_cancel:"Cancel selection", sel_n2:"{n} selected", fmt_bg:"Highlight color", fmt_custom:"Custom color", lk_store_note:"A login token for the other account is kept on this device so you can switch quickly; it is removed when you log out.",
+  bk_title:"Backup", bk_intro:"Download all your lists as one file (columns, tasks, sub-list links). Encrypted lists stay encrypted inside the file. You can restore it any time – restored lists are added as new lists, nothing is overwritten.", bk_download:"Download backup", bk_pw:"File password (optional – encrypts the whole file)", bk_shared:"Also include lists shared with me", bk_restore:"Restore from backup…", bk_last:"Last backup: {d}", bk_never:"No backup made on this device yet.", bk_enter_pw:"This backup is password-protected. Enter the password.", bk_wrong_pw:"Wrong password.", bk_bad_file:"This is not a TPC2Do backup file.", bk_restore_go:"Restore selected", bk_pick:"Lists to restore (they are added as new lists):", bk_done:"{n} lists restored", bk_busy:"Working…", bk_server_note:"Backup of the whole server (all users): see README → “Server backup” (daily job via GitHub Actions or script).", bk_tasks:"{n} tasks", bk_open:"Open"
 },
 de: {
   loading:"Lade …", cancel:"Abbrechen", create:"Erstellen", save:"Speichern", delete:"Löschen", undo:"Rückgängig", done:"Fertig", add:"Hinzufügen", back:"Zurück", copy:"Kopieren", you:"Du",
@@ -545,7 +554,10 @@ de: {
   lc_open:"Öffnen",
   sel_n:"{n} ausgewählt – aufheben", confirm_tasks:"{n} ausgewählte Aufgaben löschen?", md_prev:"Vorherige Aufgabe", md_next:"Nächste Aufgabe",
   fmt_bold:"Fett (Strg+B)", fmt_italic:"Kursiv (Strg+I)", fmt_strike:"Durchgestrichen", fmt_under:"Unterstrichen (Strg+U)",
-  linked_lists:"Listen verknüpfter Konten", lk_title:"Verknüpfte Konten", lk_intro:"Verknüpfe ein weiteres eigenes Konto: Beide Konten teilen dann alle ihre Listen (beide dürfen bearbeiten; Teilen und Löschen bleibt beim Besitzer). Du brauchst Konto-Name, E-Mail und Passwort des anderen Kontos – das Passwort dient nur zur einmaligen Anmeldung und wird nicht gespeichert.", lk_none:"Noch keine Konten verknüpft.", lk_user:"Konto-Name des anderen Kontos", lk_email:"E-Mail des anderen Kontos", lk_pw:"Passwort des anderen Kontos", lk_go:"Konto verknüpfen", lk_ok:"Konto verknüpft", lk_mismatch:"Konto-Name und E-Mail gehören nicht zusammen.", lk_unlink:"Trennen", lk_unlink_q:"„{name}“ trennen? Die Listen beider Konten werden dann nicht mehr automatisch geteilt.", lk_busy:"Verknüpfe …", fmt_color:"Textfarbe", fmt_nocolor:"Farbe entfernen", pub_signed_as:"Angemeldet als {name}", pub_open_app:"App öffnen"
+  linked_lists:"Listen verknüpfter Konten", lk_title:"Verknüpfte Konten", lk_intro:"Verknüpfe ein weiteres eigenes Konto: Beide Konten teilen dann alle ihre Listen (beide dürfen bearbeiten; Teilen und Löschen bleibt beim Besitzer). Du brauchst Konto-Name, E-Mail und Passwort des anderen Kontos – das Passwort dient nur zur einmaligen Anmeldung und wird nicht gespeichert.", lk_none:"Noch keine Konten verknüpft.", lk_user:"Konto-Name des anderen Kontos", lk_email:"E-Mail des anderen Kontos", lk_pw:"Passwort des anderen Kontos", lk_go:"Konto verknüpfen", lk_ok:"Konto verknüpft", lk_mismatch:"Konto-Name und E-Mail gehören nicht zusammen.", lk_unlink:"Trennen", lk_unlink_q:"„{name}“ trennen? Die Listen beider Konten werden dann nicht mehr automatisch geteilt.", lk_busy:"Verknüpfe …", fmt_color:"Textfarbe", fmt_nocolor:"Farbe entfernen", pub_signed_as:"Angemeldet als {name}", pub_open_app:"App öffnen",
+  enc_menu:"Liste verschlüsseln …", enc_off_menu:"Verschlüsselung entfernen …", enc_title:"Diese Liste verschlüsseln", enc_intro:"Die Liste wird in deinem Browser mit einer Passphrase verschlüsselt (AES-256). Der Server – und jeder, der die Datenbank liest – sieht nur Datensalat. Wer die Liste öffnen soll, braucht die Passphrase; gib sie getrennt weiter. Die Suche über alle Listen und die öffentliche Ansicht funktionieren bei verschlüsselten Listen nicht.", enc_pass:"Passphrase", enc_pass2:"Passphrase wiederholen", enc_warn:"Ich verstehe: Geht die Passphrase verloren, ist die Liste nicht wiederherstellbar – auch nicht von mir.", enc_go:"Verschlüsseln", enc_busy:"Verschlüssele …", enc_done:"Liste verschlüsselt", enc_unlock_title:"Verschlüsselte Liste", enc_unlock_text:"Gib die Passphrase für „{name}“ ein.", enc_remember:"Auf diesem Gerät merken (bis zum Abmelden)", enc_wrong:"Falsche Passphrase.", enc_unlock_go:"Entsperren", enc_locked:"Verschlüsselte Liste", enc_off_q:"Verschlüsselung dieser Liste entfernen? Sie wird dann wieder lesbar in der Datenbank gespeichert.", enc_off_done:"Verschlüsselung entfernt", enc_mismatch:"Die Passphrasen stimmen nicht überein.", enc_short:"Die Passphrase braucht mindestens 8 Zeichen.", enc_note:"🔒 Verschlüsselte Liste: Gib die Passphrase getrennt weiter (sie wird nie an den Server gesendet).", enc_no_dup:"Verschlüsselte Listen lassen sich nicht duplizieren.", enc_fail:"Verschlüsselung fehlgeschlagen: {msg}", enc_nocrypto:"Verschlüsselung braucht eine sichere Verbindung (https).",
+  r_admin:"Admin (darf teilen)", role_admin:"Admin", sw_title:"Konto wechseln", sw_pw:"Bei „{name}“ anmelden", sw_fail:"Wechsel fehlgeschlagen.", pub_copy:"In mein Konto kopieren", pub_copied:"Liste in dein Konto kopiert", sel_done:"Erledigt / offen", sel_cancel:"Auswahl beenden", sel_n2:"{n} ausgewählt", fmt_bg:"Hervorhebungsfarbe", fmt_custom:"Eigene Farbe", lk_store_note:"Ein Anmelde-Token des anderen Kontos bleibt auf diesem Gerät, damit du schnell wechseln kannst; beim Abmelden wird er entfernt.",
+  bk_title:"Backup", bk_intro:"Lade alle deine Listen als eine Datei herunter (Spalten, Aufgaben, Unterlisten-Verknüpfungen). Verschlüsselte Listen bleiben in der Datei verschlüsselt. Du kannst sie jederzeit wiederherstellen – wiederhergestellte Listen werden als neue Listen angelegt, nichts wird überschrieben.", bk_download:"Backup herunterladen", bk_pw:"Datei-Passwort (optional – verschlüsselt die ganze Datei)", bk_shared:"Auch mit mir geteilte Listen einschließen", bk_restore:"Aus Backup wiederherstellen …", bk_last:"Letztes Backup: {d}", bk_never:"Auf diesem Gerät wurde noch kein Backup gemacht.", bk_enter_pw:"Dieses Backup ist passwortgeschützt. Gib das Passwort ein.", bk_wrong_pw:"Falsches Passwort.", bk_bad_file:"Das ist keine TPC2Do-Backup-Datei.", bk_restore_go:"Auswahl wiederherstellen", bk_pick:"Wiederherzustellende Listen (werden als neue Listen angelegt):", bk_done:"{n} Listen wiederhergestellt", bk_busy:"Arbeite …", bk_server_note:"Backup des ganzen Servers (alle Nutzer): siehe README → „Server-Backup“ (täglicher Job per GitHub Actions oder Skript).", bk_tasks:"{n} Aufgaben", bk_open:"Öffnen"
 },
 es: {
   loading:"Cargando …", cancel:"Cancelar", create:"Crear", save:"Guardar", delete:"Eliminar", undo:"Deshacer", done:"Listo", add:"Añadir", back:"Volver", copy:"Copiar", you:"Tú",
@@ -573,7 +585,10 @@ es: {
   lc_open:"Abrir",
   sel_n:"{n} seleccionadas – quitar", confirm_tasks:"¿Eliminar {n} tareas seleccionadas?", md_prev:"Tarea anterior", md_next:"Tarea siguiente",
   fmt_bold:"Negrita (Ctrl+B)", fmt_italic:"Cursiva (Ctrl+I)", fmt_strike:"Tachado", fmt_under:"Subrayado (Ctrl+U)",
-  linked_lists:"Listas de cuentas vinculadas", lk_title:"Cuentas vinculadas", lk_intro:"Vincula otra cuenta tuya: ambas cuentas compartirán todas sus listas (ambas pueden editar; compartir y eliminar sigue siendo del propietario). Necesitas el nombre de cuenta, el correo y la contraseña de la otra cuenta; la contraseña solo se usa para iniciar sesión una vez y no se guarda.", lk_none:"Aún no hay cuentas vinculadas.", lk_user:"Nombre de la otra cuenta", lk_email:"Correo de la otra cuenta", lk_pw:"Contraseña de la otra cuenta", lk_go:"Vincular cuenta", lk_ok:"Cuenta vinculada", lk_mismatch:"El nombre de cuenta y el correo no coinciden.", lk_unlink:"Desvincular", lk_unlink_q:"¿Desvincular «{name}»? Las listas de ambas cuentas dejarán de compartirse automáticamente.", lk_busy:"Vinculando…", fmt_color:"Color del texto", fmt_nocolor:"Quitar color", pub_signed_as:"Sesión iniciada como {name}", pub_open_app:"Abrir la app"
+  linked_lists:"Listas de cuentas vinculadas", lk_title:"Cuentas vinculadas", lk_intro:"Vincula otra cuenta tuya: ambas cuentas compartirán todas sus listas (ambas pueden editar; compartir y eliminar sigue siendo del propietario). Necesitas el nombre de cuenta, el correo y la contraseña de la otra cuenta; la contraseña solo se usa para iniciar sesión una vez y no se guarda.", lk_none:"Aún no hay cuentas vinculadas.", lk_user:"Nombre de la otra cuenta", lk_email:"Correo de la otra cuenta", lk_pw:"Contraseña de la otra cuenta", lk_go:"Vincular cuenta", lk_ok:"Cuenta vinculada", lk_mismatch:"El nombre de cuenta y el correo no coinciden.", lk_unlink:"Desvincular", lk_unlink_q:"¿Desvincular «{name}»? Las listas de ambas cuentas dejarán de compartirse automáticamente.", lk_busy:"Vinculando…", fmt_color:"Color del texto", fmt_nocolor:"Quitar color", pub_signed_as:"Sesión iniciada como {name}", pub_open_app:"Abrir la app",
+  enc_menu:"Cifrar lista…", enc_off_menu:"Quitar cifrado…", enc_title:"Cifrar esta lista", enc_intro:"La lista se cifra en tu navegador (AES-256) con una frase de contraseña. El servidor, y quien lea la base de datos, solo ve datos ilegibles. Quien deba abrir la lista necesita la frase; envíasela por separado. La búsqueda global y la vista pública no funcionan con listas cifradas.", enc_pass:"Frase de contraseña", enc_pass2:"Repite la frase", enc_warn:"Entiendo: si se pierde la frase, la lista no se puede recuperar, ni siquiera yo.", enc_go:"Cifrar", enc_busy:"Cifrando…", enc_done:"Lista cifrada", enc_unlock_title:"Lista cifrada", enc_unlock_text:"Introduce la frase de «{name}».", enc_remember:"Recordar en este dispositivo (hasta cerrar sesión)", enc_wrong:"Frase incorrecta.", enc_unlock_go:"Desbloquear", enc_locked:"Lista cifrada", enc_off_q:"¿Quitar el cifrado de esta lista? Volverá a guardarse legible en la base de datos.", enc_off_done:"Cifrado quitado", enc_mismatch:"Las frases no coinciden.", enc_short:"La frase necesita al menos 8 caracteres.", enc_note:"🔒 Lista cifrada: comparte la frase por separado (nunca se envía al servidor).", enc_no_dup:"Las listas cifradas no se pueden duplicar.", enc_fail:"Error de cifrado: {msg}", enc_nocrypto:"El cifrado requiere una conexión segura (https).",
+  r_admin:"Admin (puede compartir)", role_admin:"Admin", sw_title:"Cambiar de cuenta", sw_pw:"Iniciar sesión en «{name}»", sw_fail:"Error al cambiar.", pub_copy:"Copiar a mi cuenta", pub_copied:"Lista copiada a tu cuenta", sel_done:"Hecho / pendiente", sel_cancel:"Cancelar selección", sel_n2:"{n} seleccionadas", fmt_bg:"Color de resaltado", fmt_custom:"Color personalizado", lk_store_note:"Un token de acceso de la otra cuenta se guarda en este dispositivo para cambiar rápido; se borra al cerrar sesión.",
+  bk_title:"Copia de seguridad", bk_intro:"Descarga todas tus listas en un archivo (columnas, tareas, enlaces de sublistas). Las listas cifradas siguen cifradas dentro del archivo. Puedes restaurarlo cuando quieras; las listas restauradas se añaden como nuevas, no se sobrescribe nada.", bk_download:"Descargar copia", bk_pw:"Contraseña del archivo (opcional – cifra todo el archivo)", bk_shared:"Incluir también listas compartidas conmigo", bk_restore:"Restaurar desde copia…", bk_last:"Última copia: {d}", bk_never:"Aún no hay copias en este dispositivo.", bk_enter_pw:"Esta copia está protegida con contraseña. Introdúcela.", bk_wrong_pw:"Contraseña incorrecta.", bk_bad_file:"Este no es un archivo de copia de TPC2Do.", bk_restore_go:"Restaurar selección", bk_pick:"Listas a restaurar (se añaden como nuevas):", bk_done:"{n} listas restauradas", bk_busy:"Trabajando…", bk_server_note:"Copia de todo el servidor (todos los usuarios): véase README → «Copia del servidor» (tarea diaria con GitHub Actions o script).", bk_tasks:"{n} tareas", bk_open:"Abrir"
 },
 it: {
   loading:"Caricamento …", cancel:"Annulla", create:"Crea", save:"Salva", delete:"Elimina", undo:"Annulla azione", done:"Fine", add:"Aggiungi", back:"Indietro", copy:"Copia", you:"Tu",
@@ -601,7 +616,10 @@ it: {
   lc_open:"Apri",
   sel_n:"{n} selezionate – annulla", confirm_tasks:"Eliminare {n} attività selezionate?", md_prev:"Attività precedente", md_next:"Attività successiva",
   fmt_bold:"Grassetto (Ctrl+B)", fmt_italic:"Corsivo (Ctrl+I)", fmt_strike:"Barrato", fmt_under:"Sottolineato (Ctrl+U)",
-  linked_lists:"Liste degli account collegati", lk_title:"Account collegati", lk_intro:"Collega un altro tuo account: entrambi condivideranno tutte le liste (entrambi possono modificare; condividere ed eliminare resta al proprietario). Servono nome account, e-mail e password dell’altro account; la password serve solo per un accesso e non viene salvata.", lk_none:"Nessun account collegato.", lk_user:"Nome dell’altro account", lk_email:"E-mail dell’altro account", lk_pw:"Password dell’altro account", lk_go:"Collega account", lk_ok:"Account collegato", lk_mismatch:"Nome account ed e-mail non corrispondono.", lk_unlink:"Scollega", lk_unlink_q:"Scollegare «{name}»? Le liste dei due account non saranno più condivise automaticamente.", lk_busy:"Collegamento…", fmt_color:"Colore del testo", fmt_nocolor:"Rimuovi colore", pub_signed_as:"Accesso eseguito come {name}", pub_open_app:"Apri l’app"
+  linked_lists:"Liste degli account collegati", lk_title:"Account collegati", lk_intro:"Collega un altro tuo account: entrambi condivideranno tutte le liste (entrambi possono modificare; condividere ed eliminare resta al proprietario). Servono nome account, e-mail e password dell’altro account; la password serve solo per un accesso e non viene salvata.", lk_none:"Nessun account collegato.", lk_user:"Nome dell’altro account", lk_email:"E-mail dell’altro account", lk_pw:"Password dell’altro account", lk_go:"Collega account", lk_ok:"Account collegato", lk_mismatch:"Nome account ed e-mail non corrispondono.", lk_unlink:"Scollega", lk_unlink_q:"Scollegare «{name}»? Le liste dei due account non saranno più condivise automaticamente.", lk_busy:"Collegamento…", fmt_color:"Colore del testo", fmt_nocolor:"Rimuovi colore", pub_signed_as:"Accesso eseguito come {name}", pub_open_app:"Apri l’app",
+  enc_menu:"Cifra lista…", enc_off_menu:"Rimuovi cifratura…", enc_title:"Cifra questa lista", enc_intro:"La lista viene cifrata nel tuo browser (AES-256) con una passphrase. Il server – e chiunque legga il database – vede solo dati illeggibili. Chi deve aprire la lista ha bisogno della passphrase; comunicala separatamente. La ricerca globale e la vista pubblica non funzionano con le liste cifrate.", enc_pass:"Passphrase", enc_pass2:"Ripeti la passphrase", enc_warn:"Ho capito: se la passphrase va persa, la lista non è recuperabile, nemmeno da me.", enc_go:"Cifra", enc_busy:"Cifratura…", enc_done:"Lista cifrata", enc_unlock_title:"Lista cifrata", enc_unlock_text:"Inserisci la passphrase per «{name}».", enc_remember:"Ricorda su questo dispositivo (fino al logout)", enc_wrong:"Passphrase errata.", enc_unlock_go:"Sblocca", enc_locked:"Lista cifrata", enc_off_q:"Rimuovere la cifratura di questa lista? Sarà di nuovo salvata in chiaro nel database.", enc_off_done:"Cifratura rimossa", enc_mismatch:"Le passphrase non coincidono.", enc_short:"La passphrase richiede almeno 8 caratteri.", enc_note:"🔒 Lista cifrata: comunica la passphrase separatamente (non viene mai inviata al server).", enc_no_dup:"Le liste cifrate non si possono duplicare.", enc_fail:"Cifratura non riuscita: {msg}", enc_nocrypto:"La cifratura richiede una connessione sicura (https).",
+  r_admin:"Admin (può condividere)", role_admin:"Admin", sw_title:"Cambia account", sw_pw:"Accedi a «{name}»", sw_fail:"Cambio non riuscito.", pub_copy:"Copia nel mio account", pub_copied:"Lista copiata nel tuo account", sel_done:"Fatto / aperto", sel_cancel:"Annulla selezione", sel_n2:"{n} selezionate", fmt_bg:"Colore evidenziatore", fmt_custom:"Colore personalizzato", lk_store_note:"Un token di accesso dell’altro account resta su questo dispositivo per cambiare rapidamente; viene rimosso al logout.",
+  bk_title:"Backup", bk_intro:"Scarica tutte le tue liste in un unico file (colonne, attività, collegamenti alle sottoliste). Le liste cifrate restano cifrate nel file. Puoi ripristinarlo quando vuoi: le liste ripristinate vengono aggiunte come nuove, nulla viene sovrascritto.", bk_download:"Scarica backup", bk_pw:"Password del file (facoltativa – cifra tutto il file)", bk_shared:"Includi anche le liste condivise con me", bk_restore:"Ripristina da backup…", bk_last:"Ultimo backup: {d}", bk_never:"Nessun backup ancora su questo dispositivo.", bk_enter_pw:"Questo backup è protetto da password. Inseriscila.", bk_wrong_pw:"Password errata.", bk_bad_file:"Questo non è un file di backup di TPC2Do.", bk_restore_go:"Ripristina selezione", bk_pick:"Liste da ripristinare (vengono aggiunte come nuove):", bk_done:"{n} liste ripristinate", bk_busy:"Elaborazione…", bk_server_note:"Backup dell’intero server (tutti gli utenti): vedi README → «Backup del server» (job giornaliero con GitHub Actions o script).", bk_tasks:"{n} attività", bk_open:"Apri"
 },
 fr: {
   loading:"Chargement …", cancel:"Annuler", create:"Créer", save:"Enregistrer", delete:"Supprimer", undo:"Annuler", done:"Terminé", add:"Ajouter", back:"Retour", copy:"Copier", you:"Vous",
@@ -629,7 +647,10 @@ fr: {
   lc_open:"Ouvrir",
   sel_n:"{n} sélectionnées – effacer", confirm_tasks:"Supprimer {n} tâches sélectionnées ?", md_prev:"Tâche précédente", md_next:"Tâche suivante",
   fmt_bold:"Gras (Ctrl+B)", fmt_italic:"Italique (Ctrl+I)", fmt_strike:"Barré", fmt_under:"Souligné (Ctrl+U)",
-  linked_lists:"Listes des comptes liés", lk_title:"Comptes liés", lk_intro:"Liez un autre de vos comptes : les deux comptes partagent alors toutes leurs listes (les deux peuvent modifier ; partager et supprimer restent réservés au propriétaire). Il faut le nom, l’e-mail et le mot de passe de l’autre compte ; le mot de passe ne sert qu’à une connexion et n’est pas enregistré.", lk_none:"Aucun compte lié.", lk_user:"Nom de l’autre compte", lk_email:"E-mail de l’autre compte", lk_pw:"Mot de passe de l’autre compte", lk_go:"Lier le compte", lk_ok:"Compte lié", lk_mismatch:"Le nom et l’e-mail ne correspondent pas.", lk_unlink:"Délier", lk_unlink_q:"Délier « {name} » ? Les listes des deux comptes ne seront plus partagées automatiquement.", lk_busy:"Liaison…", fmt_color:"Couleur du texte", fmt_nocolor:"Retirer la couleur", pub_signed_as:"Connecté en tant que {name}", pub_open_app:"Ouvrir l’app"
+  linked_lists:"Listes des comptes liés", lk_title:"Comptes liés", lk_intro:"Liez un autre de vos comptes : les deux comptes partagent alors toutes leurs listes (les deux peuvent modifier ; partager et supprimer restent réservés au propriétaire). Il faut le nom, l’e-mail et le mot de passe de l’autre compte ; le mot de passe ne sert qu’à une connexion et n’est pas enregistré.", lk_none:"Aucun compte lié.", lk_user:"Nom de l’autre compte", lk_email:"E-mail de l’autre compte", lk_pw:"Mot de passe de l’autre compte", lk_go:"Lier le compte", lk_ok:"Compte lié", lk_mismatch:"Le nom et l’e-mail ne correspondent pas.", lk_unlink:"Délier", lk_unlink_q:"Délier « {name} » ? Les listes des deux comptes ne seront plus partagées automatiquement.", lk_busy:"Liaison…", fmt_color:"Couleur du texte", fmt_nocolor:"Retirer la couleur", pub_signed_as:"Connecté en tant que {name}", pub_open_app:"Ouvrir l’app",
+  enc_menu:"Chiffrer la liste…", enc_off_menu:"Retirer le chiffrement…", enc_title:"Chiffrer cette liste", enc_intro:"La liste est chiffrée dans votre navigateur (AES-256) avec une phrase secrète. Le serveur – et quiconque lit la base – ne voit que des données illisibles. Ceux qui doivent ouvrir la liste ont besoin de la phrase ; transmettez-la séparément. La recherche globale et la vue publique ne fonctionnent pas avec les listes chiffrées.", enc_pass:"Phrase secrète", enc_pass2:"Répétez la phrase", enc_warn:"Je comprends : si la phrase est perdue, la liste est irrécupérable, même par moi.", enc_go:"Chiffrer", enc_busy:"Chiffrement…", enc_done:"Liste chiffrée", enc_unlock_title:"Liste chiffrée", enc_unlock_text:"Saisissez la phrase secrète de « {name} ».", enc_remember:"Mémoriser sur cet appareil (jusqu’à la déconnexion)", enc_wrong:"Phrase incorrecte.", enc_unlock_go:"Déverrouiller", enc_locked:"Liste chiffrée", enc_off_q:"Retirer le chiffrement de cette liste ? Elle sera de nouveau stockée en clair dans la base.", enc_off_done:"Chiffrement retiré", enc_mismatch:"Les phrases ne correspondent pas.", enc_short:"La phrase doit comporter au moins 8 caractères.", enc_note:"🔒 Liste chiffrée : transmettez la phrase séparément (elle n’est jamais envoyée au serveur).", enc_no_dup:"Les listes chiffrées ne peuvent pas être dupliquées.", enc_fail:"Échec du chiffrement : {msg}", enc_nocrypto:"Le chiffrement nécessite une connexion sécurisée (https).",
+  r_admin:"Admin (peut partager)", role_admin:"Admin", sw_title:"Changer de compte", sw_pw:"Se connecter à « {name} »", sw_fail:"Échec du changement.", pub_copy:"Copier dans mon compte", pub_copied:"Liste copiée dans votre compte", sel_done:"Fait / à faire", sel_cancel:"Annuler la sélection", sel_n2:"{n} sélectionnées", fmt_bg:"Couleur de surlignage", fmt_custom:"Couleur personnalisée", lk_store_note:"Un jeton de connexion de l’autre compte est conservé sur cet appareil pour changer vite ; il est supprimé à la déconnexion.",
+  bk_title:"Sauvegarde", bk_intro:"Téléchargez toutes vos listes dans un fichier (colonnes, tâches, liens de sous-listes). Les listes chiffrées restent chiffrées dans le fichier. Restauration possible à tout moment : les listes restaurées sont ajoutées comme nouvelles, rien n’est écrasé.", bk_download:"Télécharger la sauvegarde", bk_pw:"Mot de passe du fichier (facultatif – chiffre tout le fichier)", bk_shared:"Inclure aussi les listes partagées avec moi", bk_restore:"Restaurer depuis une sauvegarde…", bk_last:"Dernière sauvegarde : {d}", bk_never:"Aucune sauvegarde sur cet appareil.", bk_enter_pw:"Cette sauvegarde est protégée par mot de passe. Saisissez-le.", bk_wrong_pw:"Mot de passe incorrect.", bk_bad_file:"Ce n’est pas un fichier de sauvegarde TPC2Do.", bk_restore_go:"Restaurer la sélection", bk_pick:"Listes à restaurer (ajoutées comme nouvelles) :", bk_done:"{n} listes restaurées", bk_busy:"Traitement…", bk_server_note:"Sauvegarde de tout le serveur (tous les utilisateurs) : voir README → « Sauvegarde du serveur » (tâche quotidienne via GitHub Actions ou script).", bk_tasks:"{n} tâches", bk_open:"Ouvrir"
 }};
 
 /* ---------- Preferences (language etc.) ---------- */
@@ -691,7 +712,80 @@ try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () =
 /* ---------- Basics ---------- */
 const $ = (s, el = document) => el.querySelector(s);
 const app = $('#app');
-const LIST_COLS = 'id,owner_id,title,columns,link_role,link_subs,public_view,created_at';
+const LIST_COLS = 'id,owner_id,title,columns,link_role,link_subs,public_view,enc,created_at';
+
+/* ---------- End-to-end encryption of single lists (AES-256-GCM, key from a passphrase via PBKDF2; the server never sees the key) ---------- */
+const E2E = (() => {
+  const te = new TextEncoder(), td = new TextDecoder(), keys = new Map(), SK = 'tpc2do_k_', LK = 'tpc2do_keys';
+  const b64 = u => { let s = ''; for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); };
+  const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  const ok = () => !!(window.crypto && crypto.subtle);
+  const store = (id, raw, remember) => {
+    try { sessionStorage.setItem(SK + id, raw); } catch (e) {}
+    if (remember) { try { const m = JSON.parse(localStorage.getItem(LK) || '{}'); m[id] = raw; localStorage.setItem(LK, JSON.stringify(m)); } catch (e) {} }
+  };
+  const stored = id => { try { return sessionStorage.getItem(SK + id) || JSON.parse(localStorage.getItem(LK) || '{}')[id] || null; } catch (e) { return null; } };
+  const derive = async (pass, saltB64, iter) => {
+    const base = await crypto.subtle.importKey('raw', te.encode(pass), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: unb64(saltB64), iterations: iter, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, true, ['encrypt', 'decrypt']);
+  };
+  const encStr = async (key, str) => {
+    const iv = crypto.getRandomValues(new Uint8Array(12)), ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, te.encode(String(str))));
+    const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12); return 'e1:' + b64(out);
+  };
+  const isCt = v => typeof v === 'string' && v.startsWith('e1:') && v.length > 20;
+  const decStr = async (key, s) => { const u = unb64(s.slice(3)); return td.decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: u.subarray(0, 12) }, key, u.subarray(12))); };
+  const verify = async (l, key) => { try { return (await decStr(key, l.enc.check)) === 'tpc2do-ok'; } catch (e) { return false; } };
+  const E = {
+    ok, derive, encStr, decStr, isCt, b64,
+    has: id => keys.has(id),
+    setKey: async (id, key, remember) => { keys.set(id, key); store(id, b64(new Uint8Array(await crypto.subtle.exportKey('raw', key))), remember); },
+    newSalt: () => b64(crypto.getRandomValues(new Uint8Array(16))),
+    async tryStored(l) {
+      if (keys.has(l.id)) return true; const raw = stored(l.id); if (!raw || !ok()) return false;
+      try { const key = await crypto.subtle.importKey('raw', unb64(raw), 'AES-GCM', true, ['encrypt', 'decrypt']); if (await verify(l, key)) { keys.set(l.id, key); return true; } } catch (e) {}
+      return false;
+    },
+    async unlock(l, pass, remember) {
+      const key = await derive(pass, l.enc.salt, l.enc.iter || 250000);
+      if (!(await verify(l, key))) return false; await E.setKey(l.id, key, remember); return true;
+    },
+    async meta(l) {                                   // decrypt title + columns of an encrypted list object (in place)
+      if (!l || !l.enc) { if (l) l.locked = false; return l; }
+      if (!(await E.tryStored(l))) { l.locked = true; l.title = T('enc_locked'); l.columns = []; return l; }
+      const key = keys.get(l.id);
+      try { l.title = await decStr(key, l.enc.t); l.columns = JSON.parse(await decStr(key, l.enc.c)); l.locked = false; }
+      catch (e) { l.locked = true; l.title = T('enc_locked'); l.columns = []; }
+      return l;
+    },
+    async newMeta(l, ch) {                            // new "enc" object with replaced title/columns
+      const key = keys.get(l.id), e = Object.assign({}, l.enc);
+      if (ch.t !== undefined) e.t = await encStr(key, ch.t);
+      if (ch.c !== undefined) e.c = await encStr(key, JSON.stringify(ch.c));
+      return e;
+    },
+    async decRow(id, r) {
+      const key = keys.get(id); if (!key) return r; const o = Object.assign({}, r);
+      try {
+        if (isCt(r.title)) o.title = await decStr(key, r.title);
+        if (isCt(r.notes)) o.notes = await decStr(key, r.notes);
+        if (r.data && typeof r.data._e === 'string') o.data = JSON.parse(await decStr(key, r.data._e));
+      } catch (e) { o.title = '⚠ ?'; }
+      return o;
+    },
+    decRows: (id, rows) => Promise.all((rows || []).map(r => E.decRow(id, r))),
+    async encPatch(id, p) {
+      const key = keys.get(id); if (!key) throw new Error('locked'); const o = Object.assign({}, p);
+      if ('title' in p) o.title = await encStr(key, p.title || '');
+      if ('notes' in p) o.notes = await encStr(key, p.notes || '');
+      if ('data' in p) o.data = { _e: await encStr(key, JSON.stringify(p.data || {})) };
+      return o;
+    },
+    clearAll() { keys.clear(); try { Object.keys(sessionStorage).filter(k => k.startsWith(SK)).forEach(k => sessionStorage.removeItem(k)); localStorage.removeItem(LK); } catch (e) {} }
+  };
+  return E;
+})();
+const listEnc = id => { const l = (state.cur && state.cur.id === id) ? state.cur : (state.lists || []).find(x => x.id === id); return !!(l && l.enc); };
 const BIRD_VB = '0 0 759 533';
 const birdSVG = cls => `<svg class="${cls}" viewBox="${BIRD_VB}" aria-hidden="true"><use href="#birdp"/></svg>`;
 const pageUrl = () => location.origin + location.pathname;
@@ -932,6 +1026,7 @@ async function loadLists() {
   ]);
   if (l.error) { toast(errText(l.error), true); return; }
   state.lists = l.data || [];
+  await Promise.all(state.lists.map(x => E2E.meta(x)));
   try { const k = await sb.rpc('my_links'); state.links = k.error ? [] : (k.data || []); } catch (e) { state.links = []; }
   state.memberRoles = Object.fromEntries((m.data || []).map(x => [x.list_id, x.role]));
   const ids = [...new Set(state.lists.map(x => x.owner_id))].filter(id => id !== state.user.id && !state.owners[id]);
@@ -940,12 +1035,14 @@ async function loadLists() {
     (p.data || []).forEach(x => { state.owners[x.id] = x.username; });
   }
 }
-const roleOf = l => l.owner_id === state.user.id ? 'owner' : (state.memberRoles[l.id] || 'view');
+const isLinkedOwner = l => (state.links || []).some(x => x.id === l.owner_id);
+const roleOf = l => (l.owner_id === state.user.id || isLinkedOwner(l)) ? 'owner' : (state.memberRoles[l.id] || 'view');
+const canManage = r => r === 'owner' || r === 'admin';
 const ownerName = l => l.owner_id === state.user.id ? T('you') : (state.owners[l.owner_id] || '?');
 const betaListName = x => String(x || '').toLowerCase().replace(/[^a-z]/g, '');
 const hasBetaList = () => !!state.user && state.lists.some(l => l.owner_id === state.user.id && /^beta(te?s?te?r)$/.test(betaListName(l.title)));
 const beta = k => hasBetaList() && !!prefs['beta' + k];          // k: 'Formulas' | 'Prio' | 'Sync'
-const roleLabel = r => T(r === 'owner' ? 'role_owner' : r === 'edit' ? 'role_edit' : 'role_view');
+const roleLabel = r => T(r === 'owner' ? 'role_owner' : r === 'admin' ? 'role_admin' : r === 'edit' ? 'role_edit' : 'role_view');
 
 /* ---------- Routing ---------- */
 async function route() {
@@ -989,15 +1086,27 @@ async function renderPublic(tok, seq) {
   if (seq !== state.routeSeq) return;
   const d = r.data;
   if (r.error || !d) { app.innerHTML = head() + `<main class="wrap wide"><p class="muted">${TE('pub_missing')}</p></main>`; bindLang(); return; }
+  const copyBtn = me ? `<button class="btn" id="pubCopy" style="margin:6px 0 12px">${TE('pub_copy')}</button>` : '';
   const cols = (d.columns || []).filter(c => c && !c.hidden && c.type !== 'formula' && c.type !== 'sub');
   const val = (t, c) => c.type === 'task' ? t.title : c.type === 'notes' ? t.notes : (t.data || {})[c.id];
   const nm = c => c.name || T(c.type === 'task' ? 'c_task' : c.type === 'notes' ? 'c_notes' : 'c_task');
   const showCols = cols.some(c => c.type === 'task') ? cols : [{ id: 'task', type: 'task' }, ...cols];
   const cell = (t, c) => { const v = val(t, c); if (v == null || v === '') return ''; if (c.type === 'checkbox') return v ? '☑' : '☐'; return rtHTML(v); };
-  app.innerHTML = head() + `<main class="wrap wide"><h2>📋 ${esc(d.title)}</h2><p class="muted small">${TE('pub_title')}</p>
+  app.innerHTML = head() + `<main class="wrap wide"><h2>📋 ${esc(d.title)}</h2><p class="muted small">${TE('pub_title')}</p>${copyBtn}
     <div class="sheetwrap"><table class="sheet" style="width:100%"><thead><tr><th style="width:36px">✓</th>${showCols.map(c => `<th>${esc(nm(c))}</th>`).join('')}</tr></thead>
     <tbody>${(d.tasks || []).map(t => `<tr class="${t.done ? 'done' : ''}"><td style="text-align:center">${t.done ? '☑' : '☐'}</td>${showCols.map(c => `<td style="padding:8px 10px;vertical-align:top;white-space:pre-wrap">${cell(t, c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></main>`;
   bindLang();
+  const pc = $('#pubCopy');
+  if (pc) pc.onclick = async () => {
+    pc.disabled = true;
+    try {
+      const nl = await createList(String(d.title) + T('lc_copy')); if (!nl) throw new Error('create');
+      if ((d.columns || []).length) { const rc = await sb.rpc('set_list_columns', { lid: nl.id, cols: d.columns }); if (rc.error) throw rc.error; }
+      const rows = (d.tasks || []).map((t, i) => ({ list_id: nl.id, position: i + 1, done: !!t.done, done_at: t.done ? new Date().toISOString() : null, title: t.title || '', notes: t.notes || '', data: t.data || {} }));
+      for (let i = 0; i < rows.length; i += 200) { const ri = await sb.from('tasks').insert(rows.slice(i, i + 200)); if (ri.error) throw ri.error; }
+      await loadLists(); toast(T('pub_copied')); location.hash = '#/list/' + nl.id;
+    } catch (er) { pc.disabled = false; toast(errText(er), true); }
+  };
 }
 async function doJoin(token) {
   const { data, error } = await sb.rpc('join_list_by_token', { tok: token });
@@ -1096,10 +1205,39 @@ function renderRecovery() {
 /* ---------- Top bar ---------- */
 const topbar = () => `<header class="top"><a class="brand" href="#/" aria-label="TPC2Do"><span class="tile">${birdSVG('')}</span><span>2DO</span></a><span class="spacer"></span>
   <a class="btn iconbtn" href="#/settings" title="${TE('set_title')}" aria-label="${TE('set_title')}">⚙</a>
-  <a class="me" href="#/account" title="${TE('account')}">${avatarHTML(state.profile, 30)}<span>${esc(state.profile ? state.profile.username : '')}</span></a>
+  ${(state.links || []).length ? `<button class="btn iconbtn" id="swAcc" title="${TE('sw_title')}" aria-label="${TE('sw_title')}">⇄</button>` : ''}<a class="me" href="#/account" title="${TE('account')}">${avatarHTML(state.profile, 30)}<span>${esc(state.profile ? state.profile.username : '')}</span></a>
   <button class="btn" id="logout">${TE('logout')}</button></header>`;
+const SESS_KEY = 'tpc2do_sessions';
+const readSess = () => { try { return JSON.parse(localStorage.getItem(SESS_KEY) || '{}'); } catch (e) { return {}; } };
+const writeSess = m => { try { localStorage.setItem(SESS_KEY, JSON.stringify(m)); } catch (e) {} };
+async function switchAccount(target) {
+  await flushAllWait();
+  const saved = readSess();
+  try { const cur = (await sb.auth.getSession()).data.session; if (cur && state.user) { saved[state.user.id] = { access_token: cur.access_token, refresh_token: cur.refresh_token }; writeSess(saved); } } catch (e) {}
+  const t = saved[target.id];
+  if (t) {
+    const r = await sb.auth.setSession({ access_token: t.access_token, refresh_token: t.refresh_token });
+    if (!r.error) { location.hash = '#/'; return; }
+    delete saved[target.id]; writeSess(saved);
+  }
+  modal(`<h3>${TE('sw_pw', { name: esc(target.username) })}</h3><form id="swF"><label>${TE('pw_current').replace(/.*/, T('lk_pw'))}<input type="password" id="swP" autocomplete="current-password" required></label><div class="msg" id="swM"></div>
+    <div class="actions"><span class="spacer"></span><button type="button" class="btn" data-x>${TE('cancel')}</button><button class="btn primary" type="submit">${TE('login')}</button></div></form>`,
+  (m, close) => {
+    $('[data-x]', m).onclick = close;
+    $('#swF', m).onsubmit = async e => {
+      e.preventDefault(); $('#swM', m).textContent = '';
+      const em = await sb.rpc('login_email', { uname: target.username });
+      if (em.error || !em.data) { $('#swM', m).textContent = T('sw_fail'); return; }
+      const cur = (await sb.auth.getSession()).data.session; if (cur && state.user) { saved[state.user.id] = { access_token: cur.access_token, refresh_token: cur.refresh_token }; writeSess(saved); }
+      const r = await sb.auth.signInWithPassword({ email: em.data, password: $('#swP', m).value });
+      if (r.error) { $('#swM', m).textContent = T('err_login'); return; }
+      close(); location.hash = '#/';
+    };
+  });
+}
 function bindTop() {
-  const b = $('#logout'); if (b) b.onclick = async () => { await flushAllWait(); await sb.auth.signOut(); };
+  const sw = $('#swAcc'); if (sw) sw.onclick = () => { const r = sw.getBoundingClientRect(); showMenu(Math.min(r.left, innerWidth - 220), r.bottom + 4, state.links.map(x => ({ ic: '👤', label: x.username, fn: () => switchAccount(x) }))); };
+  const b = $('#logout'); if (b) b.onclick = async () => { await flushAllWait(); E2E.clearAll(); writeSess({}); await sb.auth.signOut(); };
 }
 
 /* ---------- Home ---------- */
@@ -1181,7 +1319,7 @@ async function homeDelete(id) {
 }
 function cardMenu(card, x, y) {
   const l = state.lists.find(z => z.id === card.dataset.id); if (!l) return;
-  const own = roleOf(l) === 'owner';
+  const own = canManage(roleOf(l)), isOwner = roleOf(l) === 'owner';
   showMenu(x, y, [
     { ic: '📂', k: 'lc_open', fn: () => { location.hash = '#/list/' + l.id; } },
     { ic: '🗗', k: 'lc_open_new', fn: () => window.open(pageUrl() + '#/list/' + l.id, '_blank', 'noopener') },
@@ -1190,8 +1328,16 @@ function cardMenu(card, x, y) {
     own ? { ic: '🔗', k: 'lc_share', fn: () => shareModal(l) } : null,
     own ? { ic: '📑', k: 'lc_dup', fn: () => duplicateList(l) } : null,
     '-',
-    own ? { ic: '🗑', k: 'delete', danger: true, fn: () => homeDelete(l.id) } : { ic: '🚪', label: T('tip_leave_list'), danger: true, fn: () => homeDelete(l.id) }
+    isOwner ? { ic: '🗑', k: 'delete', danger: true, fn: () => homeDelete(l.id) } : { ic: '🚪', label: T('tip_leave_list'), danger: true, fn: () => homeDelete(l.id) }
   ].filter(Boolean));
+}
+async function saveTitle(l, title) {
+  if (l.enc) {
+    if (!E2E.has(l.id)) return { message: T('enc_locked') };
+    const e = await E2E.newMeta(l, { t: title }), { error } = await sb.rpc('set_list_enc', { lid: l.id, e });
+    if (!error) l.enc = e; return error;
+  }
+  return (await sb.from('lists').update({ title }).eq('id', l.id)).error;
 }
 function renameListModal(l) {
   modal(`<h3>${TE('lc_rename_title')}</h3><label>${TE('name')}<input id="rnl" maxlength="120" value="${esc(l.title)}"></label>
@@ -1200,7 +1346,7 @@ function renameListModal(l) {
     $('[data-x]', m).onclick = close;
     const go = async () => {
       const title = $('#rnl', m).value.trim(); if (!title) return;
-      const { error } = await sb.from('lists').update({ title }).eq('id', l.id);
+      const error = await saveTitle(l, title);
       if (error) return toast(errText(error), true);
       l.title = title; close(); if ($('#gridMine')) drawGrids();
     };
@@ -1209,6 +1355,7 @@ function renameListModal(l) {
   });
 }
 async function duplicateList(l) {
+  if (l.enc) return toast(T('enc_no_dup'), true);
   const n = await createList(l.title + T('lc_copy')); if (!n) return;
   if ((l.columns || []).length) {
     const r = await sb.rpc('set_list_columns', { lid: n.id, cols: l.columns });
@@ -1261,8 +1408,8 @@ function ovSorted(arr) {
 function cardHTML(l, custom) {
   const r = roleOf(l), pr = state.prog[l.id];
   const total = pr ? pr.open + pr.done : 0, pct = total ? Math.round(pr.done / total * 100) : 0;
-  return `<div class="card ${custom ? 'drag' : ''}" data-id="${l.id}">${custom ? `<span class="cgrip" title="${TE('ov_drag_tip')}">⋮⋮</span>` : ''}<h3>📋 ${esc(l.title)}</h3>
-    ${r === 'owner' ? '' : `<div class="muted small">${esc(ownerName(l))} · ${esc(roleLabel(r))}</div>`}
+  return `<div class="card ${custom ? 'drag' : ''}" data-id="${l.id}">${custom ? `<span class="cgrip" title="${TE('ov_drag_tip')}">⋮⋮</span>` : ''}<h3>${l.enc ? '🔒' : '📋'} ${esc(l.title)}</h3>
+    ${l.owner_id === state.user.id ? '' : `<div class="muted small">${esc(ownerName(l))}${r === 'owner' ? '' : ' · ' + esc(roleLabel(r))}</div>`}
     <div class="muted small prog">${pr ? (total ? TE('prog', { done: pr.done, total }) : TE('prog_none')) : '&nbsp;'}</div>
     <div class="bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
     <button class="icon" data-act="${r === 'owner' ? 'delete' : 'leave'}" title="${TE(r === 'owner' ? 'tip_delete_list' : 'tip_leave_list')}">${r === 'owner' ? '🗑' : '🚪'}</button></div>`;
@@ -1328,8 +1475,8 @@ function bindSearch() {
       for (const c of (l.columns || [])) { const v = t.data[c.id]; if (v != null && String(v).toLowerCase().includes(q.toLowerCase())) return { col: c.name || '', v: String(v) }; }
       return null;
     };
-    const seen = new Set(), tasks = [...(a.data || []), ...(b.data || []), ...((d && d.data) || [])].filter(t => !seen.has(t.id) && seen.add(t.id) && state.lists.some(l => l.id === t.list_id));
-    const ql = q.toLowerCase(), lists = state.lists.filter(l => l.title.toLowerCase().includes(ql));
+    const seen = new Set(), tasks = [...(a.data || []), ...(b.data || []), ...((d && d.data) || [])].filter(t => !seen.has(t.id) && seen.add(t.id) && state.lists.some(l => l.id === t.list_id && !l.enc));
+    const ql = q.toLowerCase(), lists = state.lists.filter(l => !l.locked && l.title.toLowerCase().includes(ql));
     const titleOf = id => (state.lists.find(l => l.id === id) || {}).title || '';
     let html = '';
     if (lists.length) html += `<h3>${TE('search_lists')}</h3>` + lists.map(l => `<button class="shit" data-l="${l.id}"><span class="tt">📋 ${hl(l.title, q)}</span></button>`).join('');
@@ -1394,8 +1541,25 @@ const pending = new Map();         // taskId -> {patch, timer}
 const insertPromises = new Map();  // taskId -> Promise (insert still running)
 let inflight = 0;
 
+function unlockModal(l) {
+  return new Promise(resolve => {
+    let done = false;
+    modal(`<h3>🔒 ${TE('enc_unlock_title')}</h3><p class="muted">${TE('enc_unlock_text', { name: esc(l.title) })}</p>
+      <form id="ulF"><label>${TE('enc_pass')}<input type="password" id="ulP" autocomplete="off" required></label>
+      <label class="check small" style="margin:8px 0"><input type="checkbox" id="ulR">${TE('enc_remember')}</label><div class="msg" id="ulM"></div>
+      <div class="actions"><span class="spacer"></span><button type="button" class="btn" data-x>${TE('cancel')}</button><button class="btn primary" type="submit">${TE('enc_unlock_go')}</button></div></form>`,
+    (m, close) => {
+      $('[data-x]', m).onclick = close;
+      $('#ulF', m).onsubmit = async e => {
+        e.preventDefault(); if (!E2E.ok()) { $('#ulM', m).textContent = T('enc_nocrypto'); return; }
+        $('#ulM', m).textContent = '';
+        if (await E2E.unlock(l, $('#ulP', m).value, $('#ulR', m).checked)) { done = true; close(); resolve(true); } else { $('#ulM', m).textContent = T('enc_wrong'); $('#ulP', m).select(); }
+      };
+    }, () => { if (!done) resolve(false); });
+  });
+}
 async function renderList(id, seq) {
-  state.sel = new Set(); state.selAnchor = null;
+  state.sel = new Set(); state.selAnchor = null; { const sb0 = $('#selBar'); if (sb0) sb0.remove(); }
   app.innerHTML = topbar() + `<main class="wrap"><p class="muted">${TE('loading')}</p></main>`; bindTop();
   let list = state.lists.find(l => l.id === id);
   if (!list) { await loadLists(); list = state.lists.find(l => l.id === id); }
@@ -1405,10 +1569,15 @@ async function renderList(id, seq) {
       <p class="muted">${TE('nf_text')}</p><a class="btn" href="#/">${TE('nf_back')}</a></main>`;
     bindTop(); return;
   }
+  if (list.enc && !E2E.has(list.id)) {
+    const okU = await unlockModal(list); if (seq !== state.routeSeq) return;
+    if (!okU) { location.hash = '#/'; return; }
+    await E2E.meta(list);
+  }
   const { data, error } = await sb.from('tasks').select('*').eq('list_id', id).order('position');
   if (seq !== state.routeSeq) return;
   if (error) { toast(errText(error), true); return; }
-  state.cur = list; state.role = roleOf(list); state.tasks = data || [];
+  state.cur = list; state.role = roleOf(list); state.tasks = list.enc ? await E2E.decRows(id, data) : (data || []);
   document.title = list.title + ' – TPC2Do';
   drawList(); startPolling(); loadParents(list, seq);
 }
@@ -1590,14 +1759,14 @@ const taskById = id => state.tasks.find(t => t.id === id);
 const colById = id => (state.cur.columns || []).find(c => c.id === id);
 
 function drawList() {
-  const l = state.cur, owner = state.role === 'owner';
+  const l = state.cur, owner = canManage(state.role);
   const crumbs = state.crumbs.map((c, i) => `<a href="#/list/${c.id}" data-crumb="${i}">${esc(c.title)}</a>`).join(' › ');
   app.innerHTML = topbar() + `<main class="wrap wide">
     <nav class="crumbs"><a href="#/">${TE('my_lists')}</a> › ${crumbs ? crumbs + ' › ' : ''}<span>${esc(l.title)}</span></nav>
     <div id="parentLine" class="muted small parentline"></div>
     <div class="row between wrapx">
       <div>${owner ? `<input id="listTitle" class="h-input" value="${esc(l.title)}" maxlength="120" aria-label="${TE('name')}">` : `<h2>${esc(l.title)}</h2>`}</div>
-      <div class="row gap wrapx">${owner ? '' : `<span class="badge">${TE(state.role === 'edit' ? 'role_edit' : 'role_view')}</span>`}<span id="saveState" class="muted small"></span>
+      <div class="row gap wrapx">${owner ? '' : `<span class="badge">${esc(roleLabel(state.role))}</span>`}<span id="saveState" class="muted small"></span>
         <button class="btn iconbtn" id="fullBtn" aria-label="${TE('fs_enter')}">${FS_ICON[fullOn() ? 'exit' : 'enter']}</button>
         <button class="btn" id="csvBtn">${TE('csv_btn')}</button>
         ${state.role !== 'view' ? `<button class="btn" id="colsBtn">${TE('columns_btn')}</button>` : ''}
@@ -1620,7 +1789,7 @@ function drawList() {
   if (ti) ti.addEventListener('change', async () => {
     const title = ti.value.trim() || T('list_default'); ti.value = title;
     if (title === l.title) return;
-    const { error } = await sb.from('lists').update({ title }).eq('id', l.id);
+    const error = await saveTitle(l, title);
     if (error) return toast(errText(error), true);
     l.title = title; document.title = title + ' – TPC2Do';
   });
@@ -1784,10 +1953,10 @@ function mrowHTML(t) {
     if (c.type === 'due' && v) chips.push(`<span class="mchip ${c.mark === false ? '' : dueClass(t, c)}">📅 ${esc(v)}</span>`);
     else if (c.type === 'priority' && Number(v)) chips.push(`<span class="mchip p${Number(v)}">${esc(T('prio_' + Number(v)))}</span>`);
     else if (c.type === 'sub' && t.sub_list_id) { const sl = state.lists.find(l => l.id === t.sub_list_id); chips.push(`<span class="mchip">📋 ${esc(sl ? sl.title : '🔒')}</span>`); }
-    else if (c.type === 'notes' && t.notes) chips.push(`<span class="mchip note">${esc(t.notes.length > 40 ? t.notes.slice(0, 40) + '…' : t.notes)}</span>`);
+    else if (c.type === 'notes' && t.notes) { const pl = rtStrip(t.notes); chips.push(`<span class="mchip note">${esc(pl.length > 40 ? pl.slice(0, 40) + '…' : pl)}</span>`); }
   });
   return `<tr data-id="${t.id}" class="${t.done ? 'done' : ''}"><td class="c-chk"><input type="checkbox" data-f="done" ${t.done ? 'checked' : ''} ${ro ? 'disabled' : ''} aria-label="${TE('done')}">${t.data && t.data._rec ? '<span class="rep">🔁</span>' : ''}</td>
-    <td class="c-mtask" tabindex="0" role="button"><div class="mt">${t.title ? esc(t.title) : `<span class="muted">${TE('task_ph')}</span>`}</div>${chips.length ? `<div class="mm">${chips.join('')}</div>` : ''}</td></tr>`;
+    <td class="c-mtask" tabindex="0" role="button"><div class="mt">${t.title ? rtHTML(t.title) : `<span class="muted">${TE('task_ph')}</span>`}</div>${chips.length ? `<div class="mm">${chips.join('')}</div>` : ''}</td></tr>`;
 }
 function tableHTML() {
   fmMemo.clear();
@@ -1845,13 +2014,16 @@ function subCell(t, ro) {
 }
 
 /* light text formatting: **bold**  *italic*  ~~strike~~  __underline__ (stored as plain text, rendered when the cell isn't being edited) */
-const RT_RE = /\{\{#[0-9a-fA-F]{6}:[^\n]+?\}\}|\*\*[^*\n]+\*\*|~~[^~\n]+~~|__[^_\n]+__|(^|[^*\w])\*[^*\s][^*\n]*\*(?![*\w])/;
+const RT_RE = /\{\{@?#[0-9a-fA-F]{6}:[^\n]+?\}\}|\*\*[^*\n]+\*\*|~~[^~\n]+~~|__[^_\n]+__|(^|[^*\w])\*[^*\s][^*\n]*\*(?![*\w])/;
 const hasRt = v => typeof v === 'string' && v.length > 2 && RT_RE.test(v);
 const rtCls = v => hasRt(v) ? ' class="hasrt"' : '';
 function rtHTML(v) {
-  return esc(String(v ?? '')).replace(/\{\{(#[0-9a-fA-F]{6}):([^\n]+?)\}\}/g, '<span style="color:$1">$2</span>').replace(/\*\*([^*\n]+)\*\*/g, '<b>$1</b>').replace(/~~([^~\n]+)~~/g, '<s>$1</s>').replace(/__([^_\n]+)__/g, '<u>$1</u>')
+  let h = esc(String(v ?? ''));
+  for (let i = 0; i < 4; i++) h = h.replace(/\{\{(@?)(#[0-9a-fA-F]{6}):([^{}\n]+?)\}\}/g, (m, bg, c, t) => bg ? `<span style="background:${c};color:#111;border-radius:3px;padding:0 2px">${t}</span>` : `<span style="color:${c}">${t}</span>`);
+  return h.replace(/\*\*([^*\n]+)\*\*/g, '<b>$1</b>').replace(/~~([^~\n]+)~~/g, '<s>$1</s>').replace(/__([^_\n]+)__/g, '<u>$1</u>')
     .replace(/(^|[^*\w])\*([^*\s][^*\n]*)\*(?![*\w])/g, '$1<i>$2</i>').replace(/\n/g, '<br>');
 }
+const rtStrip = v => String(v ?? '').replace(/\{\{@?#[0-9a-fA-F]{6}:/g, '').replace(/\}\}/g, '').replace(/\*\*|~~|__/g, '').replace(/(^|[^*\w])\*([^*\s][^*\n]*)\*(?![*\w])/g, '$1$2').replace(/\n/g, ' ');
 const rtView = v => `<div class="rtview" aria-hidden="true">${hasRt(v) ? rtHTML(v) : ''}</div>`;
 function rtUpdate(el) {
   const td = el.closest('td'); if (!td || !td.querySelector('.rtview')) return;
@@ -1894,8 +2066,23 @@ function drawTable() {
   if (state.afterDraw) state.afterDraw();
 }
 { const _dt = drawTable; drawTable = function () { _dt.apply(this, arguments); applySel(); }; }
-function applySel() { document.querySelectorAll('#sheetWrap tr[data-id]').forEach(r => r.classList.toggle('sel', !!(state.sel && state.sel.has(r.dataset.id)))); }
-function clearSel() { if (state.sel && state.sel.size) { state.sel = new Set(); applySel(); } }
+function applySel() {
+  document.querySelectorAll('#sheetWrap tr[data-id]').forEach(r => r.classList.toggle('sel', !!(state.sel && state.sel.has(r.dataset.id))));
+  let bar = $('#selBar'); const n = state.sel ? state.sel.size : 0;
+  if (!isMobile() || !n || !$('#sheetWrap')) { if (bar) bar.remove(); return; }
+  if (!bar) {
+    bar = document.createElement('div'); bar.id = 'selBar'; bar.className = 'selbar'; document.body.appendChild(bar);
+    bar.addEventListener('click', async e => {
+      const b = e.target.closest('[data-sb]'); if (!b) return; const k = b.dataset.sb, tasks = state.tasks.filter(t => state.sel.has(t.id));
+      if (k === 'x') clearSel();
+      else if (k === 'done') { const all = tasks.every(t => t.done); tasks.forEach(t => { if (t.done !== !all) setDone(t, !all); }); clearSel(); }
+      else if (k === 'del') { if (prefs.confirmDelete && !(await confirmBox(T('confirm_tasks', { n: tasks.length })))) return; for (const t of tasks) await deleteTask(t); clearSel(); }
+      else if (k === 'more') { const r = b.getBoundingClientRect(); if (tasks.length === 1) openCtx(r.left, r.top - 8, tasks[0]); else multiMenu(r.left, r.top - 8); }
+    });
+  }
+  bar.innerHTML = `<button class="btn small" data-sb="x" aria-label="${TE('sel_cancel')}">✕</button><b class="grow">${TE('sel_n2', { n })}</b><button class="btn small" data-sb="done" aria-label="${TE('sel_done')}">✓</button><button class="btn small" data-sb="more" aria-label="…">⋯</button><button class="btn small danger" data-sb="del" aria-label="${TE('delete')}">🗑</button>`;
+}
+function clearSel() { if (state.sel && state.sel.size) { state.sel = new Set(); } applySel(); }
 window.addEventListener('resize', () => document.querySelectorAll('#sheetWrap textarea').forEach(fit));
 
 /* ---------- Right-click / long-press menu ---------- */
@@ -2054,15 +2241,16 @@ function openDetail(id) {
 /* floating format toolbar (appears when text is selected in a text cell / detail field) */
 const RT_MARK = { b: '**', i: '*', s: '~~', u: '__' };
 const RT_COLORS = ['#e03131', '#f08c00', '#2f9e44', '#1971c2', '#7048e8', '#c2255c', '#868e96', '#000000'];
-function rtColor(el, hex) {
+const RT_BGS = ['#ffe066', '#ffc9c9', '#b2f2bb', '#a5d8ff', '#d0bfff', '#ffd8a8', '#dee2e6'];
+function rtColor(el, hex, bg) {             // bg: true = highlight, false = text color
   const a = el.selectionStart, b = el.selectionEnd; if (a === b) return;
-  const v = el.value, sel = v.slice(a, b), re = /^\{\{#[0-9a-fA-F]{6}:([\s\S]*)\}\}$/, pm = v.slice(0, a).match(/\{\{#[0-9a-fA-F]{6}:$/);
-  let inner = sel, from = a, to = b;
-  const m = sel.match(re);
-  if (m) inner = m[1];
-  else if (pm && v.slice(b, b + 2) === '}}') { from = a - pm[0].length; to = b + 2; }
-  const nv = v.slice(0, from) + (hex ? `{{${hex}:${inner}}}` : inner) + v.slice(to);
-  el.value = nv; const na = from + (hex ? 10 : 0); el.setSelectionRange(na, na + inner.length); el.dispatchEvent(new Event('input', { bubbles: true }));
+  const open = bg ? '\\{\\{@#[0-9a-fA-F]{6}:' : '\\{\\{#[0-9a-fA-F]{6}:';
+  const v = el.value, sel = v.slice(a, b), re = new RegExp('^' + open + '([\\s\\S]*)\\}\\}$'), pm = v.slice(0, a).match(new RegExp(open + '$'));
+  let inner = sel, from = a, to = b; const m = sel.match(re);
+  if (m) inner = m[1]; else if (pm && v.slice(b, b + 2) === '}}') { from = a - pm[0].length; to = b + 2; }
+  const pre = hex ? `{{${bg ? '@' : ''}${hex}:` : '';
+  el.value = v.slice(0, from) + (hex ? pre + inner + '}}' : inner) + v.slice(to);
+  const na = from + pre.length; el.setSelectionRange(na, na + inner.length); el.dispatchEvent(new Event('input', { bubbles: true }));
 }
 function rtTarget(el) {
   if (!el || el.tagName !== 'TEXTAREA' || el.readOnly || state.role === 'view') return false;
@@ -2085,11 +2273,19 @@ function rtShow(el) {
   if (!rtTarget(el) || el.selectionStart === el.selectionEnd) return rtHide();
   if (!rtBar) {
     rtBar = document.createElement('div'); rtBar.className = 'rtbar'; rtBar.setAttribute('role', 'toolbar');
-    rtBar.innerHTML = `<button type="button" data-k="b" title="${TE('fmt_bold')}" aria-label="${TE('fmt_bold')}"><b>B</b></button><button type="button" data-k="i" title="${TE('fmt_italic')}" aria-label="${TE('fmt_italic')}"><i>I</i></button><button type="button" data-k="s" title="${TE('fmt_strike')}" aria-label="${TE('fmt_strike')}"><s>S</s></button><button type="button" data-k="u" title="${TE('fmt_under')}" aria-label="${TE('fmt_under')}"><u>U</u></button><button type="button" data-k="color" title="${TE('fmt_color')}" aria-label="${TE('fmt_color')}"><span style="border-bottom:3px solid #e03131;line-height:1">A</span></button><div class="rtpal" hidden>${RT_COLORS.map(c => `<button type="button" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}<button type="button" data-c="" title="${TE('fmt_nocolor')}" aria-label="${TE('fmt_nocolor')}">✕</button></div>`;
+    rtBar.innerHTML = `<button type="button" data-k="b" title="${TE('fmt_bold')}" aria-label="${TE('fmt_bold')}"><b>B</b></button><button type="button" data-k="i" title="${TE('fmt_italic')}" aria-label="${TE('fmt_italic')}"><i>I</i></button><button type="button" data-k="s" title="${TE('fmt_strike')}" aria-label="${TE('fmt_strike')}"><s>S</s></button><button type="button" data-k="u" title="${TE('fmt_under')}" aria-label="${TE('fmt_under')}"><u>U</u></button><button type="button" data-k="color" title="${TE('fmt_color')}" aria-label="${TE('fmt_color')}"><span style="border-bottom:3px solid #e03131;line-height:1">A</span></button><div class="rtpal" hidden>
+      <div class="rtrow" data-bg="0" title="${TE('fmt_color')}"><span class="rtlbl">A</span>${RT_COLORS.map(c => `<button type="button" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}<label class="rtcust" title="${TE('fmt_custom')}">＋<input type="color" value="#e03131"></label><button type="button" data-c="" title="${TE('fmt_nocolor')}" aria-label="${TE('fmt_nocolor')}">✕</button></div>
+      <div class="rtrow" data-bg="1" title="${TE('fmt_bg')}"><span class="rtlbl" style="background:#ffe066;color:#111">A</span>${RT_BGS.map(c => `<button type="button" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}<label class="rtcust" title="${TE('fmt_custom')}">＋<input type="color" value="#ffe066"></label><button type="button" data-c="" title="${TE('fmt_nocolor')}" aria-label="${TE('fmt_nocolor')}">✕</button></div></div>`;
+    rtBar.querySelectorAll('.rtcust input').forEach(inp => {
+      const row = inp.closest('.rtrow');
+      inp.addEventListener('mousedown', () => { rtBar._pick = true; rtBar._saved = [rtBar._el.selectionStart, rtBar._el.selectionEnd]; });
+      inp.addEventListener('change', () => { const el = rtBar._el, sv = rtBar._saved; if (!el || !sv) return; el.focus(); el.setSelectionRange(sv[0], sv[1]); rtColor(el, inp.value, row.dataset.bg === '1'); rtBar._pick = false; rtShow(el); });
+      inp.addEventListener('blur', () => setTimeout(() => { if (rtBar) rtBar._pick = false; }, 400));
+    });
     rtBar.addEventListener('mousedown', e => e.preventDefault());
     rtBar.addEventListener('click', e => {
       if (!rtBar._el) return;
-      const c = e.target.closest('[data-c]'); if (c) { rtColor(rtBar._el, c.dataset.c || null); rtBar.querySelector('.rtpal').hidden = true; rtShow(rtBar._el); return; }
+      const c = e.target.closest('[data-c]'); if (c) { rtColor(rtBar._el, c.dataset.c || null, c.closest('.rtrow').dataset.bg === '1'); rtBar.querySelector('.rtpal').hidden = true; rtShow(rtBar._el); return; }
       const b = e.target.closest('[data-k]'); if (!b) return;
       if (b.dataset.k === 'color') { const pal = rtBar.querySelector('.rtpal'); pal.hidden = !pal.hidden; return; }
       rtApply(rtBar._el, b.dataset.k); rtShow(rtBar._el);
@@ -2101,7 +2297,7 @@ function rtShow(el) {
   rtBar.style.left = Math.max(6, Math.min(r.left + 8, innerWidth - w - 6)) + 'px';
   rtBar.style.top = Math.max(6, r.top - 38 < 6 ? r.bottom + 4 : r.top - 38) + 'px';
 }
-document.addEventListener('selectionchange', () => { const el = document.activeElement; if (el && el.tagName === 'TEXTAREA') rtShow(el); else rtHide(); });
+document.addEventListener('selectionchange', () => { if (rtBar && rtBar._pick) return; const el = document.activeElement; if (el && el.tagName === 'TEXTAREA') rtShow(el); else rtHide(); });
 document.addEventListener('keydown', e => {
   const el = e.target, k = e.key.toLowerCase();
   if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && 'biu'.includes(k) && k.length === 1 && rtTarget(el) && el.selectionStart !== el.selectionEnd) { e.preventDefault(); rtApply(el, k); rtShow(el); }
@@ -2128,6 +2324,14 @@ function bindSheet(wrap) {
       if (t && !t.done) addTask(t.id, 'below');
     }
   });
+  wrap.addEventListener('click', e => {                    // mobile: while rows are selected, tapping a row toggles it
+    if (!isMobile()) return;
+    if (state.noTap && Date.now() < state.noTap) { e.preventDefault(); e.stopPropagation(); return; }
+    if (!(state.sel && state.sel.size)) return;
+    const tr = e.target.closest('tbody tr[data-id]'); if (!tr) return;
+    e.preventDefault(); e.stopPropagation(); const id = tr.dataset.id;
+    if (state.sel.has(id)) state.sel.delete(id); else state.sel.add(id); applySel();
+  }, true);
   const rowSel = e => {
     if (state.role === 'view' || isMobile()) return false;
     const tr = e.target.closest('tbody tr[data-id]'); if (!tr) return false;
@@ -2171,6 +2375,7 @@ function bindSheet(wrap) {
   // right-click (desktop, Android long-press)
   wrap.addEventListener('contextmenu', e => {
     const tr = e.target.closest('tr[data-id]'); if (!tr) return;
+    if (isMobile() && state.role !== 'view') { e.preventDefault(); return; }
     const el = e.target;
     try { if ((el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') && el.selectionStart != null && el.selectionStart !== el.selectionEnd) return; } catch (x) {}
     const t = taskById(tr.dataset.id); if (!t) return;
@@ -2182,7 +2387,11 @@ function bindSheet(wrap) {
     const tr = e.target.closest('tr[data-id]');
     if (!tr || /^(TEXTAREA|INPUT|BUTTON|A|SELECT)$/.test(e.target.tagName)) return;
     const p = e.touches[0];
-    lp = setTimeout(() => { lp = null; const t = taskById(tr.dataset.id); if (t) { if (navigator.vibrate) navigator.vibrate(15); openCtx(p.clientX, p.clientY, t); } }, 550);
+    lp = setTimeout(() => {
+      lp = null; const t = taskById(tr.dataset.id); if (!t) return; if (navigator.vibrate) navigator.vibrate(15);
+      if (isMobile() && state.role !== 'view') { if (!state.sel) state.sel = new Set(); state.sel.add(t.id); state.selAnchor = t.id; state.noTap = Date.now() + 700; applySel(); }
+      else openCtx(p.clientX, p.clientY, t);
+    }, 550);
   }, { passive: true });
   ['touchend', 'touchmove', 'touchcancel'].forEach(ev => wrap.addEventListener(ev, () => { clearTimeout(lp); lp = null; }, { passive: true }));
 }
@@ -2249,7 +2458,7 @@ function updateStatus() {
   s.textContent = (pending.size || inflight) ? T('saving') : T('saved');
 }
 function queueSave(id, patch, delay = 600) {
-  const p = pending.get(id) || { patch: {}, timer: null };
+  const p = pending.get(id) || { patch: {}, timer: null, list: state.cur && state.cur.id };
   Object.assign(p.patch, patch); clearTimeout(p.timer);
   p.timer = setTimeout(() => flush(id), delay);
   pending.set(id, p); updateStatus();
@@ -2260,7 +2469,8 @@ async function flush(id) {
   inflight++; updateStatus();
   try {
     if (insertPromises.has(id)) await insertPromises.get(id);
-    const { error } = await sb.from('tasks').update(p.patch).eq('id', id);
+    let patch = p.patch; if (p.list && listEnc(p.list)) patch = await E2E.encPatch(p.list, patch);
+    const { error } = await sb.from('tasks').update(patch).eq('id', id);
     if (error) toast(T('save_fail', { msg: errText(error) }), true);
   } finally {
     inflight--; updateStatus();
@@ -2293,7 +2503,7 @@ async function insertTask(t, focus) {
   if (focus) { const el = $(`tr[data-id="${t.id}"] textarea[data-f="title"]`); if (el) el.focus(); }
   const payload = { id: t.id, list_id: t.list_id, position: t.position, done: t.done, done_at: t.done_at,
     title: t.title, notes: t.notes, sub_list_id: t.sub_list_id, data: t.data };
-  const ins = sb.from('tasks').insert(payload).then(r => r);
+  const ins = (async () => sb.from('tasks').insert(listEnc(t.list_id) ? Object.assign(payload, await E2E.encPatch(t.list_id, { title: t.title, notes: t.notes, data: t.data })) : payload).then(r => r))();
   insertPromises.set(t.id, ins);
   const { error } = await ins;
   insertPromises.delete(t.id);
@@ -2578,7 +2788,10 @@ async function saveColumns(cols) {
   const cur = state.cur; state.colsVer++; state.colsBusy++;
   cur.columns = cols; if (state.cur === cur) drawList2();       // show at once (optimistic) ...
   let error;
-  try { ({ error } = await sb.rpc('set_list_columns', { lid: cur.id, cols })); }
+  try {
+    if (cur.enc) { const e = await E2E.newMeta(cur, { c: cols }); ({ error } = await sb.rpc('set_list_enc', { lid: cur.id, e })); if (!error) cur.enc = e; }
+    else ({ error } = await sb.rpc('set_list_columns', { lid: cur.id, cols }));
+  }
   finally { state.colsVer++; state.colsBusy--; }
   if (error) { toast(errText(error), true); refreshCur(true); return false; }
   return true;
@@ -2630,10 +2843,62 @@ const csvQuote = (v, d) => { const s = v == null ? '' : String(v); return (s.inc
 //   if (r.error) return draw(null, /function|schema cache|does not exist|404/i.test(r.error.message || '') ? T('sync_missing') : errText(r.error));
 //   draw(r.data || null);
 // }
+async function allTaskRows(lid, cols = 'id,list_id,title,notes,data') {
+  const out = [];
+  for (let from = 0; from < 50000; from += 500) {
+    const r = await sb.from('tasks').select(cols).eq('list_id', lid).order('id').range(from, from + 499);
+    if (r.error) throw r.error; out.push(...(r.data || [])); if ((r.data || []).length < 500) break;
+  }
+  return out;
+}
+async function upsertRows(rows) {
+  for (let i = 0; i < rows.length; i += 200) { const { error } = await sb.from('tasks').upsert(rows.slice(i, i + 200), { onConflict: 'id' }); if (error) throw error; }
+}
+function encModal(l) {
+  if (!E2E.ok()) return toast(T('enc_nocrypto'), true);
+  modal(`<h3>🔒 ${TE('enc_title')}</h3><p class="muted small">${TE('enc_intro')}</p>
+    <form id="enF"><label>${TE('enc_pass')}<input type="password" id="enP" autocomplete="new-password" required></label>
+    <label>${TE('enc_pass2')}<input type="password" id="enP2" autocomplete="new-password" required></label>
+    <label class="check small" style="margin:10px 0"><input type="checkbox" id="enW" required>${TE('enc_warn')}</label>
+    <label class="check small" style="margin:6px 0 10px"><input type="checkbox" id="enR" checked>${TE('enc_remember')}</label><div class="msg" id="enM"></div>
+    <div class="actions"><span class="spacer"></span><button type="button" class="btn" data-x>${TE('cancel')}</button><button class="btn primary" type="submit" id="enGo">${TE('enc_go')}</button></div></form>`,
+  (m, close) => {
+    $('[data-x]', m).onclick = close;
+    $('#enF', m).onsubmit = async e => {
+      e.preventDefault(); const pass = $('#enP', m).value, msg = $('#enM', m); msg.className = 'msg'; msg.textContent = '';
+      if (pass.length < 8) { msg.textContent = T('enc_short'); return; }
+      if (pass !== $('#enP2', m).value) { msg.textContent = T('enc_mismatch'); return; }
+      $('#enGo', m).disabled = true; msg.textContent = T('enc_busy');
+      try {
+        await flushAllWait();
+        const salt = E2E.newSalt(), iter = 250000, key = await E2E.derive(pass, salt, iter);
+        const en = { v: 1, salt, iter, check: await E2E.encStr(key, 'tpc2do-ok'), t: await E2E.encStr(key, l.title), c: await E2E.encStr(key, JSON.stringify(l.columns || [])) };
+        const rows = await allTaskRows(l.id);
+        const { error } = await sb.rpc('enable_list_enc', { lid: l.id, e: en, ph_title: '🔒' }); if (error) throw error;
+        await E2E.setKey(l.id, key, $('#enR', m).checked); l.enc = en; l.public_view = false;
+        const encRows = [];
+        for (const r of rows) encRows.push(Object.assign({ id: r.id, list_id: r.list_id }, await E2E.encPatch(l.id, { title: r.title, notes: r.notes, data: r.data })));
+        await upsertRows(encRows);
+        close(); toast(T('enc_done')); if (state.cur && state.cur.id === l.id) drawList(); else if ($('#gridMine')) drawGrids();
+      } catch (er) { $('#enGo', m).disabled = false; msg.textContent = T('enc_fail', { msg: errText(er) }); }
+    };
+  });
+}
+async function encOff(l) {
+  if (!(await confirmBox(T('enc_off_q'), T('enc_off_menu').replace('…', '')))) return;
+  try {
+    await flushAllWait();
+    const rows = await E2E.decRows(l.id, await allTaskRows(l.id)), plain = rows.map(r => ({ id: r.id, list_id: r.list_id, title: r.title, notes: r.notes, data: r.data }));
+    await upsertRows(plain);
+    const { error } = await sb.rpc('disable_list_enc', { lid: l.id, new_title: l.title, cols: l.columns || [] }); if (error) throw error;
+    l.enc = null; toast(T('enc_off_done')); if (state.cur && state.cur.id === l.id) { state.cur.enc = null; drawList(); }
+  } catch (er) { toast(T('enc_fail', { msg: errText(er) }), true); }
+}
 function csvItems() {
   const items = [{ ic: '⬇', k: 'csv_export', fn: exportCsv }];
   if (state.role !== 'view') { items.push({ ic: '⬆', k: 'csv_import', fn: importCsvPick }); items.push({ ic: '🌐', k: 'gs_import', fn: importGoogleSheet }); }
   // sync disabled: if (state.role === 'owner' && beta('Sync')) items.push({ ic: '🔄', k: 'sync_item', fn: syncModal });
+  if (canManage(state.role)) items.push('-', state.cur.enc ? { ic: '🔓', k: 'enc_off_menu', fn: () => encOff(state.cur) } : { ic: '🔒', k: 'enc_menu', fn: () => encModal(state.cur) });
   return items;
 }
 function exportCsv() {
@@ -2791,7 +3056,8 @@ async function doImport(rows, hr, map, skipped) {
   if (!made.length) return toast(T('csv_empty'), true);
   for (let i = 0; i < made.length; i += 200) {
     const chunk = made.slice(i, i + 200).map(t => ({ id: t.id, list_id: t.list_id, position: t.position, done: t.done, done_at: t.done_at, title: t.title, notes: t.notes, data: t.data }));
-    const { error } = await sb.from('tasks').insert(chunk);
+    const encL = listEnc(state.cur.id);
+    const { error } = await sb.from('tasks').insert(encL ? await Promise.all(chunk.map(async x => Object.assign(x, await E2E.encPatch(state.cur.id, { title: x.title, notes: x.notes, data: x.data })))) : chunk);
     if (error) { toast(T('csv_fail', { msg: errText(error) }), true); refreshCur(true); return; }
   }
   state.tasks.push(...made); drawTable();
@@ -2821,10 +3087,11 @@ async function shareModal(l = state.cur) {
       <option value="edit">${TE('link_edit')}</option>
     </select>
     <div id="linkBox"></div>
-    ${beta('Public') ? `<label class="check small" style="margin-top:10px"><input type="checkbox" id="pubView" ${l.public_view ? 'checked' : ''}>${TE('share_public')}</label><div id="pubBox"></div>` : ''}
+    ${l.enc ? `<p class="muted small" style="margin:10px 0">${TE('enc_note')}</p>` : ''}
+    ${beta('Public') && !l.enc ? `<label class="check small" style="margin-top:10px"><input type="checkbox" id="pubView" ${l.public_view ? 'checked' : ''}>${TE('share_public')}</label><div id="pubBox"></div>` : ''}
     <h4>${TE('by_user')}</h4>
     <div class="row"><input id="shUser" placeholder="${TE('user_ph')}" style="flex:1;min-width:0" autocomplete="off">
-      <select id="shRole"><option value="edit">${TE('r_edit')}</option><option value="view">${TE('r_view')}</option></select>
+      <select id="shRole"><option value="edit">${TE('r_edit')}</option><option value="view">${TE('r_view')}</option><option value="admin">${TE('r_admin')}</option></select>
       <button class="btn primary" id="shAdd">${TE('add')}</button></div>
     <label class="check small" style="margin:12px 0 6px"><input type="checkbox" id="shSubs">${TE('share_subs')}</label>
     <div id="recentBox" class="recent"></div>
@@ -2877,7 +3144,7 @@ async function shareModal(l = state.cur) {
     const drawMembers = () => {
       const box = $('#memberList', m);
       box.innerHTML = members.length ? members.map(x => `<div class="member" data-uid="${x.user_id}">${avatarHTML(x, 24)}<span class="nm">${esc(x.username)}</span>
-        <select data-mrole><option value="edit" ${x.role === 'edit' ? 'selected' : ''}>${TE('r_edit')}</option><option value="view" ${x.role === 'view' ? 'selected' : ''}>${TE('r_view')}</option></select>
+        <select data-mrole><option value="edit" ${x.role === 'edit' ? 'selected' : ''}>${TE('r_edit')}</option><option value="view" ${x.role === 'view' ? 'selected' : ''}>${TE('r_view')}</option><option value="admin" ${x.role === 'admin' ? 'selected' : ''}>${TE('r_admin')}</option></select>
         <button class="icon" data-mrm title="${TE('remove')}">✕</button></div>`).join('')
         : `<p class="muted small">${TE('nobody')}</p>`;
       box.querySelectorAll('.member').forEach(row => {
@@ -2926,9 +3193,9 @@ async function linkAccountFlow(uname, email, pw) {
     if (uid === state.user.id) return { err: T('lk_mismatch') };
     const tk = await tmp.rpc('make_link_token'); if (tk.error) return { err: errText(tk.error) };
     const l = await sb.rpc('link_accounts', { tok: tk.data }); if (l.error) return { err: errText(l.error) };
+    const ss = r.data.session; if (ss && ss.refresh_token) { const m = readSess(); m[uid] = { access_token: ss.access_token, refresh_token: ss.refresh_token }; writeSess(m); }
     return { ok: true };
   } catch (e) { return { err: String(e.message || e) }; }
-  finally { try { await tmp.auth.signOut({ scope: 'local' }); } catch (e) {} }
 }
 function renderAccount() {
   const p = state.profile || {}, email = state.user.email || '';
@@ -2958,8 +3225,8 @@ function renderAccount() {
     </section>
 
     <section class="panel" id="lkPanel"><h3>${TE('lk_title')}</h3>
-      <p class="muted small">${TE('lk_intro')}</p>
-      <div id="lkList">${(state.links || []).length ? state.links.map(x => `<div class="row between lkrow"><span class="row gap">${avatarHTML(x, 28)}<b>${esc(x.username)}</b></span><button class="btn small" data-unlink="${x.id}" data-name="${esc(x.username)}">${TE('lk_unlink')}</button></div>`).join('') : `<p class="muted small">${TE('lk_none')}</p>`}</div>
+      <p class="muted small">${TE('lk_intro')}</p><p class="muted small">${TE('lk_store_note')}</p>
+      <div id="lkList">${(state.links || []).length ? state.links.map(x => `<div class="row between lkrow"><span class="row gap">${avatarHTML(x, 28)}<b>${esc(x.username)}</b></span><span class="row gap"><button class="btn small" data-switch="${x.id}">⇄ ${TE('sw_title')}</button><button class="btn small" data-unlink="${x.id}" data-name="${esc(x.username)}">${TE('lk_unlink')}</button></span></div>`).join('') : `<p class="muted small">${TE('lk_none')}</p>`}</div>
       <form id="lkForm" autocomplete="off">
         <label>${TE('lk_user')}<input name="u" required maxlength="24" autocomplete="off"></label>
         <label>${TE('lk_email')}<input name="e" type="email" required autocomplete="off"></label>
@@ -2975,6 +3242,7 @@ function renderAccount() {
     if (r.err) { msg.textContent = r.err; return; }
     await loadLists(); renderAccount(); toast(T('lk_ok'));
   };
+  document.querySelectorAll('[data-switch]').forEach(b => b.onclick = () => switchAccount(state.links.find(x => x.id === b.dataset.switch)));
   document.querySelectorAll('[data-unlink]').forEach(b => b.onclick = async () => {
     if (!(await confirmBox(T('lk_unlink_q', { name: b.dataset.name })))) return;
     const { error } = await sb.rpc('unlink_account', { other: b.dataset.unlink });
@@ -3066,6 +3334,14 @@ function renderSettings() {
         <button class="btn" id="soundTest">🔊 ${TE('pref_sound_test')}</button></div>
       <div class="setrow"><span>${TE('pref_volume')}</span><span class="row"><input type="range" class="rng" id="prefVol" min="0" max="100" step="5" value="${prefs.volume}" aria-label="${TE('pref_volume')}" style="width:160px"><output id="prefVolOut" style="min-width:3.2em;text-align:right">${prefs.volume}%</output></span></div>
     </section>
+    <section class="panel" id="bkPanel"><h3>💾 ${TE('bk_title')}</h3>
+      <p class="muted small">${TE('bk_intro')}</p>
+      <label>${TE('bk_pw')}<input type="password" id="bkPw" autocomplete="new-password"></label>
+      <label class="check small" style="margin:8px 0"><input type="checkbox" id="bkShared">${TE('bk_shared')}</label>
+      <div class="row gap wrapx"><button class="btn primary" id="bkDown">${TE('bk_download')}</button><button class="btn" id="bkRestore">${TE('bk_restore')}</button><input type="file" id="bkFile" accept=".json,application/json" hidden></div>
+      <p class="muted small" id="bkLast" style="margin-top:8px"></p><div class="msg" id="bkMsg"></div>
+      <p class="muted small">${TE('bk_server_note')}</p>
+    </section>
     ${hasBetaList() ? `<section class="panel beta"><h3>🧪 ${TE('set_beta')}</h3><p class="muted small hint">${TE('beta_desc')}</p>
       ${['Public'].map(k => `<label class="check" style="margin-bottom:2px"><input type="checkbox" data-beta="${k}" ${prefs['beta' + k] ? 'checked' : ''}>${TE('beta_' + k.toLowerCase())}</label><p class="muted small hint" style="margin-top:0">${TE('beta_' + k.toLowerCase() + '_d')}</p>`).join('')}
     </section>` : ''}
@@ -3091,7 +3367,88 @@ function renderSettings() {
   $('#prefSound').onchange = e => { prefs.sound = e.target.checked; savePrefs(); };
   $('#soundTest').onclick = playSoundNow;
   const pv = $('#prefVol'); const pvFill = () => pv.style.setProperty('--f', (pv.value / 100).toFixed(3)); pvFill(); pv.oninput = () => { pvFill(); prefs.volume = +pv.value; $('#prefVolOut').textContent = pv.value + '%'; }; pv.onchange = () => { savePrefs(); playSoundNow(); };
+  bindBackup();
   document.querySelectorAll('[data-beta]').forEach(b => b.onchange = () => { prefs['beta' + b.dataset.beta] = b.checked; savePrefs(); });
+}
+
+/* ---------- Backup (all my lists as one JSON file, optionally password-encrypted) + restore ---------- */
+const BK_LAST = 'tpc2do_lastbackup';
+function bkLastText() { let d = ''; try { d = localStorage.getItem(BK_LAST) || ''; } catch (e) {} return d ? T('bk_last', { d: new Date(d).toLocaleString() }) : T('bk_never'); }
+async function makeBackup(withShared, pw) {
+  const raw = await sb.from('lists').select(LIST_COLS).order('created_at'); if (raw.error) throw raw.error;
+  const mine = (raw.data || []).filter(l => withShared || roleOf(l) === 'owner'), out = [];
+  for (const l of mine) {
+    const tasks = await allTaskRows(l.id, 'id,title,notes,done,done_at,position,sub_list_id,data');
+    out.push({ id: l.id, title: l.title, columns: l.columns || [], enc: l.enc || null, tasks });
+  }
+  const doc = { app: 'TPC2Do', v: 1, created: new Date().toISOString(), user: state.profile ? state.profile.username : '', lists: out };
+  if (!pw) return doc;
+  if (!E2E.ok()) throw new Error(T('enc_nocrypto'));
+  const salt = E2E.newSalt(), key = await E2E.derive(pw, salt, 250000);
+  return { app: 'TPC2Do', v: 1, encrypted: true, created: doc.created, salt, iter: 250000, check: await E2E.encStr(key, 'tpc2do-ok'), data: await E2E.encStr(key, JSON.stringify(doc)) };
+}
+async function openBackup(doc, pwFn) {
+  if (!doc || doc.app !== 'TPC2Do') throw new Error(T('bk_bad_file'));
+  if (!doc.encrypted) return doc;
+  for (;;) {
+    const pw = await pwFn(); if (pw == null) return null;
+    try { const key = await E2E.derive(pw, doc.salt, doc.iter || 250000); if ((await E2E.decStr(key, doc.check)) === 'tpc2do-ok') return JSON.parse(await E2E.decStr(key, doc.data)); } catch (e) {}
+    toast(T('bk_wrong_pw'), true);
+  }
+}
+function askText(title, label) {
+  return new Promise(res => {
+    let done = false;
+    modal(`<h3>${esc(title)}</h3><form id="atF"><label>${esc(label)}<input type="password" id="atP" autocomplete="off" required></label><div class="actions"><span class="spacer"></span><button type="button" class="btn" data-x>${TE('cancel')}</button><button class="btn primary" type="submit">OK</button></div></form>`,
+      (m, close) => { $('[data-x]', m).onclick = close; $('#atF', m).onsubmit = e => { e.preventDefault(); done = true; const v = $('#atP', m).value; close(); res(v); }; $('#atP', m).focus(); }, () => { if (!done) res(null); });
+  });
+}
+async function restoreBackup(doc) {
+  const sel = await new Promise(res => {
+    let done = false;
+    modal(`<h3>${TE('bk_restore')}</h3><p class="muted small">${TE('bk_pick')}</p>
+      <div class="bklist">${doc.lists.map((l, i) => `<label class="check"><input type="checkbox" data-i="${i}" checked>${l.enc ? '🔒 ' : '📋 '}${esc(l.enc ? T('enc_locked') : l.title)} <span class="muted small">· ${TE('bk_tasks', { n: (l.tasks || []).length })}</span></label>`).join('')}</div>
+      <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="bkGo">${TE('bk_restore_go')}</button></div>`,
+      (m, close) => { $('[data-x]', m).onclick = close; $('#bkGo', m).onclick = () => { done = true; const r = [...m.querySelectorAll('[data-i]')].filter(x => x.checked).map(x => +x.dataset.i); close(); res(r); }; }, () => { if (!done) res(null); });
+  });
+  if (!sel || !sel.length) return 0;
+  const map = new Map(), made = [];
+  for (const i of sel) {                                   // 1) lists first (so sub-list links can be remapped)
+    const l = doc.lists[i], nl = await createList(l.enc ? '🔒' : (l.title || 'Liste')); if (!nl) throw new Error('create');
+    if (l.enc) { const { error } = await sb.rpc('enable_list_enc', { lid: nl.id, e: l.enc, ph_title: '🔒' }); if (error) throw error; nl.enc = l.enc; await E2E.meta(nl); }
+    else if ((l.columns || []).length) { const { error } = await sb.rpc('set_list_columns', { lid: nl.id, cols: l.columns }); if (error) throw error; nl.columns = l.columns; }
+    map.set(l.id, nl.id); made.push([l, nl]);
+  }
+  for (const [l, nl] of made) {                            // 2) tasks
+    const rows = (l.tasks || []).map(t => ({ id: uuid(), list_id: nl.id, title: t.title ?? '', notes: t.notes ?? '', done: !!t.done, done_at: t.done_at || null, position: t.position ?? 0, sub_list_id: map.get(t.sub_list_id) || null, data: t.data || {} }));
+    for (let i = 0; i < rows.length; i += 200) { const { error } = await sb.from('tasks').insert(rows.slice(i, i + 200)); if (error) throw error; }
+  }
+  await loadLists(); return made.length;
+}
+function bindBackup() {
+  const msg = $('#bkMsg'), last = $('#bkLast'); last.textContent = bkLastText();
+  const say = (t, err) => { msg.className = 'msg' + (err ? ' err' : ''); msg.textContent = t || ''; };
+  $('#bkDown').onclick = async () => {
+    say(T('bk_busy'));
+    try {
+      await flushAllWait();
+      const doc = await makeBackup($('#bkShared').checked, $('#bkPw').value), txt = JSON.stringify(doc);
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: 'application/json' }));
+      a.download = 'tpc2do-backup-' + new Date().toISOString().slice(0, 10) + '.json'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      try { localStorage.setItem(BK_LAST, new Date().toISOString()); } catch (e) {}
+      last.textContent = bkLastText(); say('');
+    } catch (e) { say(errText(e), true); }
+  };
+  $('#bkRestore').onclick = () => $('#bkFile').click();
+  $('#bkFile').onchange = async e => {
+    const f = e.target.files[0]; e.target.value = ''; if (!f) return; say(T('bk_busy'));
+    try {
+      let doc; try { doc = JSON.parse(await f.text()); } catch (x) { throw new Error(T('bk_bad_file')); }
+      doc = await openBackup(doc, () => askText(T('bk_restore'), T('bk_enter_pw'))); say('');
+      if (!doc) return; if (!Array.isArray(doc.lists)) throw new Error(T('bk_bad_file'));
+      say(T('bk_busy')); const n = await restoreBackup(doc); say(''); if (n) toast(T('bk_done', { n }));
+    } catch (er) { say(er.message || errText(er), true); }
+  };
 }
 
 /* ---------- Google Sheets import (public sheets: "Anyone with the link") ---------- */
@@ -3166,6 +3523,7 @@ async function refreshCur(force) {
     sb.from('tasks').select('*').eq('list_id', id).order('position')
   ]);
   if (!state.cur || state.cur.id !== id || lr.error || tr.error) return;
+  if (lr.data && lr.data.enc) { await E2E.meta(lr.data); if (lr.data.locked) return; tr.data = await E2E.decRows(id, tr.data); }
   if (ver !== state.colsVer || state.colsBusy) { state.needsRefresh = true; setTimeout(() => refreshCur(true), 400); return; }   // columns were saved while we were fetching: our copy is stale
   if (!lr.data) { toast(T('list_gone'), true); await loadLists(); location.hash = '#/'; return; }
   if (pending.size || inflight || state.colsBusy || typing() || ctxEl || document.querySelector('.overlay')) { state.needsRefresh = true; return; }

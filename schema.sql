@@ -3,7 +3,7 @@
 -- Supabase-Dashboard → SQL Editor → New query → alles einfügen → Run
 --
 -- Das ist die EINZIGE Datei, die für eine neue Installation nötig ist.
--- (Du hast schon eine ältere Version laufen? Dann stattdessen migration_round9.sql und danach migration_round10.sql ausführen.)
+-- (Du hast schon eine ältere Version laufen? Dann stattdessen nacheinander migration_round9.sql, migration_round10.sql und migration_round11.sql ausführen.)
 -- Die SQL-Editor-Einträge ("Snippets") darfst du nach dem Ausführen löschen –
 -- die Tabellen/Funktionen bleiben in der Datenbank bestehen.
 -- =====================================================================
@@ -389,5 +389,189 @@ create trigger link_new_list after insert on public.lists for each row execute f
 
 revoke all on function public.make_link_token(), public.link_sync_lists(uuid, uuid), public.link_accounts(uuid), public.my_links(), public.unlink_account(uuid), public.link_new_list() from public, anon, authenticated;
 grant execute on function public.make_link_token(), public.link_accounts(uuid), public.my_links(), public.unlink_account(uuid) to authenticated;
+
+-- ---------------------------------------------------------------------
+-- Runde 11: Admin-Rolle, volle Rechte für verknüpfte Konten, verschlüsselte Listen
+-- ---------------------------------------------------------------------
+alter table public.list_members drop constraint if exists list_members_role_check;
+alter table public.list_members add constraint list_members_role_check check (role in ('view','edit','admin'));
+alter table public.lists add column if not exists enc jsonb;           -- Ende-zu-Ende-Verschlüsselung: Salt, Prüfwert, verschlüsselter Titel/Spalten (nie der Schlüssel)
+
+-- Besitzer = eigene Liste ODER Liste eines verknüpften Kontos (volle Rechte: teilen, löschen, ...)
+create or replace function public.is_list_owner(lid uuid) returns boolean
+language plpgsql stable security definer set search_path = public as $$
+begin
+  return exists (select 1 from public.lists l where l.id = lid
+    and (l.owner_id = auth.uid()
+         or exists (select 1 from public.account_links k where k.user_id = auth.uid() and k.linked_id = l.owner_id)));
+end $$;
+
+-- Verwalten = Besitzer oder Admin-Mitglied (teilen, umbenennen, Spalten, Link; Löschen bleibt dem Besitzer)
+create or replace function public.can_manage_list(lid uuid) returns boolean
+language sql stable security definer set search_path = public as $$
+  select public.is_list_owner(lid)
+      or exists (select 1 from public.list_members m where m.list_id = lid and m.user_id = auth.uid() and m.role = 'admin');
+$$;
+
+create or replace function public.can_edit_list(lid uuid) returns boolean
+language sql stable security definer set search_path = public as $$
+  select public.is_list_owner(lid)
+      or exists (select 1 from public.list_members m
+                 where m.list_id = lid and m.user_id = auth.uid() and m.role in ('edit','admin'));
+$$;
+
+create or replace function public.role_max(a text, b text) returns text
+language sql immutable set search_path = public as $$
+  select case when a = 'admin' or b = 'admin' then 'admin' when a = 'edit' or b = 'edit' then 'edit' else 'view' end;
+$$;
+
+create or replace function public.owned_sublists(lid uuid) returns setof uuid
+language sql stable security definer set search_path = public as $$
+  with recursive s(id) as (
+    select t.sub_list_id from public.tasks t where t.list_id = lid and t.sub_list_id is not null
+    union
+    select t.sub_list_id from public.tasks t join s on t.list_id = s.id where t.sub_list_id is not null
+  )
+  select l.id from s join public.lists l on l.id = s.id where public.can_manage_list(l.id) and l.id <> lid;
+$$;
+
+create or replace function public.share_with_username(lid uuid, uname text, r text, subs boolean default false) returns void
+language plpgsql security definer set search_path = public as $$
+declare target uuid; sid uuid;
+begin
+  if not public.can_manage_list(lid) then
+    raise exception 'Nur Besitzer oder Admins können diese Liste teilen.';
+  end if;
+  if r not in ('view','edit','admin') then
+    raise exception 'Ungültige Berechtigung.';
+  end if;
+  select id into target from public.profiles where lower(username) = lower(trim(uname));
+  if target is null then
+    raise exception 'Konto "%" wurde nicht gefunden.', trim(uname);
+  end if;
+  if target = auth.uid() then
+    raise exception 'Das ist dein eigenes Konto.';
+  end if;
+  if exists (select 1 from public.lists where id = lid and owner_id = target) then
+    raise exception 'Das ist der Besitzer der Liste.';
+  end if;
+  insert into public.list_members (list_id, user_id, role) values (lid, target, r)
+  on conflict (list_id, user_id) do update set role = excluded.role;
+  if subs then
+    for sid in select public.owned_sublists(lid) loop
+      insert into public.list_members (list_id, user_id, role) values (sid, target, r)
+      on conflict (list_id, user_id) do update set role = public.role_max(public.list_members.role, excluded.role);
+    end loop;
+  end if;
+end $$;
+
+create or replace function public.join_list_by_token(tok uuid) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare l public.lists%rowtype;
+begin
+  if auth.uid() is null then
+    raise exception 'Nicht angemeldet.';
+  end if;
+  select * into l from public.lists where share_token = tok and link_role <> 'none';
+  if not found then
+    raise exception 'Link ungültig oder Freigabe deaktiviert.';
+  end if;
+  if l.owner_id <> auth.uid() then
+    insert into public.list_members (list_id, user_id, role) values (l.id, auth.uid(), l.link_role)
+    on conflict (list_id, user_id) do update set role = public.role_max(public.list_members.role, excluded.role);
+    if l.link_subs then          -- verknüpfte Unterlisten des Besitzers ebenfalls (mit derselben Berechtigung)
+      insert into public.list_members (list_id, user_id, role)
+        select s.id, auth.uid(), l.link_role
+        from (with recursive s(id) as (
+                select t.sub_list_id from public.tasks t where t.list_id = l.id and t.sub_list_id is not null
+                union
+                select t.sub_list_id from public.tasks t join s on t.list_id = s.id where t.sub_list_id is not null)
+              select x.id from s join public.lists x on x.id = s.id where x.owner_id = l.owner_id and x.id <> l.id) s
+      on conflict (list_id, user_id) do update set role = public.role_max(public.list_members.role, excluded.role);
+    end if;
+  end if;
+  return l.id;
+end $$;
+
+create or replace function public.get_share_token(lid uuid) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare t uuid;
+begin
+  if not public.can_manage_list(lid) then
+    raise exception 'Nur Besitzer oder Admins können den Link sehen.';
+  end if;
+  select share_token into t from public.lists where id = lid;
+  return t;
+end $$;
+
+create or replace function public.rotate_share_token(lid uuid) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare t uuid := gen_random_uuid();
+begin
+  if not public.can_manage_list(lid) then
+    raise exception 'Nur Besitzer oder Admins können den Link ändern.';
+  end if;
+  update public.lists set share_token = t where id = lid;
+  return t;
+end $$;
+
+-- Verschlüsselte Listen: der Server speichert nur Chiffretext (Salt/Prüfwert/Titel/Spalten in "enc")
+create or replace function public.enable_list_enc(lid uuid, e jsonb, ph_title text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.can_manage_list(lid) then raise exception 'Keine Berechtigung.'; end if;
+  if jsonb_typeof(e) <> 'object' or not (e ? 'v') then raise exception 'Ungültige Verschlüsselungsdaten.'; end if;
+  update public.lists set enc = e, title = coalesce(nullif(ph_title, ''), '🔒'), columns = '[]'::jsonb, public_view = false where id = lid;
+end $$;
+
+create or replace function public.set_list_enc(lid uuid, e jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.can_edit_list(lid) then raise exception 'Keine Berechtigung zum Bearbeiten.'; end if;
+  if jsonb_typeof(e) <> 'object' or not (e ? 'v') then raise exception 'Ungültige Verschlüsselungsdaten.'; end if;
+  if not exists (select 1 from public.lists where id = lid and enc is not null) then raise exception 'Liste ist nicht verschlüsselt.'; end if;
+  update public.lists set enc = e where id = lid;
+end $$;
+
+create or replace function public.disable_list_enc(lid uuid, new_title text, cols jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.can_manage_list(lid) then raise exception 'Keine Berechtigung.'; end if;
+  if jsonb_typeof(cols) <> 'array' then raise exception 'Ungültige Spalten.'; end if;
+  update public.lists set enc = null, title = coalesce(nullif(new_title, ''), 'Liste'), columns = cols where id = lid;
+end $$;
+
+-- öffentliche Ansicht: nie für verschlüsselte Listen
+create or replace function public.get_public_list(tok uuid) returns jsonb
+language sql stable security definer set search_path = public as $$
+  select jsonb_build_object('title', l.title, 'columns', l.columns,
+    'tasks', coalesce((select jsonb_agg(jsonb_build_object('id', t.id, 'done', t.done, 'title', t.title, 'notes', t.notes, 'data', t.data)
+                       order by t.done, t.position) from public.tasks t where t.list_id = l.id), '[]'::jsonb))
+  from public.lists l where l.share_token = tok and l.public_view and l.enc is null;
+$$;
+
+-- Rechte (Policies) auf can_manage/is_list_owner umstellen
+drop policy if exists lists_update on public.lists;
+create policy lists_update on public.lists for update to authenticated
+  using (public.can_manage_list(id)) with check (public.can_manage_list(id));
+drop policy if exists lists_delete on public.lists;
+create policy lists_delete on public.lists for delete to authenticated using (public.is_list_owner(id));
+drop policy if exists members_select on public.list_members;
+create policy members_select on public.list_members for select to authenticated
+  using (user_id = auth.uid() or public.can_manage_list(list_id));
+drop policy if exists members_update on public.list_members;
+create policy members_update on public.list_members for update to authenticated
+  using (public.can_manage_list(list_id)) with check (public.can_manage_list(list_id));
+drop policy if exists members_delete on public.list_members;
+create policy members_delete on public.list_members for delete to authenticated
+  using (public.can_manage_list(list_id) or user_id = auth.uid());
+
+revoke all on function public.can_manage_list(uuid), public.role_max(text, text), public.enable_list_enc(uuid, jsonb, text),
+  public.set_list_enc(uuid, jsonb), public.disable_list_enc(uuid, text, jsonb) from public, anon, authenticated;
+grant execute on function public.can_manage_list(uuid), public.role_max(text, text), public.enable_list_enc(uuid, jsonb, text),
+  public.set_list_enc(uuid, jsonb), public.disable_list_enc(uuid, text, jsonb) to authenticated;
+revoke all on function public.get_public_list(uuid) from public;
+grant execute on function public.get_public_list(uuid) to anon, authenticated;
+grant select (id, owner_id, title, columns, link_role, link_subs, public_view, enc, created_at) on public.lists to authenticated;
 
 -- Der frühere Google-Sheets/Apps-Script-Sync ist entfernt. Falls du ihn je installiert hattest: remigration.sql ausführen.
