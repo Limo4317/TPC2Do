@@ -3598,7 +3598,7 @@ async function shareModal(l = state.cur) {
     drawLink();
     const pv = $('#pubView', m);
     if (pv) {
-      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token + pubKey)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div>` : ''; const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
+      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token + pubKey)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div>` : ''; const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token + pubKey); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
       pv.onchange = async () => {
         const { error } = await sb.from('lists').update({ public_view: pv.checked }).eq('id', l.id);
         if (error) { pv.checked = !!l.public_view; return toast(errText(error), true); }
