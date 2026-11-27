@@ -892,6 +892,7 @@ const E2E = (() => {
 })();
 const listEnc = id => { const l = (state.cur && state.cur.id === id) ? state.cur : (state.lists || []).find(x => x.id === id); return !!(l && l.enc); };
 
+const keyFp = async u => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', u)).subarray(0, 4), x => x.toString(16).padStart(2, '0')).join('');
 const b64u = u => E2E.b64(u).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const unb64u = t => E2E.unb64(String(t).replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((String(t).length + 3) % 4));
 /* ---------- Account keys (end-to-end encryption without any key the user has to remember) ----------
@@ -1389,13 +1390,14 @@ async function renderPublic(arg0, seq) {
   let d = r.data;
   if (r.error || !d) { app.innerHTML = head() + `<main class="wrap wide"><p class="muted">${TE('pub_missing')}</p></main>`; bindLang(); return; }
   if (d.enc) {                                                    // encrypted list: the key is in the link after the #
-    let why = 'pub_badkey';
+    let why = 'pub_badkey', fpInfo = '';
     try {
       if (!kf) { why = 'pub_nokey'; throw new Error('nokey'); }
       if (!d.enc || d.enc.v !== 2 || !d.enc.t) { why = 'pub_oldenc'; throw new Error('oldenc'); }
+      fpInfo = 'key-id ' + await keyFp(unb64u(kf)) + ', len ' + unb64u(kf).length + ', enc v' + d.enc.v + (d.enc.mig ? ' mig' : '') + ', t ' + String(d.enc.t).length;
       const key = await E2E.keyFromRaw(unb64u(kf)); E2E.putKey('pub:' + tok, key);
       d = Object.assign({}, d, { title: await E2E.decStr(key, d.enc.t), columns: JSON.parse(await E2E.decStr(key, d.enc.c)), tasks: await E2E.decRows('pub:' + tok, d.tasks) });
-    } catch (e) { console.error('public view', why, e); app.innerHTML = head() + `<main class="wrap wide"><p class="muted">${TE(why)}</p></main>`; bindLang(); return; }
+    } catch (e) { console.error('public view', why, e); app.innerHTML = head() + `<main class="wrap wide"><p class="muted">${TE(why)}</p><p class="muted small">${esc(fpInfo + ' · ' + (e && (e.name + ': ' + e.message)))}</p></main>`; bindLang(); return; }
   }
   const copyBtn = me ? `<button class="btn" id="pubCopy" style="margin:6px 0 12px">${TE('pub_copy')}</button>` : '';
   const cols = (d.columns || []).filter(c => c && !c.hidden && c.type !== 'formula' && c.type !== 'sub');
@@ -3619,7 +3621,7 @@ async function shareModal(l = state.cur) {
     drawLink();
     const pv = $('#pubView', m);
     if (pv) {
-      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token + pubKey)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div>` : ''; const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token + pubKey); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
+      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token + pubKey)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div><p class="muted small" id="pubFp"></p>` : ''; if (pv.checked && pubKey) E2E.rawOf(l.id).then(keyFp).then(f => { const q = $('#pubFp', m); if (q) q.textContent = 'key-id ' + f; }); const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token + pubKey); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
       pv.onchange = async () => {
         const { error } = await sb.from('lists').update({ public_view: pv.checked }).eq('id', l.id);
         if (error) { pv.checked = !!l.public_view; return toast(errText(error), true); }
