@@ -3,7 +3,7 @@
 -- Supabase-Dashboard → SQL Editor → New query → alles einfügen → Run
 --
 -- Das ist die EINZIGE Datei, die für eine neue Installation nötig ist.
--- (Du hast schon eine ältere Version laufen? Dann stattdessen nacheinander migration_round9.sql, migration_round10.sql und migration_round11.sql ausführen.)
+-- (Du hast schon eine ältere Version laufen? Dann stattdessen nacheinander migration_round9.sql, migration_round10.sql, migration_round11.sql und migration_round12.sql ausführen.)
 -- Die SQL-Editor-Einträge ("Snippets") darfst du nach dem Ausführen löschen –
 -- die Tabellen/Funktionen bleiben in der Datenbank bestehen.
 -- =====================================================================
@@ -575,3 +575,123 @@ grant execute on function public.get_public_list(uuid) to anon, authenticated;
 grant select (id, owner_id, title, columns, link_role, link_subs, public_view, enc, created_at) on public.lists to authenticated;
 
 -- Der frühere Google-Sheets/Apps-Script-Sync ist entfernt. Falls du ihn je installiert hattest: remigration.sql ausführen.
+
+-- ---------- Runde 12: automatische Ende-zu-Ende-Verschlüsselung ----------
+
+alter table public.profiles add column if not exists pubkey text;
+alter table public.profiles drop constraint if exists pubkey_format;
+alter table public.profiles add constraint pubkey_format check (pubkey is null or (length(pubkey) <= 200 and pubkey ~ '^[A-Za-z0-9+/=]+$'));
+
+-- privater Schlüssel jedes Kontos, verpackt mit Passwort und Wiederherstellungscode (der Server kann ihn nicht lesen)
+create table if not exists public.user_keys (
+  user_id    uuid primary key references auth.users(id) on delete cascade,
+  bundle     jsonb not null,
+  updated_at timestamptz not null default now()
+);
+alter table public.user_keys enable row level security;
+drop policy if exists user_keys_select on public.user_keys;
+drop policy if exists user_keys_insert on public.user_keys;
+drop policy if exists user_keys_update on public.user_keys;
+create policy user_keys_select on public.user_keys for select to authenticated using (user_id = auth.uid());
+create policy user_keys_insert on public.user_keys for insert to authenticated with check (user_id = auth.uid());
+create policy user_keys_update on public.user_keys for update to authenticated using (user_id = auth.uid()) with check (user_id = auth.uid());
+revoke all on public.user_keys from anon, authenticated;
+grant select, insert, update on public.user_keys to authenticated;
+
+-- Listenschlüssel, je Mitglied mit dessen öffentlichem Schlüssel verpackt
+create table if not exists public.list_keys (
+  list_id uuid not null references public.lists(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  wrapped text not null check (length(wrapped) <= 2000),
+  primary key (list_id, user_id)
+);
+alter table public.list_keys enable row level security;
+drop policy if exists list_keys_select on public.list_keys;
+create policy list_keys_select on public.list_keys for select to authenticated using (user_id = auth.uid());
+revoke all on public.list_keys from anon, authenticated;
+grant select on public.list_keys to authenticated;
+
+create or replace function public.list_keys_cleanup() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  delete from public.list_keys where list_id = old.list_id and user_id = old.user_id;
+  return old;
+end $$;
+drop trigger if exists list_keys_cleanup on public.list_members;
+create trigger list_keys_cleanup after delete on public.list_members for each row execute function public.list_keys_cleanup();
+
+create or replace function public.set_my_pubkey(pk text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  update public.profiles set pubkey = pk where id = auth.uid() and pubkey is null;
+end $$;
+
+-- Notausgang: neues Schlüsselpaar (alte verschlüsselte Listen werden für dieses Konto unlesbar)
+create or replace function public.reset_my_keys(pk text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  delete from public.list_keys where user_id = auth.uid();
+  delete from public.user_keys where user_id = auth.uid();
+  update public.profiles set pubkey = pk where id = auth.uid();
+end $$;
+
+create or replace function public.put_list_key(lid uuid, uid uuid, wrapped text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if auth.uid() is null then raise exception 'Nicht angemeldet.'; end if;
+  if not exists (select 1 from public.lists l where l.id = lid and (l.owner_id = uid or exists (select 1 from public.list_members m where m.list_id = lid and m.user_id = uid))) then
+    raise exception 'Kein Mitglied dieser Liste.'; end if;
+  if uid <> auth.uid() and not public.can_manage_list(lid) then raise exception 'Keine Berechtigung.'; end if;
+  insert into public.list_keys (list_id, user_id, wrapped) values (lid, uid, wrapped)
+  on conflict (list_id, user_id) do update set wrapped = excluded.wrapped;
+end $$;
+
+create or replace function public.create_enc_list(e jsonb, wrapped text) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare nid uuid;
+begin
+  if auth.uid() is null then raise exception 'Nicht angemeldet.'; end if;
+  if jsonb_typeof(e) <> 'object' or (e->>'v') <> '2' then raise exception 'Ungültige Verschlüsselungsdaten.'; end if;
+  insert into public.lists (owner_id, title, enc) values (auth.uid(), '🔒', e) returning id into nid;
+  insert into public.list_keys (list_id, user_id, wrapped) values (nid, auth.uid(), wrapped);
+  return nid;
+end $$;
+
+-- bestehende (unverschlüsselte oder alt verschlüsselte) Liste auf das neue Verfahren umstellen
+create or replace function public.convert_list_enc(lid uuid, e jsonb, wrapped text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.can_manage_list(lid) then raise exception 'Keine Berechtigung.'; end if;
+  if jsonb_typeof(e) <> 'object' or (e->>'v') <> '2' then raise exception 'Ungültige Verschlüsselungsdaten.'; end if;
+  update public.lists set enc = e, title = '🔒', columns = '[]'::jsonb where id = lid;
+  insert into public.list_keys (list_id, user_id, wrapped) values (lid, auth.uid(), wrapped)
+  on conflict (list_id, user_id) do update set wrapped = excluded.wrapped;
+end $$;
+
+-- Mitglieder, für die noch kein Listenschlüssel hinterlegt ist (der Verwaltende verpackt ihn beim nächsten Öffnen)
+create or replace function public.keyless_members() returns table (list_id uuid, user_id uuid, pubkey text)
+language sql stable security definer set search_path = public as $$
+  select l.id, u.uid, p.pubkey
+  from public.lists l
+  cross join lateral (select l.owner_id as uid union select m.user_id from public.list_members m where m.list_id = l.id) u
+  join public.profiles p on p.id = u.uid
+  where l.enc is not null and (l.enc->>'v') = '2' and p.pubkey is not null and u.uid <> auth.uid()
+    and public.can_manage_list(l.id)
+    and not exists (select 1 from public.list_keys k where k.list_id = l.id and k.user_id = u.uid);
+$$;
+
+-- öffentliche Ansicht: auch für verschlüsselte Listen (der Schlüssel steckt im Link hinter dem #, der Server sieht ihn nie)
+create or replace function public.get_public_list(tok uuid) returns jsonb
+language sql stable security definer set search_path = public as $$
+  select jsonb_build_object('title', l.title, 'columns', l.columns, 'enc', l.enc,
+    'tasks', coalesce((select jsonb_agg(jsonb_build_object('id', t.id, 'done', t.done, 'title', t.title, 'notes', t.notes, 'data', t.data)
+                       order by t.done, t.position) from public.tasks t where t.list_id = l.id), '[]'::jsonb))
+  from public.lists l where l.share_token = tok and l.public_view;
+$$;
+
+revoke all on function public.set_my_pubkey(text), public.reset_my_keys(text), public.put_list_key(uuid, uuid, text), public.create_enc_list(jsonb, text),
+  public.convert_list_enc(uuid, jsonb, text), public.keyless_members() from public;
+grant execute on function public.set_my_pubkey(text), public.reset_my_keys(text), public.put_list_key(uuid, uuid, text), public.create_enc_list(jsonb, text),
+  public.convert_list_enc(uuid, jsonb, text), public.keyless_members() to authenticated;
+revoke all on function public.get_public_list(uuid) from public;
+grant execute on function public.get_public_list(uuid) to anon, authenticated;

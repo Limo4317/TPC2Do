@@ -31,6 +31,7 @@ h1,h2,h3,h4{margin:0 0 .4em}
 .tile{display:grid;place-items:center;background:#000;color:#fff;border-radius:9px;width:36px;height:36px}
 .tile svg{width:26px;height:auto;display:block}
 .me{display:flex;align-items:center;gap:8px;color:var(--muted);padding:3px 8px 3px 3px;border-radius:99px} .me:hover{background:var(--hover);text-decoration:none}
+.rchip{display:inline-flex;align-items:center;gap:5px}
 .av{border-radius:50%;object-fit:cover;display:inline-grid;place-items:center;flex:none;background:var(--accent);color:var(--accent-text);font-weight:700}
 .wrap{max-width:980px;margin:0 auto;padding:22px 18px 60px} .wrap.wide{max-width:1500px} .wrap.narrow{max-width:640px}
 @media (max-width:600px){.me span{display:none}}
@@ -235,6 +236,57 @@ main.full .sheet th{top:var(--top-h,53px)}
 /* ===== Themes & appearance ===== */
 :root{--sb-thumb:color-mix(in srgb,var(--muted) 55%,transparent)}
 :root[data-theme="modern"]{--sb-thumb:color-mix(in srgb,var(--accent) 45%,transparent)}
+:root[data-theme="darkglass"] .sheet td:not(.c-chk):not(.c-bool):not(.c-calc):focus-within{background:rgba(255,255,255,.14)}
+:root[data-theme="darkglass"] .ctxsub{background:rgb(16,22,44);border-color:rgba(255,255,255,.3)}
+:root[data-theme="darkglass"] .sheet tfoot td{background:rgba(10,14,30,.65)}
+:root[data-theme="darkglass"]{--sb-thumb:rgba(255,255,255,.45)}
+:root[data-theme="darkglass"]{color-scheme:dark;--bg:#05070f;--panel:rgba(255,255,255,.055);--text:#fff;--muted:rgba(255,255,255,.74);--line:rgba(255,255,255,.26);--head:rgba(255,255,255,.15);--accent:#00deff;--accent-text:#04233a;--danger:#ff7066;--done:rgba(255,255,255,.5);--hover:rgba(255,255,255,.13);--shadow:0 14px 44px rgba(0,0,0,.6);
+  --glass-filter:blur(16px) saturate(185%) brightness(1.1)}
+:root.refract[data-theme="darkglass"]{--glass-filter:url(#glass-refract) blur(5px) saturate(190%) brightness(1.1)}
+:root[data-theme="darkglass"] body{background:radial-gradient(640px 460px at 12% 18%,rgba(255,95,190,.20),transparent 65%),radial-gradient(720px 520px at 88% 26%,rgba(0,222,255,.16),transparent 65%),radial-gradient(820px 620px at 55% 95%,rgba(140,95,255,.26),transparent 65%),linear-gradient(160deg,#05070f 0%,#0b1230 40%,#170f3a 72%,#05202a 100%) fixed;min-height:100vh}
+:root[data-theme="darkglass"] html,:root[data-theme="darkglass"]{background:#05070f}
+:root[data-theme="darkglass"] :is(.auth,.panel,.modal,.card){position:relative;isolation:isolate;border:1px solid rgba(255,255,255,.28);border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,255,255,.24) 0%,rgba(255,255,255,.06) 30%,rgba(255,255,255,.02) 58%,rgba(255,255,255,.11) 100%),var(--panel);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.8),inset -1px -1px 1px -.5px rgba(255,255,255,.4),inset 0 0 26px rgba(255,255,255,.06),var(--shadow);
+  backdrop-filter:var(--glass-filter);-webkit-backdrop-filter:var(--glass-filter)}
+:root[data-theme="darkglass"] :is(.auth,.panel,.modal)::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(130% 70% at 14% -8%,rgba(255,255,255,.38),rgba(255,255,255,0) 52%),radial-gradient(90% 60% at 96% 112%,rgba(255,255,255,.16),rgba(255,255,255,0) 60%)}
+:root[data-theme="darkglass"] .top{background:rgba(255,255,255,.10);border-bottom:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 8px 28px rgba(0,0,0,.5);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%)}
+:root[data-theme="darkglass"] .sheet-wrap{border:1px solid rgba(255,255,255,.3);border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.04) 45%,rgba(255,255,255,.09));
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.8),inset -1px -1px 1px -.5px rgba(255,255,255,.35),var(--shadow);backdrop-filter:blur(16px) saturate(185%) brightness(1.08);-webkit-backdrop-filter:blur(16px) saturate(185%) brightness(1.08)}
+:root[data-theme="darkglass"] .sheet th,:root[data-theme="darkglass"] .sheet td{background:transparent;border-color:rgba(255,255,255,.18)}
+:root[data-theme="darkglass"] .sheet th{background:rgba(10,14,30,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+:root[data-theme="darkglass"] .sheet tr.sep td{background:rgba(255,255,255,.12)}
+:root[data-theme="darkglass"] .sheet tr.addrow:hover td{background:transparent}
+:root[data-theme="darkglass"] .sheet textarea:focus,:root[data-theme="darkglass"] .sheet td input:focus,:root[data-theme="darkglass"] .sheet td.c-prio select:focus{background:rgba(255,255,255,.14)}
+:root[data-theme="darkglass"] :is(.btn,.chip,.pickitem,.member,.badge,.tabs button,.theme-opt,.notice){
+  background:linear-gradient(160deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.04) 45%,rgba(255,255,255,.10) 100%),rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);
+  box-shadow:inset 1px 1px .5px -.5px rgba(255,255,255,.75),inset -1px -1px .5px -.5px rgba(255,255,255,.3),0 6px 18px rgba(6,12,45,.2)}
+:root[data-theme="darkglass"] :is(.btn,.tabs button,.theme-opt){border-radius:999px}
+:root[data-theme="darkglass"] .theme-opt{border-radius:18px}
+:root[data-theme="darkglass"] :is(.btn:hover,.pickitem:hover,.theme-opt:hover){background-color:rgba(255,255,255,.2)}
+:root[data-theme="darkglass"] .theme-opt.sel{border-color:var(--accent)}
+:root[data-theme="darkglass"] .btn.primary,:root[data-theme="darkglass"] .tabs button.on{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0) 58%),var(--accent);border:1px solid rgba(255,255,255,.65);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.9),inset 0 -3px 8px rgba(0,70,110,.28),0 8px 26px rgba(0,222,255,.38)}
+:root[data-theme="darkglass"] .btn.danger.solid{background:linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,0) 58%),#ff453a;border-color:rgba(255,255,255,.5);color:#fff}
+:root[data-theme="darkglass"] :is(input,select,textarea){background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.3)}
+:root[data-theme="darkglass"] .sheet :is(textarea,input,select){background:transparent}
+:root[data-theme="darkglass"] option{background:#10162c;color:#fff}
+:root[data-theme="darkglass"] .ctx{border-radius:16px;background:rgba(12,16,34,.6);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%)}
+:root[data-theme="darkglass"] .overlay{background:rgba(0,0,0,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+:root[data-theme="darkglass"] .modal{background-color:rgba(255,255,255,.12)}
+:root[data-theme="darkglass"] .tile,:root[data-theme="darkglass"] .logo-lock{background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.35)}
+:root[data-theme="darkglass"] .sheet td.c-due.today input{color:#ffd29a}
+:root[data-theme="darkglass"] .sheet td.c-due.over input{color:#ffb3ac}
+:root[data-theme="darkglass"] .msg.ok{color:#7dffa6}
+:root[data-theme="darkglass"] .linkbtn,:root[data-theme="darkglass"] a{color:#9ff3ff}
+:root[data-theme="darkglass"] .me:hover{background:rgba(255,255,255,.14)}
+:root.lowfx[data-theme="darkglass"]{--panel:rgba(14,19,40,.95);--head:rgba(22,30,60,.96)}
+:root.lowfx[data-theme="darkglass"] .sheet-wrap{background:rgba(12,17,36,.94)}
+:root.lowfx[data-theme="darkglass"] .ctx{background:rgb(14,19,40)}
+:root.lowfx[data-theme="darkglass"] .sheet th{background:rgb(22,30,60)}
+:root[data-theme="darkglass"] .search{background:rgba(6,16,60,.55);color:#fff;border-color:rgba(255,255,255,.5)}
+:root[data-theme="darkglass"] ::placeholder{color:rgba(255,255,255,.82);opacity:1}
 :root[data-theme="glass"]{--sb-thumb:rgba(255,255,255,.45)}
 *{scrollbar-width:thin;scrollbar-color:var(--sb-thumb) transparent}
 ::-webkit-scrollbar{width:11px;height:11px} ::-webkit-scrollbar-track,::-webkit-scrollbar-corner{background:transparent}
@@ -436,13 +488,25 @@ body.picking .sheet th[data-col]:hover,body.picking .sheet tbody td:hover{outlin
 .sheet td.hasrt:not(:focus-within) .rtview{display:block}
 .sheet td.hasrt:not(:focus-within) textarea{position:absolute;opacity:0;height:0!important;min-height:0;padding:0;pointer-events:none}
 .sheet td.hasrt{position:relative}
+.sheet td.wys{position:relative}
+.sheet tr.sched{opacity:.55}
+.bkbanner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;margin-bottom:12px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.migbar{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:90;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 16px;box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.sheet td.wys textarea,.mf.wys textarea{position:absolute;opacity:0;height:0!important;min-height:0;padding:0;border:0;pointer-events:none;width:1px}
+.sheet td.wys .rtview{display:block;outline:none}
+.sheet td.wys .rted:focus{outline:2px solid var(--accent);outline-offset:-2px}
+.rted:empty::before{content:attr(data-ph);color:var(--muted);pointer-events:none}
+.mf.wys{position:relative}
+.mf.wys .rted{display:block;padding:7px 9px;min-height:40px;border:1px solid var(--line);border-radius:7px;background:var(--panel);white-space:pre-wrap;word-break:break-word;outline:none}
+.mf.wys .rted:focus{outline:2px solid var(--accent);outline-offset:-1px}
 .rtbar{position:fixed;z-index:60;display:flex;gap:2px;padding:3px;background:var(--panel);border:1px solid var(--line);border-radius:9px;box-shadow:0 6px 22px rgba(0,0,0,.25)}
 .rtbar button{min-width:30px;height:28px;border:0;border-radius:6px;background:transparent;color:var(--text);font:inherit;cursor:pointer}
 .rtbar button:hover{background:var(--hover)}
 .rtbar{flex-wrap:wrap;max-width:290px;align-items:center}
 .rtpal{display:flex;flex-direction:column;gap:5px;padding:4px 3px 2px;width:100%}
 .rtrow{display:flex;gap:4px;align-items:center;flex-wrap:wrap}.rtlbl{width:20px;height:20px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
-.rtcust{position:relative;width:20px;height:20px;border-radius:50%;border:1px dashed var(--muted);display:inline-flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;overflow:hidden}
+.rtcust{vertical-align:middle;position:relative;width:20px;height:20px;border-radius:50%;border:1px dashed var(--muted);display:inline-flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;overflow:hidden}
+.rtcust{background:linear-gradient(currentColor,currentColor) center/9px 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 9px no-repeat}
 .rtcust input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;padding:0;border:0}
 .rtpal[hidden]{display:none}
 .rtpal button{min-width:0;width:20px;height:20px;border-radius:50%;border:1px solid var(--line);padding:0;font-size:11px}
@@ -526,7 +590,12 @@ en: {
   linked_lists:"Linked accounts’ lists", lk_title:"Linked accounts", lk_intro:"Link another account of yours: both accounts then share all their lists (both can edit; sharing and deleting stay with the owner). You need the account name, e-mail and password of the other account – the password is only used to sign in once and is not stored.", lk_none:"No accounts linked yet.", lk_user:"Account name of the other account", lk_email:"E-mail of the other account", lk_pw:"Password of the other account", lk_go:"Link account", lk_ok:"Account linked", lk_mismatch:"Account name and e-mail do not belong together.", lk_unlink:"Unlink", lk_unlink_q:"Unlink “{name}”? The lists of both accounts will no longer be shared automatically.", lk_busy:"Linking…", fmt_color:"Text color", fmt_nocolor:"Remove color", pub_signed_as:"Signed in as {name}", pub_open_app:"Open app",
   enc_menu:"Encrypt list…", enc_off_menu:"Remove encryption…", enc_title:"Encrypt this list", enc_intro:"The list is encrypted in your browser (AES-256) with a passphrase. The server – and anyone reading the database – only sees scrambled data. Whoever should open the list needs the passphrase, so tell it to them separately. Search across lists and the public view do not work for encrypted lists.", enc_pass:"Passphrase", enc_pass2:"Repeat passphrase", enc_warn:"I understand: if the passphrase is lost, the list cannot be recovered – not even by me.", enc_go:"Encrypt", enc_busy:"Encrypting…", enc_done:"List encrypted", enc_unlock_title:"Encrypted list", enc_unlock_text:"Enter the passphrase for “{name}”.", enc_remember:"Remember on this device (until I log out)", enc_wrong:"Wrong passphrase.", enc_unlock_go:"Unlock", enc_locked:"Encrypted list", enc_off_q:"Remove the encryption of this list? It will be stored readable in the database again.", enc_off_done:"Encryption removed", enc_mismatch:"The passphrases do not match.", enc_short:"The passphrase needs at least 8 characters.", enc_note:"🔒 Encrypted list: share the passphrase separately (it is never sent to the server).", enc_no_dup:"Encrypted lists cannot be duplicated.", enc_fail:"Encryption failed: {msg}", enc_nocrypto:"Encryption needs a secure connection (https).",
   r_admin:"Admin (can share)", role_admin:"Admin", sw_title:"Switch account", sw_pw:"Sign in to “{name}”", sw_fail:"Switching failed.", pub_copy:"Copy to my account", pub_copied:"List copied to your account", sel_done:"Done / not done", sel_cancel:"Cancel selection", sel_n2:"{n} selected", fmt_bg:"Highlight color", fmt_custom:"Custom color", lk_store_note:"A login token for the other account is kept on this device so you can switch quickly; it is removed when you log out.",
-  bk_title:"Backup", bk_intro:"Download all your lists as one file (columns, tasks, sub-list links). Encrypted lists stay encrypted inside the file. You can restore it any time – restored lists are added as new lists, nothing is overwritten.", bk_download:"Download backup", bk_pw:"File password (optional – encrypts the whole file)", bk_shared:"Also include lists shared with me", bk_restore:"Restore from backup…", bk_last:"Last backup: {d}", bk_never:"No backup made on this device yet.", bk_enter_pw:"This backup is password-protected. Enter the password.", bk_wrong_pw:"Wrong password.", bk_bad_file:"This is not a TPC2Do backup file.", bk_restore_go:"Restore selected", bk_pick:"Lists to restore (they are added as new lists):", bk_done:"{n} lists restored", bk_busy:"Working…", bk_server_note:"Backup of the whole server (all users): see README → “Server backup” (daily job via GitHub Actions or script).", bk_tasks:"{n} tasks", bk_open:"Open"
+  bk_title:"Backup", bk_intro:"Download all your lists as one file (columns, tasks, sub-list links). Encrypted lists stay encrypted inside the file. You can restore it any time – restored lists are added as new lists, nothing is overwritten.", bk_download:"Download backup", bk_pw:"File password (optional – encrypts the whole file)", bk_shared:"Also include lists shared with me", bk_restore:"Restore from backup…", bk_last:"Last backup: {d}", bk_never:"No backup made on this device yet.", bk_enter_pw:"This backup is password-protected. Enter the password.", bk_wrong_pw:"Wrong password.", bk_bad_file:"This is not a TPC2Do backup file.", bk_restore_go:"Restore selected", bk_pick:"Lists to restore (they are added as new lists):", bk_done:"{n} lists restored", bk_busy:"Working…", bk_server_note:"Backup of the whole server (all users): see README → “Server backup” (daily job via GitHub Actions or script).", bk_tasks:"{n} tasks", bk_open:"Open",
+  fmt_mode:"Text formatting", fmt_mode_wys:"Buttons (live preview while editing)", fmt_mode_md:"Markdown (type **bold**, *italic* …)", fmt_mode_hint:"Markdown shows the raw characters while you edit a cell. The button mode shows bold, colours etc. right away.",
+  theme_darkglass:"Dark Glass", theme_darkglass_d:"Glass look on a dark background",
+  rep_start:"First day (start)", rep_hint2:"When you tick this task off, a new copy is created. It appears in the list only when its day arrives (the due date, or the start day if the list has no Due date column). Until then it stays hidden.", sched_show:"{n} scheduled – show", sched_hide:"{n} scheduled – hide",
+  enc_wait:"Encrypted – waiting for key", enc_wait_long:"You don't have the key for this list yet. The owner has to open TPC2Do once (online) – then it unlocks automatically.", key_title:"Unlock your data", key_text:"Enter your password to unlock your encrypted lists on this device.", key_pw:"Password", key_use_code:"Use recovery code instead", key_use_pw:"Use password instead", key_code:"Recovery code", key_wrong:"Wrong password or code.", key_logout:"Log out", key_go:"Unlock", key_setup_title:"Set up encryption", key_setup_text:"Your lists are encrypted automatically. Enter your password once so your keys can be created.", rc_title:"Your recovery code", rc_text:"Save this code somewhere safe (not only in this app). If you ever forget your password, this code is the only way to get your lists back. Nobody – not even the server admin – can restore it for you.", rc_copy:"Copy", rc_download:"Download .txt", rc_saved:"I have saved my recovery code", rc_continue:"Continue", rc_new:"Create a new recovery code", rc_new_d:"Use this if you lost your code. Needs your current password.", rc_need_pw:"Enter your current password", rc_new_done:"New recovery code created.", rec_code_title:"Recovery code needed", rec_code_text:"Enter your recovery code to keep access to your encrypted lists with the new password.", rec_code_reset:"I don't have it – start with new keys", rec_code_reset_q:"Start with new keys? Lists that only you could open stay unreadable forever. Lists shared with others stay readable for them.", mig_busy:"Encrypting your lists… ({n}/{total})", mig_done:"All your lists are now encrypted.", sec_title:"Encryption", sec_text:"All your lists are end-to-end encrypted automatically. Your keys exist only on your devices and – wrapped with your password – in your account. The server and its admin cannot read your data.", sec_fail:"Could not set up encryption: {msg}", pub_nokey:"This link is missing its key (the part after the #).", join_nokey:"Joined, but the link contains no key. Ask the owner for a new link.", share_nokey_user:"{name} has not activated encryption yet and will get access after logging in once (and after you open TPC2Do again).",
+  bk_skip_enc:"{n} list(s) from an old backup format were skipped.", bk_nopw_warn:"Without a file password the backup contains your lists in readable form. Continue without password?", bk_folder:"Back up to a folder…", bk_folder_change:"Change folder", bk_folder_done:"Backup saved to your folder.", bk_folder_na:"Your browser can't write to folders directly – the backup is downloaded instead.", bk_intro2:"Your lists are decrypted on your device for the backup. Use a file password so the file stays protected. Tip: pick a folder that your cloud app (Dropbox, OneDrive, Google Drive …) syncs.", bk_locked:"{n} list(s) without key were not included.", bk_remind:"Your last backup is {d} days old. Time for a new one?", bk_remind_never:"You haven't made a backup yet. Time for the first one?", bk_remind_go:"Back up now", bk_remind_later:"Later"
 },
 de: {
   loading:"Lade …", cancel:"Abbrechen", create:"Erstellen", save:"Speichern", delete:"Löschen", undo:"Rückgängig", done:"Fertig", add:"Hinzufügen", back:"Zurück", copy:"Kopieren", you:"Du",
@@ -557,7 +626,12 @@ de: {
   linked_lists:"Listen verknüpfter Konten", lk_title:"Verknüpfte Konten", lk_intro:"Verknüpfe ein weiteres eigenes Konto: Beide Konten teilen dann alle ihre Listen (beide dürfen bearbeiten; Teilen und Löschen bleibt beim Besitzer). Du brauchst Konto-Name, E-Mail und Passwort des anderen Kontos – das Passwort dient nur zur einmaligen Anmeldung und wird nicht gespeichert.", lk_none:"Noch keine Konten verknüpft.", lk_user:"Konto-Name des anderen Kontos", lk_email:"E-Mail des anderen Kontos", lk_pw:"Passwort des anderen Kontos", lk_go:"Konto verknüpfen", lk_ok:"Konto verknüpft", lk_mismatch:"Konto-Name und E-Mail gehören nicht zusammen.", lk_unlink:"Trennen", lk_unlink_q:"„{name}“ trennen? Die Listen beider Konten werden dann nicht mehr automatisch geteilt.", lk_busy:"Verknüpfe …", fmt_color:"Textfarbe", fmt_nocolor:"Farbe entfernen", pub_signed_as:"Angemeldet als {name}", pub_open_app:"App öffnen",
   enc_menu:"Liste verschlüsseln …", enc_off_menu:"Verschlüsselung entfernen …", enc_title:"Diese Liste verschlüsseln", enc_intro:"Die Liste wird in deinem Browser mit einer Passphrase verschlüsselt (AES-256). Der Server – und jeder, der die Datenbank liest – sieht nur Datensalat. Wer die Liste öffnen soll, braucht die Passphrase; gib sie getrennt weiter. Die Suche über alle Listen und die öffentliche Ansicht funktionieren bei verschlüsselten Listen nicht.", enc_pass:"Passphrase", enc_pass2:"Passphrase wiederholen", enc_warn:"Ich verstehe: Geht die Passphrase verloren, ist die Liste nicht wiederherstellbar – auch nicht von mir.", enc_go:"Verschlüsseln", enc_busy:"Verschlüssele …", enc_done:"Liste verschlüsselt", enc_unlock_title:"Verschlüsselte Liste", enc_unlock_text:"Gib die Passphrase für „{name}“ ein.", enc_remember:"Auf diesem Gerät merken (bis zum Abmelden)", enc_wrong:"Falsche Passphrase.", enc_unlock_go:"Entsperren", enc_locked:"Verschlüsselte Liste", enc_off_q:"Verschlüsselung dieser Liste entfernen? Sie wird dann wieder lesbar in der Datenbank gespeichert.", enc_off_done:"Verschlüsselung entfernt", enc_mismatch:"Die Passphrasen stimmen nicht überein.", enc_short:"Die Passphrase braucht mindestens 8 Zeichen.", enc_note:"🔒 Verschlüsselte Liste: Gib die Passphrase getrennt weiter (sie wird nie an den Server gesendet).", enc_no_dup:"Verschlüsselte Listen lassen sich nicht duplizieren.", enc_fail:"Verschlüsselung fehlgeschlagen: {msg}", enc_nocrypto:"Verschlüsselung braucht eine sichere Verbindung (https).",
   r_admin:"Admin (darf teilen)", role_admin:"Admin", sw_title:"Konto wechseln", sw_pw:"Bei „{name}“ anmelden", sw_fail:"Wechsel fehlgeschlagen.", pub_copy:"In mein Konto kopieren", pub_copied:"Liste in dein Konto kopiert", sel_done:"Erledigt / offen", sel_cancel:"Auswahl beenden", sel_n2:"{n} ausgewählt", fmt_bg:"Hervorhebungsfarbe", fmt_custom:"Eigene Farbe", lk_store_note:"Ein Anmelde-Token des anderen Kontos bleibt auf diesem Gerät, damit du schnell wechseln kannst; beim Abmelden wird er entfernt.",
-  bk_title:"Backup", bk_intro:"Lade alle deine Listen als eine Datei herunter (Spalten, Aufgaben, Unterlisten-Verknüpfungen). Verschlüsselte Listen bleiben in der Datei verschlüsselt. Du kannst sie jederzeit wiederherstellen – wiederhergestellte Listen werden als neue Listen angelegt, nichts wird überschrieben.", bk_download:"Backup herunterladen", bk_pw:"Datei-Passwort (optional – verschlüsselt die ganze Datei)", bk_shared:"Auch mit mir geteilte Listen einschließen", bk_restore:"Aus Backup wiederherstellen …", bk_last:"Letztes Backup: {d}", bk_never:"Auf diesem Gerät wurde noch kein Backup gemacht.", bk_enter_pw:"Dieses Backup ist passwortgeschützt. Gib das Passwort ein.", bk_wrong_pw:"Falsches Passwort.", bk_bad_file:"Das ist keine TPC2Do-Backup-Datei.", bk_restore_go:"Auswahl wiederherstellen", bk_pick:"Wiederherzustellende Listen (werden als neue Listen angelegt):", bk_done:"{n} Listen wiederhergestellt", bk_busy:"Arbeite …", bk_server_note:"Backup des ganzen Servers (alle Nutzer): siehe README → „Server-Backup“ (täglicher Job per GitHub Actions oder Skript).", bk_tasks:"{n} Aufgaben", bk_open:"Öffnen"
+  bk_title:"Backup", bk_intro:"Lade alle deine Listen als eine Datei herunter (Spalten, Aufgaben, Unterlisten-Verknüpfungen). Verschlüsselte Listen bleiben in der Datei verschlüsselt. Du kannst sie jederzeit wiederherstellen – wiederhergestellte Listen werden als neue Listen angelegt, nichts wird überschrieben.", bk_download:"Backup herunterladen", bk_pw:"Datei-Passwort (optional – verschlüsselt die ganze Datei)", bk_shared:"Auch mit mir geteilte Listen einschließen", bk_restore:"Aus Backup wiederherstellen …", bk_last:"Letztes Backup: {d}", bk_never:"Auf diesem Gerät wurde noch kein Backup gemacht.", bk_enter_pw:"Dieses Backup ist passwortgeschützt. Gib das Passwort ein.", bk_wrong_pw:"Falsches Passwort.", bk_bad_file:"Das ist keine TPC2Do-Backup-Datei.", bk_restore_go:"Auswahl wiederherstellen", bk_pick:"Wiederherzustellende Listen (werden als neue Listen angelegt):", bk_done:"{n} Listen wiederhergestellt", bk_busy:"Arbeite …", bk_server_note:"Backup des ganzen Servers (alle Nutzer): siehe README → „Server-Backup“ (täglicher Job per GitHub Actions oder Skript).", bk_tasks:"{n} Aufgaben", bk_open:"Öffnen",
+  fmt_mode:"Textformatierung", fmt_mode_wys:"Buttons (Live-Vorschau beim Bearbeiten)", fmt_mode_md:"Markdown (**fett**, *kursiv* … tippen)", fmt_mode_hint:"Markdown zeigt beim Bearbeiten einer Zelle die Rohzeichen. Der Button-Modus zeigt Fett, Farben usw. sofort richtig an.",
+  theme_darkglass:"Dunkles Glas", theme_darkglass_d:"Glas-Look auf dunklem Hintergrund",
+  rep_start:"Starttag", rep_hint2:"Wenn du die Aufgabe abhakst, wird eine neue Kopie angelegt. Sie erscheint in der Liste erst, wenn ihr Tag da ist (Fälligkeit bzw. Starttag, falls die Liste keine Fälligkeits-Spalte hat). Bis dahin bleibt sie versteckt.", sched_show:"{n} geplant – anzeigen", sched_hide:"{n} geplant – ausblenden",
+  enc_wait:"Verschlüsselt – wartet auf Schlüssel", enc_wait_long:"Du hast den Schlüssel für diese Liste noch nicht. Der Besitzer muss TPC2Do einmal (online) öffnen – dann wird sie automatisch freigeschaltet.", key_title:"Daten entsperren", key_text:"Gib dein Passwort ein, um deine verschlüsselten Listen auf diesem Gerät zu entsperren.", key_pw:"Passwort", key_use_code:"Stattdessen Wiederherstellungscode nutzen", key_use_pw:"Stattdessen Passwort nutzen", key_code:"Wiederherstellungscode", key_wrong:"Falsches Passwort oder falscher Code.", key_logout:"Abmelden", key_go:"Entsperren", key_setup_title:"Verschlüsselung einrichten", key_setup_text:"Deine Listen werden automatisch verschlüsselt. Gib einmal dein Passwort ein, damit deine Schlüssel erstellt werden können.", rc_title:"Dein Wiederherstellungscode", rc_text:"Bewahre diesen Code sicher auf (nicht nur in dieser App). Falls du dein Passwort einmal vergisst, ist dieser Code der einzige Weg, deine Listen zurückzubekommen. Niemand – auch nicht der Server-Admin – kann ihn dir wiederherstellen.", rc_copy:"Kopieren", rc_download:".txt herunterladen", rc_saved:"Ich habe meinen Wiederherstellungscode gesichert", rc_continue:"Weiter", rc_new:"Neuen Wiederherstellungscode erstellen", rc_new_d:"Nutze das, wenn du deinen Code verloren hast. Braucht dein aktuelles Passwort.", rc_need_pw:"Gib dein aktuelles Passwort ein", rc_new_done:"Neuer Wiederherstellungscode erstellt.", rec_code_title:"Wiederherstellungscode nötig", rec_code_text:"Gib deinen Wiederherstellungscode ein, damit du mit dem neuen Passwort Zugriff auf deine verschlüsselten Listen behältst.", rec_code_reset:"Ich habe ihn nicht – mit neuen Schlüsseln starten", rec_code_reset_q:"Mit neuen Schlüsseln starten? Listen, die nur du öffnen konntest, bleiben für immer unlesbar. Mit anderen geteilte Listen bleiben für diese lesbar.", mig_busy:"Verschlüssele deine Listen … ({n}/{total})", mig_done:"Alle deine Listen sind jetzt verschlüsselt.", sec_title:"Verschlüsselung", sec_text:"Alle deine Listen sind automatisch Ende-zu-Ende-verschlüsselt. Deine Schlüssel existieren nur auf deinen Geräten und – mit deinem Passwort verpackt – in deinem Konto. Der Server und sein Admin können deine Daten nicht lesen.", sec_fail:"Verschlüsselung konnte nicht eingerichtet werden: {msg}", pub_nokey:"Diesem Link fehlt der Schlüssel (der Teil nach dem #).", join_nokey:"Beigetreten, aber der Link enthält keinen Schlüssel. Bitte den Besitzer um einen neuen Link.", share_nokey_user:"{name} hat die Verschlüsselung noch nicht aktiviert und bekommt Zugriff, sobald die Person sich einmal angemeldet hat (und du TPC2Do wieder öffnest).",
+  bk_skip_enc:"{n} Liste(n) aus einem alten Backup-Format wurden übersprungen.", bk_nopw_warn:"Ohne Datei-Passwort enthält das Backup deine Listen im Klartext. Trotzdem ohne Passwort fortfahren?", bk_folder:"In Ordner sichern …", bk_folder_change:"Ordner ändern", bk_folder_done:"Backup in deinem Ordner gespeichert.", bk_folder_na:"Dein Browser kann nicht direkt in Ordner schreiben – das Backup wird stattdessen heruntergeladen.", bk_intro2:"Für das Backup werden deine Listen auf deinem Gerät entschlüsselt. Nutze ein Datei-Passwort, damit die Datei geschützt bleibt. Tipp: Wähle einen Ordner, den deine Cloud-App (Dropbox, OneDrive, Google Drive …) synchronisiert.", bk_locked:"{n} Liste(n) ohne Schlüssel wurden nicht gesichert.", bk_remind:"Dein letztes Backup ist {d} Tage alt. Zeit für ein neues?", bk_remind_never:"Du hast noch kein Backup gemacht. Zeit für das erste?", bk_remind_go:"Jetzt sichern", bk_remind_later:"Später"
 },
 es: {
   loading:"Cargando …", cancel:"Cancelar", create:"Crear", save:"Guardar", delete:"Eliminar", undo:"Deshacer", done:"Listo", add:"Añadir", back:"Volver", copy:"Copiar", you:"Tú",
@@ -588,7 +662,12 @@ es: {
   linked_lists:"Listas de cuentas vinculadas", lk_title:"Cuentas vinculadas", lk_intro:"Vincula otra cuenta tuya: ambas cuentas compartirán todas sus listas (ambas pueden editar; compartir y eliminar sigue siendo del propietario). Necesitas el nombre de cuenta, el correo y la contraseña de la otra cuenta; la contraseña solo se usa para iniciar sesión una vez y no se guarda.", lk_none:"Aún no hay cuentas vinculadas.", lk_user:"Nombre de la otra cuenta", lk_email:"Correo de la otra cuenta", lk_pw:"Contraseña de la otra cuenta", lk_go:"Vincular cuenta", lk_ok:"Cuenta vinculada", lk_mismatch:"El nombre de cuenta y el correo no coinciden.", lk_unlink:"Desvincular", lk_unlink_q:"¿Desvincular «{name}»? Las listas de ambas cuentas dejarán de compartirse automáticamente.", lk_busy:"Vinculando…", fmt_color:"Color del texto", fmt_nocolor:"Quitar color", pub_signed_as:"Sesión iniciada como {name}", pub_open_app:"Abrir la app",
   enc_menu:"Cifrar lista…", enc_off_menu:"Quitar cifrado…", enc_title:"Cifrar esta lista", enc_intro:"La lista se cifra en tu navegador (AES-256) con una frase de contraseña. El servidor, y quien lea la base de datos, solo ve datos ilegibles. Quien deba abrir la lista necesita la frase; envíasela por separado. La búsqueda global y la vista pública no funcionan con listas cifradas.", enc_pass:"Frase de contraseña", enc_pass2:"Repite la frase", enc_warn:"Entiendo: si se pierde la frase, la lista no se puede recuperar, ni siquiera yo.", enc_go:"Cifrar", enc_busy:"Cifrando…", enc_done:"Lista cifrada", enc_unlock_title:"Lista cifrada", enc_unlock_text:"Introduce la frase de «{name}».", enc_remember:"Recordar en este dispositivo (hasta cerrar sesión)", enc_wrong:"Frase incorrecta.", enc_unlock_go:"Desbloquear", enc_locked:"Lista cifrada", enc_off_q:"¿Quitar el cifrado de esta lista? Volverá a guardarse legible en la base de datos.", enc_off_done:"Cifrado quitado", enc_mismatch:"Las frases no coinciden.", enc_short:"La frase necesita al menos 8 caracteres.", enc_note:"🔒 Lista cifrada: comparte la frase por separado (nunca se envía al servidor).", enc_no_dup:"Las listas cifradas no se pueden duplicar.", enc_fail:"Error de cifrado: {msg}", enc_nocrypto:"El cifrado requiere una conexión segura (https).",
   r_admin:"Admin (puede compartir)", role_admin:"Admin", sw_title:"Cambiar de cuenta", sw_pw:"Iniciar sesión en «{name}»", sw_fail:"Error al cambiar.", pub_copy:"Copiar a mi cuenta", pub_copied:"Lista copiada a tu cuenta", sel_done:"Hecho / pendiente", sel_cancel:"Cancelar selección", sel_n2:"{n} seleccionadas", fmt_bg:"Color de resaltado", fmt_custom:"Color personalizado", lk_store_note:"Un token de acceso de la otra cuenta se guarda en este dispositivo para cambiar rápido; se borra al cerrar sesión.",
-  bk_title:"Copia de seguridad", bk_intro:"Descarga todas tus listas en un archivo (columnas, tareas, enlaces de sublistas). Las listas cifradas siguen cifradas dentro del archivo. Puedes restaurarlo cuando quieras; las listas restauradas se añaden como nuevas, no se sobrescribe nada.", bk_download:"Descargar copia", bk_pw:"Contraseña del archivo (opcional – cifra todo el archivo)", bk_shared:"Incluir también listas compartidas conmigo", bk_restore:"Restaurar desde copia…", bk_last:"Última copia: {d}", bk_never:"Aún no hay copias en este dispositivo.", bk_enter_pw:"Esta copia está protegida con contraseña. Introdúcela.", bk_wrong_pw:"Contraseña incorrecta.", bk_bad_file:"Este no es un archivo de copia de TPC2Do.", bk_restore_go:"Restaurar selección", bk_pick:"Listas a restaurar (se añaden como nuevas):", bk_done:"{n} listas restauradas", bk_busy:"Trabajando…", bk_server_note:"Copia de todo el servidor (todos los usuarios): véase README → «Copia del servidor» (tarea diaria con GitHub Actions o script).", bk_tasks:"{n} tareas", bk_open:"Abrir"
+  bk_title:"Copia de seguridad", bk_intro:"Descarga todas tus listas en un archivo (columnas, tareas, enlaces de sublistas). Las listas cifradas siguen cifradas dentro del archivo. Puedes restaurarlo cuando quieras; las listas restauradas se añaden como nuevas, no se sobrescribe nada.", bk_download:"Descargar copia", bk_pw:"Contraseña del archivo (opcional – cifra todo el archivo)", bk_shared:"Incluir también listas compartidas conmigo", bk_restore:"Restaurar desde copia…", bk_last:"Última copia: {d}", bk_never:"Aún no hay copias en este dispositivo.", bk_enter_pw:"Esta copia está protegida con contraseña. Introdúcela.", bk_wrong_pw:"Contraseña incorrecta.", bk_bad_file:"Este no es un archivo de copia de TPC2Do.", bk_restore_go:"Restaurar selección", bk_pick:"Listas a restaurar (se añaden como nuevas):", bk_done:"{n} listas restauradas", bk_busy:"Trabajando…", bk_server_note:"Copia de todo el servidor (todos los usuarios): véase README → «Copia del servidor» (tarea diaria con GitHub Actions o script).", bk_tasks:"{n} tareas", bk_open:"Abrir",
+  fmt_mode:"Formato de texto", fmt_mode_wys:"Botones (vista previa en vivo al editar)", fmt_mode_md:"Markdown (escribe **negrita**, *cursiva* …)", fmt_mode_hint:"Markdown muestra los caracteres sin formato al editar una celda. El modo de botones muestra negrita, colores, etc. al instante.",
+  theme_darkglass:"Cristal oscuro", theme_darkglass_d:"Efecto cristal sobre fondo oscuro",
+  rep_start:"Primer día (inicio)", rep_hint2:"Al marcar esta tarea, se crea una copia nueva. Aparece en la lista solo cuando llega su día (la fecha límite, o el día de inicio si la lista no tiene columna de fecha límite). Hasta entonces queda oculta.", sched_show:"{n} programadas – mostrar", sched_hide:"{n} programadas – ocultar",
+  enc_wait:"Cifrada – esperando clave", enc_wait_long:"Aún no tienes la clave de esta lista. El propietario debe abrir TPC2Do una vez (en línea); entonces se desbloqueará sola.", key_title:"Desbloquear tus datos", key_text:"Introduce tu contraseña para desbloquear tus listas cifradas en este dispositivo.", key_pw:"Contraseña", key_use_code:"Usar código de recuperación", key_use_pw:"Usar contraseña", key_code:"Código de recuperación", key_wrong:"Contraseña o código incorrectos.", key_logout:"Cerrar sesión", key_go:"Desbloquear", key_setup_title:"Configurar el cifrado", key_setup_text:"Tus listas se cifran automáticamente. Introduce tu contraseña una vez para crear tus claves.", rc_title:"Tu código de recuperación", rc_text:"Guarda este código en un lugar seguro (no solo en esta app). Si olvidas tu contraseña, es la única forma de recuperar tus listas. Nadie, ni siquiera el administrador del servidor, puede restaurarlo.", rc_copy:"Copiar", rc_download:"Descargar .txt", rc_saved:"He guardado mi código de recuperación", rc_continue:"Continuar", rc_new:"Crear un nuevo código de recuperación", rc_new_d:"Úsalo si perdiste tu código. Requiere tu contraseña actual.", rc_need_pw:"Introduce tu contraseña actual", rc_new_done:"Nuevo código de recuperación creado.", rec_code_title:"Código de recuperación necesario", rec_code_text:"Introduce tu código de recuperación para conservar el acceso a tus listas cifradas con la nueva contraseña.", rec_code_reset:"No lo tengo – empezar con claves nuevas", rec_code_reset_q:"¿Empezar con claves nuevas? Las listas que solo tú podías abrir quedarán ilegibles para siempre. Las compartidas seguirán legibles para los demás.", mig_busy:"Cifrando tus listas… ({n}/{total})", mig_done:"Todas tus listas están cifradas.", sec_title:"Cifrado", sec_text:"Todas tus listas se cifran automáticamente de extremo a extremo. Tus claves solo existen en tus dispositivos y, protegidas con tu contraseña, en tu cuenta. El servidor y su administrador no pueden leer tus datos.", sec_fail:"No se pudo configurar el cifrado: {msg}", pub_nokey:"A este enlace le falta la clave (la parte después de #).", join_nokey:"Te uniste, pero el enlace no contiene clave. Pide un enlace nuevo al propietario.", share_nokey_user:"{name} aún no activó el cifrado y tendrá acceso tras iniciar sesión una vez (y cuando vuelvas a abrir TPC2Do).",
+  bk_skip_enc:"Se omitieron {n} lista(s) de un formato de copia antiguo.", bk_nopw_warn:"Sin contraseña de archivo, la copia contiene tus listas en texto legible. ¿Continuar sin contraseña?", bk_folder:"Guardar en una carpeta…", bk_folder_change:"Cambiar carpeta", bk_folder_done:"Copia guardada en tu carpeta.", bk_folder_na:"Tu navegador no puede escribir en carpetas directamente; se descargará la copia.", bk_intro2:"Tus listas se descifran en tu dispositivo para la copia. Usa una contraseña de archivo para protegerlo. Consejo: elige una carpeta que sincronice tu app en la nube (Dropbox, OneDrive, Google Drive…).", bk_locked:"{n} lista(s) sin clave no se incluyeron.", bk_remind:"Tu última copia tiene {d} días. ¿Hacemos una nueva?", bk_remind_never:"Aún no has hecho ninguna copia. ¿Hacemos la primera?", bk_remind_go:"Copiar ahora", bk_remind_later:"Más tarde"
 },
 it: {
   loading:"Caricamento …", cancel:"Annulla", create:"Crea", save:"Salva", delete:"Elimina", undo:"Annulla azione", done:"Fine", add:"Aggiungi", back:"Indietro", copy:"Copia", you:"Tu",
@@ -619,7 +698,12 @@ it: {
   linked_lists:"Liste degli account collegati", lk_title:"Account collegati", lk_intro:"Collega un altro tuo account: entrambi condivideranno tutte le liste (entrambi possono modificare; condividere ed eliminare resta al proprietario). Servono nome account, e-mail e password dell’altro account; la password serve solo per un accesso e non viene salvata.", lk_none:"Nessun account collegato.", lk_user:"Nome dell’altro account", lk_email:"E-mail dell’altro account", lk_pw:"Password dell’altro account", lk_go:"Collega account", lk_ok:"Account collegato", lk_mismatch:"Nome account ed e-mail non corrispondono.", lk_unlink:"Scollega", lk_unlink_q:"Scollegare «{name}»? Le liste dei due account non saranno più condivise automaticamente.", lk_busy:"Collegamento…", fmt_color:"Colore del testo", fmt_nocolor:"Rimuovi colore", pub_signed_as:"Accesso eseguito come {name}", pub_open_app:"Apri l’app",
   enc_menu:"Cifra lista…", enc_off_menu:"Rimuovi cifratura…", enc_title:"Cifra questa lista", enc_intro:"La lista viene cifrata nel tuo browser (AES-256) con una passphrase. Il server – e chiunque legga il database – vede solo dati illeggibili. Chi deve aprire la lista ha bisogno della passphrase; comunicala separatamente. La ricerca globale e la vista pubblica non funzionano con le liste cifrate.", enc_pass:"Passphrase", enc_pass2:"Ripeti la passphrase", enc_warn:"Ho capito: se la passphrase va persa, la lista non è recuperabile, nemmeno da me.", enc_go:"Cifra", enc_busy:"Cifratura…", enc_done:"Lista cifrata", enc_unlock_title:"Lista cifrata", enc_unlock_text:"Inserisci la passphrase per «{name}».", enc_remember:"Ricorda su questo dispositivo (fino al logout)", enc_wrong:"Passphrase errata.", enc_unlock_go:"Sblocca", enc_locked:"Lista cifrata", enc_off_q:"Rimuovere la cifratura di questa lista? Sarà di nuovo salvata in chiaro nel database.", enc_off_done:"Cifratura rimossa", enc_mismatch:"Le passphrase non coincidono.", enc_short:"La passphrase richiede almeno 8 caratteri.", enc_note:"🔒 Lista cifrata: comunica la passphrase separatamente (non viene mai inviata al server).", enc_no_dup:"Le liste cifrate non si possono duplicare.", enc_fail:"Cifratura non riuscita: {msg}", enc_nocrypto:"La cifratura richiede una connessione sicura (https).",
   r_admin:"Admin (può condividere)", role_admin:"Admin", sw_title:"Cambia account", sw_pw:"Accedi a «{name}»", sw_fail:"Cambio non riuscito.", pub_copy:"Copia nel mio account", pub_copied:"Lista copiata nel tuo account", sel_done:"Fatto / aperto", sel_cancel:"Annulla selezione", sel_n2:"{n} selezionate", fmt_bg:"Colore evidenziatore", fmt_custom:"Colore personalizzato", lk_store_note:"Un token di accesso dell’altro account resta su questo dispositivo per cambiare rapidamente; viene rimosso al logout.",
-  bk_title:"Backup", bk_intro:"Scarica tutte le tue liste in un unico file (colonne, attività, collegamenti alle sottoliste). Le liste cifrate restano cifrate nel file. Puoi ripristinarlo quando vuoi: le liste ripristinate vengono aggiunte come nuove, nulla viene sovrascritto.", bk_download:"Scarica backup", bk_pw:"Password del file (facoltativa – cifra tutto il file)", bk_shared:"Includi anche le liste condivise con me", bk_restore:"Ripristina da backup…", bk_last:"Ultimo backup: {d}", bk_never:"Nessun backup ancora su questo dispositivo.", bk_enter_pw:"Questo backup è protetto da password. Inseriscila.", bk_wrong_pw:"Password errata.", bk_bad_file:"Questo non è un file di backup di TPC2Do.", bk_restore_go:"Ripristina selezione", bk_pick:"Liste da ripristinare (vengono aggiunte come nuove):", bk_done:"{n} liste ripristinate", bk_busy:"Elaborazione…", bk_server_note:"Backup dell’intero server (tutti gli utenti): vedi README → «Backup del server» (job giornaliero con GitHub Actions o script).", bk_tasks:"{n} attività", bk_open:"Apri"
+  bk_title:"Backup", bk_intro:"Scarica tutte le tue liste in un unico file (colonne, attività, collegamenti alle sottoliste). Le liste cifrate restano cifrate nel file. Puoi ripristinarlo quando vuoi: le liste ripristinate vengono aggiunte come nuove, nulla viene sovrascritto.", bk_download:"Scarica backup", bk_pw:"Password del file (facoltativa – cifra tutto il file)", bk_shared:"Includi anche le liste condivise con me", bk_restore:"Ripristina da backup…", bk_last:"Ultimo backup: {d}", bk_never:"Nessun backup ancora su questo dispositivo.", bk_enter_pw:"Questo backup è protetto da password. Inseriscila.", bk_wrong_pw:"Password errata.", bk_bad_file:"Questo non è un file di backup di TPC2Do.", bk_restore_go:"Ripristina selezione", bk_pick:"Liste da ripristinare (vengono aggiunte come nuove):", bk_done:"{n} liste ripristinate", bk_busy:"Elaborazione…", bk_server_note:"Backup dell’intero server (tutti gli utenti): vedi README → «Backup del server» (job giornaliero con GitHub Actions o script).", bk_tasks:"{n} attività", bk_open:"Apri",
+  fmt_mode:"Formattazione del testo", fmt_mode_wys:"Pulsanti (anteprima dal vivo durante la modifica)", fmt_mode_md:"Markdown (scrivi **grassetto**, *corsivo* …)", fmt_mode_hint:"Markdown mostra i caratteri grezzi mentre modifichi una cella. La modalità a pulsanti mostra subito grassetto, colori ecc.",
+  theme_darkglass:"Vetro scuro", theme_darkglass_d:"Effetto vetro su sfondo scuro",
+  rep_start:"Primo giorno (inizio)", rep_hint2:"Quando spunti questa attività, viene creata una nuova copia. Compare nella lista solo quando arriva il suo giorno (la scadenza, o il giorno di inizio se la lista non ha una colonna scadenza). Fino ad allora resta nascosta.", sched_show:"{n} programmate – mostra", sched_hide:"{n} programmate – nascondi",
+  enc_wait:"Cifrata – in attesa della chiave", enc_wait_long:"Non hai ancora la chiave di questa lista. Il proprietario deve aprire TPC2Do una volta (online): poi si sblocca da sola.", key_title:"Sblocca i tuoi dati", key_text:"Inserisci la password per sbloccare le tue liste cifrate su questo dispositivo.", key_pw:"Password", key_use_code:"Usa il codice di recupero", key_use_pw:"Usa la password", key_code:"Codice di recupero", key_wrong:"Password o codice errati.", key_logout:"Esci", key_go:"Sblocca", key_setup_title:"Configura la cifratura", key_setup_text:"Le tue liste vengono cifrate automaticamente. Inserisci la password una volta per creare le chiavi.", rc_title:"Il tuo codice di recupero", rc_text:"Conserva questo codice in un posto sicuro (non solo in questa app). Se dimentichi la password, è l'unico modo per riavere le tue liste. Nessuno, nemmeno l'amministratore del server, può ripristinarlo.", rc_copy:"Copia", rc_download:"Scarica .txt", rc_saved:"Ho salvato il mio codice di recupero", rc_continue:"Continua", rc_new:"Crea un nuovo codice di recupero", rc_new_d:"Usalo se hai perso il codice. Serve la password attuale.", rc_need_pw:"Inserisci la password attuale", rc_new_done:"Nuovo codice di recupero creato.", rec_code_title:"Serve il codice di recupero", rec_code_text:"Inserisci il codice di recupero per mantenere l'accesso alle tue liste cifrate con la nuova password.", rec_code_reset:"Non ce l'ho – riparti con nuove chiavi", rec_code_reset_q:"Ripartire con nuove chiavi? Le liste che solo tu potevi aprire resteranno illeggibili per sempre. Quelle condivise restano leggibili per gli altri.", mig_busy:"Cifratura delle liste… ({n}/{total})", mig_done:"Tutte le tue liste sono cifrate.", sec_title:"Cifratura", sec_text:"Tutte le tue liste sono cifrate end-to-end automaticamente. Le chiavi esistono solo sui tuoi dispositivi e, protette dalla tua password, nel tuo account. Il server e il suo amministratore non possono leggere i tuoi dati.", sec_fail:"Impossibile configurare la cifratura: {msg}", pub_nokey:"A questo link manca la chiave (la parte dopo #).", join_nokey:"Sei entrato, ma il link non contiene la chiave. Chiedi un nuovo link al proprietario.", share_nokey_user:"{name} non ha ancora attivato la cifratura e avrà accesso dopo aver effettuato l'accesso una volta (e quando riapri TPC2Do).",
+  bk_skip_enc:"{n} lista/e di un vecchio formato di backup sono state saltate.", bk_nopw_warn:"Senza password del file, il backup contiene le tue liste in chiaro. Continuare senza password?", bk_folder:"Salva in una cartella…", bk_folder_change:"Cambia cartella", bk_folder_done:"Backup salvato nella tua cartella.", bk_folder_na:"Il browser non può scrivere direttamente nelle cartelle: il backup viene scaricato.", bk_intro2:"Per il backup le tue liste vengono decifrate sul tuo dispositivo. Usa una password per proteggere il file. Suggerimento: scegli una cartella sincronizzata dalla tua app cloud (Dropbox, OneDrive, Google Drive…).", bk_locked:"{n} lista/e senza chiave non incluse.", bk_remind:"L'ultimo backup risale a {d} giorni fa. Ne facciamo uno nuovo?", bk_remind_never:"Non hai ancora fatto un backup. Facciamo il primo?", bk_remind_go:"Esegui ora", bk_remind_later:"Più tardi"
 },
 fr: {
   loading:"Chargement …", cancel:"Annuler", create:"Créer", save:"Enregistrer", delete:"Supprimer", undo:"Annuler", done:"Terminé", add:"Ajouter", back:"Retour", copy:"Copier", you:"Vous",
@@ -650,14 +734,19 @@ fr: {
   linked_lists:"Listes des comptes liés", lk_title:"Comptes liés", lk_intro:"Liez un autre de vos comptes : les deux comptes partagent alors toutes leurs listes (les deux peuvent modifier ; partager et supprimer restent réservés au propriétaire). Il faut le nom, l’e-mail et le mot de passe de l’autre compte ; le mot de passe ne sert qu’à une connexion et n’est pas enregistré.", lk_none:"Aucun compte lié.", lk_user:"Nom de l’autre compte", lk_email:"E-mail de l’autre compte", lk_pw:"Mot de passe de l’autre compte", lk_go:"Lier le compte", lk_ok:"Compte lié", lk_mismatch:"Le nom et l’e-mail ne correspondent pas.", lk_unlink:"Délier", lk_unlink_q:"Délier « {name} » ? Les listes des deux comptes ne seront plus partagées automatiquement.", lk_busy:"Liaison…", fmt_color:"Couleur du texte", fmt_nocolor:"Retirer la couleur", pub_signed_as:"Connecté en tant que {name}", pub_open_app:"Ouvrir l’app",
   enc_menu:"Chiffrer la liste…", enc_off_menu:"Retirer le chiffrement…", enc_title:"Chiffrer cette liste", enc_intro:"La liste est chiffrée dans votre navigateur (AES-256) avec une phrase secrète. Le serveur – et quiconque lit la base – ne voit que des données illisibles. Ceux qui doivent ouvrir la liste ont besoin de la phrase ; transmettez-la séparément. La recherche globale et la vue publique ne fonctionnent pas avec les listes chiffrées.", enc_pass:"Phrase secrète", enc_pass2:"Répétez la phrase", enc_warn:"Je comprends : si la phrase est perdue, la liste est irrécupérable, même par moi.", enc_go:"Chiffrer", enc_busy:"Chiffrement…", enc_done:"Liste chiffrée", enc_unlock_title:"Liste chiffrée", enc_unlock_text:"Saisissez la phrase secrète de « {name} ».", enc_remember:"Mémoriser sur cet appareil (jusqu’à la déconnexion)", enc_wrong:"Phrase incorrecte.", enc_unlock_go:"Déverrouiller", enc_locked:"Liste chiffrée", enc_off_q:"Retirer le chiffrement de cette liste ? Elle sera de nouveau stockée en clair dans la base.", enc_off_done:"Chiffrement retiré", enc_mismatch:"Les phrases ne correspondent pas.", enc_short:"La phrase doit comporter au moins 8 caractères.", enc_note:"🔒 Liste chiffrée : transmettez la phrase séparément (elle n’est jamais envoyée au serveur).", enc_no_dup:"Les listes chiffrées ne peuvent pas être dupliquées.", enc_fail:"Échec du chiffrement : {msg}", enc_nocrypto:"Le chiffrement nécessite une connexion sécurisée (https).",
   r_admin:"Admin (peut partager)", role_admin:"Admin", sw_title:"Changer de compte", sw_pw:"Se connecter à « {name} »", sw_fail:"Échec du changement.", pub_copy:"Copier dans mon compte", pub_copied:"Liste copiée dans votre compte", sel_done:"Fait / à faire", sel_cancel:"Annuler la sélection", sel_n2:"{n} sélectionnées", fmt_bg:"Couleur de surlignage", fmt_custom:"Couleur personnalisée", lk_store_note:"Un jeton de connexion de l’autre compte est conservé sur cet appareil pour changer vite ; il est supprimé à la déconnexion.",
-  bk_title:"Sauvegarde", bk_intro:"Téléchargez toutes vos listes dans un fichier (colonnes, tâches, liens de sous-listes). Les listes chiffrées restent chiffrées dans le fichier. Restauration possible à tout moment : les listes restaurées sont ajoutées comme nouvelles, rien n’est écrasé.", bk_download:"Télécharger la sauvegarde", bk_pw:"Mot de passe du fichier (facultatif – chiffre tout le fichier)", bk_shared:"Inclure aussi les listes partagées avec moi", bk_restore:"Restaurer depuis une sauvegarde…", bk_last:"Dernière sauvegarde : {d}", bk_never:"Aucune sauvegarde sur cet appareil.", bk_enter_pw:"Cette sauvegarde est protégée par mot de passe. Saisissez-le.", bk_wrong_pw:"Mot de passe incorrect.", bk_bad_file:"Ce n’est pas un fichier de sauvegarde TPC2Do.", bk_restore_go:"Restaurer la sélection", bk_pick:"Listes à restaurer (ajoutées comme nouvelles) :", bk_done:"{n} listes restaurées", bk_busy:"Traitement…", bk_server_note:"Sauvegarde de tout le serveur (tous les utilisateurs) : voir README → « Sauvegarde du serveur » (tâche quotidienne via GitHub Actions ou script).", bk_tasks:"{n} tâches", bk_open:"Ouvrir"
+  bk_title:"Sauvegarde", bk_intro:"Téléchargez toutes vos listes dans un fichier (colonnes, tâches, liens de sous-listes). Les listes chiffrées restent chiffrées dans le fichier. Restauration possible à tout moment : les listes restaurées sont ajoutées comme nouvelles, rien n’est écrasé.", bk_download:"Télécharger la sauvegarde", bk_pw:"Mot de passe du fichier (facultatif – chiffre tout le fichier)", bk_shared:"Inclure aussi les listes partagées avec moi", bk_restore:"Restaurer depuis une sauvegarde…", bk_last:"Dernière sauvegarde : {d}", bk_never:"Aucune sauvegarde sur cet appareil.", bk_enter_pw:"Cette sauvegarde est protégée par mot de passe. Saisissez-le.", bk_wrong_pw:"Mot de passe incorrect.", bk_bad_file:"Ce n’est pas un fichier de sauvegarde TPC2Do.", bk_restore_go:"Restaurer la sélection", bk_pick:"Listes à restaurer (ajoutées comme nouvelles) :", bk_done:"{n} listes restaurées", bk_busy:"Traitement…", bk_server_note:"Sauvegarde de tout le serveur (tous les utilisateurs) : voir README → « Sauvegarde du serveur » (tâche quotidienne via GitHub Actions ou script).", bk_tasks:"{n} tâches", bk_open:"Ouvrir",
+  fmt_mode:"Mise en forme du texte", fmt_mode_wys:"Boutons (aperçu en direct pendant la saisie)", fmt_mode_md:"Markdown (tapez **gras**, *italique* …)", fmt_mode_hint:"Markdown affiche les caractères bruts pendant la saisie. Le mode boutons affiche tout de suite le gras, les couleurs, etc.",
+  theme_darkglass:"Verre sombre", theme_darkglass_d:"Effet verre sur fond sombre",
+  rep_start:"Premier jour (début)", rep_hint2:"Quand vous cochez cette tâche, une nouvelle copie est créée. Elle n'apparaît dans la liste que lorsque son jour arrive (l'échéance, ou le jour de début si la liste n'a pas de colonne d'échéance). D'ici là, elle reste masquée.", sched_show:"{n} planifiées – afficher", sched_hide:"{n} planifiées – masquer",
+  enc_wait:"Chiffrée – en attente de clé", enc_wait_long:"Vous n'avez pas encore la clé de cette liste. Le propriétaire doit ouvrir TPC2Do une fois (en ligne) – elle se débloque ensuite automatiquement.", key_title:"Déverrouiller vos données", key_text:"Saisissez votre mot de passe pour déverrouiller vos listes chiffrées sur cet appareil.", key_pw:"Mot de passe", key_use_code:"Utiliser le code de récupération", key_use_pw:"Utiliser le mot de passe", key_code:"Code de récupération", key_wrong:"Mot de passe ou code incorrect.", key_logout:"Se déconnecter", key_go:"Déverrouiller", key_setup_title:"Configurer le chiffrement", key_setup_text:"Vos listes sont chiffrées automatiquement. Saisissez votre mot de passe une fois pour créer vos clés.", rc_title:"Votre code de récupération", rc_text:"Conservez ce code en lieu sûr (pas seulement dans cette app). Si vous oubliez votre mot de passe, c'est le seul moyen de retrouver vos listes. Personne, pas même l'administrateur du serveur, ne peut le restaurer.", rc_copy:"Copier", rc_download:"Télécharger .txt", rc_saved:"J'ai enregistré mon code de récupération", rc_continue:"Continuer", rc_new:"Créer un nouveau code de récupération", rc_new_d:"À utiliser si vous avez perdu votre code. Nécessite votre mot de passe actuel.", rc_need_pw:"Saisissez votre mot de passe actuel", rc_new_done:"Nouveau code de récupération créé.", rec_code_title:"Code de récupération requis", rec_code_text:"Saisissez votre code de récupération pour garder l'accès à vos listes chiffrées avec le nouveau mot de passe.", rec_code_reset:"Je ne l'ai pas – repartir avec de nouvelles clés", rec_code_reset_q:"Repartir avec de nouvelles clés ? Les listes que vous seul pouviez ouvrir resteront illisibles à jamais. Les listes partagées restent lisibles pour les autres.", mig_busy:"Chiffrement de vos listes… ({n}/{total})", mig_done:"Toutes vos listes sont chiffrées.", sec_title:"Chiffrement", sec_text:"Toutes vos listes sont chiffrées de bout en bout automatiquement. Vos clés n'existent que sur vos appareils et, protégées par votre mot de passe, dans votre compte. Le serveur et son administrateur ne peuvent pas lire vos données.", sec_fail:"Impossible de configurer le chiffrement : {msg}", pub_nokey:"Ce lien n'a pas de clé (la partie après #).", join_nokey:"Vous avez rejoint la liste, mais le lien ne contient pas de clé. Demandez un nouveau lien au propriétaire.", share_nokey_user:"{name} n'a pas encore activé le chiffrement et aura accès après sa première connexion (et quand vous rouvrirez TPC2Do).",
+  bk_skip_enc:"{n} liste(s) d'un ancien format de sauvegarde ont été ignorées.", bk_nopw_warn:"Sans mot de passe de fichier, la sauvegarde contient vos listes en clair. Continuer sans mot de passe ?", bk_folder:"Enregistrer dans un dossier…", bk_folder_change:"Changer de dossier", bk_folder_done:"Sauvegarde enregistrée dans votre dossier.", bk_folder_na:"Votre navigateur ne peut pas écrire directement dans un dossier – la sauvegarde est téléchargée.", bk_intro2:"Pour la sauvegarde, vos listes sont déchiffrées sur votre appareil. Utilisez un mot de passe de fichier. Astuce : choisissez un dossier synchronisé par votre app cloud (Dropbox, OneDrive, Google Drive…).", bk_locked:"{n} liste(s) sans clé non incluses.", bk_remind:"Votre dernière sauvegarde date de {d} jours. On en fait une nouvelle ?", bk_remind_never:"Vous n'avez pas encore fait de sauvegarde. On fait la première ?", bk_remind_go:"Sauvegarder", bk_remind_later:"Plus tard"
 }};
 
 /* ---------- Preferences (language etc.) ---------- */
 const PREF_KEY = 'tpc2do_prefs';
 const prefs = { lang: 'en', confirmDelete: true, sound: true, theme: 'default', accent: '', density: 'normal', fontsize: 'm', lowfx: false, skipIntro: false, collapseDone: false,
-  contrast: false, betaPublic: false, volume: 100, recent: [], mobile: 'auto', ovSort: 'alpha', ovDir: 'asc', listOrder: [] };
-const THEMES = ['default', 'light', 'dark', 'modern', 'glass'], DENSITIES = ['compact', 'normal', 'comfy'], FONTS = ['s', 'm', 'l'];
+  contrast: false, betaPublic: false, fmtMode: 'wys', volume: 100, recent: [], mobile: 'auto', ovSort: 'alpha', ovDir: 'asc', listOrder: [] };
+const THEMES = ['default', 'light', 'dark', 'modern', 'glass', 'darkglass'], DENSITIES = ['compact', 'normal', 'comfy'], FONTS = ['s', 'm', 'l'];
 function adoptPrefs(src) {
   if (!src || typeof src !== 'object') return;
   if (LANGS[src.lang]) prefs.lang = src.lang;
@@ -674,6 +763,7 @@ function adoptPrefs(src) {
   if (Number.isFinite(Number(src.volume))) prefs.volume = Math.max(0, Math.min(100, Math.round(Number(src.volume))));
   if (Array.isArray(src.recent)) prefs.recent = src.recent.filter(x => typeof x === 'string' && x.length <= 24).slice(0, 8);
   if (['auto', 'on', 'off'].includes(src.mobile)) prefs.mobile = src.mobile;
+  if (['wys', 'md'].includes(src.fmtMode)) prefs.fmtMode = src.fmtMode;
   if (['alpha', 'created', 'prio', 'custom'].includes(src.ovSort)) prefs.ovSort = src.ovSort;
   if (src.ovDir === 'asc' || src.ovDir === 'desc') prefs.ovDir = src.ovDir;
   if (Array.isArray(src.listOrder)) prefs.listOrder = src.listOrder.filter(x => typeof x === 'string' && x.length <= 64).slice(0, 500);
@@ -695,7 +785,7 @@ function applyAppearance() {
   r.dataset.theme = prefs.theme; r.dataset.density = prefs.density; r.dataset.font = prefs.fontsize;
   r.classList.toggle('lowfx', prefs.lowfx || prefs.contrast);
   const calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  r.classList.toggle('refract', prefs.theme === 'glass' && CHROMIUM && !prefs.lowfx && !prefs.contrast && !calm);
+  r.classList.toggle('refract', (prefs.theme === 'glass' || prefs.theme === 'darkglass') && CHROMIUM && !prefs.lowfx && !prefs.contrast && !calm);
   if (prefs.contrast) {
     const sysDark = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
     r.dataset.contrast = 'high'; r.dataset.cmode = (prefs.theme === 'light' || (prefs.theme === 'default' && !sysDark)) ? 'light' : 'dark';
@@ -737,7 +827,12 @@ const E2E = (() => {
   const decStr = async (key, s) => { const u = unb64(s.slice(3)); return td.decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: u.subarray(0, 12) }, key, u.subarray(12))); };
   const verify = async (l, key) => { try { return (await decStr(key, l.enc.check)) === 'tpc2do-ok'; } catch (e) { return false; } };
   const E = {
-    ok, derive, encStr, decStr, isCt, b64,
+    ok, derive, encStr, decStr, isCt, b64, unb64,
+    putKey: (id, key) => { keys.set(id, key); },
+    dropKey: id => { keys.delete(id); },
+    async rawOf(id) { const k = keys.get(id); return k ? new Uint8Array(await crypto.subtle.exportKey('raw', k)) : null; },
+    async newListKey() { const raw = crypto.getRandomValues(new Uint8Array(32)); return { raw, key: await crypto.subtle.importKey('raw', raw, 'AES-GCM', true, ['encrypt', 'decrypt']) }; },
+    async keyFromRaw(raw) { return crypto.subtle.importKey('raw', raw, 'AES-GCM', true, ['encrypt', 'decrypt']); },
     has: id => keys.has(id),
     setKey: async (id, key, remember) => { keys.set(id, key); store(id, b64(new Uint8Array(await crypto.subtle.exportKey('raw', key))), remember); },
     newSalt: () => b64(crypto.getRandomValues(new Uint8Array(16))),
@@ -752,7 +847,7 @@ const E2E = (() => {
     },
     async meta(l) {                                   // decrypt title + columns of an encrypted list object (in place)
       if (!l || !l.enc) { if (l) l.locked = false; return l; }
-      if (!(await E.tryStored(l))) { l.locked = true; l.title = T('enc_locked'); l.columns = []; return l; }
+      if (!(await E.tryStored(l))) { l.locked = true; l.title = T(l.enc.v === 2 ? 'enc_wait' : 'enc_locked'); l.columns = []; return l; }
       const key = keys.get(l.id);
       try { l.title = await decStr(key, l.enc.t); l.columns = JSON.parse(await decStr(key, l.enc.c)); l.locked = false; }
       catch (e) { l.locked = true; l.title = T('enc_locked'); l.columns = []; }
@@ -781,11 +876,193 @@ const E2E = (() => {
       if ('data' in p) o.data = { _e: await encStr(key, JSON.stringify(p.data || {})) };
       return o;
     },
-    clearAll() { keys.clear(); try { Object.keys(sessionStorage).filter(k => k.startsWith(SK)).forEach(k => sessionStorage.removeItem(k)); localStorage.removeItem(LK); } catch (e) {} }
+    clearAll() { keys.clear(); try { KEYS.clear(); } catch (e) {} try { Object.keys(sessionStorage).filter(k => k.startsWith(SK)).forEach(k => sessionStorage.removeItem(k)); localStorage.removeItem(LK); } catch (e) {} }
   };
   return E;
 })();
 const listEnc = id => { const l = (state.cur && state.cur.id === id) ? state.cur : (state.lists || []).find(x => x.id === id); return !!(l && l.enc); };
+
+const b64u = u => E2E.b64(u).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const unb64u = t => E2E.unb64(String(t).replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((String(t).length + 3) % 4));
+/* ---------- Account keys (end-to-end encryption without any key the user has to remember) ----------
+   • every account has an ECDH P-256 key pair; the private half is stored in the account only wrapped (AES-GCM) with a key derived from the
+     password and, separately, from a recovery code – the server can't open it. The real password is never sent to the server (see authPw).
+   • every list has a random AES-256 key; it is stored once per member, wrapped for that member's public key (ECIES: ephemeral ECDH + AES-GCM).
+   • links for people without an account (join / public view) carry the key behind the # – browsers never send that part to a server. */
+const KEYS = (() => {
+  const ECP = { name: 'ECDH', namedCurve: 'P-256' }, te = new TextEncoder();
+  let priv = null, pub = null, uid = null, pending = null;
+  const disabled = () => !!window.TPC_NO_KEYS || !E2E.ok() || !window.indexedDB;
+  const idbOp = (mode, fn) => new Promise((res, rej) => {
+    const r = indexedDB.open('tpc2do_keys', 1); r.onupgradeneeded = () => r.result.createObjectStore('k');
+    r.onerror = () => rej(r.error);
+    r.onsuccess = () => { const db = r.result, tx = db.transaction('k', mode), rq = fn(tx.objectStore('k')); tx.oncomplete = () => { db.close(); res(rq && rq.result); }; tx.onerror = () => rej(tx.error); };
+  });
+  const saveLocal = () => idbOp('readwrite', st => st.put({ priv, pub }, uid)).catch(() => {});
+  const impPriv = bytes => crypto.subtle.importKey('pkcs8', bytes, ECP, false, ['deriveKey', 'deriveBits']);
+  const kek = (secret, salt, iter) => E2E.derive(secret, salt, iter);
+  const normCode = c => String(c || '').toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
+  const genCode = () => { const A = '0123456789ABCDEFGHJKMNPQRSTVWXYZ', u = crypto.getRandomValues(new Uint8Array(20)); let bits = '', out = ''; u.forEach(b => { bits += b.toString(2).padStart(8, '0'); }); for (let i = 0; i < 160; i += 5) out += A[parseInt(bits.slice(i, i + 5), 2)]; return out.match(/.{4}/g).join('-'); };
+  const makeBundle = async (pkcs8, pubB64, password, code) => {
+    const salt = E2E.newSalt(), rsalt = E2E.newSalt(), iter = 250000, riter = 120000, enc = async (k, b) => E2E.encStr(k, E2E.b64(b));
+    return { v: 1, pub: pubB64, salt, iter, pw: await enc(await kek(password, salt, iter), pkcs8), rsalt, riter, rc: await enc(await kek(normCode(code), rsalt, riter), pkcs8) };
+  };
+  const openBundle = async (b, secret, kind) => {
+    const k = kind === 'rc' ? await kek(normCode(secret), b.rsalt, b.riter) : await kek(secret, b.salt, b.iter);
+    return E2E.unb64(await E2E.decStr(k, kind === 'rc' ? b.rc : b.pw));
+  };
+  const wrap = async (pubB64, raw) => {
+    const rp = await crypto.subtle.importKey('raw', E2E.unb64(pubB64), ECP, false, []), eph = await crypto.subtle.generateKey(ECP, true, ['deriveKey']);
+    const k = await crypto.subtle.deriveKey({ name: 'ECDH', public: rp }, eph.privateKey, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+    const iv = crypto.getRandomValues(new Uint8Array(12)), ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, k, raw)), ep = new Uint8Array(await crypto.subtle.exportKey('raw', eph.publicKey));
+    const out = new Uint8Array(ep.length + 12 + ct.length); out.set(ep); out.set(iv, ep.length); out.set(ct, ep.length + 12); return 'w1:' + E2E.b64(out);
+  };
+  const unwrap = async w => {
+    const u = E2E.unb64(w.slice(3)), ep = await crypto.subtle.importKey('raw', u.subarray(0, 65), ECP, false, []);
+    const k = await crypto.subtle.deriveKey({ name: 'ECDH', public: ep }, priv, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    return new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: u.subarray(65, 77) }, k, u.subarray(77)));
+  };
+  const K = {
+    disabled, genCode, wrap, unwrap, b64u,
+    get ok() { return !!priv; }, get pub() { return pub; },
+    setPending: p => { pending = p; setTimeout(() => { if (pending === p) pending = null; }, 60000); },
+    async clear() { priv = null; pub = null; pending = null; try { await idbOp('readwrite', st => st.clear()); } catch (e) {} },
+    async askSecret({ title, text, allowCode, setup, codeOnly, cancelLabel, check }) {
+      try { hideSplash(); } catch (e) {}          // modal: password or recovery code → {kind, secret} | null (log out)
+      return new Promise(res => {
+        let done = false, code = !!codeOnly;
+        modal(`<h3>🔐 ${esc(title)}</h3><p class="muted">${esc(text)}</p><form id="kyF"><label id="kyL">${TE(codeOnly ? 'key_code' : 'key_pw')}<input type="${codeOnly ? 'text' : 'password'}" id="kyS" autocomplete="${setup ? 'current-password' : 'off'}" required></label>
+          ${allowCode ? `<p style="margin:6px 0"><button type="button" class="linkbtn small" id="kyT">${TE('key_use_code')}</button></p>` : ''}<div class="msg" id="kyM"></div>
+          <div class="actions"><button type="button" class="btn" id="kyOut">${cancelLabel ? esc(cancelLabel) : TE('key_logout')}</button><span class="spacer"></span><button class="btn primary" type="submit">${TE('key_go')}</button></div></form>`,
+        (m, close) => {
+          const T2 = $('#kyT', m); if (T2) T2.onclick = () => { code = !code; $('#kyL', m).firstChild.textContent = T(code ? 'key_code' : 'key_pw'); $('#kyS', m).type = code ? 'text' : 'password'; T2.textContent = T(code ? 'key_use_pw' : 'key_use_code'); $('#kyS', m).focus(); };
+          $('#kyOut', m).onclick = close;
+          $('#kyF', m).onsubmit = async e => { e.preventDefault(); const v = $('#kyS', m).value, chk = check; done = true; const r = { kind: code ? 'rc' : 'pw', secret: v }; if (chk) { $('#kyM', m).textContent = ''; const ok = await chk(r); if (!ok) { done = false; $('#kyM', m).textContent = T('key_wrong'); $('#kyS', m).select(); return; } } close(); res(r); };
+        }, () => { if (!done) res(null); });
+      });
+    },
+    async recoveryModal(code) {
+      return new Promise(res => {
+        let done = false;
+        modal(`<h3>🔑 ${TE('rc_title')}</h3><p class="muted">${TE('rc_text')}</p>
+          <div class="rccode" id="rcC" style="font:700 20px/1.5 ui-monospace,Menlo,Consolas,monospace;letter-spacing:1px;text-align:center;padding:14px 8px;margin:10px 0;border:1px dashed var(--line);border-radius:10px;user-select:all;word-break:break-all">${esc(code)}</div>
+          <div class="row gap wrapx"><button class="btn" id="rcCp">${TE('rc_copy')}</button><button class="btn" id="rcDl">${TE('rc_download')}</button></div>
+          <label class="check small" style="margin:12px 0"><input type="checkbox" id="rcOk">${TE('rc_saved')}</label>
+          <div class="actions"><span class="spacer"></span><button class="btn primary" id="rcGo" disabled>${TE('rc_continue')}</button></div>`,
+        (m, close) => {
+          $('#rcOk', m).onchange = e => { $('#rcGo', m).disabled = !e.target.checked; };
+          $('#rcCp', m).onclick = () => { try { navigator.clipboard.writeText(code); toast('✓'); } catch (e) {} };
+          $('#rcDl', m).onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['TPC2Do recovery code\n' + code + '\n'], { type: 'text/plain' })); a.download = 'tpc2do-recovery-code.txt'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); };
+          $('#rcGo', m).onclick = () => { done = true; close(); res(true); };
+        }, () => { if (!done) setTimeout(() => K.recoveryModal(code).then(res), 0); });       // can't be dismissed without confirming
+      });
+    },
+    async createFor(password) {                                   // brand-new key pair for the current user
+      const pair = await crypto.subtle.generateKey(ECP, true, ['deriveKey', 'deriveBits']);
+      const pkcs8 = new Uint8Array(await crypto.subtle.exportKey('pkcs8', pair.privateKey)), pubB64 = E2E.b64(new Uint8Array(await crypto.subtle.exportKey('raw', pair.publicKey)));
+      const code = genCode(), bundle = await makeBundle(pkcs8, pubB64, password, code);
+      const a = await sb.from('user_keys').upsert({ user_id: uid, bundle, updated_at: new Date().toISOString() }, { onConflict: 'user_id' }); if (a.error) throw a.error;
+      const b = await sb.rpc('set_my_pubkey', { pk: pubB64 }); if (b.error) throw b.error;
+      priv = await impPriv(pkcs8); pub = pubB64; await saveLocal();
+      if (state.profile) state.profile.pubkey = pubB64;
+      return code;
+    },
+    async verifyPassword(email, pw) {                             // also migrates legacy accounts (plain password) to the derived one
+      const tmp = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false, storageKey: 'tpc2do-verify-tmp' } });
+      const r = await signInPw(tmp, email, pw); return !r.error;
+    },
+    async init(user, opts = {}) {                                 // → true when keys are available
+      if (disabled() || !user) return false;
+      uid = user.id; priv = null; pub = null;
+      try { const row = await idbOp('readonly', st => st.get(uid)); if (row && row.priv) { priv = row.priv; pub = row.pub; return true; } } catch (e) {}
+      if (opts.quiet) return false;
+      const b = await sb.from('user_keys').select('bundle').eq('user_id', uid).maybeSingle();
+      if (b.error) throw b.error;
+      const bundle = b.data && b.data.bundle;
+      const tryOpen = async (kind, secret) => { try { const pk = await openBundle(bundle, secret, kind); priv = await impPriv(pk); pub = bundle.pub; await saveLocal(); return true; } catch (e) { return false; } };
+      if (bundle) {
+        if (pending && await tryOpen('pw', pending)) { pending = null; return true; }
+        pending = null;
+        for (;;) {
+          const r = await K.askSecret({ title: T('key_title'), text: T('key_text'), allowCode: true, check: x => tryOpen(x.kind, x.secret) });
+          if (!r) { await sb.auth.signOut(); return false; }
+          return true;
+        }
+      }
+      // no keys yet → create them (needs the real password once)
+      let pw = pending; pending = null;
+      if (!pw) {
+        for (;;) {
+          const r = await K.askSecret({ title: T('key_setup_title'), text: T('key_setup_text'), allowCode: false, setup: true, check: x => K.verifyPassword(user.email, x.secret) });
+          if (!r) { await sb.auth.signOut(); return false; }
+          pw = r.secret; break;
+        }
+      } else { try { await K.verifyPassword(user.email, pw); } catch (e) {} }          // migrates a legacy password to the derived one
+      const code = await K.createFor(pw);
+      await K.recoveryModal(code);
+      return true;
+    },
+    async cachePartner(client, pid, pw) {                         // linked accounts: store the partner's key here so switching never asks again
+      try {
+        const b = await client.from('user_keys').select('bundle').eq('user_id', pid).maybeSingle(); if (!b.data) return;
+        const pk = await openBundle(b.data.bundle, pw, 'pw'), pr = await impPriv(pk);
+        await idbOp('readwrite', st => st.put({ priv: pr, pub: b.data.bundle.pub }, pid));
+      } catch (e) {}
+    },
+    async rewrapPassword(oldPw, newPw) {                          // after a password change
+      const b = await sb.from('user_keys').select('bundle').eq('user_id', uid).maybeSingle(); if (!b.data) return;
+      const bundle = b.data.bundle, pk = await openBundle(bundle, oldPw, 'pw'), salt = E2E.newSalt(), nb = Object.assign({}, bundle, { salt, iter: 250000, pw: await E2E.encStr(await kek(newPw, salt, 250000), E2E.b64(pk)) });
+      const r = await sb.from('user_keys').update({ bundle: nb, updated_at: new Date().toISOString() }).eq('user_id', uid); if (r.error) throw r.error;
+    },
+    async rewrapWithCode(code, newPw) {                           // password reset by e-mail: recovery code + new password → bundle
+      const b = await sb.from('user_keys').select('bundle').eq('user_id', uid).maybeSingle(); if (!b.data) return false;
+      const bundle = b.data.bundle; let pk; try { pk = await openBundle(bundle, code, 'rc'); } catch (e) { return false; }
+      const salt = E2E.newSalt(), nb = Object.assign({}, bundle, { salt, iter: 250000, pw: await E2E.encStr(await kek(newPw, salt, 250000), E2E.b64(pk)) });
+      const r = await sb.from('user_keys').update({ bundle: nb, updated_at: new Date().toISOString() }).eq('user_id', uid); if (r.error) throw r.error;
+      priv = await impPriv(pk); pub = bundle.pub; await saveLocal(); return true;
+    },
+    async newRecoveryCode(password) {
+      const b = await sb.from('user_keys').select('bundle').eq('user_id', uid).maybeSingle(); if (!b.data) throw new Error('no keys');
+      const bundle = b.data.bundle, pk = await openBundle(bundle, password, 'pw'), code = genCode(), rsalt = E2E.newSalt(), riter = 120000;
+      const nb = Object.assign({}, bundle, { rsalt, riter, rc: await E2E.encStr(await kek(normCode(code), rsalt, riter), E2E.b64(pk)) });
+      const r = await sb.from('user_keys').update({ bundle: nb, updated_at: new Date().toISOString() }).eq('user_id', uid); if (r.error) throw r.error;
+      return code;
+    },
+    async resetKeys(password) {                                   // emergency exit: fresh key pair, old private lists stay unreadable
+      const pair = await crypto.subtle.generateKey(ECP, true, ['deriveKey', 'deriveBits']), pubB64 = E2E.b64(new Uint8Array(await crypto.subtle.exportKey('raw', pair.publicKey)));
+      const r = await sb.rpc('reset_my_keys', { pk: pubB64 }); if (r.error) throw r.error;
+      return K.createFor(password);
+    },
+    async loadListKeys() {                                        // unwrap my list keys into the runtime key map
+      if (!priv) return;
+      const r = await sb.from('list_keys').select('list_id,wrapped'); if (r.error) return;
+      for (const row of (r.data || [])) { if (E2E.has(row.list_id)) continue; try { E2E.putKey(row.list_id, await E2E.keyFromRaw(await unwrap(row.wrapped))); } catch (e) {} }
+    },
+    async wrapListKeyFor(lid, userPub) { const raw = await E2E.rawOf(lid); return raw ? wrap(userPub, raw) : null; },
+    async putOwnKey(lid, raw) { if (!priv) return false; const w = await wrap(pub, raw), r = await sb.rpc('put_list_key', { lid, uid, wrapped: w }); if (r.error) return false; E2E.putKey(lid, await E2E.keyFromRaw(raw)); return true; },
+    async healKeys() {                                            // give keys to members/linked accounts that don't have one yet
+      if (!priv) return 0;
+      const r = await sb.rpc('keyless_members'); if (r.error || !r.data) return 0; let n = 0;
+      for (const row of r.data) { try { const w = await K.wrapListKeyFor(row.list_id, row.pubkey); if (!w) continue; const q = await sb.rpc('put_list_key', { lid: row.list_id, uid: row.user_id, wrapped: w }); if (!q.error) n++; } catch (e) {} }
+      return n;
+    }
+  };
+  return K;
+})();
+async function authPw(email, pw) {                                 // sent to Supabase instead of the real password → the server never learns it
+  if (KEYS.disabled()) return pw;
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: new TextEncoder().encode('tpc2do-auth|' + String(email).trim().toLowerCase()), iterations: 210000, hash: 'SHA-256' }, base, 256);
+  return 'v1.' + b64u(new Uint8Array(bits));
+}
+async function signInPw(client, email, pw) {
+  const r = await client.auth.signInWithPassword({ email, password: await authPw(email, pw) });
+  if (!r.error || KEYS.disabled()) return r;
+  const r2 = await client.auth.signInWithPassword({ email, password: pw });           // legacy account (plain password) → migrate silently
+  if (!r2.error) { try { await client.auth.updateUser({ password: await authPw(email, pw) }); } catch (e) {} return r2; }
+  return r;
+}
+
 const BIRD_VB = '0 0 759 533';
 const birdSVG = cls => `<svg class="${cls}" viewBox="${BIRD_VB}" aria-hidden="true"><use href="#birdp"/></svg>`;
 const pageUrl = () => location.origin + location.pathname;
@@ -990,7 +1267,11 @@ async function setSession(session) {
     if (mp) { adoptPrefs(mp); try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {} applyLang(); applyAppearance(); }
     const { data } = await sb.from('profiles').select('id,username,avatar').eq('id', state.user.id).maybeSingle();
     state.profile = data || { id: state.user.id, username: state.user.email };
+    try { if (!(await KEYS.init(state.user, { quiet: recoveryMode })) && !KEYS.disabled() && !recoveryMode) { state.user = null; state.ready = true; return; } }
+    catch (e) { toast(T('sec_fail', { msg: errText(e) }), true); }
     await loadLists();
+    try { await migrateLists(); } catch (e) { console.warn('migration', e); }
+    KEYS.healKeys().then(n => { if (n) loadLists(); }).catch(() => {});
   }
   state.ready = true;
 }
@@ -1026,6 +1307,7 @@ async function loadLists() {
   ]);
   if (l.error) { toast(errText(l.error), true); return; }
   state.lists = l.data || [];
+  await KEYS.loadListKeys();
   await Promise.all(state.lists.map(x => E2E.meta(x)));
   try { const k = await sb.rpc('my_links'); state.links = k.error ? [] : (k.data || []); } catch (e) { state.links = []; }
   state.memberRoles = Object.fromEntries((m.data || []).map(x => [x.list_id, x.role]));
@@ -1071,47 +1353,62 @@ async function route() {
     return renderList(arg, seq);
   }
   state.crumbs = []; state.cur = null;
-  renderHome();
+  Promise.resolve(renderHome()).then(() => setTimeout(bkReminder, 50));
 }
 
-async function renderPublic(tok, seq) {
+async function renderPublic(arg0, seq) {
+  const [tok, kf] = String(arg0).split('~');
   document.title = 'TPC2Do';
   const me = state.user ? (state.profile || { username: state.user.email }) : null;
   const head = () => `<header class="top"><a class="brand" href="#/" aria-label="TPC2Do"><span class="tile">${birdSVG('')}</span><span>2DO</span></a><span class="spacer"></span>` + (me
     ? `<span class="muted small pubas">${TE('pub_signed_as', { name: esc(me.username) })}</span><a class="me" href="#/account" title="${TE('account')}">${avatarHTML(state.profile, 30)}</a><a class="btn primary" href="#/">${TE('pub_open_app')}</a>`
     : `${langSelectHTML()}<a class="btn primary" href="#/">${TE('pub_login')}</a>`) + `</header>`;
-  const bindLang = () => { const ls = $('#langSel'); if (ls) ls.onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); renderPublic(tok, seq); }; };
+  const bindLang = () => { const ls = $('#langSel'); if (ls) ls.onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); renderPublic(arg0, seq); }; };
   app.innerHTML = head() + `<main class="wrap wide"><p class="muted">${TE('loading')}</p></main>`; bindLang();
   const r = await sb.rpc('get_public_list', { tok });
   if (seq !== state.routeSeq) return;
-  const d = r.data;
+  let d = r.data;
   if (r.error || !d) { app.innerHTML = head() + `<main class="wrap wide"><p class="muted">${TE('pub_missing')}</p></main>`; bindLang(); return; }
+  if (d.enc) {                                                    // encrypted list: the key is in the link after the #
+    try {
+      if (!kf) throw new Error('nokey');
+      const key = await E2E.keyFromRaw(unb64u(kf)); E2E.putKey('pub:' + tok, key);
+      d = Object.assign({}, d, { title: await E2E.decStr(key, d.enc.t), columns: JSON.parse(await E2E.decStr(key, d.enc.c)), tasks: await E2E.decRows('pub:' + tok, d.tasks) });
+    } catch (e) { app.innerHTML = head() + `<main class="wrap wide"><p class="muted">${TE('pub_nokey')}</p></main>`; bindLang(); return; }
+  }
   const copyBtn = me ? `<button class="btn" id="pubCopy" style="margin:6px 0 12px">${TE('pub_copy')}</button>` : '';
   const cols = (d.columns || []).filter(c => c && !c.hidden && c.type !== 'formula' && c.type !== 'sub');
   const val = (t, c) => c.type === 'task' ? t.title : c.type === 'notes' ? t.notes : (t.data || {})[c.id];
   const nm = c => c.name || T(c.type === 'task' ? 'c_task' : c.type === 'notes' ? 'c_notes' : 'c_task');
   const showCols = cols.some(c => c.type === 'task') ? cols : [{ id: 'task', type: 'task' }, ...cols];
-  const cell = (t, c) => { const v = val(t, c); if (v == null || v === '') return ''; if (c.type === 'checkbox') return v ? '☑' : '☐'; return rtHTML(v); };
+  const cell = (t, c) => { const v = val(t, c); if (v == null || v === '') return ''; if (c.type === 'checkbox') return `<input type="checkbox" disabled ${v ? 'checked' : ''}>`; return rtHTML(v); };
   app.innerHTML = head() + `<main class="wrap wide"><h2>📋 ${esc(d.title)}</h2><p class="muted small">${TE('pub_title')}</p>${copyBtn}
-    <div class="sheetwrap"><table class="sheet" style="width:100%"><thead><tr><th style="width:36px">✓</th>${showCols.map(c => `<th>${esc(nm(c))}</th>`).join('')}</tr></thead>
-    <tbody>${(d.tasks || []).map(t => `<tr class="${t.done ? 'done' : ''}"><td style="text-align:center">${t.done ? '☑' : '☐'}</td>${showCols.map(c => `<td style="padding:8px 10px;vertical-align:top;white-space:pre-wrap">${cell(t, c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></main>`;
+    <div class="sheetwrap"><table class="sheet" style="width:100%"><thead><tr><th class="c-chk" style="width:46px">✓</th>${showCols.map(c => `<th>${esc(nm(c))}</th>`).join('')}</tr></thead>
+    <tbody>${(d.tasks || []).map(t => `<tr class="${t.done ? 'done' : ''}"><td class="c-chk"><input type="checkbox" disabled ${t.done ? 'checked' : ''}></td>${showCols.map(c => `<td style="padding:8px 10px;vertical-align:top;white-space:pre-wrap">${cell(t, c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></main>`;
   bindLang();
   const pc = $('#pubCopy');
   if (pc) pc.onclick = async () => {
     pc.disabled = true;
     try {
       const nl = await createList(String(d.title) + T('lc_copy')); if (!nl) throw new Error('create');
-      if ((d.columns || []).length) { const rc = await sb.rpc('set_list_columns', { lid: nl.id, cols: d.columns }); if (rc.error) throw rc.error; }
+      if ((d.columns || []).length) await setColumnsFor(nl, d.columns);
       const rows = (d.tasks || []).map((t, i) => ({ list_id: nl.id, position: i + 1, done: !!t.done, done_at: t.done ? new Date().toISOString() : null, title: t.title || '', notes: t.notes || '', data: t.data || {} }));
-      for (let i = 0; i < rows.length; i += 200) { const ri = await sb.from('tasks').insert(rows.slice(i, i + 200)); if (ri.error) throw ri.error; }
+      await insertRowsFor(nl, rows);
       await loadLists(); toast(T('pub_copied')); location.hash = '#/list/' + nl.id;
     } catch (er) { pc.disabled = false; toast(errText(er), true); }
   };
 }
-async function doJoin(token) {
+async function doJoin(arg) {
+  const [token, frag] = String(arg).split('~');
   const { data, error } = await sb.rpc('join_list_by_token', { tok: token });
   if (error) { toast(T('err_join'), true); location.hash = '#/'; return; }
   await loadLists();
+  if (KEYS.ok) {
+    let keyed = false;
+    if (frag) { try { const m = JSON.parse(new TextDecoder().decode(unb64u(frag))); for (const [lid, k] of Object.entries(m)) { if (state.lists.some(x => x.id === lid && x.enc)) keyed = (await KEYS.putOwnKey(lid, unb64u(k))) || keyed; } await loadLists(); } catch (e) {} }
+    const jl = state.lists.find(x => x.id === data);
+    if (jl && jl.enc && !E2E.has(jl.id) && !keyed) toast(T('join_nokey'), true);
+  }
   location.hash = '#/list/' + data;
 }
 
@@ -1157,7 +1454,8 @@ function renderAuth(msg = '') {
           email = r.data;
         }
         if (mode === 'login') {
-          const { error } = await sb.auth.signInWithPassword({ email, password });
+          KEYS.setPending(password);
+          const { error } = await signInPw(sb, email, password);
           if (error) throw error;
         } else if (forgot) {
           const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: pageUrl() });
@@ -1169,7 +1467,7 @@ function renderAuth(msg = '') {
           const av = await sb.rpc('username_available', { uname: username });
           if (av.error) throw av.error;
           if (!av.data) throw new Error(T('err_username_taken'));
-          const { data, error } = await sb.auth.signUp({ email, password, options: { data: { username, prefs: { ...prefs } }, emailRedirectTo: pageUrl() } });
+          const { data, error } = await (KEYS.setPending(password), authPw(email, password)).then(ap => sb.auth.signUp({ email, password: ap, options: { data: { username, prefs: { ...prefs } }, emailRedirectTo: pageUrl() } }));
           if (error) throw error;
           if (!data.session) { out.className = 'msg ok'; out.textContent = T('signup_ok'); }
         }
@@ -1196,8 +1494,22 @@ function renderRecovery() {
     out.className = 'msg'; out.textContent = '';
     if (pw.length < 8) { out.textContent = T('err_pw_short'); return; }
     if (pw !== pw2) { out.textContent = T('err_pw_mismatch'); return; }
-    const { error } = await sb.auth.updateUser({ password: pw });
+    const { error } = await sb.auth.updateUser({ password: await authPw(state.user.email, pw) });
     if (error) { out.textContent = errText(error); return; }
+    if (!KEYS.disabled()) {
+      try {
+        const has = await sb.from('user_keys').select('user_id').eq('user_id', state.user.id).maybeSingle();
+        if (has.data) {
+          let okc = false;
+          for (;;) {
+            const r = await KEYS.askSecret({ title: T('rec_code_title'), text: T('rec_code_text'), codeOnly: true, cancelLabel: T('rec_code_reset'), check: x => KEYS.rewrapWithCode(x.secret, pw) });
+            if (!r) { if (await confirmBox(T('rec_code_reset_q'), T('rec_code_reset'))) { const code = await KEYS.resetKeys(pw); await KEYS.recoveryModal(code); okc = true; break; } continue; }
+            okc = true; break;
+          }
+        } else { const code = await KEYS.createFor(pw); await KEYS.recoveryModal(code); }
+      } catch (er) { out.textContent = T('sec_fail', { msg: errText(er) }); return; }
+      await loadLists();
+    }
     recoveryMode = false; toast(T('rec_done')); location.hash = '#/'; route();
   };
 }
@@ -1229,14 +1541,15 @@ async function switchAccount(target) {
       const em = await sb.rpc('login_email', { uname: target.username });
       if (em.error || !em.data) { $('#swM', m).textContent = T('sw_fail'); return; }
       const cur = (await sb.auth.getSession()).data.session; if (cur && state.user) { saved[state.user.id] = { access_token: cur.access_token, refresh_token: cur.refresh_token }; writeSess(saved); }
-      const r = await sb.auth.signInWithPassword({ email: em.data, password: $('#swP', m).value });
+      KEYS.setPending($('#swP', m).value);
+      const r = await signInPw(sb, em.data, $('#swP', m).value);
       if (r.error) { $('#swM', m).textContent = T('err_login'); return; }
       close(); location.hash = '#/';
     };
   });
 }
 function bindTop() {
-  const sw = $('#swAcc'); if (sw) sw.onclick = () => { const r = sw.getBoundingClientRect(); showMenu(Math.min(r.left, innerWidth - 220), r.bottom + 4, state.links.map(x => ({ ic: '👤', label: x.username, fn: () => switchAccount(x) }))); };
+  const sw = $('#swAcc'); if (sw) sw.onclick = () => { const r = sw.getBoundingClientRect(); showMenu(Math.min(r.left, innerWidth - 220), r.bottom + 4, state.links.map(x => ({ ic: '👤', av: avatarHTML(x, 22), label: x.username, fn: () => switchAccount(x) }))); };
   const b = $('#logout'); if (b) b.onclick = async () => { await flushAllWait(); E2E.clearAll(); writeSess({}); await sb.auth.signOut(); };
 }
 
@@ -1355,19 +1668,13 @@ function renameListModal(l) {
   });
 }
 async function duplicateList(l) {
-  if (l.enc) return toast(T('enc_no_dup'), true);
+  if (l.locked) return toast(T('enc_wait'), true);
   const n = await createList(l.title + T('lc_copy')); if (!n) return;
-  if ((l.columns || []).length) {
-    const r = await sb.rpc('set_list_columns', { lid: n.id, cols: l.columns });
-    if (r.error) toast(errText(r.error), true); else n.columns = l.columns;
-  }
-  for (let from = 0; from < 20000; from += 500) {
-    const r = await sb.from('tasks').select('*').eq('list_id', l.id).order('id').range(from, from + 499);
-    if (r.error) { toast(errText(r.error), true); break; }
-    const rows = (r.data || []).map(t => { const c = { ...t }; ['id', 'created_at', 'updated_at', 'created_by'].forEach(k => delete c[k]); c.list_id = n.id; return c; });
-    if (rows.length) { const ins = await sb.from('tasks').insert(rows); if (ins.error) { toast(errText(ins.error), true); break; } }
-    if ((r.data || []).length < 500) break;
-  }
+  try {
+    if ((l.columns || []).length) await setColumnsFor(n, l.columns);
+    const raw = await allTaskRows(l.id, 'title,notes,done,done_at,position,sub_list_id,data'), plain = l.enc ? await E2E.decRows(l.id, raw) : raw;
+    await insertRowsFor(n, plain.map(t => ({ ...t, list_id: n.id })));
+  } catch (er) { toast(errText(er), true); }
   toast(T('lc_dup_ok')); await loadLists(); if ($('#gridMine')) renderHome();
 }
 
@@ -1379,9 +1686,10 @@ async function loadProgress() {
   for (let from = 0; from < 20000; from += 1000) {
     const r = await sb.from('tasks').select('list_id,done,data').in('list_id', ids).order('id').range(from, from + 999);
     if (r.error) return;
+    if (r.data && r.data.some(t => t.data && t.data._e)) r.data = await Promise.all(r.data.map(t => (t.data && t.data._e) ? E2E.decRow(t.list_id, t) : t));
     (r.data || []).forEach(t => {
       const o = out[t.list_id] || (out[t.list_id] = { open: 0, done: 0, max: 0, sum: 0, n: 0 });
-      if (t.done) o.done++; else {
+      if (t.done) o.done++; else if (t.data && typeof t.data._show === 'string' && t.data._show > todayStr()) { /* scheduled recurrence: not open yet */ } else {
         o.open++; const v = Number(t.data && pcol[t.list_id] && t.data[pcol[t.list_id]]) || 0;
         if (v > 0) { o.max = Math.max(o.max, v); o.sum += v; o.n++; }
       }
@@ -1455,6 +1763,21 @@ function startCardDrag(e, card) {
 }
 
 let searchSeq = 0, searchTimer = null;
+let _sidx = null, _sidxAt = 0, _sidxBusy = null;
+async function searchIndex() {                                    // all readable tasks, decrypted locally (cached for a minute)
+  if (_sidx && Date.now() - _sidxAt < 60000) return _sidx;
+  if (_sidxBusy) return _sidxBusy;
+  _sidxBusy = (async () => {
+    const out = [];
+    for (const l of state.lists) {
+      if (l.locked) continue;
+      let rows; try { rows = await allTaskRows(l.id, 'id,list_id,title,notes,done,data'); } catch (e) { continue; }
+      out.push(...(l.enc ? await E2E.decRows(l.id, rows) : rows));
+    }
+    _sidx = out; _sidxAt = Date.now(); _sidxBusy = null; return out;
+  })();
+  return _sidxBusy;
+}
 function bindSearch() {
   const inp = $('#gsearch'), box = $('#sres'), body = $('#homeBody');
   const hl = (txt, q) => { const i = txt.toLowerCase().indexOf(q.toLowerCase()); if (i < 0) return esc(txt); return esc(txt.slice(0, i)) + '<mark>' + esc(txt.slice(i, i + q.length)) + '</mark>' + esc(txt.slice(i + q.length)); };
@@ -1462,20 +1785,16 @@ function bindSearch() {
   const run = async () => {
     const q = inp.value.trim(), seq = ++searchSeq;
     if (q.length < 2) { box.hidden = true; body.hidden = false; return; }
-    const pat = '%' + q.replace(/[\\%_]/g, m => '\\' + m) + '%';
-    const cols = 'id,list_id,title,notes,done';
-    const reqs = [sb.from('tasks').select(cols).ilike('title', pat).limit(60), sb.from('tasks').select(cols).ilike('notes', pat).limit(60)];
-    const cids = [...new Set(state.lists.flatMap(l => (l.columns || []).filter(c => c && /^[A-Za-z0-9_]+$/.test(c.id || '') && !['formula', 'checkbox', 'priority'].includes(c.type) && !isBuiltin(c)).map(c => c.id)))].slice(0, 40);
-    const qc = q.replace(/[\\"%_,()*]/g, ' ').trim();
-    if (state.searchCols && cids.length && qc) reqs.push(sb.from('tasks').select(cols + ',data').or(cids.map(c => `data->>${c}.ilike."%${qc}%"`).join(',')).limit(60));
-    const [a, b, d] = await Promise.all(reqs);
+    const idx = await searchIndex(); const ql0 = q.toLowerCase();
+    const hit = t => (t.title || '').toLowerCase().includes(ql0) || (t.notes || '').toLowerCase().includes(ql0) || (state.searchCols && t.data && Object.entries(t.data).some(([k, v]) => k[0] !== '_' && v != null && typeof v !== 'boolean' && String(v).toLowerCase().includes(ql0)));
+    const found = idx.filter(hit).slice(0, 120);
     if (seq !== searchSeq) return;
     const colHit = t => {                         // which custom column contains the text?
       const l = state.lists.find(x => x.id === t.list_id); if (!l || !t.data) return null;
       for (const c of (l.columns || [])) { const v = t.data[c.id]; if (v != null && String(v).toLowerCase().includes(q.toLowerCase())) return { col: c.name || '', v: String(v) }; }
       return null;
     };
-    const seen = new Set(), tasks = [...(a.data || []), ...(b.data || []), ...((d && d.data) || [])].filter(t => !seen.has(t.id) && seen.add(t.id) && state.lists.some(l => l.id === t.list_id && !l.enc));
+    const tasks = found;
     const ql = q.toLowerCase(), lists = state.lists.filter(l => !l.locked && l.title.toLowerCase().includes(ql));
     const titleOf = id => (state.lists.find(l => l.id === id) || {}).title || '';
     let html = '';
@@ -1531,9 +1850,61 @@ function newListModal() {
   });
 }
 async function createList(title) {
+  if (KEYS.ok) {                                                  // every new list is end-to-end encrypted from the start
+    try {
+      const lk = await E2E.newListKey();
+      const e = { v: 2, t: await E2E.encStr(lk.key, title), c: await E2E.encStr(lk.key, '[]') };
+      const r = await sb.rpc('create_enc_list', { e, wrapped: await KEYS.wrap(KEYS.pub, lk.raw) }); if (r.error) throw r.error;
+      E2E.putKey(r.data, lk.key);
+      const g = await sb.from('lists').select(LIST_COLS).eq('id', r.data).single(); if (g.error) throw g.error;
+      await E2E.meta(g.data); state.lists.push(g.data);
+      if ((state.links || []).length) KEYS.healKeys().catch(() => {});
+      return g.data;
+    } catch (er) { toast(errText(er), true); return null; }
+  }
   const { data, error } = await sb.from('lists').insert({ title }).select(LIST_COLS).single();
   if (error) { toast(errText(error), true); return null; }
   state.lists.push(data); return data;
+}
+async function insertRowsFor(list, rows) {                         // rows in plain text → encrypted (if the list is) and inserted in chunks
+  for (let i = 0; i < rows.length; i += 200) {
+    const chunk = rows.slice(i, i + 200);
+    const out = list.enc ? await Promise.all(chunk.map(async x => Object.assign({}, x, await E2E.encPatch(list.id, { title: x.title ?? '', notes: x.notes ?? '', data: x.data || {} })))) : chunk;
+    const r = await sb.from('tasks').insert(out); if (r.error) throw r.error;
+  }
+}
+async function setColumnsFor(list, cols) {
+  if (list.enc) { const e = await E2E.newMeta(list, { c: cols }), r = await sb.rpc('set_list_enc', { lid: list.id, e }); if (r.error) throw r.error; list.enc = e; }
+  else { const r = await sb.rpc('set_list_columns', { lid: list.id, cols }); if (r.error) throw r.error; }
+  list.columns = cols;
+}
+/* move a list to the key-based encryption (plain lists and lists from the old passphrase version); idempotent so it can resume */
+async function convertList(l) {
+  const resume = !!(l.enc && l.enc.v === 2), raw = await allTaskRows(l.id);
+  let todo;
+  if (!resume) {
+    const plain = l.enc ? await E2E.decRows(l.id, raw) : raw, lk = await E2E.newListKey();
+    const e = { v: 2, mig: 1, t: await E2E.encStr(lk.key, l.title), c: await E2E.encStr(lk.key, JSON.stringify(l.columns || [])) };
+    const r = await sb.rpc('convert_list_enc', { lid: l.id, e, wrapped: await KEYS.wrap(KEYS.pub, lk.raw) }); if (r.error) throw r.error;
+    E2E.putKey(l.id, lk.key); l.enc = e; todo = plain;
+  } else {
+    todo = raw.filter(r => !(E2E.isCt(r.title) && E2E.isCt(r.notes) && r.data && typeof r.data._e === 'string'));
+  }
+  const encRows = [];
+  for (const r of todo) encRows.push(Object.assign({ id: r.id, list_id: r.list_id }, await E2E.encPatch(l.id, { title: r.title, notes: r.notes, data: r.data })));
+  await upsertRows(encRows);
+  const e2 = Object.assign({}, l.enc); delete e2.mig;
+  const r2 = await sb.rpc('set_list_enc', { lid: l.id, e: e2 }); if (r2.error) throw r2.error; l.enc = e2;
+}
+async function migrateLists() {
+  if (!KEYS.ok) return;
+  const todo = state.lists.filter(l => l.owner_id === state.user.id && (!l.enc || l.enc.v !== 2 || l.enc.mig) && (!l.enc || E2E.has(l.id)));
+  if (!todo.length) return;
+  const bar = document.createElement('div'); bar.className = 'migbar'; document.body.appendChild(bar);
+  let n = 0, bad = 0;
+  for (const l of todo) { bar.textContent = '🔐 ' + T('mig_busy', { n: ++n, total: todo.length }); try { await convertList(l); } catch (e) { bad++; console.warn('convert failed', l.id, e); } }
+  bar.remove();
+  await loadLists(); if (!bad) toast(T('mig_done'));
 }
 
 /* ---------- List view ---------- */
@@ -1569,10 +1940,15 @@ async function renderList(id, seq) {
       <p class="muted">${TE('nf_text')}</p><a class="btn" href="#/">${TE('nf_back')}</a></main>`;
     bindTop(); return;
   }
-  if (list.enc && !E2E.has(list.id)) {
+  if (list.enc && !E2E.has(list.id) && list.enc.v === 2) {
+    try { await KEYS.loadListKeys(); await E2E.meta(list); } catch (e) {}
+    if (!E2E.has(list.id)) { toast(T('enc_wait_long'), true); location.hash = '#/'; return; }
+  }
+  if (list.enc && !E2E.has(list.id)) {                            // list from the old passphrase version
     const okU = await unlockModal(list); if (seq !== state.routeSeq) return;
     if (!okU) { location.hash = '#/'; return; }
     await E2E.meta(list);
+    if (KEYS.ok && list.owner_id === state.user.id) { try { await convertList(list); } catch (e) { console.warn(e); } }
   }
   const { data, error } = await sb.from('tasks').select('*').eq('list_id', id).order('position');
   if (seq !== state.routeSeq) return;
@@ -1749,9 +2125,10 @@ const sortPc = () => { const c = prioCol(); return c && c.sort !== false ? c : n
 const prioOf = (t, c) => Number(t.data && t.data[c.id]) || 0;
 const todayStr = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 const dueClass = (t, c) => { const v = t.data && t.data[c.id]; if (!v || t.done) return ''; const n = todayStr(); return v < n ? 'over' : v === n ? 'today' : ''; };
+const isSched = t => !t.done && !!t.data && typeof t.data._show === 'string' && t.data._show > todayStr();
 const undoneTasks = () => {
   const pc = sortPc();
-  return state.tasks.filter(t => !t.done).sort((a, b) => (pc ? prioOf(b, pc) - prioOf(a, pc) : 0) || a.position - b.position);
+  return state.tasks.filter(t => !t.done && (state.showSched || !isSched(t))).sort((a, b) => (pc ? prioOf(b, pc) - prioOf(a, pc) : 0) || a.position - b.position);
 };
 const doneTasks = () => state.tasks.filter(t => t.done)
   .sort((a, b) => new Date(b.done_at || b.created_at).getTime() - new Date(a.done_at || a.created_at).getTime());
@@ -1955,7 +2332,7 @@ function mrowHTML(t) {
     else if (c.type === 'sub' && t.sub_list_id) { const sl = state.lists.find(l => l.id === t.sub_list_id); chips.push(`<span class="mchip">📋 ${esc(sl ? sl.title : '🔒')}</span>`); }
     else if (c.type === 'notes' && t.notes) { const pl = rtStrip(t.notes); chips.push(`<span class="mchip note">${esc(pl.length > 40 ? pl.slice(0, 40) + '…' : pl)}</span>`); }
   });
-  return `<tr data-id="${t.id}" class="${t.done ? 'done' : ''}"><td class="c-chk"><input type="checkbox" data-f="done" ${t.done ? 'checked' : ''} ${ro ? 'disabled' : ''} aria-label="${TE('done')}">${t.data && t.data._rec ? '<span class="rep">🔁</span>' : ''}</td>
+  return `<tr data-id="${t.id}" class="${t.done ? 'done' : ''}${isSched(t) ? ' sched' : ''}"><td class="c-chk"><input type="checkbox" data-f="done" ${t.done ? 'checked' : ''} ${ro ? 'disabled' : ''} aria-label="${TE('done')}">${t.data && t.data._rec ? '<span class="rep">🔁</span>' : ''}</td>
     <td class="c-mtask" tabindex="0" role="button"><div class="mt">${t.title ? rtHTML(t.title) : `<span class="muted">${TE('task_ph')}</span>`}</div>${chips.length ? `<div class="mm">${chips.join('')}</div>` : ''}</td></tr>`;
 }
 function tableHTML() {
@@ -1990,13 +2367,13 @@ function mTableHTML() {
 function rowHTML(t) {
   const cols = visibleCols(), ro = state.role === 'view', dis = ro ? 'readonly' : '';
   const cell = c => {
-    if (c.type === 'task') return `<td${rtCls(t.title)}><textarea rows="1" data-f="title" placeholder="${TE('task_ph')}" ${dis}>${esc(t.title)}</textarea>${rtView(t.title)}</td>`;
-    if (c.type === 'notes') return `<td${rtCls(t.notes)}><textarea rows="1" data-f="notes" ${dis}>${esc(t.notes)}</textarea>${rtView(t.notes)}</td>`;
+    if (c.type === 'task') return `<td${tdRt(t.title, !ro)}><textarea rows="1" data-f="title" placeholder="${TE('task_ph')}" ${dis} ${wtab(!ro)}>${esc(t.title)}</textarea>${rtView(t.title, !ro, T('task_ph'), 'title')}</td>`;
+    if (c.type === 'notes') return `<td${tdRt(t.notes, !ro)}><textarea rows="1" data-f="notes" ${dis} ${wtab(!ro)}>${esc(t.notes)}</textarea>${rtView(t.notes, !ro, '', 'notes')}</td>`;
     if (c.type === 'sub') return `<td class="c-sub">${subCell(t, ro)}</td>`;
     if (c.type === 'formula') { const r = calcDisplay(t, c); return `<td class="c-calc ${r.err ? 'err' : ''}" data-calc="${c.id}">${esc(r.text)}</td>`; }
     return customCell(t, c, ro);
   };
-  return `<tr data-id="${t.id}" class="${t.done ? 'done' : ''}">
+  return `<tr data-id="${t.id}" class="${t.done ? 'done' : ''}${isSched(t) ? ' sched' : ''}">
     <td class="c-chk">${ro || t.done ? '' : `<span class="grip" title="${TE('grip_tip')}">⋮⋮</span>`}<input type="checkbox" data-f="done" ${t.done ? 'checked' : ''} ${ro ? 'disabled' : ''} aria-label="${TE('done')}">${t.data && t.data._rec ? `<span class="rep" title="${esc(recLabel(t.data._rec))}">🔁</span>` : ''}</td>
     ${cols.map(cell).join('')}
     ${ro ? '' : '<td class="c-add"></td>'}</tr>`;
@@ -2024,9 +2401,14 @@ function rtHTML(v) {
     .replace(/(^|[^*\w])\*([^*\s][^*\n]*)\*(?![*\w])/g, '$1<i>$2</i>').replace(/\n/g, '<br>');
 }
 const rtStrip = v => String(v ?? '').replace(/\{\{@?#[0-9a-fA-F]{6}:/g, '').replace(/\}\}/g, '').replace(/\*\*|~~|__/g, '').replace(/(^|[^*\w])\*([^*\s][^*\n]*)\*(?![*\w])/g, '$1$2').replace(/\n/g, ' ');
-const rtView = v => `<div class="rtview" aria-hidden="true">${hasRt(v) ? rtHTML(v) : ''}</div>`;
+const wysOn = () => prefs.fmtMode !== 'md';
+const tdRt = (v, edit) => (edit && wysOn()) ? ' class="wys"' : rtCls(v);
+const wtab = edit => (edit && wysOn()) ? 'tabindex="-1"' : '';
+const rtView = (v, edit, ph, fk) => (edit && wysOn())
+  ? `<div class="rtview rted" contenteditable="true" role="textbox" aria-multiline="true" data-wf="${esc(fk || '')}" data-ph="${esc(ph || '')}">${rtHTML(v)}</div>`
+  : `<div class="rtview" aria-hidden="true">${hasRt(v) ? rtHTML(v) : ''}</div>`;
 function rtUpdate(el) {
-  const td = el.closest('td'); if (!td || !td.querySelector('.rtview')) return;
+  const td = el.closest('td'); if (!td || !td.querySelector('.rtview') || td.classList.contains('wys')) return;
   td.classList.toggle('hasrt', hasRt(el.value)); td.querySelector('.rtview').innerHTML = hasRt(el.value) ? rtHTML(el.value) : '';
 }
 function customCell(t, c, ro) {
@@ -2043,7 +2425,7 @@ function customCell(t, c, ro) {
   if (c.type === 'checkbox') return `<td class="c-bool"><input type="checkbox" data-cf="${c.id}" ${v ? 'checked' : ''} ${ro ? 'disabled' : ''}></td>`;
   if (c.type === 'number') return `<td><input type="number" step="any" data-cf="${c.id}" value="${esc(v ?? '')}" ${ro ? 'readonly' : ''}></td>`;
   if (c.type === 'date') return `<td><input type="date" data-cf="${c.id}" value="${esc(v ?? '')}" ${ro ? 'readonly' : ''}></td>`;
-  return `<td${rtCls(v)}><textarea rows="1" data-cf="${c.id}" ${ro ? 'readonly' : ''}>${esc(v ?? '')}</textarea>${rtView(v)}</td>`;
+  return `<td${tdRt(v, !ro)}><textarea rows="1" data-cf="${c.id}" ${ro ? 'readonly' : ''} ${wtab(!ro)}>${esc(v ?? '')}</textarea>${rtView(v, !ro, '', 'cf')}</td>`;
 }
 
 function fit(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
@@ -2052,17 +2434,25 @@ function drawTable() {
   const sl = wrap.scrollLeft, st = wrap.scrollTop;
   const ae = document.activeElement; let keep = null;       // remember focus + caret so live updates don't interrupt typing
   if (ae && wrap.contains(ae) && ae.closest('tr[data-id]')) {
-    let s0 = null, s1 = null; try { s0 = ae.selectionStart; s1 = ae.selectionEnd; } catch (e) {}
-    keep = { id: ae.closest('tr[data-id]').dataset.id, f: ae.dataset.f, cf: ae.dataset.cf, s0, s1 };
+    const isW = ae.classList && ae.classList.contains('rted'), tae = isW ? (ae.closest('td') || ae).querySelector('textarea') : ae;
+    let s0 = null, s1 = null; if (!isW) try { s0 = ae.selectionStart; s1 = ae.selectionEnd; } catch (e) {}
+    keep = tae ? { id: ae.closest('tr[data-id]').dataset.id, f: tae.dataset.f, cf: tae.dataset.cf, s0, s1, w: isW, off: isW ? caretOffset(ae) : 0 } : null;
   }
   wrap.innerHTML = tableHTML();
   wrap.scrollLeft = sl; wrap.scrollTop = st;
   wrap.querySelectorAll('textarea').forEach(fit);
   if (keep && (keep.f || keep.cf)) {
     const el = wrap.querySelector(`tr[data-id="${keep.id}"] ` + (keep.f ? `[data-f="${keep.f}"]` : `[data-cf="${keep.cf}"]`));
-    if (el) { el.focus({ preventScroll: true }); try { if (keep.s0 != null) el.setSelectionRange(keep.s0, keep.s1); } catch (e) {} }
+    if (el && keep.w) { const d = el.closest('td').querySelector('.rted'); if (d) { d.focus({ preventScroll: true }); setCaret(d, keep.off); } }
+    else if (el) { el.focus({ preventScroll: true }); try { if (keep.s0 != null) el.setSelectionRange(keep.s0, keep.s1); } catch (e) {} }
   }
-  const c = $('#counter'); if (c) c.textContent = T('counts', { open: undoneTasks().length, done: doneTasks().length });
+  const c = $('#counter');
+  if (c) {
+    c.textContent = T('counts', { open: state.tasks.filter(t => !t.done && !isSched(t)).length, done: doneTasks().length });
+    let sl = $('#schedLink'); const n = state.tasks.filter(isSched).length;
+    if (n) { if (!sl) { sl = document.createElement('button'); sl.id = 'schedLink'; sl.className = 'linkbtn small'; sl.style.marginLeft = '10px'; c.after(sl); sl.onclick = () => { state.showSched = !state.showSched; drawTable(); }; } sl.textContent = '🔁 ' + T(state.showSched ? 'sched_hide' : 'sched_show', { n }); }
+    else if (sl) { sl.remove(); state.showSched = false; }
+  }
   if (state.afterDraw) state.afterDraw();
 }
 { const _dt = drawTable; drawTable = function () { _dt.apply(this, arguments); applySel(); }; }
@@ -2101,7 +2491,7 @@ function showMenu(x, y, items, rowId) {
   const mk = (it, host, isSub) => {
     const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'menuitem');
     if (it.danger) b.className = 'danger';
-    const ic = document.createElement('span'); ic.className = 'ic'; ic.textContent = it.ic;
+    const ic = document.createElement('span'); ic.className = 'ic'; if (it.av) ic.innerHTML = it.av; else ic.textContent = it.ic;
     const tx = document.createElement('span'); tx.textContent = it.label || T(it.k); tx.style.flex = '1';
     b.append(ic, tx);
     if (it.sub) {
@@ -2203,11 +2593,15 @@ function openDetail(id) {
   const t = taskById(id); if (!t) return;
   const ro = state.role === 'view', cols = visibleCols();
   const field = c => {
-    if (c.type === 'task') return `<label class="mf"><span>${esc(colName(c))}</span><textarea rows="2" data-f="title" placeholder="${TE('task_ph')}" ${ro ? 'readonly' : ''}>${esc(t.title)}</textarea></label>`;
-    if (c.type === 'notes') return `<label class="mf"><span>${esc(colName(c))}</span><textarea rows="3" data-f="notes" ${ro ? 'readonly' : ''}>${esc(t.notes)}</textarea></label>`;
+    const W = !ro && wysOn();
+    if (c.type === 'task') return W ? `<div class="mf wys"><span>${esc(colName(c))}</span><textarea rows="2" data-f="title" tabindex="-1">${esc(t.title)}</textarea>${rtView(t.title, true, T('task_ph'), 'title')}</div>`
+      : `<label class="mf"><span>${esc(colName(c))}</span><textarea rows="2" data-f="title" placeholder="${TE('task_ph')}" ${ro ? 'readonly' : ''}>${esc(t.title)}</textarea></label>`;
+    if (c.type === 'notes') return W ? `<div class="mf wys"><span>${esc(colName(c))}</span><textarea rows="3" data-f="notes" tabindex="-1">${esc(t.notes)}</textarea>${rtView(t.notes, true, '', 'notes')}</div>`
+      : `<label class="mf"><span>${esc(colName(c))}</span><textarea rows="3" data-f="notes" ${ro ? 'readonly' : ''}>${esc(t.notes)}</textarea></label>`;
     if (c.type === 'sub') return `<div class="mf"><span>${esc(colName(c))}</span><div class="md-sub" data-sub>${subCell(t, ro)}</div></div>`;
     if (c.type === 'formula') { const r = calcDisplay(t, c); return `<div class="mf"><span>${esc(colName(c))}</span><div class="md-calc ${r.err ? 'err' : ''}" data-calc="${c.id}">${esc(r.text)}</div></div>`; }
     const inner = customCell(t, c, ro).replace(/^<td[^>]*>/, '').replace(/<\/td>$/, '');
+    if (W && c.type === 'text') return `<div class="mf wys"><span>${esc(colName(c))}</span>${inner}</div>`;
     return `<label class="mf"><span>${esc(colName(c))}</span>${inner}</label>`;
   };
   modal(`<div class="md-head"><button class="btn small" data-x aria-label="${TE('md_close')}">← ${TE('md_close')}</button><button class="btn small nav" data-nav="-1" title="${TE('md_prev')}" aria-label="${TE('md_prev')}">‹</button><button class="btn small nav" data-nav="1" title="${TE('md_next')}" aria-label="${TE('md_next')}">›</button><span class="spacer"></span>${ro ? '' : `<label class="check md-done"><input type="checkbox" data-df ${t.done ? 'checked' : ''}>${TE('done')}</label><button class="icon" data-del title="${TE('cm_delete')}">🗑</button>`}</div>
@@ -2267,37 +2661,99 @@ function rtApply(el, k) {
   else { nv = v.slice(0, a) + m + sel + m + v.slice(b); na = a + m.length; nb = b + m.length; }
   el.value = nv; el.setSelectionRange(na, nb); el.dispatchEvent(new Event('input', { bubbles: true }));
 }
+/* ----- live (button) mode: the visible .rted div is the editor, the hidden textarea keeps the markup string ----- */
+function caretOffset(d) { const s = getSelection(); if (!s.rangeCount) return 0; const r = s.getRangeAt(0), pre = document.createRange(); pre.selectNodeContents(d); pre.setEnd(r.endContainer, r.endOffset); return pre.toString().length; }
+function setCaret(d, n) {
+  const w = document.createTreeWalker(d, NodeFilter.SHOW_TEXT); let node, acc = 0; const r = document.createRange();
+  while ((node = w.nextNode())) { const l = node.nodeValue.length; if (acc + l >= n) { r.setStart(node, n - acc); r.collapse(true); const s = getSelection(); s.removeAllRanges(); s.addRange(r); return; } acc += l; }
+  r.selectNodeContents(d); r.collapse(false); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+}
+function rtSer(root) {
+  const hex = c => { const m = /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/.exec(c || ''); if (!m || (m[4] !== undefined && +m[4] === 0)) return null; const h = [1, 2, 3].map(i => (+m[i]).toString(16).padStart(2, '0')).join(''); return h === '010101' ? null : '#' + h; };
+  const per = (x, f) => x.split('\n').map(l => l ? f(l) : l).join('\n');
+  const ser = n => {
+    let o = '';
+    n.childNodes.forEach(c => {
+      if (c.nodeType === 3) { o += c.nodeValue.replace(/\u00a0/g, ' '); return; }
+      if (c.nodeType !== 1) return;
+      const t = c.tagName; if (t === 'BR') { o += '\n'; return; }
+      let inner = ser(c);
+      if (t === 'DIV' || t === 'P') { o += (o && !o.endsWith('\n') ? '\n' : '') + inner; return; }
+      if (!inner) return;
+      const st = c.style || {}, td = (st.textDecorationLine || st.textDecoration || '');
+      const fw = st.fontWeight, col = hex(st.color) || (t === 'FONT' ? hex('rgb(' + ((/^#([0-9a-f]{6})$/i.exec(c.getAttribute('color') || '') || [])[1] ? [0, 2, 4].map(i => parseInt(c.getAttribute('color').slice(1 + i, 3 + i), 16)).join(',') : '1,1,1') + ')') : null), bg = hex(st.backgroundColor);
+      if (t === 'B' || t === 'STRONG' || fw === 'bold' || +fw >= 600) inner = per(inner, x => '**' + x + '**');
+      if (t === 'I' || t === 'EM' || st.fontStyle === 'italic') inner = per(inner, x => '*' + x + '*');
+      if (t === 'S' || t === 'STRIKE' || t === 'DEL' || /line-through/.test(td)) inner = per(inner, x => '~~' + x + '~~');
+      if (t === 'U' || /underline/.test(td)) inner = per(inner, x => '__' + x + '__');
+      if (col) inner = per(inner, x => '{{' + col + ':' + x + '}}');
+      if (bg) inner = per(inner, x => '{{@' + bg + ':' + x + '}}');
+      o += inner;
+    });
+    return o;
+  };
+  let v = ser(root); if (v.endsWith('\n')) v = v.slice(0, -1); return v;
+}
+function wysSync(d) {
+  const box = d.closest('td,.mf'), ta = box && box.querySelector('textarea'); if (!ta) return;
+  const v = rtSer(d); if (!v && d.innerHTML) d.innerHTML = '';
+  if (ta.value === v) return; ta.value = v; ta.dispatchEvent(new Event('input', { bubbles: true }));
+}
+const WCMD = { b: 'bold', i: 'italic', s: 'strikeThrough', u: 'underline' };
+function wysApply(d, k) { document.execCommand('styleWithCSS', false, true); document.execCommand(WCMD[k]); wysSync(d); }
+function wysColor(d, hex, bg) {
+  document.execCommand('styleWithCSS', false, true);
+  document.execCommand(bg ? 'hiliteColor' : 'foreColor', false, hex || (bg ? 'transparent' : '#010101'));
+  if (!hex) d.querySelectorAll('[style]').forEach(x => { if (!bg && x.style.color === 'rgb(1, 1, 1)') x.style.color = ''; if (bg && (x.style.backgroundColor === 'transparent' || x.style.backgroundColor === 'rgba(0, 0, 0, 0)')) x.style.backgroundColor = ''; });
+  wysSync(d);
+}
+document.addEventListener('input', e => { if (e.target.classList && e.target.classList.contains('rted')) wysSync(e.target); });
+document.addEventListener('paste', e => { if (e.target.closest && e.target.closest('.rted')) { e.preventDefault(); document.execCommand('insertText', false, (e.clipboardData || window.clipboardData).getData('text/plain')); } });
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.defaultPrevented && !e.isComposing && e.target.classList && e.target.classList.contains('rted')) { e.preventDefault(); document.execCommand('insertLineBreak'); } });
+document.addEventListener('focusin', e => {
+  const ta = e.target; if (!ta || ta.tagName !== 'TEXTAREA' || ta.readOnly) return;
+  const box = ta.closest('td.wys,.mf.wys'), d = box && box.querySelector('.rted'); if (d) { d.focus(); setCaret(d, 1e9); }
+});
 let rtBar = null;
 function rtHide() { if (rtBar) { rtBar.remove(); rtBar = null; } }
 function rtShow(el) {
-  if (!rtTarget(el) || el.selectionStart === el.selectionEnd) return rtHide();
+  const W = !!(el.classList && el.classList.contains('rted')), sel0 = W ? getSelection() : null;
+  if (W ? (!sel0.rangeCount || sel0.isCollapsed || !el.contains(sel0.anchorNode) || !el.contains(sel0.focusNode)) : (!rtTarget(el) || el.selectionStart === el.selectionEnd)) return rtHide();
   if (!rtBar) {
     rtBar = document.createElement('div'); rtBar.className = 'rtbar'; rtBar.setAttribute('role', 'toolbar');
     rtBar.innerHTML = `<button type="button" data-k="b" title="${TE('fmt_bold')}" aria-label="${TE('fmt_bold')}"><b>B</b></button><button type="button" data-k="i" title="${TE('fmt_italic')}" aria-label="${TE('fmt_italic')}"><i>I</i></button><button type="button" data-k="s" title="${TE('fmt_strike')}" aria-label="${TE('fmt_strike')}"><s>S</s></button><button type="button" data-k="u" title="${TE('fmt_under')}" aria-label="${TE('fmt_under')}"><u>U</u></button><button type="button" data-k="color" title="${TE('fmt_color')}" aria-label="${TE('fmt_color')}"><span style="border-bottom:3px solid #e03131;line-height:1">A</span></button><div class="rtpal" hidden>
-      <div class="rtrow" data-bg="0" title="${TE('fmt_color')}"><span class="rtlbl">A</span>${RT_COLORS.map(c => `<button type="button" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}<label class="rtcust" title="${TE('fmt_custom')}">＋<input type="color" value="#e03131"></label><button type="button" data-c="" title="${TE('fmt_nocolor')}" aria-label="${TE('fmt_nocolor')}">✕</button></div>
-      <div class="rtrow" data-bg="1" title="${TE('fmt_bg')}"><span class="rtlbl" style="background:#ffe066;color:#111">A</span>${RT_BGS.map(c => `<button type="button" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}<label class="rtcust" title="${TE('fmt_custom')}">＋<input type="color" value="#ffe066"></label><button type="button" data-c="" title="${TE('fmt_nocolor')}" aria-label="${TE('fmt_nocolor')}">✕</button></div></div>`;
+      <div class="rtrow" data-bg="0" title="${TE('fmt_color')}"><span class="rtlbl">A</span>${RT_COLORS.map(c => `<button type="button" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}<label class="rtcust" title="${TE('fmt_custom')}"><input type="color" value="#e03131"></label><button type="button" data-c="" title="${TE('fmt_nocolor')}" aria-label="${TE('fmt_nocolor')}">✕</button></div>
+      <div class="rtrow" data-bg="1" title="${TE('fmt_bg')}"><span class="rtlbl" style="background:#ffe066;color:#111">A</span>${RT_BGS.map(c => `<button type="button" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}<label class="rtcust" title="${TE('fmt_custom')}"><input type="color" value="#ffe066"></label><button type="button" data-c="" title="${TE('fmt_nocolor')}" aria-label="${TE('fmt_nocolor')}">✕</button></div></div>`;
     rtBar.querySelectorAll('.rtcust input').forEach(inp => {
       const row = inp.closest('.rtrow');
-      inp.addEventListener('mousedown', () => { rtBar._pick = true; rtBar._saved = [rtBar._el.selectionStart, rtBar._el.selectionEnd]; });
-      inp.addEventListener('change', () => { const el = rtBar._el, sv = rtBar._saved; if (!el || !sv) return; el.focus(); el.setSelectionRange(sv[0], sv[1]); rtColor(el, inp.value, row.dataset.bg === '1'); rtBar._pick = false; rtShow(el); });
+      inp.addEventListener('mousedown', () => { rtBar._pick = true; const el = rtBar._el; if (el.classList.contains('rted')) { const g = getSelection(); rtBar._range = g.rangeCount ? g.getRangeAt(0).cloneRange() : null; } else rtBar._saved = [el.selectionStart, el.selectionEnd]; });
+      inp.addEventListener('change', () => {
+        const el = rtBar._el; if (!el) return;
+        if (el.classList.contains('rted')) { const rg = rtBar._range; if (!rg) return; el.focus(); const g = getSelection(); g.removeAllRanges(); g.addRange(rg); wysColor(el, inp.value, row.dataset.bg === '1'); rtBar._pick = false; rtShow(el); return; }
+        const sv = rtBar._saved; if (!sv) return; el.focus(); el.setSelectionRange(sv[0], sv[1]); rtColor(el, inp.value, row.dataset.bg === '1'); rtBar._pick = false; rtShow(el);
+      });
       inp.addEventListener('blur', () => setTimeout(() => { if (rtBar) rtBar._pick = false; }, 400));
     });
     rtBar.addEventListener('mousedown', e => e.preventDefault());
     rtBar.addEventListener('click', e => {
       if (!rtBar._el) return;
-      const c = e.target.closest('[data-c]'); if (c) { rtColor(rtBar._el, c.dataset.c || null, c.closest('.rtrow').dataset.bg === '1'); rtBar.querySelector('.rtpal').hidden = true; rtShow(rtBar._el); return; }
+      const WW = rtBar._el.classList.contains('rted');
+      const c = e.target.closest('[data-c]'); if (c) { (WW ? wysColor : rtColor)(rtBar._el, c.dataset.c || null, c.closest('.rtrow').dataset.bg === '1'); rtBar.querySelector('.rtpal').hidden = true; rtShow(rtBar._el); return; }
       const b = e.target.closest('[data-k]'); if (!b) return;
       if (b.dataset.k === 'color') { const pal = rtBar.querySelector('.rtpal'); pal.hidden = !pal.hidden; return; }
-      rtApply(rtBar._el, b.dataset.k); rtShow(rtBar._el);
+      (WW ? wysApply : rtApply)(rtBar._el, b.dataset.k); rtShow(rtBar._el);
     });
     document.body.appendChild(rtBar);
   }
   rtBar._el = el;
-  const r = el.getBoundingClientRect(), w = rtBar.offsetWidth || 130;
+  const r = W && sel0.rangeCount ? sel0.getRangeAt(0).getBoundingClientRect() : el.getBoundingClientRect(), w = rtBar.offsetWidth || 130;
   rtBar.style.left = Math.max(6, Math.min(r.left + 8, innerWidth - w - 6)) + 'px';
   rtBar.style.top = Math.max(6, r.top - 38 < 6 ? r.bottom + 4 : r.top - 38) + 'px';
 }
-document.addEventListener('selectionchange', () => { if (rtBar && rtBar._pick) return; const el = document.activeElement; if (el && el.tagName === 'TEXTAREA') rtShow(el); else rtHide(); });
+document.addEventListener('selectionchange', () => { if (rtBar && rtBar._pick) return; const el = document.activeElement; if (el && (el.tagName === 'TEXTAREA' || (el.classList && el.classList.contains('rted')))) rtShow(el); else rtHide(); });
+document.addEventListener('mousedown', e => { if (rtBar && !rtBar.contains(e.target) && e.target !== rtBar._el) { rtBar._pick = false; rtHide(); } }, true);
+document.addEventListener('focusout', () => setTimeout(() => { if (!rtBar || rtBar._pick) return; const a = document.activeElement; if (a !== rtBar._el && !rtBar.contains(a)) rtHide(); }, 0));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') rtHide(); });
 document.addEventListener('keydown', e => {
   const el = e.target, k = e.key.toLowerCase();
   if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && 'biu'.includes(k) && k.length === 1 && rtTarget(el) && el.selectionStart !== el.selectionEnd) { e.preventDefault(); rtApply(el, k); rtShow(el); }
@@ -2318,7 +2774,7 @@ function bindSheet(wrap) {
   wrap.addEventListener('keydown', e => {
     const el = e.target;
     if (e.target.classList && e.target.classList.contains('c-mtask') && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openDetail(e.target.closest('tr').dataset.id); return; }
-    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && el.dataset.f === 'title' && state.role !== 'view') {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && (el.dataset.f === 'title' || el.dataset.wf === 'title') && state.role !== 'view') {
       e.preventDefault();
       const t = taskById(el.closest('tr').dataset.id);
       if (t && !t.done) addTask(t.id, 'below');
@@ -2407,10 +2863,11 @@ function setDone(t, val) {
   t.done = val; t.done_at = val ? new Date().toISOString() : null;
   const patch = { done: t.done, done_at: t.done_at };
   if (rec) {                                   // recurring: the finished task stays as history, a fresh copy gets the next due date
-    const dc = dueCol(), next = nextDue(rec, dc ? t.data[dc.id] : '');
+    const dc = dueCol(), next = nextDue(rec, (dc && t.data[dc.id]) || rec.start || '');
     const copy = { id: uuid(), list_id: t.list_id, done: false, done_at: null, title: t.title, notes: t.notes, sub_list_id: t.sub_list_id,
       data: JSON.parse(JSON.stringify(t.data)), position: t.position, created_at: new Date().toISOString() };
     if (dc) copy.data[dc.id] = next;
+    copy.data._rec = Object.assign({}, rec, { start: next }); copy.data._show = next;   // hidden until its day arrives
     t.data = Object.assign({}, t.data); delete t.data._rec; patch.data = t.data;
     queueSave(t.id, patch, 0); insertTask(copy, false);
     toast(T('rep_next', { date: next }));
@@ -2435,22 +2892,23 @@ function nextDue(rec, due) {
 }
 const recLabel = r => T('rep_label', { n: r.n, u: T('u_' + r.u) });
 function repeatModal(tasks0) {
-  if (!dueCol()) return toast(T('rep_need_due'), true);
   const many = Array.isArray(tasks0), tasks = [].concat(tasks0), task = tasks[0];
   const cur = (task.data && task.data._rec) || { u: 'week', n: 1 };
   modal(`<h3>${TE('rep_title')}</h3>
     <div class="row wrapx"><span>${TE('rep_every')}</span><input id="repN" type="number" min="1" max="365" value="${cur.n}" style="width:80px">
     <select id="repU" style="width:auto">${['day', 'week', 'month', 'year'].map(u => `<option value="${u}" ${u === cur.u ? 'selected' : ''}>${TE('u_' + u)}</option>`).join('')}</select></div>
-    <p class="muted small">${TE('rep_hint')}</p>
+    <label style="margin-top:10px">${TE('rep_start')}<input type="date" id="repStart" value="${esc(cur.start || (dueCol() && task.data && task.data[dueCol().id]) || todayStr())}"></label>
+    <p class="muted small">${TE('rep_hint2')}</p>
     <div class="actions">${task.data && task.data._rec ? `<button class="btn danger" id="repOff">${TE('rep_remove')}</button>` : ''}<span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="repOk">${TE('save')}</button></div>`,
   (m, close) => {
     $('[data-x]', m).onclick = close;
     const set = rec => { tasks.forEach(tk => { tk.data = Object.assign({}, tk.data); if (rec) tk.data._rec = rec; else delete tk.data._rec; queueSave(tk.id, { data: tk.data }, 0); }); drawTable(); close(); };
-    $('#repOk', m).onclick = () => set({ u: $('#repU', m).value, n: Math.max(1, Math.min(365, parseInt($('#repN', m).value, 10) || 1)) });
+    $('#repOk', m).onclick = () => set({ u: $('#repU', m).value, n: Math.max(1, Math.min(365, parseInt($('#repN', m).value, 10) || 1)), start: /^\d{4}-\d{2}-\d{2}$/.test($('#repStart', m).value) ? $('#repStart', m).value : todayStr() });
     const off = $('#repOff', m); if (off) off.onclick = () => set(null);
   });
 }
 function toggleDone(t) { setDone(t, !t.done); }
+let _lastDay = todayStr(); setInterval(() => { const d = todayStr(); if (d !== _lastDay) { _lastDay = d; if (state.cur && $('#sheetWrap')) drawTable(); } }, 60000);
 
 /* ---------- Saving ---------- */
 function updateStatus() {
@@ -2898,7 +3356,6 @@ function csvItems() {
   const items = [{ ic: '⬇', k: 'csv_export', fn: exportCsv }];
   if (state.role !== 'view') { items.push({ ic: '⬆', k: 'csv_import', fn: importCsvPick }); items.push({ ic: '🌐', k: 'gs_import', fn: importGoogleSheet }); }
   // sync disabled: if (state.role === 'owner' && beta('Sync')) items.push({ ic: '🔄', k: 'sync_item', fn: syncModal });
-  if (canManage(state.role)) items.push('-', state.cur.enc ? { ic: '🔓', k: 'enc_off_menu', fn: () => encOff(state.cur) } : { ic: '🔒', k: 'enc_menu', fn: () => encModal(state.cur) });
   return items;
 }
 function exportCsv() {
@@ -3077,8 +3534,18 @@ async function loadMembers(lid) {
 async function shareModal(l = state.cur) {
   const [tk, members0] = await Promise.all([sb.rpc('get_share_token', { lid: l.id }), loadMembers(l.id)]);
   if (tk.error) return toast(errText(tk.error), true);
-  let token = tk.data, members = members0;
-  const url = () => pageUrl() + '#/join/' + token;
+  let token = tk.data, members = members0, frag = '', pubKey = '';
+  const buildFrag = async () => {                                  // list keys for the join link (the part after # never reaches a server)
+    frag = ''; pubKey = '';
+    const raw0 = await E2E.rawOf(l.id); if (!raw0) return;
+    pubKey = '~' + b64u(raw0);
+    const ids = [l.id];
+    if (l.link_subs) { const r = await sb.rpc('owned_sublists', { lid: l.id }); (r.data || []).forEach(x => { const id = typeof x === 'string' ? x : Object.values(x)[0]; if (id && !ids.includes(id)) ids.push(id); }); }
+    const o = {}; for (const id of ids) { const r = await E2E.rawOf(id); if (r) o[id] = b64u(r); }
+    frag = '~' + b64u(new TextEncoder().encode(JSON.stringify(o)));
+  };
+  await buildFrag();
+  const url = () => pageUrl() + '#/join/' + token + frag;
   modal(`<h3>${TE('share_title', { name: l.title })}</h3>
     <h4>${TE('by_link')}</h4>
     <select id="linkRole" style="width:100%">
@@ -3087,8 +3554,7 @@ async function shareModal(l = state.cur) {
       <option value="edit">${TE('link_edit')}</option>
     </select>
     <div id="linkBox"></div>
-    ${l.enc ? `<p class="muted small" style="margin:10px 0">${TE('enc_note')}</p>` : ''}
-    ${beta('Public') && !l.enc ? `<label class="check small" style="margin-top:10px"><input type="checkbox" id="pubView" ${l.public_view ? 'checked' : ''}>${TE('share_public')}</label><div id="pubBox"></div>` : ''}
+    ${beta('Public') ? `<label class="check small" style="margin-top:10px"><input type="checkbox" id="pubView" ${l.public_view ? 'checked' : ''}>${TE('share_public')}</label><div id="pubBox"></div>` : ''}
     <h4>${TE('by_user')}</h4>
     <div class="row"><input id="shUser" placeholder="${TE('user_ph')}" style="flex:1;min-width:0" autocomplete="off">
       <select id="shRole"><option value="edit">${TE('r_edit')}</option><option value="view">${TE('r_view')}</option><option value="admin">${TE('r_admin')}</option></select>
@@ -3115,7 +3581,7 @@ async function shareModal(l = state.cur) {
       $('#lnkSubs', m).onchange = async e => {
         const { error } = await sb.from('lists').update({ link_subs: e.target.checked }).eq('id', l.id);
         if (error) { e.target.checked = !!l.link_subs; return toast(errText(error), true); }
-        l.link_subs = e.target.checked;
+        l.link_subs = e.target.checked; await buildFrag(); drawLink();
       };
       $('#rot', m).onclick = async () => {
         if (!(await confirmBox(T('confirm_rotate'), T('link_rotate').replace(/\s*\(.*\)$/, '')))) return;
@@ -3132,7 +3598,7 @@ async function shareModal(l = state.cur) {
     drawLink();
     const pv = $('#pubView', m);
     if (pv) {
-      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div>` : ''; const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
+      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token + pubKey)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div>` : ''; const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
       pv.onchange = async () => {
         const { error } = await sb.from('lists').update({ public_view: pv.checked }).eq('id', l.id);
         if (error) { pv.checked = !!l.public_view; return toast(errText(error), true); }
@@ -3164,14 +3630,23 @@ async function shareModal(l = state.cur) {
 
     const drawRecent = () => {
       const box = $('#recentBox', m), names = prefs.recent.filter(n => !members.some(x => x.username.toLowerCase() === n.toLowerCase()));
-      box.innerHTML = names.length ? `<div class="muted small">${TE('recent_title')}</div>` + names.map(n => `<button type="button" class="chip" data-rn="${esc(n)}">👤 ${esc(n)}</button>`).join(' ') : '';
-      box.querySelectorAll('[data-rn]').forEach(b => { b.onclick = () => add(b.dataset.rn); });
+      state.avCache = state.avCache || {};
+      const paint = () => {
+        box.innerHTML = names.length ? `<div class="muted small">${TE('recent_title')}</div>` + names.map(n => `<button type="button" class="chip rchip" data-rn="${esc(n)}">${avatarHTML(state.avCache[n.toLowerCase()] || { username: n }, 18)} ${esc(n)}</button>`).join(' ') : '';
+        box.querySelectorAll('[data-rn]').forEach(b => { b.onclick = () => add(b.dataset.rn); });
+      };
+      paint();
+      const need = names.filter(n => !(n.toLowerCase() in state.avCache));
+      if (need.length) Promise.all(need.map(async n => { try { const r = await sb.from('profiles').select('username,avatar').ilike('username', n.replace(/[%_\\]/g, '\\$&')).maybeSingle(); state.avCache[n.toLowerCase()] = r.data || { username: n }; } catch (e) { state.avCache[n.toLowerCase()] = { username: n }; } })).then(() => { if (box.isConnected) paint(); });
     };
     const add = async name => {
       name = (typeof name === 'string' ? name : $('#shUser', m).value).trim(); if (!name) return;
       const { error } = await sb.rpc('share_with_username', { lid: l.id, uname: name, r: $('#shRole', m).value, subs: $('#shSubs', m).checked });
       if (error) return toast(errText(error), true);
       prefs.recent = [name, ...prefs.recent.filter(n => n.toLowerCase() !== name.toLowerCase())].slice(0, 8); savePrefs();
+      if (KEYS.ok && l.enc) {
+        try { const pr = await sb.from('profiles').select('username,pubkey').ilike('username', name.replace(/[%_\\]/g, '\\$&')).maybeSingle(); if (pr.data && !pr.data.pubkey) toast(T('share_nokey_user', { name }), true); else await KEYS.healKeys(); } catch (e) {}
+      }
       $('#shUser', m).value = ''; members = await loadMembers(l.id); drawMembers(); drawRecent(); toast(T('shared_ok'));
     };
     drawRecent();
@@ -3184,7 +3659,7 @@ async function shareModal(l = state.cur) {
 async function linkAccountFlow(uname, email, pw) {
   const tmp = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false, storageKey: 'tpc2do-link-tmp' } });
   try {
-    const r = await tmp.auth.signInWithPassword({ email, password: pw });
+    const r = await signInPw(tmp, email, pw);
     if (r.error) return { err: T('err_login') };
     const uid = (r.data.user || (r.data.session && r.data.session.user) || {}).id;
     const pr = await tmp.from('profiles').select('id,username').eq('id', uid);
@@ -3193,6 +3668,8 @@ async function linkAccountFlow(uname, email, pw) {
     if (uid === state.user.id) return { err: T('lk_mismatch') };
     const tk = await tmp.rpc('make_link_token'); if (tk.error) return { err: errText(tk.error) };
     const l = await sb.rpc('link_accounts', { tok: tk.data }); if (l.error) return { err: errText(l.error) };
+    try { await KEYS.healKeys(); } catch (e) {}
+    await KEYS.cachePartner(tmp, uid, pw);
     const ss = r.data.session; if (ss && ss.refresh_token) { const m = readSess(); m[uid] = { access_token: ss.access_token, refresh_token: ss.refresh_token }; writeSess(m); }
     return { ok: true };
   } catch (e) { return { err: String(e.message || e) }; }
@@ -3279,10 +3756,10 @@ function renderAccount() {
     pwMsg.className = 'msg inline'; pwMsg.textContent = '';
     if (pw.length < 8) { pwMsg.textContent = T('err_pw_short'); return; }
     if (pw !== pw2) { pwMsg.textContent = T('err_pw_mismatch'); return; }
-    const chk = await sb.auth.signInWithPassword({ email: state.user.email, password: cur });
-    if (chk.error) { pwMsg.textContent = T('err_pw_current'); return; }
-    const { error } = await sb.auth.updateUser({ password: pw });
+    if (!(await KEYS.verifyPassword(state.user.email, cur))) { pwMsg.textContent = T('err_pw_current'); return; }
+    const { error } = await sb.auth.updateUser({ password: await authPw(state.user.email, pw) });
     if (error) { pwMsg.textContent = errText(error); return; }
+    if (KEYS.ok) { try { await KEYS.rewrapPassword(cur, pw); } catch (er) { pwMsg.textContent = T('sec_fail', { msg: errText(er) }); return; } }
     pwForm.reset(); pwMsg.className = 'msg inline ok'; pwMsg.textContent = T('pw_changed');
   };
   $('#pwMail').onclick = async () => {
@@ -3296,7 +3773,8 @@ function renderAccount() {
 /* ---------- Settings page ---------- */
 const THEME_DOTS = {
   default: ['#f6f7f9', '#ffffff', '#2563eb'], light: ['#ebeae2', '#dedcd0', '#175cc2'], dark: ['#0a0a0a', '#161616', '#ffffff'],
-  modern: ['#0d1416', '#141d21', '#5eead4'], glass: ['linear-gradient(135deg,#2a5298,#7e57c2)', 'rgba(255,255,255,.4)', '#00deff']
+  modern: ['#0d1416', '#141d21', '#5eead4'], glass: ['linear-gradient(135deg,#2a5298,#7e57c2)', 'rgba(255,255,255,.4)', '#00deff'],
+  darkglass: ['linear-gradient(135deg,#0b1230,#170f3a)', 'rgba(255,255,255,.18)', '#00deff']
 };
 function renderSettings() {
   document.title = T('set_title') + ' – TPC2Do';
@@ -3328,17 +3806,21 @@ function renderSettings() {
 
     <section class="panel"><h3>${TE('set_behavior')}</h3>
       <label class="check"><input type="checkbox" id="prefConfirm" ${prefs.confirmDelete ? 'checked' : ''}>${TE('pref_confirm')}</label>
+      <label>${TE('fmt_mode')}<select id="prefFmt"><option value="wys" ${prefs.fmtMode !== 'md' ? 'selected' : ''}>${TE('fmt_mode_wys')}</option><option value="md" ${prefs.fmtMode === 'md' ? 'selected' : ''}>${TE('fmt_mode_md')}</option></select></label>
+      <p class="muted small hint">${TE('fmt_mode_hint')}</p>
       <label class="check"><input type="checkbox" id="prefCollapse" ${prefs.collapseDone ? 'checked' : ''}>${TE('pref_collapse_done')}</label>
       <label class="check"><input type="checkbox" id="prefSkip" ${prefs.skipIntro ? 'checked' : ''}>${TE('pref_skipintro')}</label>
       <div class="row wrapx"><label class="check" style="margin:0"><input type="checkbox" id="prefSound" ${prefs.sound ? 'checked' : ''}>${TE('pref_sound')}</label>
         <button class="btn" id="soundTest">🔊 ${TE('pref_sound_test')}</button></div>
       <div class="setrow"><span>${TE('pref_volume')}</span><span class="row"><input type="range" class="rng" id="prefVol" min="0" max="100" step="5" value="${prefs.volume}" aria-label="${TE('pref_volume')}" style="width:160px"><output id="prefVolOut" style="min-width:3.2em;text-align:right">${prefs.volume}%</output></span></div>
     </section>
+    ${KEYS.ok ? `<section class="panel" id="secPanel"><h3>🔐 ${TE('sec_title')}</h3><p class="muted small">${TE('sec_text')}</p>
+      <button class="btn" id="rcNew">${TE('rc_new')}</button><p class="muted small" style="margin-top:6px">${TE('rc_new_d')}</p></section>` : ''}
     <section class="panel" id="bkPanel"><h3>💾 ${TE('bk_title')}</h3>
-      <p class="muted small">${TE('bk_intro')}</p>
+      <p class="muted small">${TE('bk_intro')}</p><p class="muted small">${TE('bk_intro2')}</p>
       <label>${TE('bk_pw')}<input type="password" id="bkPw" autocomplete="new-password"></label>
       <label class="check small" style="margin:8px 0"><input type="checkbox" id="bkShared">${TE('bk_shared')}</label>
-      <div class="row gap wrapx"><button class="btn primary" id="bkDown">${TE('bk_download')}</button><button class="btn" id="bkRestore">${TE('bk_restore')}</button><input type="file" id="bkFile" accept=".json,application/json" hidden></div>
+      <div class="row gap wrapx"><button class="btn primary" id="bkDown">${TE('bk_download')}</button>${window.showDirectoryPicker ? `<button class="btn" id="bkFolder">${TE('bk_folder')}</button><button class="linkbtn small" id="bkFolderChg">${TE('bk_folder_change')}</button>` : ''}<button class="btn" id="bkRestore">${TE('bk_restore')}</button><input type="file" id="bkFile" accept=".json,application/json" hidden></div>
       <p class="muted small" id="bkLast" style="margin-top:8px"></p><div class="msg" id="bkMsg"></div>
       <p class="muted small">${TE('bk_server_note')}</p>
     </section>
@@ -3361,6 +3843,7 @@ function renderSettings() {
   $('#prefMobile').onchange = e => { prefs.mobile = e.target.value; savePrefs(); };
   $('#prefContrast').onchange = e => { prefs.contrast = e.target.checked; change(); };
   $('#langPick').onchange = e => { prefs.lang = e.target.value; applyLang(); savePrefs(); route(); };
+  $('#prefFmt').onchange = e => { prefs.fmtMode = e.target.value; savePrefs(); };
   $('#prefConfirm').onchange = e => { prefs.confirmDelete = e.target.checked; savePrefs(); };
   $('#prefCollapse').onchange = e => { prefs.collapseDone = e.target.checked; savePrefs(); };
   $('#prefSkip').onchange = e => { prefs.skipIntro = e.target.checked; savePrefs(); };
@@ -3375,17 +3858,19 @@ function renderSettings() {
 const BK_LAST = 'tpc2do_lastbackup';
 function bkLastText() { let d = ''; try { d = localStorage.getItem(BK_LAST) || ''; } catch (e) {} return d ? T('bk_last', { d: new Date(d).toLocaleString() }) : T('bk_never'); }
 async function makeBackup(withShared, pw) {
-  const raw = await sb.from('lists').select(LIST_COLS).order('created_at'); if (raw.error) throw raw.error;
-  const mine = (raw.data || []).filter(l => withShared || roleOf(l) === 'owner'), out = [];
+  const mine = state.lists.filter(l => withShared || roleOf(l) === 'owner'), out = [];
+  let skipped = 0;
   for (const l of mine) {
-    const tasks = await allTaskRows(l.id, 'id,title,notes,done,done_at,position,sub_list_id,data');
-    out.push({ id: l.id, title: l.title, columns: l.columns || [], enc: l.enc || null, tasks });
+    if (l.locked) { skipped++; continue; }
+    const raw2 = await allTaskRows(l.id, 'id,title,notes,done,done_at,position,sub_list_id,data'), tasks = l.enc ? await E2E.decRows(l.id, raw2) : raw2;
+    out.push({ id: l.id, title: l.title, columns: l.columns || [], tasks });
   }
-  const doc = { app: 'TPC2Do', v: 1, created: new Date().toISOString(), user: state.profile ? state.profile.username : '', lists: out };
+  makeBackup.skipped = skipped;
+  const doc = { app: 'TPC2Do', v: 2, created: new Date().toISOString(), user: state.profile ? state.profile.username : '', lists: out };
   if (!pw) return doc;
   if (!E2E.ok()) throw new Error(T('enc_nocrypto'));
   const salt = E2E.newSalt(), key = await E2E.derive(pw, salt, 250000);
-  return { app: 'TPC2Do', v: 1, encrypted: true, created: doc.created, salt, iter: 250000, check: await E2E.encStr(key, 'tpc2do-ok'), data: await E2E.encStr(key, JSON.stringify(doc)) };
+  return { app: 'TPC2Do', v: 2, encrypted: true, created: doc.created, salt, iter: 250000, check: await E2E.encStr(key, 'tpc2do-ok'), data: await E2E.encStr(key, JSON.stringify(doc)) };
 }
 async function openBackup(doc, pwFn) {
   if (!doc || doc.app !== 'TPC2Do') throw new Error(T('bk_bad_file'));
@@ -3407,37 +3892,71 @@ async function restoreBackup(doc) {
   const sel = await new Promise(res => {
     let done = false;
     modal(`<h3>${TE('bk_restore')}</h3><p class="muted small">${TE('bk_pick')}</p>
-      <div class="bklist">${doc.lists.map((l, i) => `<label class="check"><input type="checkbox" data-i="${i}" checked>${l.enc ? '🔒 ' : '📋 '}${esc(l.enc ? T('enc_locked') : l.title)} <span class="muted small">· ${TE('bk_tasks', { n: (l.tasks || []).length })}</span></label>`).join('')}</div>
+      <div class="bklist">${doc.lists.map((l, i) => `<label class="check"><input type="checkbox" data-i="${i}" ${l.enc ? 'disabled' : 'checked'}>${l.enc ? '⛔ ' : '📋 '}${esc(l.title || '')} <span class="muted small">· ${TE('bk_tasks', { n: (l.tasks || []).length })}</span></label>`).join('')}</div>
       <div class="actions"><span class="spacer"></span><button class="btn" data-x>${TE('cancel')}</button><button class="btn primary" id="bkGo">${TE('bk_restore_go')}</button></div>`,
       (m, close) => { $('[data-x]', m).onclick = close; $('#bkGo', m).onclick = () => { done = true; const r = [...m.querySelectorAll('[data-i]')].filter(x => x.checked).map(x => +x.dataset.i); close(); res(r); }; }, () => { if (!done) res(null); });
   });
   if (!sel || !sel.length) return 0;
-  const map = new Map(), made = [];
+  const map = new Map(), made = []; let skippedOld = 0;
   for (const i of sel) {                                   // 1) lists first (so sub-list links can be remapped)
-    const l = doc.lists[i], nl = await createList(l.enc ? '🔒' : (l.title || 'Liste')); if (!nl) throw new Error('create');
-    if (l.enc) { const { error } = await sb.rpc('enable_list_enc', { lid: nl.id, e: l.enc, ph_title: '🔒' }); if (error) throw error; nl.enc = l.enc; await E2E.meta(nl); }
-    else if ((l.columns || []).length) { const { error } = await sb.rpc('set_list_columns', { lid: nl.id, cols: l.columns }); if (error) throw error; nl.columns = l.columns; }
+    const l = doc.lists[i]; if (l.enc) { skippedOld++; continue; }
+    const nl = await createList(l.title || 'Liste'); if (!nl) throw new Error('create');
+    if ((l.columns || []).length) await setColumnsFor(nl, l.columns);
     map.set(l.id, nl.id); made.push([l, nl]);
   }
   for (const [l, nl] of made) {                            // 2) tasks
     const rows = (l.tasks || []).map(t => ({ id: uuid(), list_id: nl.id, title: t.title ?? '', notes: t.notes ?? '', done: !!t.done, done_at: t.done_at || null, position: t.position ?? 0, sub_list_id: map.get(t.sub_list_id) || null, data: t.data || {} }));
-    for (let i = 0; i < rows.length; i += 200) { const { error } = await sb.from('tasks').insert(rows.slice(i, i + 200)); if (error) throw error; }
+    await insertRowsFor(nl, rows);
   }
+  if (skippedOld) toast(T('bk_skip_enc', { n: skippedOld }), true);
   await loadLists(); return made.length;
+}
+const _bkdb = (mode, fn) => new Promise((res, rej) => { const r = indexedDB.open('tpc2do_bk', 1); r.onupgradeneeded = () => r.result.createObjectStore('h'); r.onerror = () => rej(r.error); r.onsuccess = () => { const db = r.result, tx = db.transaction('h', mode), rq = fn(tx.objectStore('h')); tx.oncomplete = () => { db.close(); res(rq && rq.result); }; tx.onerror = () => rej(tx.error); }; });
+async function saveToFolder(txt, name, change) {                  // File System Access API (Chrome/Edge): write straight into a folder, e.g. one your cloud app syncs
+  if (!window.showDirectoryPicker) throw new Error('na');
+  let h = change ? null : await _bkdb('readonly', st => st.get('dir')).catch(() => null);
+  if (h) { let perm = await h.queryPermission({ mode: 'readwrite' }); if (perm !== 'granted') perm = await h.requestPermission({ mode: 'readwrite' }); if (perm !== 'granted') h = null; }
+  if (!h) { h = await window.showDirectoryPicker({ mode: 'readwrite' }); await _bkdb('readwrite', st => st.put(h, 'dir')).catch(() => {}); }
+  const fh = await h.getFileHandle(name, { create: true }), w = await fh.createWritable(); await w.write(txt); await w.close();
+}
+function bkReminder() {                                           // after 3 weeks without a backup
+  try {
+    if (!state.user || $('#bkBanner') || !$('main.wrap')) return;
+    const now = Date.now(); let last = localStorage.getItem(BK_LAST), first = localStorage.getItem('tpc2do_bkfirst');
+    if (!first) { localStorage.setItem('tpc2do_bkfirst', new Date(now).toISOString()); first = new Date(now).toISOString(); }
+    const sn = +localStorage.getItem('tpc2do_bksnooze') || 0; if (sn > now) return;
+    const days = Math.floor((now - new Date(last || first)) / 864e5); if (days < 21) return;
+    const b = document.createElement('div'); b.id = 'bkBanner'; b.className = 'bkbanner';
+    b.innerHTML = `<span>💾 ${esc(last ? T('bk_remind', { d: days }) : T('bk_remind_never'))}</span><span class="spacer"></span><a class="btn primary" href="#/settings">${TE('bk_remind_go')}</a><button class="btn" id="bkLater">${TE('bk_remind_later')}</button>`;
+    $('main.wrap').prepend(b);
+    $('#bkLater', b).onclick = () => { try { localStorage.setItem('tpc2do_bksnooze', String(now + 3 * 864e5)); } catch (e) {} b.remove(); };
+  } catch (e) {}
 }
 function bindBackup() {
   const msg = $('#bkMsg'), last = $('#bkLast'); last.textContent = bkLastText();
   const say = (t, err) => { msg.className = 'msg' + (err ? ' err' : ''); msg.textContent = t || ''; };
-  $('#bkDown').onclick = async () => {
+  const doBackup = async target => {
+    if (!$('#bkPw').value && !(await confirmBox(T('bk_nopw_warn'), T('bk_download')))) return;
     say(T('bk_busy'));
     try {
       await flushAllWait();
-      const doc = await makeBackup($('#bkShared').checked, $('#bkPw').value), txt = JSON.stringify(doc);
-      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: 'application/json' }));
-      a.download = 'tpc2do-backup-' + new Date().toISOString().slice(0, 10) + '.json'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
-      try { localStorage.setItem(BK_LAST, new Date().toISOString()); } catch (e) {}
-      last.textContent = bkLastText(); say('');
+      const doc = await makeBackup($('#bkShared').checked, $('#bkPw').value), txt = JSON.stringify(doc), name = 'tpc2do-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+      let saved = false;
+      if (target === 'folder') { try { await saveToFolder(txt, name, target === 'folder' && doBackup.change); saved = true; toast(T('bk_folder_done')); } catch (e) { if (e && e.name === 'AbortError') { say(''); return; } toast(T('bk_folder_na'), true); } }
+      if (!saved) {
+        const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: 'application/json' }));
+        a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      }
+      try { localStorage.setItem(BK_LAST, new Date().toISOString()); localStorage.removeItem('tpc2do_bksnooze'); } catch (e) {}
+      last.textContent = bkLastText(); say(makeBackup.skipped ? T('bk_locked', { n: makeBackup.skipped }) : '');
     } catch (e) { say(errText(e), true); }
+  };
+  $('#bkDown').onclick = () => doBackup('file');
+  const bf = $('#bkFolder'); if (bf) { bf.onclick = () => { doBackup.change = false; doBackup('folder'); }; $('#bkFolderChg').onclick = () => { doBackup.change = true; doBackup('folder'); }; }
+  const rn = $('#rcNew'); if (rn) rn.onclick = async () => {
+    let code = null;
+    const r = await KEYS.askSecret({ title: T('rc_new'), text: T('rc_need_pw'), allowCode: false, cancelLabel: T('cancel'), check: async x => { try { code = await KEYS.newRecoveryCode(x.secret); return true; } catch (e) { return false; } } });
+    if (r && code) { await KEYS.recoveryModal(code); toast(T('rc_new_done')); }
   };
   $('#bkRestore').onclick = () => $('#bkFile').click();
   $('#bkFile').onchange = async e => {
