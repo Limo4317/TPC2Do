@@ -695,3 +695,28 @@ grant execute on function public.set_my_pubkey(text), public.reset_my_keys(text)
   public.convert_list_enc(uuid, jsonb, text), public.keyless_members() to authenticated;
 revoke all on function public.get_public_list(uuid) from public;
 grant execute on function public.get_public_list(uuid) to anon, authenticated;
+
+-- Runde 12b (siehe migration_round12b.sql)
+
+create or replace function public.disable_list_enc(lid uuid, new_title text, cols jsonb) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.can_manage_list(lid) then raise exception 'Keine Berechtigung.'; end if;
+  if jsonb_typeof(cols) <> 'array' then raise exception 'Ungültige Spalten.'; end if;
+  update public.lists set enc = null, title = coalesce(nullif(new_title, ''), 'Liste'), columns = cols where id = lid;
+  delete from public.list_keys where list_id = lid;
+end $$;
+
+create or replace function public.convert_list_enc(lid uuid, e jsonb, wrapped text) returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.can_manage_list(lid) then raise exception 'Keine Berechtigung.'; end if;
+  if jsonb_typeof(e) <> 'object' or (e->>'v') <> '2' then raise exception 'Ungültige Verschlüsselungsdaten.'; end if;
+  update public.lists set enc = e, title = '🔒', columns = '[]'::jsonb where id = lid;
+  delete from public.list_keys where list_id = lid and user_id <> auth.uid();
+  insert into public.list_keys (list_id, user_id, wrapped) values (lid, auth.uid(), wrapped)
+  on conflict (list_id, user_id) do update set wrapped = excluded.wrapped;
+end $$;
+
+revoke all on function public.disable_list_enc(uuid, text, jsonb), public.convert_list_enc(uuid, jsonb, text) from public, anon;
+grant execute on function public.disable_list_enc(uuid, text, jsonb), public.convert_list_enc(uuid, jsonb, text) to authenticated;
