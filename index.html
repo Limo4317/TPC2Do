@@ -1047,10 +1047,12 @@ const KEYS = (() => {
     async freshKeyRaw(lid) {                                      // key that really opens the list on the server (a second device may have re-keyed it)
       const e = await sb.from('lists').select('enc').eq('id', lid).maybeSingle(); const enc = e.data && e.data.enc;
       const good = async k => { try { await E2E.decStr(k, enc.t); return true; } catch (x) { return false; } };
+      K.lastCheck = 'unknown: ' + (e.error ? e.error.message : 'no enc');
       if (!enc || !enc.t) return E2E.rawOf(lid);
-      const cr = await E2E.rawOf(lid); if (cr && await good(await E2E.keyFromRaw(cr))) return cr;
+      const cr = await E2E.rawOf(lid); if (cr && await good(await E2E.keyFromRaw(cr))) { K.lastCheck = 'ok'; return cr; }
+      K.lastCheck = 'MISMATCH';
       if (priv) { const r = await sb.from('list_keys').select('wrapped').eq('list_id', lid).maybeSingle();
-        if (r.data) { try { const k = await E2E.keyFromRaw(await unwrap(r.data.wrapped)); if (await good(k)) { E2E.putKey(lid, k); return E2E.rawOf(lid); } } catch (x) {} } }
+        if (r.data) { try { const k = await E2E.keyFromRaw(await unwrap(r.data.wrapped)); if (await good(k)) { E2E.putKey(lid, k); K.lastCheck = 'ok (reloaded)'; return E2E.rawOf(lid); } } catch (x) {} } }
       return null;
     },
     async loadListKeys() {                                        // unwrap my list keys into the runtime key map
@@ -3621,7 +3623,7 @@ async function shareModal(l = state.cur) {
     drawLink();
     const pv = $('#pubView', m);
     if (pv) {
-      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token + pubKey)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div><p class="muted small" id="pubFp"></p>` : ''; if (pv.checked && pubKey) E2E.rawOf(l.id).then(keyFp).then(f => { const q = $('#pubFp', m); if (q) q.textContent = 'key-id ' + f; }); const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token + pubKey); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
+      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token + pubKey)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div><p class="muted small" id="pubFp"></p>` : ''; if (pv.checked && pubKey) E2E.rawOf(l.id).then(keyFp).then(f => { const q = $('#pubFp', m); if (q) q.textContent = 'key-id ' + f + ' · server check: ' + (KEYS.lastCheck || '?'); }); const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token + pubKey); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
       pv.onchange = async () => {
         const { error } = await sb.from('lists').update({ public_view: pv.checked }).eq('id', l.id);
         if (error) { pv.checked = !!l.public_view; return toast(errText(error), true); }
