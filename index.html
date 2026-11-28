@@ -489,6 +489,9 @@ body.picking .sheet th[data-col]:hover,body.picking .sheet tbody td:hover{outlin
 .sheet td.hasrt:not(:focus-within) textarea{position:absolute;opacity:0;height:0!important;min-height:0;padding:0;pointer-events:none}
 .sheet td.hasrt{position:relative}
 .sheet td.wys{position:relative}
+.hkh{margin:14px 0 4px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.kbdbtn{min-width:120px;font-family:ui-monospace,monospace;font-size:13px}
+.hkhelp kbd{font-family:ui-monospace,monospace;background:var(--hover,rgba(127,127,127,.15));border:1px solid var(--line);border-radius:6px;padding:2px 7px;font-size:12px}
 .sheet tr.sched{opacity:.55}
 .bkbanner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;margin-bottom:12px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
 .migbar{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:90;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 16px;box-shadow:0 8px 28px rgba(0,0,0,.3)}
@@ -600,7 +603,10 @@ en: {
   pub_badkey:"The key in this link doesn't match the list. Ask the owner to copy the link again from the share dialog.", pub_oldenc:"This list hasn't been switched to the new encryption yet. The owner has to open TPC2Do once (logged in), then reload this page.",
   pub_badkey_owner:"The key for this list could not be verified. Reload the page and try again.",
   pub_plain_q:"Lists that can be viewed without login are stored unencrypted (anyone with the link can read them, and so can the server). Remove the encryption from this list and share it?", pub_plain_btn:"Share without encryption", pub_plain_off:"Link sharing is off. The list will be encrypted again.", pub_plain_bad:"Some entries could not be decrypted – nothing was changed.",
-  rename_denied:"Renaming was not saved (the server refused it). Reload the page; if it keeps happening, run the latest SQL migration."
+  rename_denied:"Renaming was not saved (the server refused it). Reload the page; if it keeps happening, run the latest SQL migration.",
+  hk_a_left:"Cell to the left", hk_a_right:"Cell to the right", hk_a_up:"Cell above", hk_a_down:"Cell below", hk_a_first:"First row", hk_a_last:"Last row", hk_a_rowup:"Move row up", hk_a_rowdown:"Move row down", hk_a_done:"Tick / untick task", hk_a_dup:"Duplicate row", hk_a_del:"Delete row", hk_a_search:"Search", hk_a_newlist:"New list", hk_a_share:"Share dialog", hk_a_full:"Full screen", hk_a_settings:"Settings", hk_a_help:"Show shortcuts", hk_g_nav:"Cell navigation", hk_g_task:"Tasks", hk_g_app:"List & app", hk_title:"Hotkeys", hk_hint:"Click a shortcut and press the new keys. Esc cancels.", hk_mod:"Modifier key", hk_mod_ctrl:"Ctrl", hk_mod_alt:"Alt", hk_mod_ctrlalt:"Ctrl + Alt", hk_reset:"Reset", hk_reset_all:"Reset all hotkeys", hk_press:"Press keys …", hk_taken:"Already used for “{a}”.", hk_need_mod:"Please use Ctrl or Alt (or a function key).", hk_reserved:"This combination is reserved by the browser or the editor.", hk_clash:"That modifier would make two shortcuts identical, so it was not changed.", hk_settings:"Edit in settings",
+  md_new:"New task at the end",
+  pub_cols:"Columns visible in the public view"
 },
 de: {
   loading:"Lade …", cancel:"Abbrechen", create:"Erstellen", save:"Speichern", delete:"Löschen", undo:"Rückgängig", done:"Fertig", add:"Hinzufügen", back:"Zurück", copy:"Kopieren", you:"Du",
@@ -640,7 +646,10 @@ de: {
   pub_badkey:"Der Schlüssel in diesem Link passt nicht zur Liste. Bitte den Besitzer, den Link im Teilen-Dialog neu zu kopieren.", pub_oldenc:"Diese Liste ist noch nicht auf die neue Verschlüsselung umgestellt. Der Besitzer muss TPC2Do einmal (angemeldet) öffnen, danach diese Seite neu laden.",
   pub_badkey_owner:"Der Schlüssel dieser Liste konnte nicht geprüft werden. Seite neu laden und nochmal versuchen.",
   pub_plain_q:"Listen, die ohne Login einsehbar sind, werden unverschlüsselt gespeichert (jeder mit dem Link kann sie lesen, ebenso der Server). Verschlüsselung dieser Liste entfernen und teilen?", pub_plain_btn:"Unverschlüsselt teilen", pub_plain_off:"Link-Freigabe ist aus. Die Liste wird wieder verschlüsselt.", pub_plain_bad:"Einige Einträge ließen sich nicht entschlüsseln – es wurde nichts geändert.",
-  rename_denied:"Umbenennen wurde nicht gespeichert (der Server hat es abgelehnt). Seite neu laden; falls es bleibt, die neueste SQL-Migration ausführen."
+  rename_denied:"Umbenennen wurde nicht gespeichert (der Server hat es abgelehnt). Seite neu laden; falls es bleibt, die neueste SQL-Migration ausführen.",
+  hk_a_left:"Zelle links", hk_a_right:"Zelle rechts", hk_a_up:"Zelle darüber", hk_a_down:"Zelle darunter", hk_a_first:"Erste Zeile", hk_a_last:"Letzte Zeile", hk_a_rowup:"Zeile nach oben", hk_a_rowdown:"Zeile nach unten", hk_a_done:"Aufgabe abhaken / Haken entfernen", hk_a_dup:"Zeile duplizieren", hk_a_del:"Zeile löschen", hk_a_search:"Suche", hk_a_newlist:"Neue Liste", hk_a_share:"Teilen-Dialog", hk_a_full:"Vollbild", hk_a_settings:"Einstellungen", hk_a_help:"Kürzel anzeigen", hk_g_nav:"Zellen-Navigation", hk_g_task:"Aufgaben", hk_g_app:"Liste & App", hk_title:"Hotkeys", hk_hint:"Auf ein Kürzel klicken und die neuen Tasten drücken. Esc bricht ab.", hk_mod:"Modifier-Taste", hk_mod_ctrl:"Strg", hk_mod_alt:"Alt", hk_mod_ctrlalt:"Strg + Alt", hk_reset:"Zurücksetzen", hk_reset_all:"Alle Hotkeys zurücksetzen", hk_press:"Tasten drücken …", hk_taken:"Schon belegt für „{a}“.", hk_need_mod:"Bitte Strg oder Alt (oder eine Funktionstaste) verwenden.", hk_reserved:"Diese Kombination ist vom Browser oder Editor belegt.", hk_clash:"Mit diesem Modifier wären zwei Kürzel identisch, deshalb nicht geändert.", hk_settings:"In den Einstellungen ändern",
+  md_new:"Neue Aufgabe am Ende",
+  pub_cols:"Sichtbare Spalten in der öffentlichen Ansicht"
 },
 es: {
   loading:"Cargando …", cancel:"Cancelar", create:"Crear", save:"Guardar", delete:"Eliminar", undo:"Deshacer", done:"Listo", add:"Añadir", back:"Volver", copy:"Copiar", you:"Tú",
@@ -680,7 +689,10 @@ es: {
   pub_badkey:"La clave de este enlace no coincide con la lista. Pide al propietario que copie el enlace de nuevo desde el diálogo de compartir.", pub_oldenc:"Esta lista aún no se ha pasado al nuevo cifrado. El propietario debe abrir TPC2Do una vez (con sesión) y luego recargar esta página.",
   pub_badkey_owner:"No se pudo verificar la clave de esta lista. Recarga la página e inténtalo de nuevo.",
   pub_plain_q:"Las listas visibles sin iniciar sesión se guardan sin cifrar (cualquiera con el enlace puede leerlas, y el servidor también). ¿Quitar el cifrado de esta lista y compartirla?", pub_plain_btn:"Compartir sin cifrar", pub_plain_off:"El enlace público está desactivado. La lista se volverá a cifrar.", pub_plain_bad:"Algunas entradas no se pudieron descifrar; no se cambió nada.",
-  rename_denied:"El cambio de nombre no se guardó (el servidor lo rechazó). Recarga la página; si persiste, ejecuta la última migración SQL."
+  rename_denied:"El cambio de nombre no se guardó (el servidor lo rechazó). Recarga la página; si persiste, ejecuta la última migración SQL.",
+  hk_a_left:"Celda a la izquierda", hk_a_right:"Celda a la derecha", hk_a_up:"Celda superior", hk_a_down:"Celda inferior", hk_a_first:"Primera fila", hk_a_last:"Última fila", hk_a_rowup:"Subir fila", hk_a_rowdown:"Bajar fila", hk_a_done:"Marcar / desmarcar tarea", hk_a_dup:"Duplicar fila", hk_a_del:"Eliminar fila", hk_a_search:"Buscar", hk_a_newlist:"Nueva lista", hk_a_share:"Diálogo de compartir", hk_a_full:"Pantalla completa", hk_a_settings:"Ajustes", hk_a_help:"Mostrar atajos", hk_g_nav:"Navegación de celdas", hk_g_task:"Tareas", hk_g_app:"Lista y app", hk_title:"Atajos de teclado", hk_hint:"Haz clic en un atajo y pulsa las nuevas teclas. Esc cancela.", hk_mod:"Tecla modificadora", hk_mod_ctrl:"Ctrl", hk_mod_alt:"Alt", hk_mod_ctrlalt:"Ctrl + Alt", hk_reset:"Restablecer", hk_reset_all:"Restablecer todos los atajos", hk_press:"Pulsa las teclas …", hk_taken:"Ya se usa para «{a}».", hk_need_mod:"Usa Ctrl o Alt (o una tecla de función).", hk_reserved:"Esta combinación está reservada por el navegador o el editor.", hk_clash:"Ese modificador haría idénticos dos atajos, no se cambió.", hk_settings:"Editar en ajustes",
+  md_new:"Nueva tarea al final",
+  pub_cols:"Columnas visibles en la vista pública"
 },
 it: {
   loading:"Caricamento …", cancel:"Annulla", create:"Crea", save:"Salva", delete:"Elimina", undo:"Annulla azione", done:"Fine", add:"Aggiungi", back:"Indietro", copy:"Copia", you:"Tu",
@@ -720,7 +732,10 @@ it: {
   pub_badkey:"La chiave in questo link non corrisponde alla lista. Chiedi al proprietario di copiare di nuovo il link dalla finestra di condivisione.", pub_oldenc:"Questa lista non è ancora passata alla nuova cifratura. Il proprietario deve aprire TPC2Do una volta (con accesso), poi ricarica questa pagina.",
   pub_badkey_owner:"Impossibile verificare la chiave di questa lista. Ricarica la pagina e riprova.",
   pub_plain_q:"Le liste visibili senza accesso vengono salvate non cifrate (chiunque abbia il link può leggerle, e anche il server). Rimuovere la cifratura da questa lista e condividerla?", pub_plain_btn:"Condividi senza cifratura", pub_plain_off:"La condivisione tramite link è disattivata. La lista verrà cifrata di nuovo.", pub_plain_bad:"Alcune voci non si sono potute decifrare: non è stato modificato nulla.",
-  rename_denied:"La rinomina non è stata salvata (il server l'ha rifiutata). Ricarica la pagina; se persiste, esegui l'ultima migrazione SQL."
+  rename_denied:"La rinomina non è stata salvata (il server l'ha rifiutata). Ricarica la pagina; se persiste, esegui l'ultima migrazione SQL.",
+  hk_a_left:"Cella a sinistra", hk_a_right:"Cella a destra", hk_a_up:"Cella sopra", hk_a_down:"Cella sotto", hk_a_first:"Prima riga", hk_a_last:"Ultima riga", hk_a_rowup:"Sposta riga su", hk_a_rowdown:"Sposta riga giù", hk_a_done:"Spunta / rimuovi spunta", hk_a_dup:"Duplica riga", hk_a_del:"Elimina riga", hk_a_search:"Cerca", hk_a_newlist:"Nuova lista", hk_a_share:"Finestra di condivisione", hk_a_full:"Schermo intero", hk_a_settings:"Impostazioni", hk_a_help:"Mostra scorciatoie", hk_g_nav:"Navigazione celle", hk_g_task:"Attività", hk_g_app:"Lista e app", hk_title:"Scorciatoie", hk_hint:"Clicca su una scorciatoia e premi i nuovi tasti. Esc annulla.", hk_mod:"Tasto modificatore", hk_mod_ctrl:"Ctrl", hk_mod_alt:"Alt", hk_mod_ctrlalt:"Ctrl + Alt", hk_reset:"Ripristina", hk_reset_all:"Ripristina tutte le scorciatoie", hk_press:"Premi i tasti …", hk_taken:"Già usata per «{a}».", hk_need_mod:"Usa Ctrl o Alt (o un tasto funzione).", hk_reserved:"Questa combinazione è riservata dal browser o dall'editor.", hk_clash:"Con questo modificatore due scorciatoie sarebbero identiche, non modificato.", hk_settings:"Modifica nelle impostazioni",
+  md_new:"Nuova attività in fondo",
+  pub_cols:"Colonne visibili nella vista pubblica"
 },
 fr: {
   loading:"Chargement …", cancel:"Annuler", create:"Créer", save:"Enregistrer", delete:"Supprimer", undo:"Annuler", done:"Terminé", add:"Ajouter", back:"Retour", copy:"Copier", you:"Vous",
@@ -760,13 +775,16 @@ fr: {
   pub_badkey:"La clé de ce lien ne correspond pas à la liste. Demandez au propriétaire de recopier le lien depuis la fenêtre de partage.", pub_oldenc:"Cette liste n'a pas encore été passée au nouveau chiffrement. Le propriétaire doit ouvrir TPC2Do une fois (connecté), puis recharger cette page.",
   pub_badkey_owner:"La clé de cette liste n'a pas pu être vérifiée. Rechargez la page et réessayez.",
   pub_plain_q:"Les listes visibles sans connexion sont stockées non chiffrées (toute personne ayant le lien peut les lire, ainsi que le serveur). Retirer le chiffrement de cette liste et la partager ?", pub_plain_btn:"Partager sans chiffrement", pub_plain_off:"Le partage par lien est désactivé. La liste sera de nouveau chiffrée.", pub_plain_bad:"Certaines entrées n'ont pas pu être déchiffrées – rien n'a été modifié.",
-  rename_denied:"Le renommage n'a pas été enregistré (le serveur l'a refusé). Rechargez la page ; si cela continue, exécutez la dernière migration SQL."
+  rename_denied:"Le renommage n'a pas été enregistré (le serveur l'a refusé). Rechargez la page ; si cela continue, exécutez la dernière migration SQL.",
+  hk_a_left:"Cellule de gauche", hk_a_right:"Cellule de droite", hk_a_up:"Cellule au-dessus", hk_a_down:"Cellule en dessous", hk_a_first:"Première ligne", hk_a_last:"Dernière ligne", hk_a_rowup:"Monter la ligne", hk_a_rowdown:"Descendre la ligne", hk_a_done:"Cocher / décocher la tâche", hk_a_dup:"Dupliquer la ligne", hk_a_del:"Supprimer la ligne", hk_a_search:"Rechercher", hk_a_newlist:"Nouvelle liste", hk_a_share:"Fenêtre de partage", hk_a_full:"Plein écran", hk_a_settings:"Paramètres", hk_a_help:"Afficher les raccourcis", hk_g_nav:"Navigation entre cellules", hk_g_task:"Tâches", hk_g_app:"Liste et appli", hk_title:"Raccourcis clavier", hk_hint:"Cliquez sur un raccourci et appuyez sur les nouvelles touches. Échap annule.", hk_mod:"Touche modificatrice", hk_mod_ctrl:"Ctrl", hk_mod_alt:"Alt", hk_mod_ctrlalt:"Ctrl + Alt", hk_reset:"Réinitialiser", hk_reset_all:"Réinitialiser tous les raccourcis", hk_press:"Appuyez sur les touches …", hk_taken:"Déjà utilisé pour « {a} ».", hk_need_mod:"Utilisez Ctrl ou Alt (ou une touche de fonction).", hk_reserved:"Cette combinaison est réservée par le navigateur ou l'éditeur.", hk_clash:"Ce modificateur rendrait deux raccourcis identiques, non modifié.", hk_settings:"Modifier dans les paramètres",
+  md_new:"Nouvelle tâche à la fin",
+  pub_cols:"Colonnes visibles dans la vue publique"
 }};
 
 /* ---------- Preferences (language etc.) ---------- */
 const PREF_KEY = 'tpc2do_prefs';
 const prefs = { lang: 'en', confirmDelete: true, sound: true, theme: 'default', accent: '', density: 'normal', fontsize: 'm', lowfx: false, skipIntro: false, collapseDone: false,
-  contrast: false, betaPublic: false, fmtMode: 'wys', volume: 100, recent: [], mobile: 'auto', ovSort: 'alpha', ovDir: 'asc', listOrder: [] };
+  contrast: false, betaPublic: false, fmtMode: 'wys', volume: 100, recent: [], mobile: 'auto', ovSort: 'alpha', ovDir: 'asc', listOrder: [], hotkeys: { mod: 'ctrl', custom: {} } };
 const THEMES = ['default', 'light', 'dark', 'modern', 'glass', 'darkglass'], DENSITIES = ['compact', 'normal', 'comfy'], FONTS = ['s', 'm', 'l'];
 function adoptPrefs(src) {
   if (!src || typeof src !== 'object') return;
@@ -787,6 +805,11 @@ function adoptPrefs(src) {
   if (['wys', 'md'].includes(src.fmtMode)) prefs.fmtMode = src.fmtMode;
   if (['alpha', 'created', 'prio', 'custom'].includes(src.ovSort)) prefs.ovSort = src.ovSort;
   if (src.ovDir === 'asc' || src.ovDir === 'desc') prefs.ovDir = src.ovDir;
+  if (src.hotkeys && typeof src.hotkeys === 'object') {
+    const h = { mod: HK_MODS[src.hotkeys.mod] ? src.hotkeys.mod : 'ctrl', custom: {} }, cu = src.hotkeys.custom || {};
+    Object.keys(HK_DEF).forEach(a => { if (typeof cu[a] === 'string' && cu[a].length <= 40 && /^[\w+,?.\/-]+$/.test(cu[a])) h.custom[a] = hkNorm(cu[a]); });
+    prefs.hotkeys = h;
+  }
   if (Array.isArray(src.listOrder)) prefs.listOrder = src.listOrder.filter(x => typeof x === 'string' && x.length <= 64).slice(0, 500);
 }
 try { adoptPrefs(JSON.parse(localStorage.getItem(PREF_KEY) || 'null')); } catch (e) {}
@@ -1413,7 +1436,7 @@ async function renderPublic(arg0, seq) {
     } catch (e) { console.error('public view', why, e); app.innerHTML = head() + `<main class="wrap wide"><p class="muted">${TE(why)}</p><p class="muted small">${esc(fpInfo + ' · ' + (e && (e.name + ': ' + e.message)))}</p></main>`; bindLang(); return; }
   }
   const copyBtn = me ? `<button class="btn" id="pubCopy" style="margin:6px 0 12px">${TE('pub_copy')}</button>` : '';
-  const cols = (d.columns || []).filter(c => c && !c.hidden && c.type !== 'formula' && c.type !== 'sub');
+  const cols = (d.columns || []).filter(c => c && !c.hidden && c.pub !== false && c.type !== 'formula' && c.type !== 'sub');
   const val = (t, c) => c.type === 'task' ? t.title : c.type === 'notes' ? t.notes : (t.data || {})[c.id];
   const nm = c => c.name || T(c.type === 'task' ? 'c_task' : c.type === 'notes' ? 'c_notes' : 'c_task');
   const showCols = cols.some(c => c.type === 'task') ? cols : [{ id: 'task', type: 'task' }, ...cols];
@@ -2642,12 +2665,15 @@ function openDetail(id) {
     if (W && c.type === 'text') return `<div class="mf wys"><span>${esc(colName(c))}</span>${inner}</div>`;
     return `<label class="mf"><span>${esc(colName(c))}</span>${inner}</label>`;
   };
-  modal(`<div class="md-head"><button class="btn small" data-x aria-label="${TE('md_close')}">← ${TE('md_close')}</button><button class="btn small nav" data-nav="-1" title="${TE('md_prev')}" aria-label="${TE('md_prev')}">‹</button><button class="btn small nav" data-nav="1" title="${TE('md_next')}" aria-label="${TE('md_next')}">›</button><span class="spacer"></span>${ro ? '' : `<label class="check md-done"><input type="checkbox" data-df ${t.done ? 'checked' : ''}>${TE('done')}</label><button class="icon" data-del title="${TE('cm_delete')}">🗑</button>`}</div>
+  modal(`<div class="md-head"><button class="btn small" data-x aria-label="${TE('md_close')}">← ${TE('md_close')}</button><button class="btn small nav" data-nav="-1" title="${TE('md_prev')}" aria-label="${TE('md_prev')}">‹</button><button class="btn small nav" data-nav="1" title="${TE('md_next')}" aria-label="${TE('md_next')}">›</button><span class="spacer"></span>${ro ? '' : `<button class="btn small" data-new title="${TE('md_new')}" aria-label="${TE('md_new')}">＋</button><label class="check md-done"><input type="checkbox" data-df ${t.done ? 'checked' : ''}>${TE('done')}</label><button class="icon" data-del title="${TE('cm_delete')}">🗑</button>`}</div>
     <div class="md-body">${cols.map(field).join('')}</div>`, (m, close) => {
     $('[data-x]', m).onclick = close;
     const order = () => [...undoneTasks(), ...doneTasks()].map(x => x.id);
     const go = d => { const o = order(), i = o.indexOf(t.id), nx = o[i + d]; if (!nx) return; close(); setTimeout(() => openDetail(nx), 0); };
     m.querySelectorAll('[data-nav]').forEach(b => b.onclick = () => go(+b.dataset.nav));
+    const nw = $('[data-new]', m); if (nw) nw.onclick = () => { close(); setTimeout(() => addTask(null, 'end'), 0); };
+    const lastId = () => { const o = order(); return o[o.length - 1]; };
+    if (!ro && lastId() === t.id) { const nx = $('[data-nav="1"]', m); if (nx) { nx.textContent = '＋'; nx.title = T('md_new'); nx.onclick = () => { close(); setTimeout(() => addTask(null, 'end'), 0); }; } }
     let sx = null, sy = null;
     m.addEventListener('touchstart', e => { const p = e.touches[0]; sx = p.clientX; sy = p.clientY; }, { passive: true });
     m.addEventListener('touchend', e => {
@@ -3644,7 +3670,14 @@ async function shareModal(l = state.cur) {
     drawLink();
     const pv = $('#pubView', m);
     if (pv) {
-      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div>` : ''; const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
+      const pubCols = () => { const c = l.columns || []; return (c.some(isBuiltin) ? c : [{ id: 'task', type: 'task' }, { id: 'notes', type: 'notes' }, ...c]).filter(x => x && x.type !== 'formula' && x.type !== 'sub'); };
+      const pubColsHTML = () => `<div class="pubcols"><div class="muted small" style="margin:10px 0 4px">${TE('pub_cols')}</div>${pubCols().map(c => `<label class="check small"><input type="checkbox" data-pc="${esc(c.id)}" ${c.pub === false ? '' : 'checked'}>${esc(c.name || T(c.type === 'task' ? 'c_task' : c.type === 'notes' ? 'c_notes' : 'c_task'))}</label>`).join('')}</div>`;
+      const bindPubCols = () => m.querySelectorAll('[data-pc]').forEach(cb => cb.onchange = async () => {
+        const all = l.columns && l.columns.some(isBuiltin) ? l.columns : [{ id: 'task', type: 'task' }, { id: 'notes', type: 'notes' }, { id: 'sub', type: 'sub' }, ...(l.columns || [])];
+        const next = all.map(c => c.id === cb.dataset.pc ? Object.assign({}, c, { pub: cb.checked ? undefined : false }) : c).map(c => { if (c.pub === undefined) { const { pub, ...r } = c; return r; } return c; });
+        try { await setColumnsFor(l, next); if (state.cur && state.cur.id === l.id) state.cur.columns = next; } catch (e) { cb.checked = !cb.checked; toast(errText(e), true); }
+      });
+      const drawPub = () => { $('#pubBox', m).innerHTML = pv.checked ? `<div class="linkrow"><input readonly value="${esc(pageUrl() + '#/view/' + token)}"><button class="btn" id="cpPub">${TE('link_copy')}</button></div>${pubColsHTML()}` : ''; bindPubCols(); const b = $('#cpPub', m); if (b) b.onclick = async () => { try { await navigator.clipboard.writeText(pageUrl() + '#/view/' + token); } catch (e) { b.previousElementSibling.select(); document.execCommand('copy'); } toast(T('link_copied')); }; };
       pv.onchange = async () => {
         const want = pv.checked;
         if (want && l.enc) {
@@ -3869,6 +3902,7 @@ function renderSettings() {
     </section>
     ${KEYS.ok ? `<section class="panel" id="secPanel"><h3>🔐 ${TE('sec_title')}</h3><p class="muted small">${TE('sec_text')}</p>
       <button class="btn" id="rcNew">${TE('rc_new')}</button><p class="muted small" style="margin-top:6px">${TE('rc_new_d')}</p></section>` : ''}
+    ${hkPanel()}
     <section class="panel" id="bkPanel"><h3>💾 ${TE('bk_title')}</h3>
       <p class="muted small">${TE('bk_intro')}</p><p class="muted small">${TE('bk_intro2')}</p>
       <label>${TE('bk_pw')}<input type="password" id="bkPw" autocomplete="new-password"></label>
@@ -3903,8 +3937,109 @@ function renderSettings() {
   $('#prefSound').onchange = e => { prefs.sound = e.target.checked; savePrefs(); };
   $('#soundTest').onclick = playSoundNow;
   const pv = $('#prefVol'); const pvFill = () => pv.style.setProperty('--f', (pv.value / 100).toFixed(3)); pvFill(); pv.oninput = () => { pvFill(); prefs.volume = +pv.value; $('#prefVolOut').textContent = pv.value + '%'; }; pv.onchange = () => { savePrefs(); playSoundNow(); };
-  bindBackup();
+  bindBackup(); bindHotkeys();
   document.querySelectorAll('[data-beta]').forEach(b => b.onchange = () => { prefs['beta' + b.dataset.beta] = b.checked; savePrefs(); });
+}
+
+/* ---------- Hotkeys ---------- */
+const HK_DEF = { left: 'mod+ArrowLeft', right: 'mod+ArrowRight', up: 'mod+ArrowUp', down: 'mod+ArrowDown', first: 'mod+Home', last: 'mod+End',
+  rowup: 'mod+shift+ArrowUp', rowdown: 'mod+shift+ArrowDown', done: 'mod+Enter', dup: 'mod+d', del: 'mod+Delete',
+  search: 'mod+k', newlist: 'mod+shift+n', share: 'mod+shift+s', full: 'mod+shift+f', settings: 'mod+,', help: '?' };
+const HK_GROUPS = [['hk_g_nav', ['left', 'right', 'up', 'down', 'first', 'last']], ['hk_g_task', ['rowup', 'rowdown', 'done', 'dup', 'del']], ['hk_g_app', ['search', 'newlist', 'share', 'full', 'settings', 'help']]];
+const HK_MODS = { ctrl: 'ctrl', alt: 'alt', ctrlalt: 'ctrl+alt' };
+const HK_RESERVED = ['ctrl+b', 'ctrl+i', 'ctrl+u', 'ctrl+c', 'ctrl+v', 'ctrl+x', 'ctrl+a', 'ctrl+z', 'ctrl+y', 'ctrl+w', 'ctrl+t', 'ctrl+n', 'ctrl+r', 'ctrl+l', 'ctrl+p', 'ctrl+s', 'ctrl+f', 'alt+ArrowLeft', 'alt+ArrowRight', 'alt+F4', 'ctrl+shift+n', 'ctrl+shift+t', 'ctrl+shift+w'];
+const hkNorm = str => {
+  const parts = String(str).split('+'); let key = parts.pop(); if (key === '' && parts.length) { key = '+'; parts.pop(); }
+  const m = new Set(parts.map(x => x.toLowerCase())); if (key.length === 1) key = key.toLowerCase();
+  return ['ctrl', 'alt', 'shift'].filter(x => m.has(x)).concat(key).join('+');
+};
+const hkOf = e => {
+  let key = e.key; if (!key || ['Control', 'Alt', 'Shift', 'Meta', 'Dead'].includes(key)) return '';
+  if (key.length === 1) { key = key.toLowerCase(); }
+  const sym = key.length === 1 && !/[a-z0-9]/.test(key);
+  return ['ctrl', 'alt', 'shift'].filter(x => x === 'ctrl' ? (e.ctrlKey || e.metaKey) : x === 'alt' ? e.altKey : (e.shiftKey && !sym)).concat(key).join('+');
+};
+const hkMod = () => (prefs.hotkeys && HK_MODS[prefs.hotkeys.mod]) ? prefs.hotkeys.mod : 'ctrl';
+const hkCombo = a => { const c = prefs.hotkeys && prefs.hotkeys.custom && prefs.hotkeys.custom[a]; return hkNorm(c || HK_DEF[a].replace('mod', HK_MODS[hkMod()])); };
+const hkPretty = c => c.split('+').map((x, i, ar) => ({ ArrowLeft: '←', ArrowRight: '→', ArrowUp: '↑', ArrowDown: '↓', Delete: 'Del', ctrl: 'Ctrl', alt: 'Alt', shift: 'Shift', ' ': 'Space' }[x] || (x.length === 1 ? x.toUpperCase() : x))).join(' + ');
+const hkMap = () => { const m = {}; Object.keys(HK_DEF).forEach(a => { m[hkCombo(a)] = a; }); return m; };
+const hkEditable = el => !!el && (el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName));
+let hkRecording = false;
+function hkFocusCell(td) {
+  if (!td) return false;
+  const f = td.querySelector('.rted, textarea, input:not([type=hidden]), select, button, a, [tabindex]'); if (!f) return false;
+  f.focus(); if (f.classList.contains('rted')) setCaret(f, 1e9); else if (f.tagName === 'TEXTAREA') { try { f.setSelectionRange(f.value.length, f.value.length); } catch (e) {} }
+  return true;
+}
+function hkCell() { const a = document.activeElement, td = a && a.closest && a.closest('#sheetWrap tbody td'); return td && td.closest('tr[data-id]') ? td : null; }
+function hkRows() { return [...document.querySelectorAll('#sheetWrap tbody tr[data-id]')].filter(r => r.offsetParent !== null); }
+function hkRun(a, e) {
+  const td = hkCell(), tr = td && td.closest('tr'), t = tr && taskById(tr.dataset.id), ro = state.role === 'view';
+  const cellAction = ['left', 'right', 'up', 'down', 'first', 'last', 'rowup', 'rowdown', 'done', 'dup', 'del'].includes(a);
+  if (cellAction && !td) return false;
+  const idx = td ? td.cellIndex : 0, rows = hkRows(), ri = tr ? rows.indexOf(tr) : -1;
+  const go = r => { if (r) { const c = r.children[Math.min(idx, r.children.length - 1)]; hkFocusCell(c); } };
+  switch (a) {
+    case 'left': case 'right': { let c = td; do { c = a === 'left' ? c.previousElementSibling : c.nextElementSibling; } while (c && !c.querySelector('.rted, textarea, input:not([type=hidden]), select, button, a, [tabindex]')); if (c) hkFocusCell(c); return true; }
+    case 'up': go(rows[ri - 1]); return true;
+    case 'down': go(rows[ri + 1]); return true;
+    case 'first': go(rows[0]); return true;
+    case 'last': go(rows[rows.length - 1]); return true;
+    case 'rowup': case 'rowdown': if (ro || !t || t.done) return true; moveRow(t, a === 'rowup' ? -1 : 1); setTimeout(() => { const r = document.querySelector('#sheetWrap tbody tr[data-id="' + t.id + '"]'); if (r) go(r); }, 30); return true;
+    case 'done': if (!ro && t) toggleDone(t); return true;
+    case 'dup': if (!ro && t && !t.done) duplicateTask(t); return true;
+    case 'del': if (!ro && t) askDeleteTask(t); return true;
+    case 'search': { const q = $('#gsearch'); if (q) { q.focus(); q.select(); return true; } if (!state.user) return false; location.hash = '#/'; let n = 0; const iv = setInterval(() => { const q2 = $('#gsearch'); if (q2 || ++n > 20) { clearInterval(iv); if (q2) { q2.focus(); q2.select(); } } }, 150); return true; }
+    case 'newlist': if (state.user && typeof newListModal === 'function') { newListModal(); return true; } return false;
+    case 'share': if (state.cur && state.user && /^#\/list\//.test(location.hash)) { shareModal(state.cur); return true; } return false;
+    case 'full': if ($('#fullBtn')) { setFull(!fullOn()); return true; } return false;
+    case 'settings': location.hash = '#/settings'; return true;
+    case 'help': hkHelp(); return true;
+  }
+  return false;
+}
+document.addEventListener('keydown', e => {
+  if (hkRecording || e.isComposing || e.defaultPrevented) return;
+  const c = hkOf(e); if (!c) return; const a = hkMap()[c]; if (!a) return;
+  if (a === 'help' && (hkEditable(e.target) || document.querySelector('.overlay'))) return;
+  if (document.querySelector('.overlay') && a !== 'help') return;
+  if (!/^#\/(list|$|settings|account)/.test(location.hash) && a !== 'help') return;
+  if (hkRun(a, e)) { e.preventDefault(); e.stopImmediatePropagation(); }
+}, true);
+function hkHelp() {
+  modal(`<h3>⌨️ ${TE('hk_title')}</h3><div class="hkhelp">${HK_GROUPS.map(([g, as]) => `<h4>${TE(g)}</h4>` + as.map(a => `<div class="setrow"><span>${TE('hk_a_' + a)}</span><kbd>${esc(hkPretty(hkCombo(a)))}</kbd></div>`).join('')).join('')}</div>
+    <div class="actions"><a class="btn" href="#/settings" id="hkGo">${TE('hk_settings')}</a><button class="btn primary" data-x>${TE('close')}</button></div>`,
+    (m, close) => { m.querySelector('[data-x]').onclick = close; m.querySelector('#hkGo').onclick = close; });
+}
+function hkPanel() {
+  return `<section class="panel" id="hkPanel"><h3>⌨️ ${TE('hk_title')}</h3><p class="muted small">${TE('hk_hint')}</p>
+    <div class="setrow"><span>${TE('hk_mod')}</span><select id="hkMod">${Object.keys(HK_MODS).map(k => `<option value="${k}" ${k === hkMod() ? 'selected' : ''}>${TE('hk_mod_' + k)}</option>`).join('')}</select></div>
+    ${HK_GROUPS.map(([g, as]) => `<h4 class="hkh">${TE(g)}</h4>` + as.map(a => `<div class="setrow"><span>${TE('hk_a_' + a)}</span><span class="row"><button class="btn kbdbtn" data-hk="${a}">${esc(hkPretty(hkCombo(a)))}</button><button class="btn" data-hkr="${a}" title="${TE('hk_reset')}" ${prefs.hotkeys && prefs.hotkeys.custom && prefs.hotkeys.custom[a] ? '' : 'disabled'}>↺</button></span></div>`).join('')).join('')}
+    <p class="small" id="hkMsg" role="status"></p><button class="btn" id="hkResetAll">${TE('hk_reset_all')}</button></section>`;
+}
+function bindHotkeys() {
+  const P = $('#hkPanel'); if (!P) return;
+  const ensure = () => { if (!prefs.hotkeys) prefs.hotkeys = { mod: 'ctrl', custom: {} }; if (!prefs.hotkeys.custom) prefs.hotkeys.custom = {}; return prefs.hotkeys; };
+  const msg = (t, bad) => { const m = $('#hkMsg', P); m.textContent = t || ''; m.style.color = bad ? 'var(--danger,#d33)' : ''; };
+  const redraw = () => { P.outerHTML = hkPanel(); bindHotkeys(); };
+  $('#hkMod', P).onchange = e => { const h = ensure(); h.mod = e.target.value; for (const a of Object.keys(HK_DEF)) { /* clear duplicates caused by the new modifier */ } const seen = {}; let clash = false; Object.keys(HK_DEF).forEach(a => { const c = hkCombo(a); if (seen[c]) clash = true; seen[c] = 1; }); if (clash) { h.mod = 'ctrl'; msg(T('hk_clash'), true); } savePrefs(); redraw(); };
+  $('#hkResetAll', P).onclick = () => { prefs.hotkeys = { mod: 'ctrl', custom: {} }; savePrefs(); redraw(); };
+  P.querySelectorAll('[data-hkr]').forEach(b => b.onclick = () => { delete ensure().custom[b.dataset.hkr]; savePrefs(); redraw(); });
+  P.querySelectorAll('[data-hk]').forEach(b => b.onclick = () => {
+    const a = b.dataset.hk; b.textContent = T('hk_press'); hkRecording = true; msg('');
+    const done = () => { hkRecording = false; document.removeEventListener('keydown', on, true); };
+    const on = e => {
+      e.preventDefault(); e.stopImmediatePropagation(); const c = hkOf(e); if (!c) return;
+      if (c === 'escape') { done(); return redraw(); }
+      const hasMod = /^(ctrl|alt)/.test(c) || c === '?' || /^f\d+$/.test(c);
+      if (!hasMod) return msg(T('hk_need_mod'), true);
+      if (HK_RESERVED.includes(c)) return msg(T('hk_reserved'), true);
+      const other = Object.keys(HK_DEF).find(x => x !== a && hkCombo(x) === c);
+      if (other) return msg(T('hk_taken', { a: T('hk_a_' + other) }), true);
+      ensure().custom[a] = c; savePrefs(); done(); redraw();
+    };
+    document.addEventListener('keydown', on, true);
+  });
 }
 
 /* ---------- Backup (all my lists as one JSON file, optionally password-encrypted) + restore ---------- */
